@@ -13,8 +13,19 @@
     "build-storybook": "storybook build"
   },
   "dependencies": {
+    "@auth0/auth0-react": "^2.2.4",
+    "@inubekit/button": "^4.2.0",
+    "@inubekit/grid": "^2.1.0",
+    "@inubekit/header": "^2.1.2",
+    "@inubekit/hooks": "^1.2.0",
+    "@inubekit/nav": "^4.3.0",
+    "@inubekit/stack": "^2.2.0",
+    "@inubekit/text": "^2.3.0",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-icons": "^5.2.1",
+    "react-router-dom": "^6.23.1",
+    "styled-components": "^6.1.11"
   },
   "devDependencies": {
     "@chromatic-com/storybook": "^1.5.0",
@@ -28,6 +39,7 @@
     "@storybook/blocks": "^8.1.10",
     "@storybook/react": "^8.1.10",
     "@storybook/react-vite": "^8.1.10",
+    "@storybook/react-webpack5": "^8.1.10",
     "@storybook/test": "^8.1.10",
     "@types/react": "^18.2.66",
     "@types/react-dom": "^18.2.22",
