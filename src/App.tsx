@@ -1,35 +1,70 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useEffect } from "react";
+import {
+  Route,
+  RouterProvider,
+  createBrowserRouter,
+  createRoutesFromElements,
+} from "react-router-dom";
 
-function App() {
-  const [count, setCount] = useState(0)
+import { useAuth0 } from "@auth0/auth0-react";
+import { ErrorPage } from "@components/layout/ErrorPage";
+import AppContextProvider from "@context/AppContext";
 
-  return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+import { AppPage } from "./components/layout/AppPage";
+import { enviroment } from "./config/environment";
+import { GlobalStyles } from "./styles/global";
+import { ConfirmInitiatedRoutes } from "./routes/confirmInitiated";
+import { FinishedRoutes } from "./routes/finished";
+import { StartProcessRoutes } from "./routes/startProcess";
+import { ValidateProgressRoutes } from "./routes/validateProgress";
+
+function LogOut() {
+  localStorage.clear();
+  const { logout } = useAuth0();
+  logout({ logoutParams: { returnTo: enviroment.REDIRECT_URI } });
+  return <AppPage />;
 }
 
-export default App
+const router = createBrowserRouter(
+  createRoutesFromElements(
+    <>
+      <Route errorElement={<ErrorPage />} />
+      <Route path="/" element={<AppPage />}>
+        <Route path="start-process/*" element={<StartProcessRoutes />} />
+        <Route
+          path="confirm-initiated/*"
+          element={<ConfirmInitiatedRoutes />}
+        />
+        <Route
+          path="validate-progress/*"
+          element={<ValidateProgressRoutes />}
+        />
+        <Route path="finished/*" element={<FinishedRoutes />} />
+      </Route>
+
+      <Route path="logout" element={<LogOut />} />
+    </>
+  )
+);
+
+function App() {
+  const { loginWithRedirect, isAuthenticated, isLoading } = useAuth0();
+
+  useEffect(() => {
+    if (!isLoading && !isAuthenticated) {
+      loginWithRedirect();
+    }
+  }, [isLoading, isAuthenticated, loginWithRedirect]);
+
+  if (!isAuthenticated) {
+    return null;
+  }
+  return (
+    <AppContextProvider>
+      <GlobalStyles />
+      <RouterProvider router={router} />
+    </AppContextProvider>
+  );
+}
+
+export default App;
