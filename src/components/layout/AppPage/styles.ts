@@ -11,8 +11,9 @@ const StyledContainer = styled.div`
   display: inherit;
   overflow: hidden;
 
-  nav {
-    width: 264px !important;
+  p {
+    white-space: nowrap;
+    text-overflow: clip;
   }
 `;
 
