@@ -16,6 +16,7 @@ import {
 } from "./styles";
 
 
+
 const renderLogo = (imgUrl: string) => {
   return (
     <StyledContentImg to="/">
