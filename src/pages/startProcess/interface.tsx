@@ -1,5 +1,4 @@
 import { Stack } from "@inubekit/stack";
-import { Breadcrumbs } from "@inubekit/breadcrumbs";
 import { Tabs } from "@inubekit/tabs";
 import { useMediaQuery } from "@inubekit/hooks";
 import { Text } from "@inubekit/text";
@@ -7,7 +6,6 @@ import { Text } from "@inubekit/text";
 import { startProcessTabsConfig } from "./config/tabs.config";
 import { ScheduledTab } from "./tabs/scheduled";
 import { OnDemandTab } from "./tabs/onDemand";
-import { crumbsStartProcess } from "./config/navigation";
 
 interface StartProcessUIProps {
   isSelected: string;
@@ -27,9 +25,8 @@ function StartProcessUI(props: StartProcessUIProps) {
     >
       <Stack gap="48px" direction="column">
         <Stack gap="24px" direction="column">
-          <Breadcrumbs crumbs={crumbsStartProcess} />
           <Text type="title" size={smallScreen ? "medium" : "large"}>
-            Procesos por Iniciar
+            Iniciar Procesos
           </Text>
         </Stack>
         <Stack gap="32px" direction="column">
