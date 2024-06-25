@@ -26,7 +26,7 @@ function StartProcessUI(props: StartProcessUIProps) {
       <Stack gap="48px" direction="column">
         <Stack gap="24px" direction="column">
           <Text type="title" size={smallScreen ? "medium" : "large"}>
-            Iniciar Procesos
+            Procesos por Iniciar
           </Text>
         </Stack>
         <Stack gap="32px" direction="column">
