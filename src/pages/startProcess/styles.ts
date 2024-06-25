@@ -7,8 +7,4 @@ const StyledMessageContainer = styled.div`
   z-index: 2;
 `;
 
-const StyledContainer = styled.div`
-  position: relative;
-`;
-
-export { StyledMessageContainer, StyledContainer };
+export { StyledMessageContainer };
