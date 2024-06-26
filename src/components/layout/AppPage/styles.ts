@@ -13,7 +13,6 @@ const StyledContainer = styled.div`
 
   p {
     white-space: nowrap;
-    text-overflow: clip;
   }
 `;
 
@@ -21,6 +20,11 @@ const StyledMain = styled.main`
   box-sizing: border-box;
   height: calc(100vh - 54px);
   overflow-y: auto;
+  padding: 32px 64px;
+
+  @media screen and (max-width: 560px) {
+    padding: 24px;
+  }
 `;
 
 const StyledContentImg = styled(Link)`
@@ -37,7 +41,4 @@ export {
   StyledContentImg,
   StyledLogo,
   StyledMain,
-
-}
-
-
+};
