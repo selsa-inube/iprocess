@@ -69,20 +69,24 @@ function totalTitleColumns(
   return priorityColumns(titles, numColumns);
 }
 
-function showActionTitle(actionTitle: IAction[], mediaQuery: boolean) {
+function showActionTitle(
+  actionTitle: IAction[],
+  mediaQuery: boolean,
+  multipleTables: boolean
+) {
   return !mediaQuery ? (
     actionTitle.map((action) => (
-      <StyledThAction key={`action-${action.id}`}>
+      <StyledThAction
+        key={`action-${action.id}`}
+        $multipleTables={multipleTables}
+      >
         <Text type="label" size="medium" textAlign="center" appearance="dark">
           {action.actionName}
         </Text>
       </StyledThAction>
     ))
   ) : (
-    <StyledThAction>
-      <Text type="label" size="medium" textAlign="center" appearance="dark">
-        Open
-      </Text>
+    <StyledThAction $multipleTables={multipleTables}>
     </StyledThAction>
   );
 }
@@ -108,16 +112,17 @@ const TableUI = (props: Omit<ITable, "id">) => {
     pageLength,
     titles,
     widthFirstColumn,
+    multipleTables = false,
   } = props;
 
   const mediaActionOpen = useMediaQuery("(max-width: 1120px)");
 
   const queriesArray = useMemo(
-    () => breakpoints!.map((breakpoint) => breakpoint.breakpoint),
+    () => breakpoints && breakpoints.map((breakpoint) => breakpoint.breakpoint),
     [breakpoints]
   );
 
-  const media = useMediaQueries(queriesArray);
+  const media = useMediaQueries(queriesArray || []);
 
   const TitleColumns = useMemo(
     () => totalTitleColumns(titles, breakpoints!, media),
@@ -127,7 +132,7 @@ const TableUI = (props: Omit<ITable, "id">) => {
   const numberActions = actions ? actions.length : 0;
 
   return (
-    <StyledContainer>
+    <StyledContainer $multipleTables={multipleTables}>
       <StyledTable $smallScreen={mediaActionOpen}>
         <StyledThead $smallScreen={mediaActionOpen}>
           <StyledTr>
@@ -147,7 +152,7 @@ const TableUI = (props: Omit<ITable, "id">) => {
                 )}
               </StyledThTitle>
             ))}
-            {showActionTitle(actions, mediaActionOpen)}
+            {showActionTitle(actions, mediaActionOpen, multipleTables)}
           </StyledTr>
         </StyledThead>
         <StyledTbody>
@@ -155,7 +160,8 @@ const TableUI = (props: Omit<ITable, "id">) => {
             dataLoading(TitleColumns, numberActions)
           ) : (
             <>
-              {entries.map((entry) => (
+            {entries.length > 0 ? (
+              entries.map((entry) => (
                 <StyledTr
                   key={`entry-${entry.id}`}
                   aria-labelledby={`entry-${entry.id}`}
@@ -186,7 +192,16 @@ const TableUI = (props: Omit<ITable, "id">) => {
                   ))}
                   {ShowAction(actions, entry)}
                 </StyledTr>
-              ))}
+              ))
+            ) : (
+               <StyledTr aria-labelledby={`no-data`}>
+                 <StyledTd >
+                   <Text type="body" size="small" appearance="dark" ellipsis>
+                     No se encontró información
+                   </Text>
+                 </StyledTd>
+               </StyledTr>
+            )}
             </>
           )}
         </StyledTbody>

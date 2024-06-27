@@ -12,6 +12,7 @@ interface ITable {
   loading: boolean;
   titles: ITitle[];
   widthFirstColumn?: string;
+  multipleTables?: boolean;
   breakpoints?: IBreakpoint[];
   filter?: string;
   infoTitle?: string;
@@ -27,6 +28,7 @@ const Table = (props: ITable) => {
     filter = "",
     loading,
     widthFirstColumn,
+    multipleTables,
     pageLength = 30,
     breakpoints,
     infoTitle,
@@ -86,7 +88,7 @@ const Table = (props: ITable) => {
   }
 
   return (
-    <StyledContainer id={id}>
+    <StyledContainer id={id} >
       <Stack direction="column">
         <TableUI
           titles={titles}
@@ -94,6 +96,7 @@ const Table = (props: ITable) => {
           entries={getPageEntries()}
           loading={loading}
           widthFirstColumn={widthFirstColumn}
+          multipleTables={multipleTables}
           breakpoints={breakpoints!}
           infoTitle={infoTitle!}
           pageLength={pageLength}

@@ -8,6 +8,10 @@ interface IStyledTr {
   $widthFirstColumn?: string | undefined;
 }
 
+interface IStyledContainer {
+  $multipleTables?: boolean;
+}
+
 interface IStyledTable {
   $smallScreen: boolean;
 }
@@ -24,9 +28,14 @@ interface IStyledTdActions {
   $smallScreen?: boolean;
 }
 
-const StyledContainer = styled.div`
+interface IStyledThAction {
+  $multipleTables?: boolean;
+}
+
+const StyledContainer = styled.div<IStyledContainer>`
   border-radius: 8px;
-  border: 1px solid ${inube.palette.neutral.N40};
+  border: ${({ $multipleTables }) =>
+    $multipleTables === false && `1px solid ${inube.palette.neutral.N40}`};
 `;
 
 const StyledTable = styled.table<IStyledTable>`
@@ -55,28 +64,26 @@ const StyledTr = styled.tr<IStyledTr>`
 
   td:nth-child(1) {
     width: ${({ $widthFirstColumn }) => $widthFirstColumn};
+    box-sizing: ${({ $widthFirstColumn }) => $widthFirstColumn && "border-box"};
   }
 
-  &:last-child {
-    border-bottom: ${({ $entriesLength, $pageLength }) =>
-      $pageLength && $entriesLength && $entriesLength < $pageLength && "none"};
-  }
 `;
 
 const StyledThTitle = styled.th`
   padding: 12px 16px;
 `;
 
-const StyledThAction = styled.th`
-  background-color: ${({ theme }) =>
-    theme?.palette?.neutral?.N30 || inube.palette.neutral.N30};
+const StyledThAction = styled.th<IStyledThAction>`
+  background-color: ${({ $multipleTables, theme }) =>
+    !$multipleTables
+      ? theme?.palette?.neutral?.N30 || inube.palette.neutral.N30
+      : theme?.palette?.neutral?.N0 || inube.palette.neutral.N0};
   width: 80px;
   padding: 12px 16px;
 `;
 
 const StyledTd = styled.td<IStyledTd>`
   padding: 0px 16px;
-  text-align: center;
   max-width: 300px;
   white-space: nowrap;
 `;
