@@ -1,4 +1,4 @@
-import { IAction } from "@src/components/data/Table/props";
+import { IAction } from "@components/data/Table/props";
 
 interface ITitlesRequirements {
     id: string;

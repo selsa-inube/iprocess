@@ -1,8 +1,9 @@
+import { MdAddCircleOutline, MdOutlineCheckCircle } from "react-icons/md";
 import { Icon } from "@inubekit/icon";
 import { Tag } from "@inubekit/tag";
-import { MdAddCircleOutline, MdOutlineCheckCircle } from "react-icons/md";
+
+import { IAction } from "@components/data/Table/props";
 import { IEntries, ITitlesRequirements } from "../types";
-import { IAction } from "@src/components/data/Table/props";
 
 const titlesMock: ITitlesRequirements[][] = [
   [

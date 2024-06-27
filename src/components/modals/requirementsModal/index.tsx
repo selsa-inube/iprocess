@@ -1,15 +1,16 @@
+import { createPortal } from "react-dom";
+import { MdOutlineClose } from "react-icons/md";
 import { Blanket } from "@inubekit/blanket";
 import { Divider } from "@inubekit/divider";
 import { Icon } from "@inubekit/icon";
 import { Stack } from "@inubekit/stack";
 import { Text } from "@inubekit/text";
-import { Table } from "@src/components/data/Table";
-import { createPortal } from "react-dom";
-import { MdOutlineClose } from "react-icons/md";
+import { Button } from "@inubekit/button";
+
+import { Table } from "@components/data/Table";
+import { IBreakpoint } from "@components/data/Table/props";
 import { StyledContainerTables, StyledModal } from "./styles";
 import { IData } from "./types";
-import { IBreakpoint } from "@src/components/data/Table/props";
-import { Button } from "@inubekit/button";
 
 interface RequirementsModalProps {
   breakpoints: IBreakpoint[];
