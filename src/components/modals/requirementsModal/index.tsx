@@ -1,0 +1,88 @@
+import { Blanket } from "@inubekit/blanket";
+import { Divider } from "@inubekit/divider";
+import { Icon } from "@inubekit/icon";
+import { Stack } from "@inubekit/stack";
+import { Text } from "@inubekit/text";
+import { Table } from "@src/components/data/Table";
+import { createPortal } from "react-dom";
+import { MdOutlineClose } from "react-icons/md";
+import { StyledContainerTables, StyledModal } from "./styles";
+import { IData } from "./types";
+import { IBreakpoint } from "@src/components/data/Table/props";
+import { Button } from "@inubekit/button";
+
+interface RequirementsModalProps {
+  breakpoints: IBreakpoint[];
+  portalId: string;
+  requirements: IData[];
+  title: string;
+  onCloseModal: () => void;
+}
+
+function RequirementsModal(props: RequirementsModalProps) {
+  const { breakpoints, portalId, requirements, title, onCloseModal } = props;
+
+  const node = document.getElementById(portalId);
+
+  if (!node) {
+    throw new Error(
+      "The portal node is not defined. This can occur when the specific node used to render the portal has not been defined correctly."
+    );
+  }
+
+  return createPortal(
+    <Blanket>
+      <StyledModal>
+        <Stack direction="column" width="100%">
+          <Stack justifyContent="space-between" alignItems="center">
+            <Text type="title" size="medium" appearance="dark">
+              {title}
+            </Text>
+            <Icon
+              appearance="dark"
+              icon={<MdOutlineClose />}
+              onClick={onCloseModal}
+              cursorHover={true}
+              size="20px"
+              spacing="none"
+            />
+          </Stack>
+        </Stack>
+        <Divider dashed />
+        <StyledContainerTables>
+          {requirements.length === 0
+            ? "No se han encontrado resultados"
+            : requirements.map((requirement) => (
+                <Stack direction="column" key={requirement.id}>
+                  <Table
+                    id="portal"
+                    titles={requirement.titlesRequirements}
+                    actions={requirement.actionsRequirements}
+                    entries={requirement.entriesRequirements}
+                    loading={false}
+                    breakpoints={breakpoints}
+                    widthFirstColumn="260px"
+                    multipleTables={true}
+                  />
+                </Stack>
+              ))}
+        </StyledContainerTables>
+        <Stack gap="8px" justifyContent="flex-end">
+              <Button
+                spacing="wide"
+                appearance="primary"
+                variant="filled"
+                onClick={onCloseModal}
+              >
+               Cerrar
+              </Button>
+            </Stack>
+      </StyledModal>
+    </Blanket>,
+    node
+  );
+}
+
+export type { RequirementsModalProps };
+
+export { RequirementsModal };
