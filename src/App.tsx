@@ -29,8 +29,8 @@ const router = createBrowserRouter(
   createRoutesFromElements(
     <>
       <Route errorElement={<ErrorPage />} />
-      <Route path="/" element={<AppPage />}>
-        <Route path="start-process/*" element={<StartProcessRoutes />} />
+      <Route path="/*" element={<AppPage />}>
+        <Route path="/*" element={<StartProcessRoutes />} />
         <Route
           path="confirm-initiated/*"
           element={<ConfirmInitiatedRoutes />}
