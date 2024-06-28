@@ -4,12 +4,14 @@ import { inube } from "@inubekit/foundations";
 interface IStyledTr {
   $smallScreen?: boolean;
   $entriesLength?: number;
-  $pageLength?: number | undefined;
-  $widthFirstColumn?: string | undefined;
+  $pageLength?: number;
+  $widthFirstColumn?: string;
 }
 
 interface IStyledContainer {
   $multipleTables?: boolean;
+  $pageLength?: number;
+  $entriesLength?: number;
 }
 
 interface IStyledTable {
@@ -34,8 +36,15 @@ interface IStyledThAction {
 
 const StyledContainer = styled.div<IStyledContainer>`
   border-radius: 8px;
-  border: ${({ $multipleTables }) =>
+  border: ${({ $multipleTables}) =>
     $multipleTables === false && `1px solid ${inube.palette.neutral.N40}`};
+`;
+
+const StyledContainerTable = styled.div<IStyledContainer>`
+  border-radius: 8px;
+  border: ${({  $pageLength, $entriesLength }) =>
+    $pageLength && $entriesLength && $entriesLength > $pageLength && `1px solid ${inube.palette.neutral.N40}`};
+
 `;
 
 const StyledTable = styled.table<IStyledTable>`
@@ -96,6 +105,7 @@ const StyledTdActions = styled.td<IStyledTdActions>`
 
 export {
   StyledContainer,
+  StyledContainerTable,
   StyledTable,
   StyledThead,
   StyledTbody,

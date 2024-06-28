@@ -2,7 +2,7 @@ import { useMemo, useState } from "react";
 import { Stack } from "@inubekit/stack";
 import { Pagination } from "./Pagination";
 import { TableUI } from "./interface";
-import { StyledContainer } from "./styles";
+import { StyledContainerTable } from "./styles";
 import { IAction, IActions, IBreakpoint, ITitle } from "./props";
 
 interface ITable {
@@ -88,7 +88,7 @@ const Table = (props: ITable) => {
   }
 
   return (
-    <StyledContainer id={id} >
+    <StyledContainerTable id={id} $pageLength={pageLength} $entriesLength={entries.length}>
       <Stack direction="column">
         <TableUI
           titles={titles}
@@ -113,7 +113,7 @@ const Table = (props: ITable) => {
           />
         )}
       </Stack>
-    </StyledContainer>
+    </StyledContainerTable>
   );
 };
 
