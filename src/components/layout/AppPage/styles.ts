@@ -14,6 +14,7 @@ const StyledContainer = styled.div`
   p {
     white-space: nowrap;
   }
+
 `;
 
 const StyledMain = styled.main`
