@@ -6,6 +6,8 @@ const enviroment = {
   CLIENT_SECRET: import.meta.env.VITE_AUTH0_CLIENT_SECRET,
   AUTH0_DOMAIN: import.meta.env.VITE_AUTH0_DOMAIN,
   REDIRECT_URI: IS_PRODUCTION ? window.location.origin : AUTH_REDIRECT_URI,
+  ICLIENT_API_URL_QUERY: import.meta.env.VITE_ICLIENT_API_URL_QUERY,
+  TEMP_BUSINESS_UNIT: "test",
 };
 
 export { enviroment };
