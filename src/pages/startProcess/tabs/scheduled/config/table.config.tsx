@@ -9,7 +9,7 @@ import { Text } from "@inubekit/text";
 import { ITitle } from "@components/data/Table/props";
 import { StyledContainerTitle } from "@components/data/Table/stories/styles";
 import { StartProcesses } from "@pages/startProcess/types";
-import { formatPrimaryDate } from "@src/utils/dates";
+import { formatDate } from "@src/utils/dates";
 import { requirementsButton } from "@pages/startProcess/utils";
 
 const scheduledNormailzeEntries = (process: StartProcesses[]) =>
@@ -18,7 +18,7 @@ const scheduledNormailzeEntries = (process: StartProcesses[]) =>
     id: `${entry.id}${entry.executionDate}`,
     process: entry.abbreviatedName,
     executionDate:
-      entry.executionDate && formatPrimaryDate(entry.executionDate),
+      entry.executionDate && formatDate(entry.executionDate),
     requirements: requirementsButton(),
   }));
 
