@@ -26,7 +26,7 @@ const nav: INav = {
         },
         validateProgress: {
           id: "validateProgress",
-          label: "Validar progresos",
+          label: "Validar progreso",
           icon: <MdOutlineMoving />,
           path: "/validate-progress",
         },
