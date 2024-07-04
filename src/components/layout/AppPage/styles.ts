@@ -13,7 +13,6 @@ const StyledContainer = styled.div`
 
   p {
     white-space: nowrap;
-    text-overflow: clip;
   }
 
 `;
