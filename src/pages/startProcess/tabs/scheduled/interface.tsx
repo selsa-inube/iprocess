@@ -18,7 +18,7 @@ interface ScheduledTabUIProps {
   entries: StartProcesses[];
   loading: boolean;
   searchScheduled: string;
-  selectedMonth: string;
+  description: string;
   setSelectedDate: (show: IChangeDateEntry) => void;
   handleSearchScheduled: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleOrderData: () => void;
@@ -29,7 +29,7 @@ function ScheduledTabUI(props: ScheduledTabUIProps) {
     entries,
     loading,
     searchScheduled,
-    selectedMonth,
+    description,
     setSelectedDate,
     handleSearchScheduled,
     handleOrderData,
@@ -42,7 +42,7 @@ function ScheduledTabUI(props: ScheduledTabUIProps) {
           laterYears={3}
           previousYears={1}
           setSelectedDate={setSelectedDate}
-          selectedMonth={selectedMonth}
+          description={description}
         />
 
         <Textfield

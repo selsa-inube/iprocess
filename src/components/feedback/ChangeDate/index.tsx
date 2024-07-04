@@ -10,12 +10,12 @@ import { IChangeDateEntry } from "@components/modals/ChangeDateModal/types";
 interface ChangeDateProps {
   laterYears: number; 
   previousYears: number;
-  selectedMonth: string;
+  description: string;
   setSelectedDate: (show: IChangeDateEntry) => void;
 }
 
 const ChangeDate = (props: ChangeDateProps) => {
-  const { laterYears, previousYears,selectedMonth, setSelectedDate} = props;
+  const { description, laterYears, previousYears, setSelectedDate} = props;
 
   const [showModal, setShowModal] = useState(false);
 
@@ -26,14 +26,14 @@ const ChangeDate = (props: ChangeDateProps) => {
   return (
     <Stack gap="20px" alignItems="center">
       <Text type="title" size="medium" appearance="dark">
-        {`Procesos del mes de ${selectedMonth}`}
+        {description}
       </Text>
 
       <Button
         onClick={() => setShowModal(true)}
         iconBefore={<MdOutlineCalendarMonth size={"18px"} />}
       >
-        Cambiar mes
+        Modificar mes
       </Button>
       {showModal && (
         <ChangeDateModal

@@ -2,12 +2,15 @@ import { useEffect, useState } from "react";
 
 import { startProcessData } from "@services/startProcess/getStartProcess";
 import { IChangeDateEntry } from "@components/modals/ChangeDateModal/types";
-import { filterDateChange, MonthLetters } from "@utils/dates";
+import {
+  filterDateChange,
+  currentMonthLetters,
+  currentYear,
+} from "@utils/dates";
 
 import { ScheduledTabUI } from "./interface";
 import { orderData } from "../../utils";
 import { FilterProcessesForDate, StartProcesses } from "../../types";
-
 
 function ScheduledTab() {
   const [searchScheduled, setSearchScheduled] = useState<string>("");
@@ -26,8 +29,9 @@ function ScheduledTab() {
     setScheduled(scheduled);
   };
 
-
-  const validateScheduled = async (filterDateChange: FilterProcessesForDate) => {
+  const validateScheduled = async (
+    filterDateChange: FilterProcessesForDate
+  ) => {
     setLoading(true);
     try {
       const newScheduled = await startProcessData(filterDateChange);
@@ -45,7 +49,7 @@ function ScheduledTab() {
   }, []);
 
   useEffect(() => {
-    if (selectedDate.active === true) {
+    if (selectedDate.change === true) {
       validateScheduled(filterDateChange(selectedDate));
     }
   }, [selectedDate]);
@@ -58,7 +62,8 @@ function ScheduledTab() {
     <ScheduledTabUI
       entries={scheduled}
       loading={loading}
-      selectedMonth={selectedDate.month ||  MonthLetters!}
+      description={`Consulta de procesos para iniciar su ejecución del periodo: 
+         ${selectedDate.month || currentMonthLetters!} ${selectedDate.year || currentYear}`}
       handleSearchScheduled={handleSearchScheduled}
       handleOrderData={handleOrderData}
       searchScheduled={searchScheduled}

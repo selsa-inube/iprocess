@@ -33,20 +33,26 @@ const formatDate = (date: Date, withTime?: boolean) => {
   return formattedDate;
 };
 
-const formatMonth=()=>{
-  const today = new Date();
+const today = new Date();
+
+const formatMonth = () => {
   const currentMonth = today.getMonth();
- return currentMonth < 10 ? `0${String(currentMonth)}` : String(currentMonth);
-}
+  return currentMonth < 10 ? `0${String(currentMonth)}` : String(currentMonth);
+};
 
-const MonthLetters =  monthsData.find((month) => month.id === formatMonth())?.label;
+const currentMonthLetters = monthsData.find(
+  (month) => month.id === formatMonth()
+)?.label;
 
-const filterDateChange = (selectedDate: IChangeDateEntry): FilterProcessesForDate => {
-  const month = monthsData.find((month) => month.label === selectedDate.month)?.id;
+const currentYear = String(today.getFullYear());
 
-  const today = new Date();
-  const currentYear = String(today.getFullYear());
-  
+const filterDateChange = (
+  selectedDate: IChangeDateEntry
+): FilterProcessesForDate => {
+  const month = monthsData.find(
+    (month) => month.label === selectedDate.month
+  )?.id;
+
   return {
     executionDate: "",
     month: month || formatMonth(),
@@ -54,4 +60,10 @@ const filterDateChange = (selectedDate: IChangeDateEntry): FilterProcessesForDat
   };
 };
 
-export { MonthLetters, formatDate, filterDateChange, formatMonth };
+export {
+  currentMonthLetters,
+  currentYear,
+  formatDate,
+  filterDateChange,
+  formatMonth,
+};

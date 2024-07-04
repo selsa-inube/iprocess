@@ -39,7 +39,7 @@ const ChangeDateModal = (props: ChangeDateModalProps) => {
     JSON.stringify(formik.values.year) !== JSON.stringify(initialValues.year);
 
   const handleConsult = () => {
-    selectedDate({ ...formik.values, active: true });
+    selectedDate({ ...formik.values, change: true });
     onCloseModal();
   };
 

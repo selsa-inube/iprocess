@@ -11,7 +11,7 @@ interface IEntries {
 interface IChangeDateEntry {
   month: string;
   year: string;
-  active?: boolean
+  change?: boolean
 }
 
 export type { ILabel, IEntries, IChangeDateEntry };
