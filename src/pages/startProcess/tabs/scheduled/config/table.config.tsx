@@ -1,25 +1,24 @@
 import {
   MdOutlineRemoveRedEye,
-  MdOutlineStart,
-  MdOutlineSyncAlt,
+  MdOutlineRestartAlt,
+  MdImportExport,
 } from "react-icons/md";
 import { Icon } from "@inubekit/icon";
 import { Text } from "@inubekit/text";
+import { SkeletonLine } from "@inubekit/skeleton";
 
 import { ITitle } from "@components/data/Table/props";
 import { StyledContainerTitle } from "@components/data/Table/stories/styles";
 import { StartProcesses } from "@pages/startProcess/types";
-import { formatDate } from "@src/utils/dates";
-import { requirementsButton } from "@pages/startProcess/utils";
+import { formatDate } from "@utils/dates";
 
 const scheduledNormailzeEntries = (process: StartProcesses[]) =>
   process.map((entry) => ({
     ...entry,
     id: `${entry.id}${entry.executionDate}`,
     process: entry.abbreviatedName,
-    executionDate:
-      entry.executionDate && formatDate(entry.executionDate),
-    requirements: requirementsButton(),
+    executionDate: entry.executionDate && formatDate(entry.executionDate),
+    requirements: <SkeletonLine animated />,
   }));
 
 const titlesConfig = (handleOrderData: () => void) => {
@@ -39,7 +38,7 @@ const titlesConfig = (handleOrderData: () => void) => {
 
           <Icon
             appearance="dark"
-            icon={<MdOutlineSyncAlt />}
+            icon={<MdImportExport />}
             size="16px"
             onClick={() => handleOrderData()}
             cursorHover
@@ -63,14 +62,24 @@ const actions = [
     id: "Details",
     actionName: "Detalles",
     content: () => (
-      <Icon appearance="gray" icon={<MdOutlineRemoveRedEye />} size="16px" />
+      <Icon
+        appearance="gray"
+        icon={<MdOutlineRemoveRedEye />}
+        size="16px"
+        cursorHover={true}
+      />
     ),
   },
   {
     id: "StartProcess",
     actionName: "Iniciar Proceso",
     content: () => (
-      <Icon appearance="gray" icon={<MdOutlineStart />} size="16px" />
+      <Icon
+        appearance="gray"
+        icon={<MdOutlineRestartAlt />}
+        size="16px"
+        cursorHover={true}
+      />
     ),
   },
 ];
