@@ -1,6 +1,6 @@
 import {
   MdOutlineRemoveRedEye,
-  MdOutlineRestartAlt,
+  MdPinInvoke,
   MdImportExport,
 } from "react-icons/md";
 import { Icon } from "@inubekit/icon";
@@ -76,7 +76,7 @@ const actions = [
     content: () => (
       <Icon
         appearance="gray"
-        icon={<MdOutlineRestartAlt />}
+        icon={<MdPinInvoke />}
         size="16px"
         cursorHover={true}
       />
