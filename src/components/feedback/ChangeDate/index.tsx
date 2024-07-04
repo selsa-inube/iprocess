@@ -8,12 +8,14 @@ import { ChangeDateModal } from "@components/modals/ChangeDateModal";
 import { IChangeDateEntry } from "@components/modals/ChangeDateModal/types";
 
 interface ChangeDateProps {
-  setSelectedDate: (show: IChangeDateEntry) => void;
+  laterYears: number; 
+  previousYears: number;
   selectedMonth: string;
+  setSelectedDate: (show: IChangeDateEntry) => void;
 }
 
 const ChangeDate = (props: ChangeDateProps) => {
-  const { setSelectedDate, selectedMonth } = props;
+  const { laterYears, previousYears,selectedMonth, setSelectedDate} = props;
 
   const [showModal, setShowModal] = useState(false);
 
@@ -35,8 +37,8 @@ const ChangeDate = (props: ChangeDateProps) => {
       </Button>
       {showModal && (
         <ChangeDateModal
-          laterYears={1}
-          previousYears={3}
+          laterYears={laterYears}
+          previousYears={previousYears}
           portalId={"modals"}
           onCloseModal={handleToggleModal}
           selectedDate={setSelectedDate}

@@ -39,6 +39,8 @@ function ScheduledTabUI(props: ScheduledTabUIProps) {
     <Stack gap="32px" direction="column">
       <Stack justifyContent="space-between">
         <ChangeDate
+          laterYears={3}
+          previousYears={1}
           setSelectedDate={setSelectedDate}
           selectedMonth={selectedMonth}
         />

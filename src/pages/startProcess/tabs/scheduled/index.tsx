@@ -1,22 +1,13 @@
 import { useEffect, useState } from "react";
 
 import { startProcessData } from "@services/startProcess/getStartProcess";
+import { IChangeDateEntry } from "@components/modals/ChangeDateModal/types";
+import { filterDateChange, MonthLetters } from "@utils/dates";
 
 import { ScheduledTabUI } from "./interface";
 import { orderData } from "../../utils";
 import { FilterProcessesForDate, StartProcesses } from "../../types";
-import { IChangeDateEntry } from "@src/components/modals/ChangeDateModal/types";
-import { monthsData } from "@src/mocks/domains/months";
 
-const filterDate = (selectedDate: IChangeDateEntry):FilterProcessesForDate => {
-  const month = monthsData.find((x) => x.label === selectedDate.month)?.id;
-
-  return {
-    executionDate: "",
-    month: month || "01",
-    year: selectedDate.year || "2024",
-  };
-};
 
 function ScheduledTab() {
   const [searchScheduled, setSearchScheduled] = useState<string>("");
@@ -35,32 +26,28 @@ function ScheduledTab() {
     setScheduled(scheduled);
   };
 
- 
 
-
-  const validateScheduled = async (filterDate: FilterProcessesForDate) => {
-      setLoading(true);
-      try {
-        const newScheduled = await startProcessData(filterDate);
-        setScheduled(newScheduled);
-      } catch (error) {
-        console.info(error);
-      } finally {
-        setLoading(false);
-      }
+  const validateScheduled = async (filterDateChange: FilterProcessesForDate) => {
+    setLoading(true);
+    try {
+      const newScheduled = await startProcessData(filterDateChange);
+      setScheduled(newScheduled);
+    } catch (error) {
+      console.info(error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
-    validateScheduled(filterDate(selectedDate));
+    validateScheduled(filterDateChange(selectedDate));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
-    if(selectedDate.active === true){
-      validateScheduled(filterDate(selectedDate));
-    }  
-  
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    if (selectedDate.active === true) {
+      validateScheduled(filterDateChange(selectedDate));
+    }
   }, [selectedDate]);
 
   const handleSearchScheduled = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -71,7 +58,7 @@ function ScheduledTab() {
     <ScheduledTabUI
       entries={scheduled}
       loading={loading}
-      selectedMonth={selectedDate.month}
+      selectedMonth={selectedDate.month ||  MonthLetters!}
       handleSearchScheduled={handleSearchScheduled}
       handleOrderData={handleOrderData}
       searchScheduled={searchScheduled}

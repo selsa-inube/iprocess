@@ -1,3 +1,7 @@
+import { IChangeDateEntry } from "@components/modals/ChangeDateModal/types";
+import { FilterProcessesForDate } from "@pages/startProcess/types";
+import { monthsData } from "@mocks/domains/months";
+
 import { capitalizeText } from "./texts";
 
 const formatDate = (date: Date, withTime?: boolean) => {
@@ -29,4 +33,25 @@ const formatDate = (date: Date, withTime?: boolean) => {
   return formattedDate;
 };
 
-export { formatDate };
+const formatMonth=()=>{
+  const today = new Date();
+  const currentMonth = today.getMonth();
+ return currentMonth < 10 ? `0${String(currentMonth)}` : String(currentMonth);
+}
+
+const MonthLetters =  monthsData.find((month) => month.id === formatMonth())?.label;
+
+const filterDateChange = (selectedDate: IChangeDateEntry): FilterProcessesForDate => {
+  const month = monthsData.find((month) => month.label === selectedDate.month)?.id;
+
+  const today = new Date();
+  const currentYear = String(today.getFullYear());
+  
+  return {
+    executionDate: "",
+    month: month || formatMonth(),
+    year: selectedDate.year || currentYear,
+  };
+};
+
+export { MonthLetters, formatDate, filterDateChange, formatMonth };
