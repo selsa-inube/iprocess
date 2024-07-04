@@ -14,7 +14,7 @@ import { YearPicker } from "@components/feedback/YearPicker";
 import { StyledContainer, StyledModal } from "./styles";
 
 interface ChangeDateModalUIProps {
-  dataComparison: boolean;
+  disabledButton:boolean;
   formik: FormikValues;
   laterYears: number;
   previousYears: number;
@@ -25,7 +25,7 @@ interface ChangeDateModalUIProps {
 
 const ChangeDateModalUI = (props: ChangeDateModalUIProps) => {
   const {
-    dataComparison,
+    disabledButton,
     formik,
     laterYears,
     previousYears,
@@ -83,7 +83,7 @@ const ChangeDateModalUI = (props: ChangeDateModalUIProps) => {
                 spacing="wide"
                 appearance="primary"
                 variant="filled"
-                disabled={ !dataComparison || !formik.isValid}
+                disabled={!disabledButton || !formik.isValid}
                 onClick={handleConsult}
               >
                 Consultar

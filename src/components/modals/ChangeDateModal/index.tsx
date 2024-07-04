@@ -14,7 +14,7 @@ interface ChangeDateModalProps {
   previousYears: number;
   portalId: string;
   onCloseModal: () => void;
-  handleConsult: () => void;
+  selectedDate: (show: IChangeDateEntry) => void;
 }
 
 const initialValues: IChangeDateEntry = {
@@ -23,7 +23,7 @@ const initialValues: IChangeDateEntry = {
 };
 
 const ChangeDateModal = (props: ChangeDateModalProps) => {
-  const { laterYears, previousYears, portalId, onCloseModal, handleConsult } =
+  const { laterYears, previousYears, portalId, onCloseModal, selectedDate } =
     props;
 
   const formik = useFormik({
@@ -33,15 +33,20 @@ const ChangeDateModal = (props: ChangeDateModalProps) => {
     onSubmit: async () => true,
   });
 
-  const dataComparison =
+  const disabledButton =
     JSON.stringify(formik.values.month) !==
       JSON.stringify(initialValues.month) &&
     JSON.stringify(formik.values.year) !== JSON.stringify(initialValues.year);
 
+  const handleConsult = () => {
+    selectedDate(formik.values);
+    onCloseModal();
+  };
+
   return (
     <ChangeDateModalUI
       formik={formik}
-      dataComparison={dataComparison}
+      disabledButton={disabledButton}
       onCloseModal={onCloseModal}
       laterYears={laterYears}
       previousYears={previousYears}
