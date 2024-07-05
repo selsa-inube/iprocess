@@ -38,7 +38,6 @@ const today = new Date();
 const formatMonth = () => {
   const today = new Date();
   const currentMonth = today.getMonth() + 1;
-  console.log(today);
   return currentMonth < 10 ? `0${String(currentMonth)}` : String(currentMonth);
 };
 
@@ -54,8 +53,6 @@ const filterDateChange = (
   const month = monthsData.find(
     (month) => month.label === selectedDate.month
   )?.id;
-  
-  console.log(formatMonth());
 
   return {
     executionDate: "",
