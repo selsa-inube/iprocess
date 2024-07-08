@@ -32,7 +32,7 @@ const titlesConfig = (handleOrderData: () => void) => {
       id: "executionDate",
       titleName: (
         <StyledContainerTitle>
-          <Text type="label" size="medium" appearance="dark" textAlign="start">
+          <Text type="title" size="medium" appearance="dark" textAlign="start">
             Fecha ejecución
           </Text>
 
