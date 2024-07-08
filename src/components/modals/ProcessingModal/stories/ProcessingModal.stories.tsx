@@ -34,6 +34,7 @@ const Template: StoryFn<ProcessingModalProps> = (args) => {
 export const Default = Template.bind({});
 Default.args = {
   portalId: "portal",
+  duration: 4000,
 };
 
 export default meta;

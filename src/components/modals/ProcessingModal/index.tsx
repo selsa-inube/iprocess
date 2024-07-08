@@ -11,13 +11,14 @@ import { StyledContainer, StyledModal } from "./styles";
 import { CountdownBar } from "@inubekit/countdownbar";
 
 interface ProcessingModalProps {
+  duration: number;
   portalId: string;
   onCloseModal: () => void;
   handleCancel: () => void;
 }
 
 const ProcessingModal = (props: ProcessingModalProps) => {
-  const { portalId, handleCancel, onCloseModal } = props;
+  const { duration, portalId, handleCancel, onCloseModal } = props;
 
   const isMobile = useMediaQuery("(max-width: 500px)");
 
@@ -48,7 +49,7 @@ const ProcessingModal = (props: ProcessingModalProps) => {
               <CountdownBar
                 height="4px"
                 appearance="primary"
-                duration={3000}
+                duration={duration}
                 paused={false}
                 onCountdown={ onCloseModal}
               />
