@@ -2,9 +2,10 @@ import { MdSearch } from "react-icons/md";
 import { Stack } from "@inubekit/stack";
 import { Textfield } from "@inubekit/textfield";
 
-import { ChangeDate } from "@components/feedback/ChangeDate";
 import { Table } from "@components/data/Table";
-import { IChangeDateEntry } from "@components/modals/ChangeDateModal/types";
+import { IChangePeriodEntry } from "@components/modals/ChangePeriodModal/types";
+import { ChangePeriod } from "@src/components/feedback/ChangePeriod";
+import { periodLaterYears, periodPreviousYears } from "@src/config/environment";
 
 import {
   actions,
@@ -15,21 +16,25 @@ import {
 import { StartProcesses } from "../../types";
 
 interface ScheduledTabUIProps {
+  description: string;
   entries: StartProcesses[];
   loading: boolean;
   searchScheduled: string;
-  description: string;
-  setSelectedDate: (show: IChangeDateEntry) => void;
+  selectedMonth: string;
+  selectedYear: string;
+  setSelectedDate: (show: IChangePeriodEntry) => void;
   handleSearchScheduled: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleOrderData: () => void;
 }
 
 function ScheduledTabUI(props: ScheduledTabUIProps) {
   const {
+    description,
     entries,
     loading,
     searchScheduled,
-    description,
+    selectedMonth,
+    selectedYear,
     setSelectedDate,
     handleSearchScheduled,
     handleOrderData,
@@ -38,11 +43,13 @@ function ScheduledTabUI(props: ScheduledTabUIProps) {
   return (
     <Stack gap="32px" direction="column">
       <Stack justifyContent="space-between">
-        <ChangeDate
-          laterYears={3}
-          previousYears={1}
+        <ChangePeriod
+          laterYears={periodLaterYears}
+          previousYears={periodPreviousYears}
           setSelectedDate={setSelectedDate}
           description={description}
+          selectedMonth={selectedMonth}
+          selectedYear={selectedYear}
         />
 
         <Textfield

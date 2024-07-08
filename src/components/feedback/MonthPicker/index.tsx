@@ -1,5 +1,5 @@
 import { FormikValues } from "formik";
-import { ChangeEvent } from "react";
+import { ChangeEvent, useEffect } from "react";
 import { Select } from "@inubekit/select";
 
 import { getDomainById } from "@mocks/domains/domainService.mocks";
@@ -8,10 +8,16 @@ import { StyledContainer } from "./styles";
 
 interface MonthPickerProps {
   formik: FormikValues;
+  selectedMonth: string;
 }
 
 const MonthPicker = (props: MonthPickerProps) => {
-  const { formik } = props;
+  const { formik, selectedMonth } = props;
+
+  useEffect(() => {
+    formik.setFieldValue("month", selectedMonth);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const getFieldState = (formik: FormikValues, fieldName: string) => {
     if (formik.errors[fieldName]) return "invalid";

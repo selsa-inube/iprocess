@@ -1,31 +1,34 @@
 import { useFormik } from "formik";
 import * as Yup from "yup";
 
-import { ChangeDateModalUI } from "./interface";
-import { IChangeDateEntry } from "./types";
+import { ChangePeriodModalUI } from "./interface";
+import { IChangePeriodEntry } from "./types";
 
 const validationSchema = Yup.object({
   month: Yup.string().required("Este campo no puede estar vacío"),
   year: Yup.string().required("Este campo no puede estar vacío"),
 });
 
-interface ChangeDateModalProps {
+interface ChangePeriodModalProps {
   laterYears: number;
   previousYears: number;
   portalId: string;
+  selectedMonth: string;
+  selectedYear: string;
   onCloseModal: () => void;
-  selectedDate: (show: IChangeDateEntry) => void;
+  selectedDate: (show: IChangePeriodEntry) => void;
 }
 
-const initialValues: IChangeDateEntry = {
+const initialValues: IChangePeriodEntry = {
   month: "",
   year: "",
 };
 
-const ChangeDateModal = (props: ChangeDateModalProps) => {
-  const { laterYears, previousYears, portalId, onCloseModal, selectedDate } =
+const ChangePeriodModal = (props: ChangePeriodModalProps) => {
+  const { laterYears, previousYears, portalId, selectedMonth,
+    selectedYear, onCloseModal, selectedDate } =
     props;
-
+  
   const formik = useFormik({
     initialValues,
     validationSchema,
@@ -44,11 +47,13 @@ const ChangeDateModal = (props: ChangeDateModalProps) => {
   };
 
   return (
-    <ChangeDateModalUI
+    <ChangePeriodModalUI
       formik={formik}
       disabledButton={disabledButton}
       onCloseModal={onCloseModal}
       laterYears={laterYears}
+      selectedMonth={selectedMonth}
+      selectedYear={selectedYear}
       previousYears={previousYears}
       portalId={portalId}
       handleConsult={handleConsult}
@@ -56,5 +61,5 @@ const ChangeDateModal = (props: ChangeDateModalProps) => {
   );
 };
 
-export type { ChangeDateModalProps };
-export { ChangeDateModal };
+export type { ChangePeriodModalProps };
+export { ChangePeriodModal };

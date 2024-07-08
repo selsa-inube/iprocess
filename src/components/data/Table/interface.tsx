@@ -142,7 +142,7 @@ const TableUI = (props: Omit<ITable, "id">) => {
                   title.titleName
                 ) : (
                   <Text
-                    type="label"
+                    type="title"
                     size="medium"
                     appearance="dark"
                     textAlign="start"

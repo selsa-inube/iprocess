@@ -1,15 +1,17 @@
 import { useState } from "react";
 import { BrowserRouter } from "react-router-dom";
 import { Meta, StoryFn } from "@storybook/react";
-
 import { Button } from "@inubekit/button";
-import { ChangeDateModal, ChangeDateModalProps } from "..";
+
+import { periodLaterYears, periodPreviousYears } from "@src/config/environment";
+import { ChangePeriodModal, ChangePeriodModalProps } from "..";
 
 
 
-const meta: Meta<typeof ChangeDateModal> = {
-  title: "modals/ChangeDateModal",
-  component: ChangeDateModal,
+
+const meta: Meta<typeof ChangePeriodModal> = {
+  title: "modals/ChangePeriodModal",
+  component: ChangePeriodModal,
   decorators: [
     (Story: StoryFn) => (
       <BrowserRouter>
@@ -19,14 +21,14 @@ const meta: Meta<typeof ChangeDateModal> = {
   ],
 };
 
-const Template: StoryFn<ChangeDateModalProps> = (args) => {
+const Template: StoryFn<ChangePeriodModalProps> = (args) => {
   const [showModal, setShowModal] = useState(false);
 
   return (
     <>
       <Button onClick={() => setShowModal(true)}>Show Modal</Button>
       {showModal && (
-        <ChangeDateModal {...args} onCloseModal={() => setShowModal(false)} />
+        <ChangePeriodModal {...args} onCloseModal={() => setShowModal(false)} />
       )}
     </>
   );
@@ -35,8 +37,8 @@ const Template: StoryFn<ChangeDateModalProps> = (args) => {
 export const Default = Template.bind({});
 Default.args = {
   portalId: "modals",
-  laterYears:3,
-  previousYears: 1,
+  laterYears: periodLaterYears,
+  previousYears: periodPreviousYears,
 };
 
 export default meta;

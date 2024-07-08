@@ -1,4 +1,4 @@
-import { IChangeDateEntry } from "@components/modals/ChangeDateModal/types";
+import { IChangePeriodEntry } from "@components/modals/ChangePeriodModal/types";
 import { FilterProcessesForDate } from "@pages/startProcess/types";
 import { monthsData } from "@mocks/domains/months";
 
@@ -48,7 +48,7 @@ const currentMonthLetters = monthsData.find(
 const currentYear = String(today.getFullYear());
 
 const filterDateChange = (
-  selectedDate: IChangeDateEntry
+  selectedDate: IChangePeriodEntry
 ): FilterProcessesForDate => {
   const month = monthsData.find(
     (month) => month.label === selectedDate.month

@@ -13,21 +13,26 @@ import { MonthPicker } from "@components/feedback/MonthPicker";
 import { YearPicker } from "@components/feedback/YearPicker";
 import { StyledContainer, StyledModal } from "./styles";
 
-interface ChangeDateModalUIProps {
+
+interface ChangePeriodModalUIProps {
   disabledButton:boolean;
   formik: FormikValues;
   laterYears: number;
   previousYears: number;
   portalId: string;
+  selectedMonth: string;
+  selectedYear: string;
   onCloseModal: () => void;
   handleConsult: () => void;
 }
 
-const ChangeDateModalUI = (props: ChangeDateModalUIProps) => {
+const ChangePeriodModalUI = (props: ChangePeriodModalUIProps) => {
   const {
     disabledButton,
     formik,
     laterYears,
+    selectedMonth,
+  selectedYear,
     previousYears,
     portalId,
     handleConsult,
@@ -53,7 +58,7 @@ const ChangeDateModalUI = (props: ChangeDateModalUIProps) => {
               <Stack direction="column" gap="8px">
                 <Stack alignItems="center" justifyContent="space-between">
                   <Text type="title" size="medium" appearance="dark">
-                    seleccione el mes y el año
+                    Seleccione el mes y el año
                   </Text>
                   <MdClear size={24} cursor="pointer" onClick={onCloseModal} />
                 </Stack>
@@ -61,12 +66,13 @@ const ChangeDateModalUI = (props: ChangeDateModalUIProps) => {
 
               <Divider dashed />
 
-              <MonthPicker formik={formik} />
+              <MonthPicker formik={formik} selectedMonth={selectedMonth}/>
 
               <YearPicker
                 formik={formik}
                 laterYears={laterYears}
                 previousYears={previousYears}
+                selectedYear={selectedYear}
               />
             </Stack>
             <Stack gap="8px" justifyContent="flex-end">
@@ -76,7 +82,7 @@ const ChangeDateModalUI = (props: ChangeDateModalUIProps) => {
                 variant="filled"
                 onClick={onCloseModal}
               >
-                cancelar
+                Cancelar
               </Button>
             
               <Button
@@ -97,5 +103,5 @@ const ChangeDateModalUI = (props: ChangeDateModalUIProps) => {
   );
 };
 
-export { ChangeDateModalUI };
-export type { ChangeDateModalUIProps };
+export { ChangePeriodModalUI };
+export type { ChangePeriodModalUIProps };

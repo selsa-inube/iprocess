@@ -8,10 +8,10 @@ interface IEntries {
   [key: string]: any;
 }
 
-interface IChangeDateEntry {
+interface IChangePeriodEntry {
   month: string;
   year: string;
   change?: boolean
 }
 
-export type { ILabel, IEntries, IChangeDateEntry };
+export type { ILabel, IEntries, IChangePeriodEntry };
