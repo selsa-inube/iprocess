@@ -80,7 +80,7 @@ function showActionTitle(
         key={`action-${action.id}`}
         $multipleTables={multipleTables}
       >
-        <Text type="label" size="medium" textAlign="center" appearance="dark">
+        <Text type="title" size="medium" textAlign="center" appearance="dark">
           {action.actionName}
         </Text>
       </StyledThAction>
@@ -142,7 +142,7 @@ const TableUI = (props: Omit<ITable, "id">) => {
                   title.titleName
                 ) : (
                   <Text
-                    type="label"
+                    type="title"
                     size="medium"
                     appearance="dark"
                     textAlign="start"
