@@ -35,6 +35,7 @@ const ChangePeriod = (props: ChangePeriodProps) => {
       <StyledButton>
         <Button
           onClick={() => setShowModal(true)}
+          spacing="compact"
           iconBefore={<MdOutlineCalendarMonth size={"18px"} />}
         >
           Modificar mes
