@@ -1,6 +1,7 @@
 import {
   StartProcesses,
 } from "@pages/startProcess/types";
+import { periodicityValuesMock } from "@mocks/domains/startProcess/utils.mocks";
 
 
 const mapStartProcessApiToEntity = (
@@ -10,6 +11,8 @@ const mapStartProcessApiToEntity = (
     id: String(process.processCatalogId),
     abbreviatedName: String(process.abbreviatedName),
     executionDate:new Date(String(process.estimatedExecutionDate)),
+    aplication:String(process.aplication),
+    periodicity: periodicityValuesMock[String(process.periodicity)],
   };
   return processes;
 };
