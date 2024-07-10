@@ -10,6 +10,8 @@ interface StartProcesses {
   executionDate: Date;
   executionDateAndHour?: Date;
   requeriments?: string;
+  aplication?: string;
+  periodicity?: string;
 }
 
 export type { FilterProcessesForDate, StartProcesses };

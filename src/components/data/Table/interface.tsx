@@ -80,14 +80,19 @@ function showActionTitle(
         key={`action-${action.id}`}
         $multipleTables={multipleTables}
       >
-        <Text type="label" size="medium" textAlign="center" appearance="dark">
+        <Text
+          type="title"
+          size="small"
+          textAlign="center"
+          appearance="dark"
+          weight="bold"
+        >
           {action.actionName}
         </Text>
       </StyledThAction>
     ))
   ) : (
-    <StyledThAction $multipleTables={multipleTables}>
-    </StyledThAction>
+    <StyledThAction $multipleTables={multipleTables}></StyledThAction>
   );
 }
 
@@ -142,10 +147,11 @@ const TableUI = (props: Omit<ITable, "id">) => {
                   title.titleName
                 ) : (
                   <Text
-                    type="label"
-                    size="medium"
+                    type="title"
+                    size="small"
                     appearance="dark"
                     textAlign="start"
+                    weight="bold"
                   >
                     {title.titleName}
                   </Text>
@@ -160,48 +166,48 @@ const TableUI = (props: Omit<ITable, "id">) => {
             dataLoading(TitleColumns, numberActions)
           ) : (
             <>
-            {entries.length > 0 ? (
-              entries.map((entry) => (
-                <StyledTr
-                  key={`entry-${entry.id}`}
-                  aria-labelledby={`entry-${entry.id}`}
-                  $smallScreen={mediaActionOpen}
-                  $pageLength={pageLength}
-                  $entriesLength={entries.length}
-                  $widthFirstColumn={widthFirstColumn}
-                >
-                  {TitleColumns.map((title) => (
-                    <StyledTd
-                      key={`e-${entry[title.id]}`}
-                      $smallScreen={mediaActionOpen}
-                    >
-                      {typeof entry[title.id] !== "string" ? (
-                        entry[title.id]
-                      ) : (
-                        <Text
-                          type="body"
-                          size="small"
-                          appearance="dark"
-                          textAlign="start"
-                          ellipsis
-                        >
-                          {entry[title.id]}
-                        </Text>
-                      )}
-                    </StyledTd>
-                  ))}
-                  {ShowAction(actions, entry)}
+              {entries.length > 0 ? (
+                entries.map((entry) => (
+                  <StyledTr
+                    key={`entry-${entry.id}`}
+                    aria-labelledby={`entry-${entry.id}`}
+                    $smallScreen={mediaActionOpen}
+                    $pageLength={pageLength}
+                    $entriesLength={entries.length}
+                    $widthFirstColumn={widthFirstColumn}
+                  >
+                    {TitleColumns.map((title) => (
+                      <StyledTd
+                        key={`e-${entry[title.id]}`}
+                        $smallScreen={mediaActionOpen}
+                      >
+                        {typeof entry[title.id] !== "string" ? (
+                          entry[title.id]
+                        ) : (
+                          <Text
+                            type="body"
+                            size="small"
+                            appearance="dark"
+                            textAlign="start"
+                            ellipsis
+                          >
+                            {entry[title.id]}
+                          </Text>
+                        )}
+                      </StyledTd>
+                    ))}
+                    {ShowAction(actions, entry)}
+                  </StyledTr>
+                ))
+              ) : (
+                <StyledTr aria-labelledby={`no-data`}>
+                  <StyledTd>
+                    <Text type="body" size="small" appearance="dark" ellipsis>
+                      No se encontró información
+                    </Text>
+                  </StyledTd>
                 </StyledTr>
-              ))
-            ) : (
-               <StyledTr aria-labelledby={`no-data`}>
-                 <StyledTd >
-                   <Text type="body" size="small" appearance="dark" ellipsis>
-                     No se encontró información
-                   </Text>
-                 </StyledTd>
-               </StyledTr>
-            )}
+              )}
             </>
           )}
         </StyledTbody>

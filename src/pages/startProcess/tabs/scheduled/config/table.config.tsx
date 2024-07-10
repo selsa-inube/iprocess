@@ -13,10 +13,9 @@ import { Details } from "../components/Details";
 const mapScheduled = (process: IActions) => {
   return {
     id: process.id,
-    aplication: "Tesoreria",
+    aplication: process.aplication,
     process: process.abbreviatedName,
-    descriptionError: process.abbreviatedName,
-    periodicity: "Diario",
+    periodicity: process.periodicity,
     executionDateAndHour: process.executionDateAndHour,
     requirements: process.requirements,
   };
@@ -43,10 +42,6 @@ const labelsDetails = [
     priority: 1,
   },
   {
-    id: "descriptionError",
-    titleName: "Descripción del error",
-  },
-  {
     id: "periodicity",
     titleName: "Periodicidad",
   },
@@ -71,7 +66,7 @@ const titlesConfig = (handleOrderData: () => void) => {
       id: "executionDate",
       titleName: (
         <StyledContainerTitle>
-          <Text type="title" size="small" appearance="dark" textAlign="start">
+          <Text type="title" size="small" appearance="dark" textAlign="start" weight="bold">
             Fecha ejecución
           </Text>
 
