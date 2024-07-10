@@ -1,4 +1,4 @@
-import { MdOutlineRestartAlt, MdImportExport } from "react-icons/md";
+import { MdPinInvoke, MdImportExport } from "react-icons/md";
 import { Icon } from "@inubekit/icon";
 import { Text } from "@inubekit/text";
 import { SkeletonLine } from "@inubekit/skeleton";
@@ -71,7 +71,7 @@ const titlesConfig = (handleOrderData: () => void) => {
       id: "executionDate",
       titleName: (
         <StyledContainerTitle>
-          <Text type="label" size="medium" appearance="dark" textAlign="start">
+          <Text type="title" size="small" appearance="dark" textAlign="start">
             Fecha ejecución
           </Text>
 
@@ -108,7 +108,7 @@ const actions = [
     content: () => (
       <Icon
         appearance="gray"
-        icon={<MdOutlineRestartAlt />}
+        icon={<MdPinInvoke />}
         size="16px"
         cursorHover={true}
       />

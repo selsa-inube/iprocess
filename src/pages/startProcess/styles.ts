@@ -13,7 +13,7 @@ button{
 
 p{
   font-size: 12px;
-  line-height: 15px;
+  line-height: 18px;
 }
 `;
 

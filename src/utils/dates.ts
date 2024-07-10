@@ -1,15 +1,8 @@
-import { capitalizeText } from "./texts";
+import { IChangePeriodEntry } from "@components/modals/ChangePeriodModal/types";
+import { FilterProcessesForDate } from "@pages/startProcess/types";
+import { monthsData } from "@mocks/domains/months";
 
-const formatPrimaryDate = (date: Date) => {
-  const options: Intl.DateTimeFormatOptions = {
-    day: "2-digit",
-    month: "2-digit",
-    year: "numeric",
-    timeZone: "UTC",
-  };
-  new Date(date);
-  return date.toLocaleDateString("en-US", options);
-};
+import { capitalizeText } from "./texts";
 
 const formatDate = (date: Date, withTime?: boolean) => {
   const options: Intl.DateTimeFormatOptions = {
@@ -40,4 +33,38 @@ const formatDate = (date: Date, withTime?: boolean) => {
   return formattedDate;
 };
 
-export { formatPrimaryDate, formatDate };
+const today = new Date();
+
+const formatMonth = () => {
+  const today = new Date();
+  const currentMonth = today.getMonth() + 1;
+  return currentMonth < 10 ? `0${String(currentMonth)}` : String(currentMonth);
+};
+
+const currentMonthLetters = monthsData.find(
+  (month) => month.id === formatMonth()
+)?.label;
+
+const currentYear = String(today.getFullYear());
+
+const filterDateChange = (
+  selectedDate: IChangePeriodEntry
+): FilterProcessesForDate => {
+  const month = monthsData.find(
+    (month) => month.label === selectedDate.month
+  )?.id;
+
+  return {
+    executionDate: "",
+    month: month || formatMonth(),
+    year: selectedDate.year || currentYear,
+  };
+};
+
+export {
+  currentMonthLetters,
+  currentYear,
+  formatDate,
+  filterDateChange,
+  formatMonth,
+};
