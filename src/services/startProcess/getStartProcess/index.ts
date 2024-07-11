@@ -1,24 +1,28 @@
 import { enviroment } from "@src/config/environment";
 import {
   FilterProcessesForDate,
-  StartProcesses,
+  StartProcessesFilter,
 } from "@pages/startProcess/types";
 import {
   mapStartProcessApiToEntities,
 } from "./mappers";
 
 const startProcessData = async (FilterProcesses: FilterProcessesForDate) 
-: Promise<StartProcesses[]> => {
+: Promise<StartProcessesFilter> => {
   const maxRetries = 5;
   const fetchTimeout = 3000;
+  const emptyResponse = {
+    onDemand: [],
+    scheduled: [],
+  };
 
   for (let attempt = 1; attempt <= maxRetries; attempt++) {
     try {
         
       const queryParams = new URLSearchParams({
-        Year: FilterProcesses.year,
-        Month:FilterProcesses.month,
-        ExecutionDateToTime:FilterProcesses.executionDate
+        year: FilterProcesses.year,
+        month:FilterProcesses.month,
+        executionDateToTime:FilterProcesses.executionDate
       })
 
       const controller = new AbortController();
@@ -42,7 +46,7 @@ const startProcessData = async (FilterProcesses: FilterProcessesForDate)
       clearTimeout(timeoutId);
 
       if (res.status === 204) {
-        return [];
+        return emptyResponse;
       }
 
       const data = await res.json();
@@ -57,7 +61,7 @@ const startProcessData = async (FilterProcesses: FilterProcessesForDate)
 
       const normalizedStartProcess = Array.isArray(data)
         ? mapStartProcessApiToEntities(data)
-        : [];
+        : emptyResponse;
 
       return normalizedStartProcess;
     } catch (error) {
@@ -69,7 +73,7 @@ const startProcessData = async (FilterProcesses: FilterProcessesForDate)
     }
   }
 
-  return [];
+  return emptyResponse;
 };
 
 export { startProcessData };
