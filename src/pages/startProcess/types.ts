@@ -14,4 +14,9 @@ interface StartProcesses {
   periodicity?: string;
 }
 
-export type { FilterProcessesForDate, StartProcesses };
+interface StartProcessesFilter {
+  onDemand: StartProcesses[];
+  scheduled: StartProcesses[];
+}
+
+export type { FilterProcessesForDate, StartProcesses, StartProcessesFilter };
