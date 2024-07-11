@@ -4,14 +4,12 @@ import { Textfield } from "@inubekit/textfield";
 
 import { Table } from "@components/data/Table";
 import { IChangePeriodEntry } from "@components/modals/ChangePeriodModal/types";
-import { ChangePeriod } from "@components/feedback/ChangePeriod";
-import { periodLaterYears, periodPreviousYears } from "@src/config/environment";
 
 import {
-  actions,
-  breakPoints,
+  actionsOnDemand,
+  breakPointsOnDemand,
   onDemandNormailzeEntries,
-  titlesConfig,
+  titlesOnDemand,
 } from "./config/table.config";
 import { StartProcesses} from "../../types";
 
@@ -24,34 +22,23 @@ interface OnDemandTabUIProps {
   selectedYear: string;
   setSelectedDate: (show: IChangePeriodEntry) => void;
   handlesearchOnDemand: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  handleOrderData: () => void;
+  handleOrderData?: () => void;
 }
 
 function OnDemandTabUI(props: OnDemandTabUIProps) {
   const {
-    description,
     entries,
     loading,
     searchOnDemand,
-    selectedMonth,
-    selectedYear,
-    setSelectedDate,
+ 
     handlesearchOnDemand,
-    handleOrderData,
+
   } = props;
 
   return (
     <Stack gap="32px" direction="column">
-      <Stack justifyContent="space-between">
-        <ChangePeriod
-          laterYears={periodLaterYears}
-          previousYears={periodPreviousYears}
-          setSelectedDate={setSelectedDate}
-          description={description}
-          selectedMonth={selectedMonth}
-          selectedYear={selectedYear}
-        />
-
+      <Stack justifyContent="flex-end">
+       
         <Textfield
           name="searchOnDemand"
           id="searchOnDemand"
@@ -67,13 +54,13 @@ function OnDemandTabUI(props: OnDemandTabUIProps) {
       </Stack>
       <Table
         id="portal"
-        titles={titlesConfig(handleOrderData)}
-        actions={actions}
+        titles={titlesOnDemand}
+        actions={actionsOnDemand}
         entries={onDemandNormailzeEntries(entries)}
-        breakpoints={breakPoints}
+        breakpoints={breakPointsOnDemand}
         loading={loading}
         filter={searchOnDemand}
-        widthFirstColumn="55%"
+        widthFirstColumn="68%"
       />
     </Stack>
   );

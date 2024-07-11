@@ -30,7 +30,7 @@ const mapStartProcessApiToEntities = (
   });
 
   return {
-    onDemand: onDemand.sort((a, b) => b.executionDate.getTime() - a.executionDate.getTime()),
+    onDemand: onDemand,
     scheduled: scheduled.sort((a, b) => b.executionDate.getTime() - a.executionDate.getTime())
   }
 };

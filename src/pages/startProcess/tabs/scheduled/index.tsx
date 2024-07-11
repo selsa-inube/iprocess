@@ -36,7 +36,7 @@ function ScheduledTab() {
     setLoading(true);
     try {
       const newScheduled = await startProcessData(filterDateChange);
-      console.log(newScheduled);
+
       setScheduled(newScheduled.scheduled);
     } catch (error) {
       console.info(error);

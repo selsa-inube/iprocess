@@ -1,73 +1,50 @@
-import {
-  MdOutlineRemoveRedEye,
-  MdPinInvoke,
-  MdImportExport 
-} from "react-icons/md";
+import { MdPinInvoke } from "react-icons/md";
 import { Icon } from "@inubekit/icon";
 import { SkeletonLine } from "@inubekit/skeleton";
-import { Text } from "@inubekit/text";
 
-import { ITitle } from "@components/data/Table/props";
+import { IActions, ITitle } from "@components/data/Table/props";
 import { StartProcesses } from "@pages/startProcess/types";
-import { StyledContainerTitle } from "@components/data/Table/stories/styles";
-import { formatDate } from "@utils/dates";
+import { DetailsOnDemand } from "../components/Details";
 
-  const onDemandNormailzeEntries = (process: StartProcesses[]) =>
-    process.map((entry) => ({
-      ...entry,      id: `${entry.id}${entry.executionDate}`,
-      process: entry.abbreviatedName,
-      executionDate: entry.executionDate && formatDate(entry.executionDate),
-      requirements: <SkeletonLine animated />,
-    }));
-  
+const onDemandNormailzeEntries = (process: StartProcesses[]) =>
+  process.map((entry) => ({
+    ...entry,
+    id: `${entry.id}${entry.executionDate}`,
+    process: entry.abbreviatedName,
+    executionDate: "",
+    requirements: <SkeletonLine animated />,
+  }));
 
-const titlesConfig = (handleOrderData: () => void) => {
-  const titles: ITitle[] = [
+const mapOndemand = (process: IActions) => {
+  return {
+    id: process.id,
+    aplication: process.aplication,
+    process: process.abbreviatedName,
+    periodicity: process.periodicity,
+    requirements: process.requirements,
+  };
+};
+
+  const titlesOnDemand: ITitle[] = [
     {
       id: "process",
       titleName: "Proceso",
       priority: 0,
     },
     {
-      id: "executionDate",
-      titleName: (
-        <StyledContainerTitle>
-          <Text type="title" size="small" appearance="dark" textAlign="start" weight="bold">
-            Fecha ejecución
-          </Text>
-
-          <Icon
-            appearance="dark"
-            icon={<MdImportExport />}
-            size="16px"
-            onClick={() => handleOrderData()}
-            cursorHover
-          />
-        </StyledContainerTitle>
-      ),
-      priority: 1,
-    },
-    {
       id: "requirements",
       titleName: "Requisitos",
-      priority: 2,
+      priority: 1,
     },
   ];
 
-  return titles;
-};
 
-const actions = [
+const actionsOnDemand = [
   {
     id: "Details",
     actionName: "Detalles",
-    content: () => (
-      <Icon
-        appearance="gray"
-        icon={<MdOutlineRemoveRedEye />}
-        size="16px"
-        cursorHover={true}
-      />
+    content: (process: IActions) => (
+      <DetailsOnDemand data={mapOndemand(process)} />
     ),
   },
   {
@@ -84,6 +61,27 @@ const actions = [
   },
 ];
 
-const breakPoints = [{ breakpoint: "(min-width: 1091px)", totalColumns: 3 }];
+const breakPointsOnDemand = [{ breakpoint: "(min-width: 1091px)", totalColumns: 3 }];
 
-export { titlesConfig, actions, breakPoints, onDemandNormailzeEntries };
+const labelsDetailsOnDemand = [
+  {
+    id: "aplication",
+    titleName: "Aplicación",
+  },
+  {
+    id: "process",
+    titleName: "Proceso",
+  },
+  {
+    id: "requirements",
+    titleName: "Requerimientos",
+  },
+];
+
+export {
+  actionsOnDemand,
+  breakPointsOnDemand,
+  labelsDetailsOnDemand,
+  titlesOnDemand,
+  onDemandNormailzeEntries,
+};
