@@ -1,5 +1,6 @@
 import { StartProcesses, StartProcessesFilter } from "@pages/startProcess/types";
-import { periodicityValuesMock } from "@mocks/domains/startProcess/utils.mocks";
+import { periodicityValuesMock } from "@mocks/startProcess/utils.mocks";
+
 
 const mapStartProcessApiToEntity = (
   process: Record<string, string | number | object>
