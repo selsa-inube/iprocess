@@ -15,22 +15,20 @@ const formatDate = (date: Date, withTime?: boolean) => {
 
   const [day, month, year] = dateString.split(" ");
 
-  let formattedDate = `${day}/${capitalizeText(month)}/${year}`;
-
   if (withTime) {
-    const hours = date.getHours();
-    const minutes = date.getMinutes();
-    const seconds = date.getSeconds();
+    const hours = date.getUTCHours();
+    const minutes = date.getUTCMinutes();
+    const seconds = date.getUTCSeconds();
 
     const formatMinutes = minutes < 10 ? `0${minutes}` : minutes;
     const formatSeconds = seconds < 10 ? `0${seconds}` : seconds;
 
     const timeString = `${hours}:${formatMinutes}:${formatSeconds}`;
 
-    formattedDate += ` ${timeString}`;
+    return `${day}/${capitalizeText(month)}/${year} - ${timeString}`;
   }
 
-  return formattedDate;
+  return `${day}/${capitalizeText(month)}/${year}`;
 };
 
 const today = new Date();

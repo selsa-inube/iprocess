@@ -1,16 +1,25 @@
-import {
-  MdOutlineRemoveRedEye,
-  MdPinInvoke,
-  MdImportExport,
-} from "react-icons/md";
+import { MdPinInvoke, MdImportExport } from "react-icons/md";
 import { Icon } from "@inubekit/icon";
 import { Text } from "@inubekit/text";
 import { SkeletonLine } from "@inubekit/skeleton";
 
-import { ITitle } from "@components/data/Table/props";
+import { IActions, ITitle } from "@components/data/Table/props";
 import { StyledContainerTitle } from "@components/data/Table/stories/styles";
 import { StartProcesses } from "@pages/startProcess/types";
 import { formatDate } from "@utils/dates";
+import { Details } from "../components/Details";
+
+
+const mapScheduled = (process: IActions) => {
+  return {
+    id: process.id,
+    aplication: process.aplication,
+    process: process.abbreviatedName,
+    periodicity: process.periodicity,
+    executionDateAndHour: process.executionDateAndHour,
+    requirements: process.requirements,
+  };
+};
 
 const scheduledNormailzeEntries = (process: StartProcesses[]) =>
   process.map((entry) => ({
@@ -18,8 +27,33 @@ const scheduledNormailzeEntries = (process: StartProcesses[]) =>
     id: `${entry.id}${entry.executionDate}`,
     process: entry.abbreviatedName,
     executionDate: entry.executionDate && formatDate(entry.executionDate),
+    executionDateAndHour: formatDate(entry.executionDate, true),
     requirements: <SkeletonLine animated />,
   }));
+
+const labelsDetails = [
+  {
+    id: "aplication",
+    titleName: "Aplicación",
+  },
+  {
+    id: "process",
+    titleName: "Proceso",
+    priority: 1,
+  },
+  {
+    id: "periodicity",
+    titleName: "Periodicidad",
+  },
+  {
+    id: "executionDateAndHour",
+    titleName: "Fecha Estimada de Ejecución",
+  },
+  {
+    id: "requirements",
+    titleName: "Requerimientos",
+  },
+];
 
 const titlesConfig = (handleOrderData: () => void) => {
   const titles: ITitle[] = [
@@ -61,14 +95,7 @@ const actions = [
   {
     id: "Details",
     actionName: "Detalles",
-    content: () => (
-      <Icon
-        appearance="gray"
-        icon={<MdOutlineRemoveRedEye />}
-        size="16px"
-        cursorHover={true}
-      />
-    ),
+    content: (process: IActions) => <Details data={mapScheduled(process)} />,
   },
   {
     id: "StartProcess",
@@ -86,4 +113,10 @@ const actions = [
 
 const breakPoints = [{ breakpoint: "(min-width: 1091px)", totalColumns: 3 }];
 
-export { titlesConfig, actions, breakPoints, scheduledNormailzeEntries };
+export {
+  titlesConfig,
+  actions,
+  breakPoints,
+  labelsDetails,
+  scheduledNormailzeEntries,
+};

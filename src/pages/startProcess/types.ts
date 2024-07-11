@@ -8,7 +8,15 @@ interface StartProcesses {
   id: string;
   abbreviatedName: string;
   executionDate: Date;
+  executionDateAndHour?: Date;
   requeriments?: string;
+  aplication?: string;
+  periodicity?: string;
 }
 
-export type { FilterProcessesForDate, StartProcesses };
+interface StartProcessesFilter {
+  onDemand: StartProcesses[];
+  scheduled: StartProcesses[];
+}
+
+export type { FilterProcessesForDate, StartProcesses, StartProcessesFilter };
