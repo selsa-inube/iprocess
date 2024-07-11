@@ -2,6 +2,7 @@ import { Button } from "@inubekit/button";
 
 import { StyledContainerButton } from "./styles";
 import { StartProcesses } from "./types";
+import { Tag } from "@inubekit/tag";
 
 const orderData = (data: StartProcesses[], orderAscending: boolean) => {
   orderAscending
@@ -9,6 +10,20 @@ const orderData = (data: StartProcesses[], orderAscending: boolean) => {
     : data.sort(
         (a, b) => a.executionDate.getTime() - b.executionDate.getTime()
       );
+};
+
+const formatStatus = (status: string) => {
+  if (status === "No cumple" ) {
+    return <Tag label="Error" appearance="danger" weight="strong" />;
+  }
+
+  if (status === "Cumple") {
+    return <Tag label="Sin Procesar" appearance="success" weight="strong" />;
+  }
+
+  if (status === "Sin evaluar") {
+    return <Tag label="Sin Procesar" appearance="warning" weight="strong" />;
+  }
 };
 
 const requirementsData = () => {
@@ -49,4 +64,4 @@ const requirementsButton = () => {
   );
 };
 
-export { orderData, requirementsData, requirementsButton };
+export { orderData, requirementsData, requirementsButton, formatStatus };
