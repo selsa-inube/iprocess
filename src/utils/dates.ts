@@ -25,7 +25,7 @@ const formatDate = (date: Date, withTime?: boolean) => {
 
     const timeString = `${hours}:${formatMinutes}:${formatSeconds}`;
 
-    return `${day}/${capitalizeText(month)}/${year} ${timeString}`;
+    return `${day}/${capitalizeText(month)}/${year} - ${timeString}`;
   }
 
   return `${day}/${capitalizeText(month)}/${year}`;
