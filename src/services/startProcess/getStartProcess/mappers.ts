@@ -1,13 +1,11 @@
-import {
-  StartProcesses,
-} from "@pages/startProcess/types";
-import { periodicityValuesMock } from "@mocks/domains/startProcess/utils.mocks";
 
+import { periodicityValuesMock } from "@mocks/domains/startProcess/utils.mocks";
+import { IStartProcessesData } from '@pages/startProcess/types';
 
 const mapStartProcessApiToEntity = (
   process: Record<string, string | number | object>
-): StartProcesses => {
-  const processes: StartProcesses = {
+): IStartProcessesData => {
+  const processes: IStartProcessesData = {
     id: String(process.processCatalogId),
     abbreviatedName: String(process.abbreviatedName),
     executionDate:new Date(String(process.estimatedExecutionDate)),
@@ -19,7 +17,7 @@ const mapStartProcessApiToEntity = (
 
 const mapStartProcessApiToEntities = (
   processes: Record<string, string | number | object>[]
-): StartProcesses[] => {
+): IStartProcessesData[] => {
   return processes
     .map(mapStartProcessApiToEntity)
     .sort((a, b) => b.executionDate.getTime() - a.executionDate.getTime());

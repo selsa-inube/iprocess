@@ -8,16 +8,16 @@ import { ChangePeriod } from "@src/components/feedback/ChangePeriod";
 import { periodLaterYears, periodPreviousYears } from "@src/config/environment";
 
 import {
-  actions,
+  actionsConfig,
   breakPoints,
   scheduledNormailzeEntries,
   titlesConfig,
 } from "./config/table.config";
-import { StartProcesses } from "../../types";
+import { IStartProcessesData } from "../../types";
 
 interface ScheduledTabUIProps {
   description: string;
-  entries: StartProcesses[];
+  entries: IStartProcessesData[];
   loading: boolean;
   searchScheduled: string;
   selectedMonth: string;
@@ -68,7 +68,7 @@ function ScheduledTabUI(props: ScheduledTabUIProps) {
       <Table
         id="portal"
         titles={titlesConfig(handleOrderData)}
-        actions={actions}
+        actions={actionsConfig(selectedMonth, selectedYear)}
         entries={scheduledNormailzeEntries(entries)}
         breakpoints={breakPoints}
         loading={loading}

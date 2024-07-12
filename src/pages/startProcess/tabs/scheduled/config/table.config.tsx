@@ -1,18 +1,18 @@
-import { MdPinInvoke, MdImportExport } from "react-icons/md";
+import { MdImportExport } from "react-icons/md";
 import { Icon } from "@inubekit/icon";
 import { Text } from "@inubekit/text";
 import { SkeletonLine } from "@inubekit/skeleton";
 
 import { IActions, ITitle } from "@components/data/Table/props";
 import { StyledContainerTitle } from "@components/data/Table/stories/styles";
-import { StartProcesses } from "@pages/startProcess/types";
+import { IStartProcessesData } from "@pages/startProcess/types";
 import { formatDate } from "@utils/dates";
 import { Details } from "../components/Details";
+import { StartProcessScheduled } from "../components/StartProcess";
 
-
-const mapScheduled = (process: IActions) => {
+const mapDetailsScheduled = (process: IActions) => {
   return {
-    id: process.id,
+    id: process.processCatalogId,
     aplication: process.aplication,
     process: process.abbreviatedName,
     periodicity: process.periodicity,
@@ -21,10 +21,19 @@ const mapScheduled = (process: IActions) => {
   };
 };
 
-const scheduledNormailzeEntries = (process: StartProcesses[]) =>
+const mapStartProcessScheduled = (process: IActions) => {
+  return {
+    id: process.processCatalogId,
+    descriptionSuggested: process.abbreviatedName,
+    date: process.executionDateAndHour,
+  };
+};
+
+const scheduledNormailzeEntries = (process: IStartProcessesData[]) =>
   process.map((entry) => ({
     ...entry,
     id: `${entry.id}${entry.executionDate}`,
+    processCatalogId: entry.id,
     process: entry.abbreviatedName,
     executionDate: entry.executionDate && formatDate(entry.executionDate),
     executionDateAndHour: formatDate(entry.executionDate, true),
@@ -55,6 +64,21 @@ const labelsDetails = [
   },
 ];
 
+const labelsStartProcess = [
+  {
+    id: "descriptionSuggested",
+    titleName: "Descripción sugerida",
+  },
+  {
+    id: "descriptionComplementary",
+    titleName: "Descripción complementaría",
+  },
+  {
+    id: "date",
+    titleName: "Fecha y hora de ejecución",
+  },
+];
+
 const titlesConfig = (handleOrderData: () => void) => {
   const titles: ITitle[] = [
     {
@@ -66,7 +90,13 @@ const titlesConfig = (handleOrderData: () => void) => {
       id: "executionDate",
       titleName: (
         <StyledContainerTitle>
-          <Text type="title" size="small" appearance="dark" textAlign="start" weight="bold">
+          <Text
+            type="title"
+            size="small"
+            appearance="dark"
+            textAlign="start"
+            weight="bold"
+          >
             Fecha ejecución
           </Text>
 
@@ -91,32 +121,39 @@ const titlesConfig = (handleOrderData: () => void) => {
   return titles;
 };
 
-const actions = [
-  {
-    id: "Details",
-    actionName: "Detalles",
-    content: (process: IActions) => <Details data={mapScheduled(process)} />,
-  },
-  {
-    id: "StartProcess",
-    actionName: "Iniciar Proceso",
-    content: () => (
-      <Icon
-        appearance="gray"
-        icon={<MdPinInvoke />}
-        size="16px"
-        cursorHover={true}
-      />
-    ),
-  },
-];
+const actionsConfig = (selectedMonth: string, selectedYear: string) => {
+  const actions = [
+    {
+      id: "Details",
+      actionName: "Detalles",
+      content: (process: IActions) => (
+        <Details data={mapDetailsScheduled(process)} />
+      ),
+    },
+    {
+      id: "StartProcess",
+      actionName: "Iniciar Proceso",
+      content: (process: IActions) => (
+        <StartProcessScheduled
+        dataModal={mapStartProcessScheduled(process)}
+          id={process.processCatalogId}
+          selectedMonth={selectedMonth}
+          selectedYear={selectedYear}          
+        />
+      ),
+    },
+  ];
+
+  return actions;
+};
 
 const breakPoints = [{ breakpoint: "(min-width: 1091px)", totalColumns: 3 }];
 
 export {
-  titlesConfig,
-  actions,
   breakPoints,
   labelsDetails,
+  labelsStartProcess,
+  actionsConfig,
+  titlesConfig,
   scheduledNormailzeEntries,
 };

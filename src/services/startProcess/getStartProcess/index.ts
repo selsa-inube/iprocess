@@ -1,14 +1,14 @@
 import { enviroment } from "@src/config/environment";
 import {
   FilterProcessesForDate,
-  StartProcesses,
+  IStartProcessesData,
 } from "@pages/startProcess/types";
 import {
   mapStartProcessApiToEntities,
 } from "./mappers";
 
 const startProcessData = async (FilterProcesses: FilterProcessesForDate) 
-: Promise<StartProcesses[]> => {
+: Promise<IStartProcessesData[]> => {
   const maxRetries = 5;
   const fetchTimeout = 3000;
 

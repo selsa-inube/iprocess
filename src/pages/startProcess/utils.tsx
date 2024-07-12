@@ -1,10 +1,10 @@
 import { Button } from "@inubekit/button";
 
 import { StyledContainerButton } from "./styles";
-import { StartProcesses } from "./types";
+import { IStartProcessesData } from "./types";
 import { Tag } from "@inubekit/tag";
 
-const orderData = (data: StartProcesses[], orderAscending: boolean) => {
+const orderData = (data: IStartProcessesData[], orderAscending: boolean) => {
   orderAscending
     ? data.sort((b, a) => a.executionDate.getTime() - b.executionDate.getTime())
     : data.sort(

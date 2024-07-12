@@ -10,8 +10,7 @@ import {
 
 import { ScheduledTabUI } from "./interface";
 import { orderData } from "../../utils";
-import { FilterProcessesForDate, StartProcesses } from "../../types";
-
+import { FilterProcessesForDate, IStartProcessesData } from "../../types";
 
 function ScheduledTab() {
   const [searchScheduled, setSearchScheduled] = useState<string>("");
@@ -22,7 +21,7 @@ function ScheduledTab() {
     year: "",
   });
 
-  const [scheduled, setScheduled] = useState<StartProcesses[]>([]);
+  const [scheduled, setScheduled] = useState<IStartProcessesData[]>([]);
 
   const handleOrderData = () => {
     setOrderAscending(!orderAscending);
@@ -68,7 +67,7 @@ function ScheduledTab() {
       handleSearchScheduled={handleSearchScheduled}
       handleOrderData={handleOrderData}
       selectedMonth={selectedDate.month || currentMonthLetters!}
-  selectedYear={selectedDate.year || currentYear}
+      selectedYear={selectedDate.year || currentYear}
       searchScheduled={searchScheduled}
       setSelectedDate={setSelectedDate}
     />
