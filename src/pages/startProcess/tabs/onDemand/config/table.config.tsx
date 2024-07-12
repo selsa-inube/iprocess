@@ -3,10 +3,11 @@ import { Icon } from "@inubekit/icon";
 import { SkeletonLine } from "@inubekit/skeleton";
 
 import { IActions, ITitle } from "@components/data/Table/props";
-import { StartProcesses } from "@pages/startProcess/types";
-import { DetailsOnDemand } from "../components/Details";
 
-const onDemandNormailzeEntries = (process: StartProcesses[]) =>
+import { DetailsOnDemand } from "../components/Details";
+import { IStartProcessesData } from '@pages/startProcess/types';
+
+const onDemandNormailzeEntries = (process: IStartProcessesData[]) =>
   process.map((entry) => ({
     ...entry,
     id: `${entry.id}${entry.executionDate}`,

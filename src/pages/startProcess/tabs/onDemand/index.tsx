@@ -8,7 +8,7 @@ import {
 } from "@utils/dates";
 import { startProcessData } from "@services/startProcess/getStartProcess";
 import { OnDemandTabUI } from "./interface";
-import { FilterProcessesForDate, StartProcesses } from "../../types";
+import { FilterProcessesForDate, IStartProcessesData } from "../../types";
 
 import { orderData } from "../../utils";
 
@@ -23,7 +23,7 @@ function OnDemandTab() {
     year: "",
   });
 
-  const [onDemand, setOnDemand] = useState<StartProcesses[]>([]);
+  const [onDemand, setOnDemand] = useState<IStartProcessesData[]>([]);
 
   const handleOrderData = () => {
     setOrderAscending(!orderAscending);

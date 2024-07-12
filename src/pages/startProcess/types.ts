@@ -15,6 +15,11 @@ interface IStartProcessesData {
   periodicity?: string;
 }
 
+interface StartProcessesFilter {
+  onDemand: IStartProcessesData[];
+  scheduled: IStartProcessesData[];
+}
+
 interface IStartProcessesRequest {
   processCatalogId: string;
   month: number;
@@ -40,6 +45,7 @@ interface IStartProcessResponse {
 
 export type {
   FilterProcessesForDate,
+  StartProcessesFilter,
   IStartProcessesRequest,
   IStartProcessResponse,
   IStartProcessesData,

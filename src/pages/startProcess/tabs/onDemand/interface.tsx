@@ -11,11 +11,11 @@ import {
   onDemandNormailzeEntries,
   titlesOnDemand,
 } from "./config/table.config";
-import { StartProcesses} from "../../types";
+import { IStartProcessesData} from "../../types";
 
 interface OnDemandTabUIProps {
   description: string;
-  entries: StartProcesses[];
+  entries: IStartProcessesData[];
   loading: boolean;
   searchOnDemand: string;
   selectedMonth: string;
