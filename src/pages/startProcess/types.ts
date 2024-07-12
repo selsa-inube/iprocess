@@ -6,7 +6,6 @@ interface FilterProcessesForDate {
 
 interface IStartProcessesData {
   id: string;
-  
   abbreviatedName: string;
   executionDate: Date;
   processCatalogId?: string;

@@ -4,6 +4,7 @@ const periodicityValuesMock: Record<string, string> = {
     EverySaturday:"Cada Sábado",
     Monthly:"Mensual",
     Biweekly:"Quincenal",
+    OnDemand:"Por demanda"
   };
 
   export {periodicityValuesMock }

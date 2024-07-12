@@ -1,6 +1,6 @@
+import { IStartProcessesData, StartProcessesFilter } from "@pages/startProcess/types";
+import { periodicityValuesMock } from "@mocks/startProcess/utils.mocks";
 
-import { periodicityValuesMock } from "@mocks/domains/startProcess/utils.mocks";
-import { IStartProcessesData } from '@pages/startProcess/types';
 
 const mapStartProcessApiToEntity = (
   process: Record<string, string | number | object>
@@ -8,8 +8,8 @@ const mapStartProcessApiToEntity = (
   const processes: IStartProcessesData = {
     id: String(process.processCatalogId),
     abbreviatedName: String(process.abbreviatedName),
-    executionDate:new Date(String(process.estimatedExecutionDate)),
-    aplication:String(process.aplication),
+    executionDate: new Date(String(process.estimatedExecutionDate)),
+    aplication: String(process.aplication),
     periodicity: periodicityValuesMock[String(process.periodicity)],
   };
   return processes;
@@ -17,13 +17,22 @@ const mapStartProcessApiToEntity = (
 
 const mapStartProcessApiToEntities = (
   processes: Record<string, string | number | object>[]
-): IStartProcessesData[] => {
-  return processes
-    .map(mapStartProcessApiToEntity)
-    .sort((a, b) => b.executionDate.getTime() - a.executionDate.getTime());
+): StartProcessesFilter => {
+  const onDemand: IStartProcessesData[] = [];
+  const scheduled: IStartProcessesData[] = [];
+  processes.map(mapStartProcessApiToEntity).filter((startProcess) => {
+   
+    if (startProcess.periodicity !== periodicityValuesMock["OnDemand"])
+      scheduled.push(startProcess);
+
+    if (startProcess.periodicity === periodicityValuesMock["OnDemand"])
+      onDemand.push(startProcess);
+  });
+
+  return {
+    onDemand: onDemand,
+    scheduled: scheduled.sort((a, b) => b.executionDate.getTime() - a.executionDate.getTime())
+  }
 };
 
-export {
-  mapStartProcessApiToEntity,
-  mapStartProcessApiToEntities,
-};
+export { mapStartProcessApiToEntity, mapStartProcessApiToEntities };
