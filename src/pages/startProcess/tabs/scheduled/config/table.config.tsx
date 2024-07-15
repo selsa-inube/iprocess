@@ -21,12 +21,17 @@ const mapDetailsScheduled = (process: IActions) => {
   };
 };
 
-const mapStartProcessScheduled = (process: IActions) => {
+const mapStartProcessScheduled = (
+  process: IActions,
+  month: string,
+  year: string
+) => {
+  const formatDescriptionSuggested = `${process.abbreviatedName} Del mes de ${month} del año ${year}, fecha estimada de ejecución es ${process.executionDateAndHour}`;
   return {
     id: process.processCatalogId,
-    descriptionSuggested: process.abbreviatedName,
+    descriptionSuggested: formatDescriptionSuggested,
     date: process.executionDateAndHour,
-    dateWithoutFormat: process.executionDateWithoutFormat
+    dateWithoutFormat: process.executionDateWithoutFormat,
   };
 };
 
@@ -38,7 +43,7 @@ const scheduledNormailzeEntries = (process: IStartProcessesData[]) =>
     process: entry.abbreviatedName,
     executionDate: entry.executionDate && formatDate(entry.executionDate),
     executionDateAndHour: formatDate(entry.executionDate, true),
-    executionDateWithoutFormat:entry.executionDate,
+    executionDateWithoutFormat: entry.executionDate,
     requirements: <SkeletonLine animated />,
   }));
 
@@ -137,10 +142,14 @@ const actionsConfig = (selectedMonth: string, selectedYear: string) => {
       actionName: "Iniciar Proceso",
       content: (process: IActions) => (
         <StartProcessScheduled
-        dataModal={mapStartProcessScheduled(process)}
+          dataModal={mapStartProcessScheduled(
+            process,
+            selectedMonth,
+            selectedYear
+          )}
           id={process.processCatalogId}
           selectedMonth={selectedMonth}
-          selectedYear={selectedYear}          
+          selectedYear={selectedYear}
         />
       ),
     },

@@ -6,7 +6,7 @@ const mapStartProcessEntityToApi = (
   return {
     processCatalogId: String(startProcess.processCatalogId),
     month: Number(startProcess.month),
-    suggestedDescription: String(startProcess.year),
+    suggestedDescription: String(startProcess.suggestedDescription),
     year: Number(startProcess.year),
     cutOffDate: String(startProcess.cutOffDate),
     complementaryDescription: String(startProcess.complementaryDescription),
