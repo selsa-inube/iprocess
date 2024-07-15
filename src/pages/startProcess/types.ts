@@ -10,6 +10,7 @@ interface IStartProcessesData {
   executionDate: Date;
   processCatalogId?: string;
   executionDateAndHour?: Date;
+  executionDateWithoutFormat?: Date;
   requeriments?: string;
   aplication?: string;
   periodicity?: string;

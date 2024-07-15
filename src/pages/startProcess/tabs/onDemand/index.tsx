@@ -36,8 +36,7 @@ function OnDemandTab() {
   ) => {
     setLoading(true);
     try {
-      const newOnDemand = await startProcessData(filterDateChange);
-      console.log(newOnDemand); 
+      const newOnDemand = await startProcessData(filterDateChange); 
       setOnDemand(
         newOnDemand.onDemand
       );

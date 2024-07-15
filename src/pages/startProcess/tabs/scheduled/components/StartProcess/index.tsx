@@ -23,8 +23,8 @@ const StartProcessScheduled = (props: IStartProcessScheduledProps) => {
 
   const [showModal, setShowModal] = useState(false);
 
-  const formatCutOffDate = new Date(String(dataModal.date))
- 
+  const formatCutOffDate = new Date(String(dataModal.dateWithoutFormat));
+
   const handleStartProcess = () => {
     const data = startProcessAction({
       processCatalogId: String(id),

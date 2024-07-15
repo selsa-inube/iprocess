@@ -26,6 +26,7 @@ const mapStartProcessScheduled = (process: IActions) => {
     id: process.processCatalogId,
     descriptionSuggested: process.abbreviatedName,
     date: process.executionDateAndHour,
+    dateWithoutFormat: process.executionDateWithoutFormat
   };
 };
 
@@ -37,6 +38,7 @@ const scheduledNormailzeEntries = (process: IStartProcessesData[]) =>
     process: entry.abbreviatedName,
     executionDate: entry.executionDate && formatDate(entry.executionDate),
     executionDateAndHour: formatDate(entry.executionDate, true),
+    executionDateWithoutFormat:entry.executionDate,
     requirements: <SkeletonLine animated />,
   }));
 
