@@ -1,18 +1,13 @@
 import { Stack } from "@inubekit/stack";
-import { Tabs } from "@inubekit/tabs";
+//import { Tabs } from "@inubekit/tabs";
 import { useMediaQuery } from "@inubekit/hooks";
 import { Text } from "@inubekit/text";
 
-import { validateProgressTabsConfig } from "./config/tabs.config";
+//import { validateProgressTabsConfig } from "./config/tabs.config";
 import { MainTab } from "./tabs/main";
 
-interface ValidateProgressUIProps {
-  isSelected: string;
-  handleTabChange: (id: string) => void;
-}
-
-function ValidateProgressUI(props: ValidateProgressUIProps) {
-  const { isSelected, handleTabChange } = props;
+function ValidateProgressUI() {
+  //const { isSelected, handleTabChange } = props;
 
   const smallScreen = useMediaQuery("(max-width: 580px)");
 
@@ -28,19 +23,9 @@ function ValidateProgressUI(props: ValidateProgressUIProps) {
             Validar el Progreso
           </Text>
         </Stack>
-        <Stack gap="32px" direction="column">
-          <Tabs
-            tabs={Object.values(validateProgressTabsConfig)}
-            selectedTab={isSelected}
-            onChange={handleTabChange}
-          />
-          {isSelected === validateProgressTabsConfig.main.id && (
             <MainTab />
-          )}
         </Stack>
       </Stack>
-    </Stack>
   );
 }
-
 export { ValidateProgressUI };

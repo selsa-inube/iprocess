@@ -16,7 +16,7 @@ import { FilterProgressForDate, ValidateProgresses } from "../../types";
 
 
 function MainTab() {
-  const [searchScheduled, setSearchScheduled] = useState<string>("");
+  const [searchMain, setSearchMain] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(true);
   const [orderAscending, setOrderAscending] = useState<boolean>(false);
   const [selectedDate, setSelectedDate] = useState<IChangePeriodEntry>({
@@ -24,21 +24,21 @@ function MainTab() {
     year: "",
   });
 
-  const [scheduled, setScheduled] = useState<ValidateProgresses[]>([]);
+  const [main, setMain] = useState<ValidateProgresses[]>([]);
 
   const handleOrderData = () => {
     setOrderAscending(!orderAscending);
-    orderData(scheduled, orderAscending);
-    setScheduled(scheduled);
+    orderData(main, orderAscending);
+    setMain(main);
   };
 
-  const validateScheduled = async (
+  const validateMain = async (
     filterDateChange: FilterProgressForDate
   ) => {
     setLoading(true);
     try {
-      const newScheduled = await validateProgressData(filterDateChange);
-      setScheduled(newScheduled);
+      const newMain = await validateProgressData(filterDateChange);
+      setMain(newMain);
     } catch (error) {
       console.info(error);
     } finally {
@@ -47,31 +47,31 @@ function MainTab() {
   };
 
   useEffect(() => {
-    validateScheduled(filterDateChange(selectedDate));
+    validateMain(filterDateChange(selectedDate));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
     if (selectedDate.change === true) {
-      validateScheduled(filterDateChange(selectedDate));
+      validateMain(filterDateChange(selectedDate));
     }
   }, [selectedDate]);
 
-  const handleSearchScheduled = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchScheduled(e.target.value);
+  const handleSearchMain = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchMain(e.target.value);
   };
 
   return (
     <MainTabUI
-      entries={scheduled}
+      entries={main}
       loading={loading}
-      description={`Procesos de mes de ${selectedDate.month || currentMonthLetters!} 
-        de ${selectedDate.year || currentYear} para inciar su ejecucion`}
-      handleSearchScheduled={handleSearchScheduled}
+      description={`Procesos del mes de ${selectedDate.month || currentMonthLetters!} 
+        de ${selectedDate.year || currentYear}`}
+      handleSearchMain={handleSearchMain}
       handleOrderData={handleOrderData}
       selectedMonth={selectedDate.month || currentMonthLetters!}
-  selectedYear={selectedDate.year || currentYear}
-      searchScheduled={searchScheduled}
+      selectedYear={selectedDate.year || currentYear}
+      searchMain={searchMain}
       setSelectedDate={setSelectedDate}
     />
   );

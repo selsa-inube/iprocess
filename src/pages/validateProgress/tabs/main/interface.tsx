@@ -4,26 +4,27 @@ import { Textfield } from "@inubekit/textfield";
 
 import { Table } from "@components/data/Table";
 import { IChangePeriodEntry } from "@components/modals/ChangePeriodModal/types";
-import { ChangePeriod } from "@src/components/feedback/ChangePeriod";
+import { ChangePeriod } from "@components/feedback/ChangePeriod";
 import { periodLaterYears, periodPreviousYears } from "@src/config/environment";
 
 import {
   actions,
   breakPoints,
-  scheduledNormailzeEntries,
+  mainNormailzeEntries,
   titlesConfig,
 } from "./config/table.config";
 import { ValidateProgresses } from "../../types";
+//import { entriesMock } from "@src/components/data/Table/stories/mocks";
 
 interface MainTabUIProps {
   description: string;
   entries: ValidateProgresses[];
   loading: boolean;
-  searchScheduled: string;
+  searchMain: string;
   selectedMonth: string;
   selectedYear: string;
   setSelectedDate: (show: IChangePeriodEntry) => void;
-  handleSearchScheduled: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  handleSearchMain: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleOrderData: () => void;
 }
 
@@ -32,11 +33,11 @@ function MainTabUI(props: MainTabUIProps) {
     description,
     entries,
     loading,
-    searchScheduled,
+    searchMain,
     selectedMonth,
     selectedYear,
     setSelectedDate,
-    handleSearchScheduled,
+    handleSearchMain,
     handleOrderData,
   } = props;
 
@@ -52,15 +53,15 @@ function MainTabUI(props: MainTabUIProps) {
           selectedYear={selectedYear}
         />
         <Textfield
-          name="searchScheduled"
-          id="searchScheduled"
+          name="searchMain"
+          id="searchMain"
           placeholder="Búsqueda..."
           type="search"
           iconBefore={<MdSearch />}
           size="compact"
-          value={searchScheduled}
+          value={searchMain}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            handleSearchScheduled(e)
+            handleSearchMain(e)
           }
         />
       </Stack>
@@ -68,11 +69,12 @@ function MainTabUI(props: MainTabUIProps) {
         id="portal"
         titles={titlesConfig(handleOrderData)}
         actions={actions}
-        entries={scheduledNormailzeEntries(entries)}
+        entries={mainNormailzeEntries(entries)}
+        //entries={entriesMock}
         breakpoints={breakPoints}
         loading={loading}
-        filter={searchScheduled}
-        widthFirstColumn="55%"
+        filter={searchMain}
+        widthFirstColumn="45%"
       />
     </Stack>
   );

@@ -6,9 +6,13 @@ interface FilterProgressForDate {
   
   interface ValidateProgresses {
     id: string;
-    businessUnit: string;
+    processDescription: string;
     executionDate: Date;
-    requeriments?: string;
+    generalError: string;
+    aplication?: string;
+    periodicity?: string;
+    state?: string;
+    requirements?: string;
   }
   
   export type { FilterProgressForDate, ValidateProgresses };

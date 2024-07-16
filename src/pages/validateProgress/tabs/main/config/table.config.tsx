@@ -1,26 +1,68 @@
-import {
-    MdOutlineRemoveRedEye,
-    MdPinInvoke,
-    MdImportExport,
-  } from "react-icons/md";
+import { //MdOutlineRemoveRedEye,
+    MdMoreVert, MdImportExport} from "react-icons/md";
   import { Icon } from "@inubekit/icon";
   import { Text } from "@inubekit/text";
   import { SkeletonLine } from "@inubekit/skeleton";
   
-  import { ITitle } from "@components/data/Table/props";
+  import { ITitle, IActions } from "@components/data/Table/props";
   import { StyledContainerTitle } from "@components/data/Table/stories/styles";
   import { ValidateProgresses } from "@pages/validateProgress/types";
   import { formatDate } from "@utils/dates";
+  import { requirementsButton } from "@pages/validateProgress/utils";
+  import { Details } from "../components/Details";
   
-  const scheduledNormailzeEntries = (process: ValidateProgresses[]) =>
-    process.map((entry) => ({
+  const mapMain = (progress: IActions) => {
+    return {
+      id: progress.id,
+      aplication: progress.id,
+      processDescription: progress.processDescription,
+      executionDate: progress.executionDate,
+      executionDateAndHour: progress.executionDateAndHour,
+      generalError: progress.generalError,
+      state: progress.plannedExecution,
+      periodicity: progress.periodicity,
+      requirements: progress.requirements,
+    };
+  };
+ 
+  const mainNormailzeEntries = (progress: ValidateProgresses[]) =>
+    progress.map((entry) => ({
       ...entry,
       id: `${entry.id}${entry.executionDate}`,
-      process: entry.businessUnit,
+      process: entry.processDescription,
       executionDate: entry.executionDate && formatDate(entry.executionDate),
-      requirements: <SkeletonLine animated />,
+      executionDateAndHour: formatDate(entry.executionDate, true),
+      requirements: requirementsButton(),
+      state: <SkeletonLine animated/>,
     }));
   
+  const labelsDetails = [
+      {
+        id: "aplication",
+        titleName: "Aplicación",
+      },
+      {
+        id: "processDescription",
+        titleName: "Proceso",
+      },
+      {
+        id: "generalError",
+        titleName: "Descripción error ",
+      },
+      {
+        id: "periodicity",
+        titleName: "Periodicidad",
+      },
+      {
+        id: "executionDateAndHour",
+        titleName: "Fecha Estimada de Ejecución",
+      },
+      {
+        id: "requirements",
+        titleName: "Requerimientos",
+      },
+    ];
+
   const titlesConfig = (handleOrderData: () => void) => {
     const titles: ITitle[] = [
       {
@@ -61,14 +103,7 @@ import {
     {
       id: "Details",
       actionName: "Detalles",
-      content: () => (
-        <Icon
-          appearance="gray"
-          icon={<MdOutlineRemoveRedEye />}
-          size="16px"
-          cursorHover={true}
-        />
-      ),
+      content: (progress: IActions) => <Details data={mapMain(progress)}/>,
     },
     {
       id: "Options",
@@ -76,7 +111,7 @@ import {
       content: () => (
         <Icon
           appearance="gray"
-          icon={<MdPinInvoke />}
+          icon={<MdMoreVert />}
           size="16px"
           cursorHover={true}
         />
@@ -86,5 +121,5 @@ import {
   
   const breakPoints = [{ breakpoint: "(min-width: 1091px)", totalColumns: 3 }];
   
-  export { titlesConfig, actions, breakPoints, scheduledNormailzeEntries };
+  export { titlesConfig, actions, breakPoints, mainNormailzeEntries, labelsDetails };
   
