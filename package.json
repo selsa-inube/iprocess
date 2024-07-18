@@ -26,6 +26,7 @@
     "@inubekit/icon": "^1.6.0",
     "@inubekit/select": "^2.4.0",
     "@inubekit/skeleton": "^2.2.0",
+    "@inubekit/spinner": "^2.3.0",
     "@inubekit/stack": "^2.2.0",
     "@inubekit/tabs": "^2.1.0",
     "@inubekit/tag": "^3.2.0",
