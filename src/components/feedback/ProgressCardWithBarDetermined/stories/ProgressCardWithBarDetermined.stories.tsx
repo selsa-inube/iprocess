@@ -92,7 +92,9 @@ const TemplateButton: StoryFn<ProgressCardWithBarDeterminedProps> = (args) => {
 export const WithButtonClose = TemplateButton.bind({});
 WithButtonClose.args = {
   buttonClose: true,
+  estime: totalSeconds,
   portalId: "portal",
+  heightProgressBar: "15px",
   appearance: "primary",
 };
 

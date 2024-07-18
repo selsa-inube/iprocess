@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { BrowserRouter } from "react-router-dom";
 import { useState } from "react";
 import { Meta, StoryFn } from "@storybook/react";

@@ -53,8 +53,8 @@ const StyledProgressBar = styled.div<IStyledProgressBar>`
     theme?.progressBar?.[$appearance]?.background.color ||
     progressBar[$appearance]?.background.color};
 
-  ${({ $animated, $appearance }) =>
-    $animated &&
+  ${({ $animated, $progress, $appearance }) =>
+    $animated && $progress !== 100 &&
     css`
       &::after {
         content: "";
