@@ -5,9 +5,13 @@ import { Text } from "@inubekit/text";
 import { useMediaQuery } from "@inubekit/hooks";
 
 import { Table } from "@components/data/Table";
-import { actions, breakPoints, titlesConfig } from "./config/table.config";
+import {
+  actions,
+  breakPoints,
+  titlesConfig,
+  confirmInitialtedNormailzeEntries,
+} from "./config/table.config";
 import { IConfirmInitiated } from "./types";
-import { confirmInitialtedNormailzeEntries } from "./config/table.config";
 
 interface ConfirmInitiatedUIProps {
   entries: IConfirmInitiated[];
@@ -70,33 +74,6 @@ function ConfirmInitiatedUI(props: ConfirmInitiatedUIProps) {
         </Stack>
       </Stack>
     </Stack>
-
-    // <Stack gap="32px" direction="column">
-    //   <Stack justifyContent="flex-start">
-    //     <Textfield
-    //       name="searchConfirmInitiated"
-    //       id="searchConfirmInitiated"
-    //       placeholder="Búsqueda..."
-    //       type="search"
-    //       iconBefore={<MdSearch />}
-    //       size="compact"
-    //       value={searchConfirmInitiated}
-    //       onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-    //         handleSearchConfirmInitiated(e)
-    //       }
-    //     />
-    //   </Stack>
-    //   <Table
-    //     id="portal"
-    //     titles={titlesConfig(handleOrderData)}
-    //     actions={actions}
-    //     entries={confirmInitialtedNormailzeEntries(entries)}
-    //     breakpoints={breakPoints}
-    //     loading={loading}
-    //     filter={searchConfirmInitiated}
-    //     widthFirstColumn="55%"
-    //   />
-    // </Stack>
   );
 }
 

@@ -30,6 +30,8 @@ const DetailModal = (props: DetailModalProps) => {
   } = props;
 
 
+  console.log(Object.values(data));
+
   const isMobile = useMediaQuery("(max-width: 500px)");
 
   const node = document.getElementById(portalId);
@@ -61,7 +63,7 @@ const DetailModal = (props: DetailModalProps) => {
 
               {labels.slice(0, partOfLabels).map(
                 (field, id) =>
-                  data[field.id] && (
+                  (
                     <StyledModalFields key={id} $smallScreen={isMobile}>
                       <Label
                         htmlFor={field.id}
@@ -71,7 +73,7 @@ const DetailModal = (props: DetailModalProps) => {
                         {field.titleName}
                       </Label>
                       <Fieldset legend="" spacing="compact">
-                        <Text>{data[field.id]}</Text>
+                       <Text>{data[field.id]}</Text> 
                       </Fieldset>
                     </StyledModalFields>
                   )

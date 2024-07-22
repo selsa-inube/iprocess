@@ -36,17 +36,13 @@ const confirmInitialtedNormailzeEntries = (process: IConfirmInitiated[]) =>
 
 const labelsDetails = [
   {
-    id: "aplication",
-    titleName: "Aplicación",
-  },
-  {
     id: "process",
     titleName: "Proceso",
     priority: 1,
   },
   {
-    id: "periodicity",
-    titleName: "Periodicidad",
+    id: "totalPersons",
+    titleName: "Total personas",
   },
   {
     id: "executionDateAndHour",
