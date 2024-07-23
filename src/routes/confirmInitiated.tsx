@@ -1,5 +1,5 @@
-import { ConfirmInitiated } from "@src/pages/confirmInitiated";
 import { Route, Routes } from "react-router-dom";
+import { ConfirmInitiated } from "@pages/confirmInitiated";
 
 function ConfirmInitiatedRoutes() {
   return (
