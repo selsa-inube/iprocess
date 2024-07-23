@@ -29,9 +29,6 @@ const DetailModal = (props: DetailModalProps) => {
     onCloseModal,
   } = props;
 
-
-  console.log(Object.values(data));
-
   const isMobile = useMediaQuery("(max-width: 500px)");
 
   const node = document.getElementById(portalId);
