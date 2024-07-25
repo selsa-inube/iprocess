@@ -17,7 +17,7 @@ import { IEntries, ILabel } from "../MoreDetailsModal/types";
 import { tokens } from "@src/design/tokens";
 
 interface ExecutionParametersModalProps {
-  loading: boolean;
+  isVisible: boolean;
   portalId: string;
   data: IEntries;
   labels: ILabel[];
@@ -32,7 +32,7 @@ const ExecutionParametersModal = (props: ExecutionParametersModalProps) => {
     breakPointsParametersTable,
     data,
     labels,
-    loading,
+    isVisible,
     entriesParametersTable,
     portalId,
     titlesParametersTable,
@@ -91,7 +91,7 @@ const ExecutionParametersModal = (props: ExecutionParametersModalProps) => {
                 titles={titlesParametersTable}
                 entries={entriesParametersTable}
                 breakpoints={breakPointsParametersTable}
-                loading={loading}
+                loading={isVisible}
                 widthFirstColumn="65%"
               />
             </Stack>
@@ -100,7 +100,7 @@ const ExecutionParametersModal = (props: ExecutionParametersModalProps) => {
                 spacing="wide"
                 appearance="primary"
                 variant="filled"
-                loading={loading}
+                loading={isVisible}
                 onClick={onCloseModal}
               >
                 Cerrar
