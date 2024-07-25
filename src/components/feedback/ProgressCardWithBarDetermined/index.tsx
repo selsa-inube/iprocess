@@ -8,7 +8,7 @@ import { Blanket } from "@inubekit/blanket";
 import { tokens } from "@src/design/tokens";
 import { StyledContainer, StyledModal } from "./styles";
 import { ProgressBar } from "../../../design/feedback/ProgressBar";
-import { IProgressBarAppearance } from "./types";
+import { ProgressCardWithBarType } from "./types";
 
 interface ProgressCardWithBarDeterminedProps {
   estime: number;
@@ -16,7 +16,7 @@ interface ProgressCardWithBarDeterminedProps {
   portalId: string;
   withButtonClose?: boolean;
   heightProgressBar?: string;
-  appearance?: IProgressBarAppearance;
+  appearance?: ProgressCardWithBarType;
   onCancel?: () => void;
 }
 

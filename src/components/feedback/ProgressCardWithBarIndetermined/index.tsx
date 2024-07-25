@@ -8,13 +8,13 @@ import { Blanket } from "@inubekit/blanket";
 import { Spinner } from "@inubekit/spinner";
 
 import { StyledContainer, StyledModal } from "./styles";
-import { IProgressBarAppearance } from "../ProgressCardWithBarDetermined/types";
+import { ProgressCardWithBarType } from "../ProgressCardWithBarDetermined/types";
 import { tokens } from "@src/design/tokens";
 
 
 interface ProgressCardWithBarIndeterminedProps {
   portalId: string;
-  appearance?:IProgressBarAppearance;
+  appearance?:ProgressCardWithBarType;
   withButtonClose?: boolean;
   withDisabledButton?: boolean;
   onCancel?: () => void;

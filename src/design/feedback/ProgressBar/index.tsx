@@ -2,13 +2,13 @@ import { AnimationEvent } from "react";
 
 import { tokens } from "@src/design/tokens";
 import { StyledContainerProgressBar, StyledProgressBar } from "./styles";
-import { IProgressBarAppearance } from "./types";
+import { ProgressBarAppearanceType } from "./types";
 
 
 interface ProgressBarProps {
   progress: number;
   height?: string;
-  appearance?: IProgressBarAppearance;
+  appearance?: ProgressBarAppearanceType;
   withBorder?: boolean;
   withAnimated?: boolean;
   onProgress?: (e: AnimationEvent<HTMLDivElement>) => void;

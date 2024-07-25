@@ -3,23 +3,23 @@ import { keyframes } from "styled-components";
 
 import { tokens } from "@src/design/tokens";
 
-import { IProgressBarAppearance } from "./types";
+import { ProgressBarAppearanceType } from "./types";
 import { progressBar } from "@src/design/tokens/progressBar";
 
 interface IStyledProgressBar {
   $height: string;
   $progress: number;
-  $appearance: IProgressBarAppearance;
+  $appearance: ProgressBarAppearanceType;
   $withAnimated: boolean;
 }
 
 interface IStyledContainerProgressBar {
-  $appearance: IProgressBarAppearance;
+  $appearance: ProgressBarAppearanceType;
   $withBorder: boolean;
   $height: string;
 }
 
-const Shimmer = keyframes`
+const shimmer = keyframes`
   0% {
     background-position: 0% 50%;
   }
@@ -62,7 +62,7 @@ const StyledProgressBar = styled.div<IStyledProgressBar>`
        }  
     )`};
         background-size: 200% 200%;
-        animation: ${Shimmer} 1.3s linear infinite;
+        animation: ${shimmer} 1.3s linear infinite;
       }
     `}
 `;
