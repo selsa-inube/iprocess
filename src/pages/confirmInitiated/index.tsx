@@ -47,7 +47,7 @@ function ConfirmInitiated() {
   return (
     <ConfirmInitiatedUI
       entries={confirmInitiated}
-      loading={loading}
+      isVisible={loading}
       searchConfirmInitiated={searchConfirmInitiated}
       onSearchConfirmInitiated={handleSearchConfirmInitiated}
       onOrderData={handleOrderData}

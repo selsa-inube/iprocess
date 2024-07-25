@@ -17,7 +17,7 @@ import { IConfirmInitiated } from "./types";
 
 interface ConfirmInitiatedUIProps {
   entries: IConfirmInitiated[];
-  loading: boolean;
+  isVisible: boolean;
   searchConfirmInitiated: string;
   onSearchConfirmInitiated: (
     e: React.ChangeEvent<HTMLInputElement>
@@ -28,7 +28,7 @@ interface ConfirmInitiatedUIProps {
 function ConfirmInitiatedUI(props: ConfirmInitiatedUIProps) {
   const {
     entries,
-    loading,
+    isVisible,
     searchConfirmInitiated,
     onSearchConfirmInitiated,
     onOrderData,
@@ -73,7 +73,7 @@ function ConfirmInitiatedUI(props: ConfirmInitiatedUIProps) {
             actions={actions}
             entries={confirmInitialtedNormailzeEntries(entries)}
             breakpoints={breakPoints}
-            loading={loading}
+            loading={isVisible}
             filter={searchConfirmInitiated}
             widthFirstColumn="55%"
           />
