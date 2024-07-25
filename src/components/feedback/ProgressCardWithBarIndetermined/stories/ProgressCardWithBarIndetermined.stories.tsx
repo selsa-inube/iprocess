@@ -3,7 +3,10 @@ import { useState } from "react";
 import { Meta, StoryFn } from "@storybook/react";
 import { Button } from "@inubekit/button";
 
-import { ProgressCardWithBarIndetermined, ProgressCardWithBarIndeterminedProps } from "..";
+import {
+  ProgressCardWithBarIndetermined,
+  ProgressCardWithBarIndeterminedProps,
+} from "..";
 
 const meta: Meta<typeof ProgressCardWithBarIndetermined> = {
   title: "feedback/ProgressCardWithBarIndetermined",
@@ -26,21 +29,25 @@ const Template: StoryFn<ProgressCardWithBarIndeterminedProps> = (args) => {
       {showModal && (
         <ProgressCardWithBarIndetermined
           {...args}
-          handleCancel={() => setShowModal(false)}
+          onCancel={() => setShowModal(false)}
         />
       )}
     </>
   );
 };
 
-export const Default = Template.bind({});
+export const Default: StoryFn<ProgressCardWithBarIndeterminedProps> =
+  Template.bind({});
+
 Default.args = {
   withButtonClose: false,
   portalId: "portal",
   appearance: "primary",
 };
 
-const TemplateButton: StoryFn<ProgressCardWithBarIndeterminedProps> = (args) => {
+const TemplateButton: StoryFn<ProgressCardWithBarIndeterminedProps> = (
+  args
+) => {
   const [showModal, setShowModal] = useState(false);
 
   return (
@@ -49,14 +56,16 @@ const TemplateButton: StoryFn<ProgressCardWithBarIndeterminedProps> = (args) => 
       {showModal && (
         <ProgressCardWithBarIndetermined
           {...args}
-          handleCancel={() => setShowModal(false)}
+          onCancel={() => setShowModal(false)}
         />
       )}
     </>
   );
 };
 
-export const WithButtonClose = TemplateButton.bind({});
+export const WithButtonClose: StoryFn<ProgressCardWithBarIndeterminedProps> =
+  TemplateButton.bind({});
+
 WithButtonClose.args = {
   withButtonClose: true,
   portalId: "portal",

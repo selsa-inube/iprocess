@@ -9,4 +9,4 @@ const appearances = [
   "light",
 ] as const;
 
-export type IProgressBarAppearance = typeof appearances;
+export type IProgressBarAppearance = typeof appearances[number];

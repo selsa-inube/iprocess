@@ -1,11 +1,41 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useState } from "react";
 import { BrowserRouter } from "react-router-dom";
 import { Meta, StoryFn } from "@storybook/react";
 import { Button } from "@inubekit/button";
 
 import { ProgressCardWithBarDetermined, ProgressCardWithBarDeterminedProps } from "..";
-import { percentageElapsed, totalSeconds } from "./mock";
+import { tokens } from "@src/design/tokens";
+
+const calculateSeconds = (dateProcess: Date) => {
+  return (
+    dateProcess.getHours() * 3600 +
+    dateProcess.getMinutes() * 60 +
+    dateProcess.getSeconds()
+  );
+};
+const dateStart = new Date();
+const dateEnd = new Date(); 
+dateEnd.setSeconds(dateEnd.getSeconds() + 30);
+const secondStart = calculateSeconds(dateStart);
+const secondEnd = calculateSeconds(dateEnd);
+const totalSeconds = secondEnd - secondStart;
+
+const calculatePercentage = (currentMoment: number) => {
+  const secondsElapsed = currentMoment - secondStart;
+  const secondsValid = secondsElapsed >= 0 ? secondsElapsed : 0;
+  const percentage = (secondsValid / totalSeconds) * 100;
+  return percentage;
+};
+
+ const percentageElapsed = () => {
+  const dateCurrent = new Date();
+  const currentMoment = calculateSeconds(dateCurrent);
+  const percentage = calculatePercentage(currentMoment);
+  return percentage;
+};
+
+
+
 
 const meta: Meta<typeof ProgressCardWithBarDetermined> = {
   title: "feedback/ProgressCardWithBarDetermined",
@@ -19,7 +49,7 @@ const meta: Meta<typeof ProgressCardWithBarDetermined> = {
   ],
 };
 
-const DynamicProgressCardWithBarDetermined = ({ children }: any) => {
+const DynamicProgressCardWithBarDetermined = ({ children }: { children: React.ReactElement<{ progress: number }> }) => {
   const [percentage, setPercentage] = useState(0);
 
   useEffect(() => {
@@ -37,12 +67,13 @@ const DynamicProgressCardWithBarDetermined = ({ children }: any) => {
 
   return (
     <>
-      {React.cloneElement(children, {
+      {React.isValidElement(children) && React.cloneElement(children, {
         progress: percentage,
       })}
     </>
   );
 };
+
 
 const Template: StoryFn<ProgressCardWithBarDeterminedProps> = (args) => {
   const [showModal, setShowModal] = useState(false);
@@ -54,7 +85,7 @@ const Template: StoryFn<ProgressCardWithBarDeterminedProps> = (args) => {
         <DynamicProgressCardWithBarDetermined>
           <ProgressCardWithBarDetermined
             {...args}
-            handleCancel={() => setShowModal(false)}
+            onCancel={() => setShowModal(false)}
           />
         </DynamicProgressCardWithBarDetermined>
       )}
@@ -62,12 +93,12 @@ const Template: StoryFn<ProgressCardWithBarDeterminedProps> = (args) => {
   );
 };
 
-export const Default = Template.bind({});
+export const Default: StoryFn<ProgressCardWithBarDeterminedProps> = Template.bind({});
 Default.args = {
-  buttonClose: false,
+  withButtonClose: false,
   estime: totalSeconds,
   portalId: "portal",
-  heightProgressBar: "15px",
+  heightProgressBar: tokens.spacing.s200,
   appearance: "primary",
 };
 
@@ -81,7 +112,7 @@ const TemplateButton: StoryFn<ProgressCardWithBarDeterminedProps> = (args) => {
         <DynamicProgressCardWithBarDetermined>
           <ProgressCardWithBarDetermined
             {...args}
-            handleCancel={() => setShowModal(false)}
+            onCancel={() => setShowModal(false)}
           />
         </DynamicProgressCardWithBarDetermined>
       )}
@@ -89,9 +120,9 @@ const TemplateButton: StoryFn<ProgressCardWithBarDeterminedProps> = (args) => {
   );
 };
 
-export const WithButtonClose = TemplateButton.bind({});
+export const WithButtonClose: StoryFn<ProgressCardWithBarDeterminedProps> = TemplateButton.bind({});
 WithButtonClose.args = {
-  buttonClose: true,
+  withButtonClose: true,
   estime: totalSeconds,
   portalId: "portal",
   heightProgressBar: "15px",

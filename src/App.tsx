@@ -5,6 +5,7 @@ import {
   createBrowserRouter,
   createRoutesFromElements,
 } from "react-router-dom";
+import { ThemeProvider } from "styled-components";
 
 import { useAuth0 } from "@auth0/auth0-react";
 import { ErrorPage } from "@components/layout/ErrorPage";
@@ -18,12 +19,16 @@ import { FinishedRoutes } from "./routes/finished";
 import { StartProcessRoutes } from "./routes/startProcess";
 import { ValidateProgressRoutes } from "./routes/validateProgress";
 
+import { theme } from "./config/theme";
+
+
 function LogOut() {
   localStorage.clear();
   const { logout } = useAuth0();
   logout({ logoutParams: { returnTo: enviroment.REDIRECT_URI } });
   return <AppPage />;
 }
+
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -59,11 +64,16 @@ function App() {
   if (!isAuthenticated) {
     return null;
   }
+
   return (
+    <>
+    <GlobalStyles />
+    <ThemeProvider theme={theme}> 
     <AppContextProvider>
-      <GlobalStyles />
       <RouterProvider router={router} />
     </AppContextProvider>
+    </ThemeProvider>
+    </>
   );
 }
 

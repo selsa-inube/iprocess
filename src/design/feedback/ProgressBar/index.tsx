@@ -1,21 +1,16 @@
 import { AnimationEvent } from "react";
+
+import { tokens } from "@src/design/tokens";
 import { StyledContainerProgressBar, StyledProgressBar } from "./styles";
+import { IProgressBarAppearance } from "./types";
+
 
 interface ProgressBarProps {
   progress: number;
   height?: string;
-  appearance?:
-    | "primary"
-    | "success"
-    | "warning"
-    | "danger"
-    | "help"
-    | "dark"
-    | "gray"
-    | "light";
-
-  border?: boolean;
-  animated?: boolean;
+  appearance?: IProgressBarAppearance;
+  withBorder?: boolean;
+  withAnimated?: boolean;
   onProgress?: (e: AnimationEvent<HTMLDivElement>) => void;
 }
 
@@ -23,9 +18,9 @@ const ProgressBar = (props: ProgressBarProps) => {
   const {
     progress,
     appearance = "primary",
-    height = "4px",
-    animated = false,
-    border = true,
+    height = tokens.spacing.s050,
+    withAnimated = false,
+    withBorder = true,
     onProgress,
   } = props;
 
@@ -43,7 +38,7 @@ const ProgressBar = (props: ProgressBarProps) => {
 
   return (
     <StyledContainerProgressBar
-      $border={border}
+      $withBorder={withBorder}
       $appearance={appearance}
       $height={height}
     >
@@ -52,7 +47,7 @@ const ProgressBar = (props: ProgressBarProps) => {
         $appearance={appearance}
         $height={height}
         $progress={progress}
-        $animated={animated}
+        $withAnimated={withAnimated}
         onAnimationEnd={interceptOnProgress}
       />
     </StyledContainerProgressBar>

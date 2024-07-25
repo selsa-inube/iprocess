@@ -8,21 +8,16 @@ import { Blanket } from "@inubekit/blanket";
 import { Spinner } from "@inubekit/spinner";
 
 import { StyledContainer, StyledModal } from "./styles";
+import { IProgressBarAppearance } from "../ProgressCardWithBarDetermined/types";
+import { tokens } from "@src/design/tokens";
+
 
 interface ProgressCardWithBarIndeterminedProps {
   portalId: string;
-  appearance?:
-    | "primary"
-    | "success"
-    | "warning"
-    | "danger"
-    | "help"
-    | "dark"
-    | "gray"
-    | "light";
+  appearance?:IProgressBarAppearance;
   withButtonClose?: boolean;
-  disabledButton?: boolean;
-  handleCancel?: () => void;
+  withDisabledButton?: boolean;
+  onCancel?: () => void;
 }
 
 const ProgressCardWithBarIndetermined = (props: ProgressCardWithBarIndeterminedProps) => {
@@ -30,8 +25,8 @@ const ProgressCardWithBarIndetermined = (props: ProgressCardWithBarIndeterminedP
     portalId,
     appearance = "primary",
     withButtonClose,
-    disabledButton,
-    handleCancel,
+    withDisabledButton,
+    onCancel,
   } = props;
 
   const isMobile = useMediaQuery("(max-width: 500px)");
@@ -47,9 +42,9 @@ const ProgressCardWithBarIndetermined = (props: ProgressCardWithBarIndeterminedP
   return createPortal(
     <StyledContainer>
       <Blanket>
-        <StyledModal $smallScreen={isMobile}>
-          <Stack direction="column" gap="40px">
-            <Stack direction="column" gap="20px">
+        <StyledModal $withSmallScreen={isMobile}>
+          <Stack direction="column" gap={tokens.spacing.s500}>
+            <Stack direction="column" gap={tokens.spacing.s250}>
               <Text type="body" size="medium" appearance="dark">
                 Este proceso tomará algo de tiempo, por favor espere hasta que
                 se complete.
@@ -64,13 +59,13 @@ const ProgressCardWithBarIndetermined = (props: ProgressCardWithBarIndeterminedP
             </Stack>
 
             {withButtonClose && (
-              <Stack gap="8px" justifyContent="flex-end">
+              <Stack gap={tokens.spacing.s100} justifyContent="flex-end">
                 <Button
                   spacing="wide"
                   appearance="primary"
                   variant="filled"
-                  onClick={handleCancel}
-                  disabled={disabledButton}
+                  onClick={onCancel}
+                  disabled={withDisabledButton}
                 >
                   Cerrar
                 </Button>

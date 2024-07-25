@@ -5,36 +5,32 @@ import { Stack } from "@inubekit/stack";
 import { Text } from "@inubekit/text";
 import { Blanket } from "@inubekit/blanket";
 
+import { tokens } from "@src/design/tokens";
 import { StyledContainer, StyledModal } from "./styles";
-import { ProgressBar } from "../ProgressBar";
+import { ProgressBar } from "../../../design/feedback/ProgressBar";
+import { IProgressBarAppearance } from "./types";
 
 interface ProgressCardWithBarDeterminedProps {
   estime: number;
   progress: number;
   portalId: string;
-  buttonClose?: boolean;
+  withButtonClose?: boolean;
   heightProgressBar?: string;
-  appearance?:
-    | "primary"
-    | "success"
-    | "warning"
-    | "danger"
-    | "help"
-    | "dark"
-    | "gray"
-    | "light";
-  handleCancel?: () => void;
+  appearance?: IProgressBarAppearance;
+  onCancel?: () => void;
 }
 
-const ProgressCardWithBarDetermined = (props: ProgressCardWithBarDeterminedProps) => {
+const ProgressCardWithBarDetermined = (
+  props: ProgressCardWithBarDeterminedProps
+) => {
   const {
-    buttonClose = false,
+    withButtonClose = false,
     estime,
     progress,
     portalId,
-    heightProgressBar = "15px",
+    heightProgressBar = tokens.spacing.s200,
     appearance,
-    handleCancel,
+    onCancel,
   } = props;
 
   const isMobile = useMediaQuery("(max-width: 500px)");
@@ -50,9 +46,9 @@ const ProgressCardWithBarDetermined = (props: ProgressCardWithBarDeterminedProps
   return createPortal(
     <StyledContainer>
       <Blanket>
-        <StyledModal $smallScreen={isMobile}>
-          <Stack direction="column" gap="40px">
-            <Stack direction="column" gap="20px">
+        <StyledModal $withSmallScreen={isMobile}>
+          <Stack direction="column" gap={tokens.spacing.s500}>
+            <Stack direction="column" gap={tokens.spacing.s250}>
               <Text type="body" size="medium" appearance="dark">
                 Este proceso tomará algo de tiempo, por favor espere hasta que
                 se complete.
@@ -73,18 +69,18 @@ const ProgressCardWithBarDetermined = (props: ProgressCardWithBarDeterminedProps
                   progress={progress}
                   height={heightProgressBar}
                   appearance={appearance}
-                  animated
-                  onProgress={() => {}}
+                  withAnimated
+                  onProgress={() => true}
                 />
               </Stack>
             </Stack>
-            {buttonClose && (
-              <Stack gap="8px" justifyContent="flex-end">
+            {withButtonClose && (
+              <Stack gap={tokens.spacing.s100} justifyContent="flex-end">
                 <Button
                   spacing="wide"
                   appearance="primary"
                   variant="filled"
-                  onClick={handleCancel}
+                  onClick={onCancel}
                   disabled={progress !== 100}
                 >
                   Cerrar
