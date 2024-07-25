@@ -49,8 +49,8 @@ function ConfirmInitiated() {
       entries={confirmInitiated}
       loading={loading}
       searchConfirmInitiated={searchConfirmInitiated}
-      handleSearchConfirmInitiated={handleSearchConfirmInitiated}
-      handleOrderData={handleOrderData}
+      onSearchConfirmInitiated={handleSearchConfirmInitiated}
+      onOrderData={handleOrderData}
     />
   );
 }

@@ -5,6 +5,7 @@ import { Text } from "@inubekit/text";
 import { useMediaQuery } from "@inubekit/hooks";
 
 import { Table } from "@components/data/Table";
+import { tokens } from "@src/design/tokens";
 import {
   actions,
   breakPoints,
@@ -13,14 +14,15 @@ import {
 } from "./config/table.config";
 import { IConfirmInitiated } from "./types";
 
+
 interface ConfirmInitiatedUIProps {
   entries: IConfirmInitiated[];
   loading: boolean;
   searchConfirmInitiated: string;
-  handleSearchConfirmInitiated: (
+  onSearchConfirmInitiated: (
     e: React.ChangeEvent<HTMLInputElement>
   ) => void;
-  handleOrderData: () => void;
+  onOrderData: () => void;
 }
 
 function ConfirmInitiatedUI(props: ConfirmInitiatedUIProps) {
@@ -28,8 +30,8 @@ function ConfirmInitiatedUI(props: ConfirmInitiatedUIProps) {
     entries,
     loading,
     searchConfirmInitiated,
-    handleSearchConfirmInitiated,
-    handleOrderData,
+    onSearchConfirmInitiated,
+    onOrderData,
   } = props;
 
   const smallScreen = useMediaQuery("(max-width: 580px)");
@@ -38,15 +40,19 @@ function ConfirmInitiatedUI(props: ConfirmInitiatedUIProps) {
     <Stack
       direction="column"
       width="-webkit-fill-available"
-      padding={smallScreen ? "24px" : "32px 64px"}
+      padding={
+        smallScreen
+          ? `${tokens.spacing.s300}`
+          : `${tokens.spacing.s400} ${tokens.spacing.s800}`
+      }
     >
-      <Stack gap="48px" direction="column">
-        <Stack gap="24px" direction="column">
+      <Stack gap={tokens.spacing.s600} direction="column">
+        <Stack gap={tokens.spacing.s300} direction="column">
           <Text type="title" size={smallScreen ? "medium" : "large"}>
             Confirmar Iniciados
           </Text>
         </Stack>
-        <Stack gap="32px" direction="column">
+        <Stack gap={tokens.spacing.s400} direction="column">
           <Stack justifyContent="flex-start">
             <Textfield
               name="searchConfirmInitiated"
@@ -57,13 +63,13 @@ function ConfirmInitiatedUI(props: ConfirmInitiatedUIProps) {
               size="compact"
               value={searchConfirmInitiated}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                handleSearchConfirmInitiated(e)
+                onSearchConfirmInitiated(e)
               }
             />
           </Stack>
           <Table
             id="portal"
-            titles={titlesConfig(handleOrderData)}
+            titles={titlesConfig(onOrderData)}
             actions={actions}
             entries={confirmInitialtedNormailzeEntries(entries)}
             breakpoints={breakPoints}

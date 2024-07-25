@@ -10,8 +10,10 @@ import { SkeletonLine } from "@inubekit/skeleton";
 import { IActions, ITitle } from "@components/data/Table/props";
 import { StyledContainerTitle } from "@components/data/Table/stories/styles";
 import { formatDate } from "@utils/dates";
+import { tokens } from "@src/design/tokens";
 import { DetailsConfirmInitiated } from "../components/Details";
 import { IConfirmInitiated } from "../types";
+
 
 const mapScheduled = (process: IActions) => {
   return {
@@ -78,7 +80,7 @@ const titlesConfig = (handleOrderData: () => void) => {
           <Icon
             appearance="dark"
             icon={<MdImportExport />}
-            size="16px"
+            size={tokens.spacing.s200}
             onClick={() => handleOrderData()}
             cursorHover
           />
@@ -109,7 +111,7 @@ const actions = [
       <Icon
         appearance="dark"
         icon={<MdCheckCircleOutline />}
-        size="16px"
+        size={tokens.spacing.s200}
         cursorHover={true}
       />
     ),
@@ -121,7 +123,7 @@ const actions = [
       <Icon
         appearance="dark"
         icon={<MdDeleteOutline />}
-        size="16px"
+        size={tokens.spacing.s200}
         cursorHover={true}
       />
     ),
