@@ -5,6 +5,8 @@ import { Button } from "@inubekit/button";
 
 import { ProgressCardWithBarDetermined, ProgressCardWithBarDeterminedProps } from "..";
 import { tokens } from "@src/design/tokens";
+import { ThemeProvider } from "styled-components";
+import { theme } from "@src/config/theme";
 
 const calculateSeconds = (dateProcess: Date) => {
   return (
@@ -126,6 +128,36 @@ WithButtonClose.args = {
   estime: totalSeconds,
   portalId: "portal",
   heightProgressBar: "15px",
+  appearance: "primary",
+};
+
+
+const TemplateThemed: StoryFn<ProgressCardWithBarDeterminedProps> = (args) => {
+  const [showModal, setShowModal] = useState(false);
+
+  return (
+    <>
+      <Button onClick={() => setShowModal(true)}>Show Modal</Button>
+      {showModal && (
+        <ThemeProvider theme={theme}>
+        <DynamicProgressCardWithBarDetermined>
+          <ProgressCardWithBarDetermined
+            {...args}
+            onCancel={() => setShowModal(false)}
+          />
+        </DynamicProgressCardWithBarDetermined>
+        </ThemeProvider>
+      )}
+    </>
+  );
+};
+
+export const Themed: StoryFn<ProgressCardWithBarDeterminedProps> = TemplateThemed.bind({});
+Themed.args = {
+  withButtonClose: false,
+  estime: totalSeconds,
+  portalId: "portal",
+  heightProgressBar: tokens.spacing.s200,
   appearance: "primary",
 };
 

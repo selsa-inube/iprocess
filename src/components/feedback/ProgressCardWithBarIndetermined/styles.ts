@@ -12,7 +12,7 @@ const StyledContainer = styled.div`
 
 const StyledModal = styled.div<IStyledModal>`
   background-color: ${({ theme }) =>
-    theme?.palette?.neutral?.N10 || inube.palette.neutral.N10};
+    theme?.palette?.neutral?.N10 || inube.palette.neutral.N10 };
 
   width: ${(props) => (props.$withSmallScreen ? "280px" : "402px")};
   min-height: auto;

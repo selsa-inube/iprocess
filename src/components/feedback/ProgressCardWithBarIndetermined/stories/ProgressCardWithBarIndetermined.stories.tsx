@@ -7,6 +7,8 @@ import {
   ProgressCardWithBarIndetermined,
   ProgressCardWithBarIndeterminedProps,
 } from "..";
+import { ThemeProvider } from "styled-components";
+import { theme } from "@src/config/theme";
 
 const meta: Meta<typeof ProgressCardWithBarIndetermined> = {
   title: "feedback/ProgressCardWithBarIndetermined",
@@ -68,6 +70,35 @@ export const WithButtonClose: StoryFn<ProgressCardWithBarIndeterminedProps> =
 
 WithButtonClose.args = {
   withButtonClose: true,
+  portalId: "portal",
+  appearance: "primary",
+};
+
+const TemplateThemed: StoryFn<ProgressCardWithBarIndeterminedProps> = (
+  args
+) => {
+  const [showModal, setShowModal] = useState(false);
+
+  return (
+    <>
+      <Button onClick={() => setShowModal(true)}>Show Modal</Button>
+      {showModal && (
+        <ThemeProvider theme={theme}>
+          <ProgressCardWithBarIndetermined
+            {...args}
+            onCancel={() => setShowModal(false)}
+          />
+        </ThemeProvider>
+      )}
+    </>
+  );
+};
+
+export const Themed: StoryFn<ProgressCardWithBarIndeterminedProps> =
+  TemplateThemed.bind({});
+
+Themed.args = {
+  withButtonClose: false,
   portalId: "portal",
   appearance: "primary",
 };
