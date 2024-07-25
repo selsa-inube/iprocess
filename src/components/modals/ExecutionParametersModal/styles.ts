@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { inube } from "@inubekit/foundations";
+import { tokens } from "@src/design/tokens";
 
 interface IStyledModal {
   $smallScreen: boolean;
@@ -20,27 +21,27 @@ const StyledContainer = styled.div`
 
 const StyledModal = styled.div<IStyledModal>`
   background-color: ${({ theme }) =>
-    theme?.palette?.neutral?.N10 || inube.palette.neutral.N10};
+    theme.palette?.neutral?.N10 || inube.palette.neutral.N10};
 
-  width: ${(props) => (props.$smallScreen ? "280px" : "450px")};
+  width: ${(props) => (props.$smallScreen ? "280px" : "402px")};
   min-height: ${(props) => (props.$smallScreen ? "100vh" : "auto")};
   height: auto;
-  border-radius: ${(props) => (props.$smallScreen ? "0" : "8px")};
+  border-radius: ${(props) => (props.$smallScreen ? `${tokens.spacing.s0}` : `${tokens.spacing.s100}`)};
 
   & > div {
-    padding: ${(props) => (props.$smallScreen ? "16px" : "24px")};
+    padding: ${(props) => (props.$smallScreen ? `${tokens.spacing.s200}`: `${tokens.spacing.s300}`)};
   }
 `;
 
 const StyledModalFields = styled.div<IStyledModal>`
   display: flex;
-  gap: 4px;
+  gap: ${tokens.spacing.s050};
   flex-direction: column;
   hyphens: auto;
 
   div {
-    min-height: 0px !important;
-    margin-bottom: -8px !important;
+    min-height: ${tokens.spacing.s0}!important ;
+    margin-bottom: ${tokens.spacing.sn100} !important;
   }
 
   @media screen and (max-width: 500px) {

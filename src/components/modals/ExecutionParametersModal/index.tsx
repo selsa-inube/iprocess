@@ -14,7 +14,7 @@ import { Table } from "@components/data/Table";
 import { IBreakpoint, ITitle } from "@components/data/Table/props";
 import { StyledContainer, StyledModal, StyledModalFields } from "./styles";
 import { IEntries, ILabel } from "../MoreDetailsModal/types";
-
+import { tokens } from "@src/design/tokens";
 
 interface ExecutionParametersModalProps {
   loading: boolean;
@@ -53,14 +53,14 @@ const ExecutionParametersModal = (props: ExecutionParametersModalProps) => {
     <StyledContainer>
       <Blanket>
         <StyledModal $smallScreen={isMobile}>
-          <Stack direction="column" gap="16px">
-            <Stack direction="column" gap="20px">
-              <Stack direction="column" gap="8px">
+          <Stack direction="column" gap={tokens.spacing.s200}>
+            <Stack direction="column" gap={tokens.spacing.s250}>
+              <Stack direction="column" gap={tokens.spacing.s100}>
                 <Stack alignItems="center" justifyContent="space-between">
                   <Text type="title" size="medium" appearance="dark">
                     parámetros de Ejecución
                   </Text>
-                  <MdClear size={24} cursor="pointer" onClick={onCloseModal} />
+                  <MdClear size={tokens.spacing.s300} cursor="pointer" onClick={onCloseModal} />
                 </Stack>
               </Stack>
 
@@ -73,12 +73,14 @@ const ExecutionParametersModal = (props: ExecutionParametersModalProps) => {
                       <Label
                         htmlFor={field.id}
                         size="large"
-                        margin="0px 0px 0px 16px"
+                        margin={`${tokens.spacing.s0} ${tokens.spacing.s0} ${tokens.spacing.s0} ${tokens.spacing.s200}`}
                       >
                         {field.titleName}
                       </Label>
                       <Fieldset legend="" spacing="compact">
-                        <Text type="body" size="medium">{data[field.id]}</Text>
+                        <Text type="body" size="medium">
+                          {data[field.id]}
+                        </Text>
                       </Fieldset>
                     </StyledModalFields>
                   )
@@ -93,7 +95,7 @@ const ExecutionParametersModal = (props: ExecutionParametersModalProps) => {
                 widthFirstColumn="65%"
               />
             </Stack>
-            <Stack gap="8px" justifyContent="flex-end">
+            <Stack gap={tokens.spacing.s100} justifyContent="flex-end">
               <Button
                 spacing="wide"
                 appearance="primary"
