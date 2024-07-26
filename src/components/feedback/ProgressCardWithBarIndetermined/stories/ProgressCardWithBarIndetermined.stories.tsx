@@ -1,5 +1,6 @@
 import { BrowserRouter } from "react-router-dom";
 import { useState } from "react";
+import { ThemeProvider } from "styled-components";
 import { Meta, StoryFn } from "@storybook/react";
 import { Button } from "@inubekit/button";
 
@@ -7,8 +8,10 @@ import {
   ProgressCardWithBarIndetermined,
   ProgressCardWithBarIndeterminedProps,
 } from "..";
-import { ThemeProvider } from "styled-components";
+
 import { theme } from "@src/config/theme";
+import { appearances } from "../../ProgressCardWithBarDetermined/types";
+
 
 const meta: Meta<typeof ProgressCardWithBarIndetermined> = {
   title: "feedback/ProgressCardWithBarIndetermined",
@@ -38,14 +41,22 @@ const Template: StoryFn<ProgressCardWithBarIndeterminedProps> = (args) => {
   );
 };
 
-export const Default: StoryFn<ProgressCardWithBarIndeterminedProps> =
-  Template.bind({});
+export const Default: StoryFn<ProgressCardWithBarIndeterminedProps> =Template.bind({});
 
 Default.args = {
   withButtonClose: false,
-  portalId: "portal",
   appearance: "primary",
+  portalId: "portal",
 };
+
+Default.argTypes ={
+   appearance: {
+    options: appearances,
+    control: {
+      type: "select",
+    },
+  },
+}
 
 const TemplateButton: StoryFn<ProgressCardWithBarIndeterminedProps> = (
   args
@@ -71,7 +82,6 @@ export const WithButtonClose: StoryFn<ProgressCardWithBarIndeterminedProps> =
 WithButtonClose.args = {
   withButtonClose: true,
   portalId: "portal",
-  appearance: "primary",
 };
 
 const TemplateThemed: StoryFn<ProgressCardWithBarIndeterminedProps> = (
@@ -100,7 +110,6 @@ export const Themed: StoryFn<ProgressCardWithBarIndeterminedProps> =
 Themed.args = {
   withButtonClose: false,
   portalId: "portal",
-  appearance: "primary",
 };
 
 export default meta;

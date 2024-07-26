@@ -5,8 +5,10 @@ import { action } from "@storybook/addon-actions";
 
 import { ProgressBar, ProgressBarProps } from "..";
 import { tokens } from "@src/design/tokens";
-import { themes } from "@src/mocks/design/themes";
+import { themes } from "@mocks/design/themes";
 import { ThemeProvider } from "styled-components";
+import { appearances } from "../types";
+
 
 const calculateSeconds = (dateProcess: Date) => {
   return (
@@ -81,12 +83,20 @@ export const Default: StoryFn<ProgressBarProps> = ({ progress, ...args }: Progre
 );
 
 Default.args = {
-  height: tokens.spacing.s200,
-  appearance: "primary",              
+  height: tokens.spacing.s200,              
   withAnimated: true,
+  withBorder: true,
   onProgress: action("onAnimationEnd"),
 };
 
+Default.argTypes ={
+  appearance: {
+   options: appearances,
+   control: {
+     type: "select",
+   },
+ },
+}
 
 const theme = {
   ...themes["basic"],

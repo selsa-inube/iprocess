@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { BrowserRouter } from "react-router-dom";
+import { ThemeProvider } from "styled-components";
 import { Meta, StoryFn } from "@storybook/react";
 import { Button } from "@inubekit/button";
 
-import { ProgressCardWithBarDetermined, ProgressCardWithBarDeterminedProps } from "..";
+
 import { tokens } from "@src/design/tokens";
-import { ThemeProvider } from "styled-components";
 import { theme } from "@src/config/theme";
+import { appearances } from "../types";
+import { ProgressCardWithBarDetermined, ProgressCardWithBarDeterminedProps } from "..";
 
 const calculateSeconds = (dateProcess: Date) => {
   return (
@@ -35,9 +37,6 @@ const calculatePercentage = (currentMoment: number) => {
   const percentage = calculatePercentage(currentMoment);
   return percentage;
 };
-
-
-
 
 const meta: Meta<typeof ProgressCardWithBarDetermined> = {
   title: "feedback/ProgressCardWithBarDetermined",
@@ -103,6 +102,15 @@ Default.args = {
   heightProgressBar: tokens.spacing.s200,
   appearance: "primary",
 };
+
+Default.argTypes ={
+  appearance: {
+   options: appearances,
+   control: {
+     type: "select",
+   },
+ },
+}
 
 const TemplateButton: StoryFn<ProgressCardWithBarDeterminedProps> = (args) => {
   const [showModal, setShowModal] = useState(false);

@@ -1,4 +1,4 @@
-const appearances = [
+export const appearances = [
     "primary",
     "success",
     "warning",
