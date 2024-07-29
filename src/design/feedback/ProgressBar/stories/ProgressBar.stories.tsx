@@ -77,9 +77,11 @@ const DynamicPercentage = ({ children }: { children: React.ReactElement<{ progre
 };
 
 export const Default: StoryFn<ProgressBarProps> = ({ progress, ...args }: ProgressBarProps) => (
+  <ThemeProvider theme={theme}>
   <DynamicPercentage>
-    <ProgressBar progress={progress} {...args} />
-  </DynamicPercentage>
+<ProgressBar progress={progress} {...args} />
+</DynamicPercentage>
+</ThemeProvider>
 );
 
 Default.args = {
@@ -102,17 +104,6 @@ const theme = {
   ...themes["basic"],
 };
 
-export const Themed: StoryFn<ProgressBarProps> = ({ progress, ...args }: ProgressBarProps) => (
-  <ThemeProvider theme={theme}>
-      <DynamicPercentage>
-    <ProgressBar progress={progress} {...args} />
-  </DynamicPercentage>
-  </ThemeProvider>
-);
-
-Themed.args = {
-  ...Default.args,
-};
 
 export default meta;
 

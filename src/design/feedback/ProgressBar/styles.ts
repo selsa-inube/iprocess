@@ -4,7 +4,6 @@ import { keyframes } from "styled-components";
 import { tokens } from "@src/design/tokens";
 
 import { ProgressBarAppearanceType } from "./types";
-import { progressBar } from "@src/design/tokens/progressBar";
 
 interface IStyledProgressBar {
   $height: string;
@@ -38,8 +37,7 @@ const StyledProgressBar = styled.div<IStyledProgressBar>`
   animation-fill-mode: forwards;
   transition: width 0.3s ease-in-out;
   background-color: ${({ theme, $appearance }) =>
-    theme.progressBar?.[$appearance]?.background.color ||
-    progressBar[$appearance]?.background.color};
+    theme.progressBar?.[$appearance]?.background.color};
 
   ${({ $withAnimated, $progress, $appearance }) =>
     $withAnimated &&
@@ -54,11 +52,9 @@ const StyledProgressBar = styled.div<IStyledProgressBar>`
         background: ${({ theme }) => `linear-gradient(
       100deg, 
        ${
-         theme?.progressBar?.[$appearance]?.animation.color ||
-         progressBar[$appearance]?.animation.color
+         theme?.progressBar?.[$appearance]?.animation.color 
        }, ${
-         theme?.progressBar?.[$appearance]?.background.color ||
-         progressBar[$appearance]?.background.color
+         theme?.progressBar?.[$appearance]?.background.color 
        }  
     )`};
         background-size: 200% 200%;
@@ -72,8 +68,8 @@ const StyledContainerProgressBar = styled.div<IStyledContainerProgressBar>`
   background-color: ${({ theme, $appearance }) => {
     return theme?.progressBar?.[$appearance]?.track.color;
   }};
-  border: ${({ $withBorder, $appearance }) =>
-    $withBorder && `1px solid ${progressBar[$appearance]?.border.color}`};
+  border: ${({ $withBorder, $appearance, theme }) =>
+    $withBorder && `1px solid ${theme?.progressBar?.[$appearance]?.border.color}`};
   border-radius: ${tokens.spacing.s050};
   height: ${({ $height }) => $height};
 `;
