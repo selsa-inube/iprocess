@@ -23,6 +23,9 @@ import { theme } from "./config/theme";
 
 
 
+import { theme } from "./config/theme";
+
+
 function LogOut() {
   localStorage.clear();
   const { logout } = useAuth0();

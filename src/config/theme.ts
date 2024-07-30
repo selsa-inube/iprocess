@@ -1,4 +1,4 @@
-import { themes } from "@mocks/design/themes";
+import { themes } from "@src/mocks/design/themes";
 
 
 const theme = {
