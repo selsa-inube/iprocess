@@ -33,8 +33,16 @@ const formatDate = (date: Date, withTime?: boolean) => {
 
 const today = new Date();
 
+const formatMonthEndpoint = (month: string) => {
+  const monthNumber = monthsData.find(
+    (monthData) => monthData.label === month
+  )?.id;
+  monthNumber?.replace("0", "");
+
+  return Number(monthNumber);
+};
+
 const formatMonth = () => {
-  const today = new Date();
   const currentMonth = today.getMonth() + 1;
   return currentMonth < 10 ? `0${String(currentMonth)}` : String(currentMonth);
 };
@@ -62,6 +70,7 @@ const filterDateChange = (
 export {
   currentMonthLetters,
   currentYear,
+  formatMonthEndpoint,
   formatDate,
   filterDateChange,
   formatMonth,

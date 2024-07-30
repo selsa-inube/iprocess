@@ -8,12 +8,13 @@ import { ChangePeriod } from "@src/components/feedback/ChangePeriod";
 import { periodLaterYears, periodPreviousYears } from "@src/config/environment";
 
 import {
-  actions,
+  actionsConfig,
   breakPoints,
   scheduledNormailzeEntries,
   titlesConfig,
 } from "./config/table.config";
 import { StartProcesses } from "../../types";
+import { tokens } from "@src/design/tokens";
 
 interface ScheduledTabUIProps {
   description: string;
@@ -41,7 +42,7 @@ function ScheduledTabUI(props: ScheduledTabUIProps) {
   } = props;
 
   return (
-    <Stack gap="32px" direction="column">
+    <Stack gap={tokens.spacing.s400} direction="column">
       <Stack justifyContent="space-between">
         <ChangePeriod
           laterYears={periodLaterYears}
@@ -68,7 +69,7 @@ function ScheduledTabUI(props: ScheduledTabUIProps) {
       <Table
         id="portal"
         titles={titlesConfig(handleOrderData)}
-        actions={actions}
+        actions={actionsConfig(selectedMonth, selectedYear)}
         entries={scheduledNormailzeEntries(entries)}
         breakpoints={breakPoints}
         loading={loading}

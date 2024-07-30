@@ -7,6 +7,7 @@ const mapStartProcessApiToEntity = (
 ): StartProcesses => {
   const processes: StartProcesses = {
     id: String(process.processCatalogId),
+    processCatalogId: String(process.processCatalogId),
     abbreviatedName: String(process.abbreviatedName),
     executionDate: new Date(String(process.estimatedExecutionDate)),
     aplication: String(process.aplication),

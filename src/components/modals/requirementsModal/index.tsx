@@ -11,6 +11,7 @@ import { Table } from "@components/data/Table";
 import { IBreakpoint } from "@components/data/Table/props";
 import { StyledContainerTables, StyledModal } from "./styles";
 import { IData } from "./types";
+import { tokens } from "@src/design/tokens";
 
 interface RequirementsModalProps {
   breakpoints: IBreakpoint[];
@@ -44,8 +45,8 @@ function RequirementsModal(props: RequirementsModalProps) {
               icon={<MdOutlineClose />}
               onClick={onCloseModal}
               cursorHover={true}
-              size="20px"
-              spacing="none"
+              size={tokens.spacing.s250}
+              spacing="narrow"
             />
           </Stack>
         </Stack>
@@ -68,7 +69,7 @@ function RequirementsModal(props: RequirementsModalProps) {
                 </Stack>
               ))}
         </StyledContainerTables>
-        <Stack gap="8px" justifyContent="flex-end">
+        <Stack gap={tokens.spacing.s100} justifyContent="flex-end">
               <Button
                 spacing="wide"
                 appearance="primary"
