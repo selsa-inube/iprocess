@@ -41,7 +41,7 @@ const StyledModalFields = styled.div<IStyledModal>`
 
   div {
     min-height: ${tokens.spacing.s0}!important ;
-    margin-bottom: ${tokens.spacing.sn100} !important;
+    margin-bottom: -8px !important;
   }
 
   @media screen and (max-width: 500px) {
