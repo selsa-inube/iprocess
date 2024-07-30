@@ -2,28 +2,18 @@ import {
   MdDeleteOutline,
   MdImportExport,
   MdCheckCircleOutline,
+  MdOutlineRemoveRedEye
 } from "react-icons/md";
 import { Icon } from "@inubekit/icon";
 import { Text } from "@inubekit/text";
 import { SkeletonLine } from "@inubekit/skeleton";
 
-import { IActions, ITitle } from "@components/data/Table/props";
+import { ITitle } from "@components/data/Table/props";
 import { StyledContainerTitle } from "@components/data/Table/stories/styles";
 import { formatDate } from "@utils/dates";
 import { tokens } from "@src/design/tokens";
-import { DetailsConfirmInitiated } from "../components/Details";
 import { IConfirmInitiated } from "../types";
 
-
-const mapScheduled = (process: IActions) => {
-  return {
-    id: process.id,
-    process: process.processName,
-    executionDateAndHour: process.executionDateAndHour,
-    requirements: process.requirements,
-    totalPersons: process.totalPeople,
-  };
-};
 
 const confirmInitialtedNormailzeEntries = (process: IConfirmInitiated[]) =>
   process.map((entry) => ({
@@ -131,8 +121,13 @@ const actions = [
   {
     id: "details",
     actionName: "Detalles",
-    content: (process: IActions) => (
-      <DetailsConfirmInitiated data={mapScheduled(process)} />
+    content: () => (
+      <Icon
+        appearance="dark"
+        icon={<MdOutlineRemoveRedEye />}
+        size={tokens.spacing.s200}
+        cursorHover={true}
+      />
     ),
   },
 ];

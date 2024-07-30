@@ -6,6 +6,7 @@ import { useMediaQuery } from "@inubekit/hooks";
 
 import { Table } from "@components/data/Table";
 import { tokens } from "@src/design/tokens";
+import { mediaQueryMobile } from "@src/config/environment";
 import {
   actions,
   breakPoints,
@@ -13,6 +14,7 @@ import {
   confirmInitialtedNormailzeEntries,
 } from "./config/table.config";
 import { IConfirmInitiated } from "./types";
+
 
 
 interface ConfirmInitiatedUIProps {
@@ -34,7 +36,7 @@ function ConfirmInitiatedUI(props: ConfirmInitiatedUIProps) {
     onOrderData,
   } = props;
 
-  const smallScreen = useMediaQuery("(max-width: 580px)");
+  const smallScreen = useMediaQuery(mediaQueryMobile);
 
   return (
     <Stack

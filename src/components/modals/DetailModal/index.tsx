@@ -9,8 +9,10 @@ import { Stack } from "@inubekit/stack";
 import { Text } from "@inubekit/text";
 import { Blanket } from "@inubekit/blanket";
 
+import { mediaQueryMobile } from "@src/config/environment";
 import { StyledContainer, StyledModal, StyledModalFields } from "./styles";
 import { IEntries, ILabel } from "./types";
+
 
 interface DetailModalProps {
   portalId: string;
@@ -29,7 +31,7 @@ const DetailModal = (props: DetailModalProps) => {
     onCloseModal,
   } = props;
 
-  const isMobile = useMediaQuery("(max-width: 500px)");
+  const isMobile = useMediaQuery(mediaQueryMobile);
 
   const node = document.getElementById(portalId);
 
