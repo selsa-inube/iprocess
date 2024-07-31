@@ -71,7 +71,6 @@ const RefreshSavingProduct = (props: RefreshSavingProductProps) => {
         formik.values.typeRefresh !== initialValues.typeRefresh)
   );
 
-  console.log(formik);
   return (
     <RefreshSavingProductUI
       formik={formik}
