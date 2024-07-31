@@ -46,7 +46,7 @@ const scheduledNormailzeEntries = (process: StartProcesses[]) =>
     executionDate: entry.executionDate && formatDate(entry.executionDate),
     executionDateAndHour: formatDate(entry.executionDate, true),
     requirements: <SkeletonLine animated />,
-    plannedAutomaticExecution: "planned automatic execution",
+    plannedAutomaticExecution: "planned automatic execution", //se deja este valor para hacer pruebas con los formularios los formularios
   }));
 
 const labelsDetails = [

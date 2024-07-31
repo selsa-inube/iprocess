@@ -12,7 +12,7 @@ import { getDomainById } from "@mocks/domains/domainService.mocks";
 import { Datetimefield } from "@src/design/inputs/Datetimefield";
 import { tokens } from "@src/design/tokens";
 import { mediaQueryMobile } from "@src/config/environment";
-import { StyledContentSelect, StyledField, StyledTextarea } from "./styles";
+import { StyledField, StyledTextarea } from "./styles";
 
 
 interface RefreshSavingCommitmentUIProps {
@@ -54,12 +54,10 @@ const RefreshSavingCommitmentUI = (props: RefreshSavingCommitmentUIProps) => {
             message={formik.errors.descriptionComplementary}
             fullwidth
             maxLength={220}
-            onBlur={formik.handleBlur}
             onChange={formik.handleChange}
           />
         </StyledTextarea>
 
-        <StyledContentSelect>
           <Select
             id="typeRefresh"
             label="Tipo de refresco"
@@ -69,12 +67,16 @@ const RefreshSavingCommitmentUI = (props: RefreshSavingCommitmentUIProps) => {
             options={getDomainById("typeRefresh")}
             placeholder="Seleccione uno"
             size="wide"
+            message={
+              getFieldState(formik, "typeRefresh") === "invalid"
+                ? "La tipo de refresco es requerido"
+                : ""
+            }
             status={getFieldState(formik, "typeRefresh")}
             value={formik.values.typeRefresh}
             fullwidth={true}
             required
           />
-        </StyledContentSelect>
 
         <StyledField $smallScreen={isMobile}>
           <Text type="label" size="large">
@@ -91,7 +93,11 @@ const RefreshSavingCommitmentUI = (props: RefreshSavingCommitmentUIProps) => {
               withFullwidth={true}
               id="plannedExecutionDate"
               label="Fecha planeada de ejecución"
-              message={"Campo requerido"}
+              message={
+                getFieldState(formik, "plannedExecutionDate") === "invalid"
+                  ? "La fecha es requerida"
+                  : ""
+              }
               name="plannedExecutionDate"
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}

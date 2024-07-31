@@ -12,6 +12,7 @@ const mapStartProcessApiToEntity = (
     executionDate: new Date(String(process.estimatedExecutionDate)),
     aplication: String(process.aplication),
     periodicity: periodicityValuesMock[String(process.periodicity)],
+    plannedAutomaticExecution: String(process.plannedAutomaticExecution),
   };
   return processes;
 };

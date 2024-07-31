@@ -34,11 +34,6 @@ const StyledField = styled.div<IStyledField>`
   }
 `;
 
-const StyledContentSelect  = styled.div`
-  label {
-    padding-left: 16px;
-  }
-`;
 
 const StyledTextarea = styled.div`
   @media (${mediaQueryMobile}) {
@@ -57,4 +52,4 @@ const StyledTextarea = styled.div`
   }
 `;
 
-export { StyledField, StyledTextarea, StyledContentSelect };
+export { StyledField, StyledTextarea};

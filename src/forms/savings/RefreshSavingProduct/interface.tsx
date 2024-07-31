@@ -84,7 +84,7 @@ const RefreshSavingProductUI = (props: RefreshSavingProductUIProps) => {
             Fecha y hora de ejecución
           </Text>
           <Fieldset legend="" spacing="compact">
-            <Text>{String(data.date)}</Text>s
+            <Text>{String(data.date)}</Text>
           </Fieldset>
         </StyledField>
 

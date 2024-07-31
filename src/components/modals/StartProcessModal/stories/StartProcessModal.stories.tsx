@@ -18,13 +18,21 @@ const meta: Meta<typeof StartProcessModal> = {
   ],
 };
 
-const data = {
+const dataDefault = {
   id: "10",
   descriptionSuggested:
     "Los NFTs son tokens no fungibles únicos en la cadena de bloques. A diferencia de las criptomonedas",
   date: "10/Jul/2024 - 14:05:00",
 };
 
+
+const data = {
+  id: "10",
+  descriptionSuggested:
+    "Los NFTs son tokens no fungibles únicos en la cadena de bloques. A diferencia de las criptomonedas",
+  date: "10/Jul/2024 - 14:05:00",
+  plannedAutomaticExecution: "planned automatic execution"
+};
 
 const Template: StoryFn<StartProcessModalProps> = (args) => {
   const [showModal, setShowModal] = useState(false);
@@ -42,9 +50,31 @@ const Template: StoryFn<StartProcessModalProps> = (args) => {
 export const Default = Template.bind({});
 Default.args = {
   portalId: "portal",
+  children: (  <RefreshSavingProduct data={dataDefault}
+    onStartProcess={() => true}
+    setFieldsEntered={() => true} />)
+};
+
+
+const TemplateWithPlannedAutomatic: StoryFn<StartProcessModalProps> = (args) => {
+  const [showModal, setShowModal] = useState(false);
+
+  return (
+    <>
+      <Button onClick={() => setShowModal(true)}>Show Modal</Button>
+      {showModal && (
+        <StartProcessModal {...args} onCloseModal={() => setShowModal(false)} />
+      )}
+    </>
+  );
+};
+
+export const WithPlannedAutomaticExecution: StoryFn<StartProcessModalProps>  = TemplateWithPlannedAutomatic.bind({});
+WithPlannedAutomaticExecution.args = {
+  portalId: "portal",
   children: (  <RefreshSavingProduct data={data}
-    onStartProcess={() => {}}
-    setFieldsEntered={() => {}} />)
+    onStartProcess={() => true}
+    setFieldsEntered={() => true} />)
 };
 
 export default meta;
