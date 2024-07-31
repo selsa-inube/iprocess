@@ -27,60 +27,59 @@ const RefreshCreditRequest = (props: RefreshCreditRequestProps) => {
   const { data, setFieldsEntered, onStartProcess } = props;
 
   const [dynamicValidationSchema, setDynamicValidationSchema] =
-    useState(validationSchema);
+  useState(validationSchema);
 
-  const formik = useFormik({
-    initialValues,
-    validationSchema: dynamicValidationSchema,
-    validateOnBlur: false,
-    validateOnChange: false,
-    onSubmit: async () => true,
-  });
+const formik = useFormik({
+  initialValues,
+  validationSchema: dynamicValidationSchema,
+  validateOnChange: false,
+  onSubmit: async () => true,
+});
 
-  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    formik.setFieldValue("typeRefresh", event.target.innerText);
-  };
+const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+  formik.setFieldValue("typeRefresh", event.target.outerText);
+};
 
-  useEffect(() => {
-    if (
-      data?.plannedAutomaticExecution &&
-      data?.plannedAutomaticExecution === "planned automatic execution"
-    ) {
-      setDynamicValidationSchema(
-        validationSchema.shape({
-          plannedExecutionDate: Yup.string().required(
-            "Este campo es requerido"
-          ),
-        })
-      );
-    }
-  }, [data?.plannedAutomaticExecution, setDynamicValidationSchema]);
+useEffect(() => {
+  if (
+    data?.plannedAutomaticExecution &&
+    data?.plannedAutomaticExecution === "planned automatic execution"
+  ) {
+    setDynamicValidationSchema(
+      validationSchema.shape({
+        plannedExecutionDate: Yup.string().required(
+          "Este campo es requerido"
+        ),
+      })
+    );
+  }
+}, [data?.plannedAutomaticExecution, setDynamicValidationSchema]);
 
-  useEffect(() => {
-    if (formik.values) {
-      setFieldsEntered(formik.values);
-    }
-  }, [formik.values, setFieldsEntered]);
+useEffect(() => {
+  if (formik.values) {
+    setFieldsEntered(formik.values);
+  }
+}, [formik.values, setFieldsEntered]);
 
-  const comparisonData = Boolean(
-    (data?.plannedAutomaticExecution &&
-      formik.values.plannedExecutionDate.length > 0 &&
-      formik.values.typeRefresh !== initialValues.typeRefresh &&
-      formik.values.plannedExecutionDate !==
-        initialValues.plannedExecutionDate) ||
-      (!data?.plannedAutomaticExecution &&
-        formik.values.typeRefresh !== initialValues.typeRefresh)
-  );
+const comparisonData = Boolean(
+  (data?.plannedAutomaticExecution &&
+    formik.values.plannedExecutionDate.length > 0 &&
+    formik.values.typeRefresh !== initialValues.typeRefresh &&
+    formik.values.plannedExecutionDate !==
+      initialValues.plannedExecutionDate) ||
+    (!data?.plannedAutomaticExecution &&
+      formik.values.typeRefresh !== initialValues.typeRefresh)
+);
 
-  return (
-    <RefreshCreditRequestUI
-      formik={formik}
-      data={data}
-      onChange={handleChange}
-      onStartProcess={onStartProcess}
-      comparisonData={comparisonData}
-    />
-  );
+return (
+  <RefreshCreditRequestUI
+    formik={formik}
+    data={data}
+    onChange={handleChange}
+    onStartProcess={onStartProcess}
+    comparisonData={comparisonData}
+  />
+);
 };
 
 export type { RefreshCreditRequestProps };

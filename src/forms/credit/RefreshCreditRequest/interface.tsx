@@ -12,7 +12,7 @@ import { getDomainById } from "@mocks/domains/domainService.mocks";
 import { Datetimefield } from "@src/design/inputs/Datetimefield";
 import { tokens } from "@src/design/tokens";
 
-import { StyledContentSelect, StyledField, StyledTextarea } from "./styles";
+import { StyledField, StyledTextarea } from "./styles";
 
 interface RefreshCreditRequestUIProps {
   data: IEntries;
@@ -32,10 +32,14 @@ const RefreshCreditRequestUI = (props: RefreshCreditRequestUIProps) => {
   const isMobile = useMediaQuery("(max-width: 500px)");
 
   return (
-    <form>
+    <form
+      onSubmit={(e) => {
+        e.preventDefault();
+      }}
+    >
       <Stack direction="column" gap={tokens.spacing.s250}>
         <StyledField>
-          <Text type="label" size="large">
+          <Text type="label" size="large" weight="bold">
             Descripcion sugerida
           </Text>
           <Fieldset legend="" spacing="compact">
@@ -50,33 +54,34 @@ const RefreshCreditRequestUI = (props: RefreshCreditRequestUIProps) => {
             id="descriptionComplementary"
             placeholder=""
             value={formik.values.descriptionComplementary}
-            message={formik.errors.descriptionComplementary}
             fullwidth
             maxLength={220}
-            onBlur={formik.handleBlur}
             onChange={formik.handleChange}
           />
         </StyledTextarea>
 
-        <StyledContentSelect>
-          <Select
-            id="typeRefresh"
-            label="Tipo de refresco"
-            name="typeRefresh"
-            onChange={onChange}
-            onBlur={formik.handleBlur}
-            options={getDomainById("typeRefresh")}
-            placeholder="Seleccione uno"
-            size="wide"
-            status={getFieldState(formik, "typeRefresh")}
-            value={formik.values.typeRefresh}
-            fullwidth={true}
-            required
-          />
-        </StyledContentSelect>
+        <Select
+          id="typeRefresh"
+          label="Tipo de refresco"
+          name="typeRefresh"
+          onChange={onChange}
+          onBlur={formik.handleBlur}
+          options={getDomainById("typeRefresh")}
+          placeholder="Seleccione uno"
+          size="wide"
+          message={
+            getFieldState(formik, "typeRefresh") === "invalid"
+              ? "La tipo de refresco es requerido"
+              : ""
+          }
+          status={getFieldState(formik, "typeRefresh")}
+          value={formik.values.typeRefresh}
+          fullwidth
+          required
+        />
 
         <StyledField $smallScreen={isMobile}>
-          <Text type="label" size="large">
+          <Text type="label" size="large" weight="bold">
             Fecha y hora de ejecución
           </Text>
           <Fieldset legend="" spacing="compact">
@@ -90,7 +95,11 @@ const RefreshCreditRequestUI = (props: RefreshCreditRequestUIProps) => {
               withFullwidth={true}
               id="plannedExecutionDate"
               label="Fecha planeada de ejecución"
-              message={"Campo requerido"}
+              message={
+                getFieldState(formik, "plannedExecutionDate") === "invalid"
+                  ? "La fecha es requerida"
+                  : ""
+              }
               name="plannedExecutionDate"
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
@@ -106,6 +115,7 @@ const RefreshCreditRequestUI = (props: RefreshCreditRequestUIProps) => {
             spacing="wide"
             appearance="primary"
             variant="filled"
+            type="submit"
             onClick={onStartProcess}
             disabled={!comparisonData || !formik.isValid}
           >
