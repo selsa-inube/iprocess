@@ -4,6 +4,7 @@ import { MdOutlineWarning } from "react-icons/md";
 import { Text } from "@inubekit/text";
 import { Label } from "@inubekit/label";
 import { Icon } from "@inubekit/icon";
+import { tokens } from "@src/design/tokens";
 
 import { IDatetimefieldSize, IDatetimefieldStatus } from "./types";
 import {
@@ -12,7 +13,7 @@ import {
   StyledInputContainer,
   StyledMessageContainer,
 } from "./styles";
-import { tokens } from "@src/design/tokens";
+
 
 interface DatetimefieldProps {
   id: string;

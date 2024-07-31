@@ -11,9 +11,11 @@ import { IEntries } from "@src/forms/types";
 import { getDomainById } from "@mocks/domains/domainService.mocks";
 import { Datetimefield } from "@src/design/inputs/Datetimefield";
 import { tokens } from "@src/design/tokens";
+import { mediaQueryMobile } from "@src/config/environment";
 import { StyledContentSelect, StyledField, StyledTextarea } from "./styles";
 
-interface RefreshSavingProductUIProps {
+
+interface RefreshSavingCommitmentUIProps {
   data: IEntries;
   formik: FormikValues;
   comparisonData: boolean;
@@ -21,14 +23,14 @@ interface RefreshSavingProductUIProps {
   onStartProcess: () => void;
 }
 
-const RefreshSavingProductUI = (props: RefreshSavingProductUIProps) => {
+const RefreshSavingCommitmentUI = (props: RefreshSavingCommitmentUIProps) => {
   const { data, formik, comparisonData, onChange, onStartProcess } = props;
 
   const getFieldState = (formik: FormikValues, fieldName: string) => {
     if (formik.errors[fieldName]) return "invalid";
   };
 
-  const isMobile = useMediaQuery("(max-width: 500px)");
+  const isMobile = useMediaQuery(mediaQueryMobile);
 
   return (
     <form>
@@ -116,5 +118,5 @@ const RefreshSavingProductUI = (props: RefreshSavingProductUIProps) => {
   );
 };
 
-export { RefreshSavingProductUI };
-export type { RefreshSavingProductUIProps };
+export { RefreshSavingCommitmentUI };
+export type { RefreshSavingCommitmentUIProps };

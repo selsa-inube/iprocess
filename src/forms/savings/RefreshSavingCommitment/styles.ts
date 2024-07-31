@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { mediaQueryMobile } from "@src/config/environment";
 import { tokens } from "@src/design/tokens";
 
+
 interface IStyledField {
   $smallScreen?: boolean;
 }
