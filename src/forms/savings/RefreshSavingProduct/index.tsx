@@ -32,13 +32,12 @@ const RefreshSavingProduct = (props: RefreshSavingProductProps) => {
   const formik = useFormik({
     initialValues,
     validationSchema: dynamicValidationSchema,
-    validateOnBlur: false,
     validateOnChange: false,
     onSubmit: async () => true,
   });
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    formik.setFieldValue("typeRefresh", event.target.innerText);
+    formik.setFieldValue("typeRefresh", event.target.outerText);
   };
 
   useEffect(() => {
@@ -72,6 +71,7 @@ const RefreshSavingProduct = (props: RefreshSavingProductProps) => {
         formik.values.typeRefresh !== initialValues.typeRefresh)
   );
 
+  console.log(formik);
   return (
     <RefreshSavingProductUI
       formik={formik}
