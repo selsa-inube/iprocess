@@ -1,12 +1,11 @@
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { ChangeEvent, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 import { IStartProcessEntry, IEntries, IFieldsEntered } from "@src/forms/types";
 import { RefreshInterestStatusUpdateUI } from "./interface";
 
 const validationSchema = Yup.object({
-  typeRefresh: Yup.string().required("Este campo no puede estar vacío"),
   descriptionComplementary: Yup.string(),
   plannedExecutionDate: Yup.string(),
 });
@@ -19,7 +18,6 @@ interface RefreshInterestStatusUpdateProps {
 
 const initialValues: IStartProcessEntry = {
   descriptionComplementary: "",
-  typeRefresh: "",
   plannedExecutionDate: "",
 };
 
@@ -36,13 +34,7 @@ const formik = useFormik({
   onSubmit: async () => true,
 });
 
-const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-  formik.setFieldValue("typeRefresh", event.target.outerText).then(()=>{
-    formik.validateForm().then((errors)=>{
-      formik.setErrors(errors);
-    })
-  });
-};
+
 
 useEffect(() => {
   if (
@@ -68,18 +60,14 @@ useEffect(() => {
 const comparisonData = Boolean(
   (data?.plannedAutomaticExecution &&
     formik.values.plannedExecutionDate.length > 0 &&
-    formik.values.typeRefresh !== initialValues.typeRefresh &&
     formik.values.plannedExecutionDate !==
-      initialValues.plannedExecutionDate) ||
-    (!data?.plannedAutomaticExecution &&
-      formik.values.typeRefresh !== initialValues.typeRefresh)
+      initialValues.plannedExecutionDate) 
 );
 
 return (
   <RefreshInterestStatusUpdateUI
     formik={formik}
     data={data}
-    onChange={handleChange}
     onStartProcess={onStartProcess}
     comparisonData={comparisonData}
   />

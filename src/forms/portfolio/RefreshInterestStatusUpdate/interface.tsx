@@ -5,27 +5,23 @@ import { Text } from "@inubekit/text";
 import { Button } from "@inubekit/button";
 import { Fieldset } from "@inubekit/fieldset";
 import { Textarea } from "@inubekit/textarea";
-import { Select } from "@inubekit/select";
 
 import { IEntries } from "@src/forms/types";
-import { getDomainById } from "@mocks/domains/domainService.mocks";
 import { Datetimefield } from "@src/design/inputs/Datetimefield";
 import { tokens } from "@src/design/tokens";
 import { mediaQueryMobile } from "@src/config/environment";
 
 import { StyledField, StyledTextarea } from "./styles";
 
-
 interface RefreshInterestStatusUpdateUIProps {
   data: IEntries;
   formik: FormikValues;
   comparisonData: boolean;
-  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onStartProcess: () => void;
 }
 
 const RefreshInterestStatusUpdateUI = (props: RefreshInterestStatusUpdateUIProps) => {
-  const { data, formik, comparisonData, onChange, onStartProcess } = props;
+  const { data, formik, comparisonData, onStartProcess } = props;
 
   const getFieldState = (formik: FormikValues, fieldName: string) => {
     if (formik.errors[fieldName]) return "invalid";
@@ -61,26 +57,6 @@ const RefreshInterestStatusUpdateUI = (props: RefreshInterestStatusUpdateUIProps
             onChange={formik.handleChange}
           />
         </StyledTextarea>
-
-        <Select
-          id="typeRefresh"
-          label="Tipo de refresco"
-          name="typeRefresh"
-          onChange={onChange}
-          onBlur={formik.handleBlur}
-          options={getDomainById("typeRefresh")}
-          placeholder="Seleccione uno"
-          size="wide"
-          message={
-            getFieldState(formik, "typeRefresh") === "invalid"
-              ? "La tipo de refresco es requerido"
-              : ""
-          }
-          status={getFieldState(formik, "typeRefresh")}
-          value={formik.values.typeRefresh}
-          fullwidth
-          required
-        />
 
         <StyledField $smallScreen={isMobile}>
           <Text type="label" size="large" weight="bold">
