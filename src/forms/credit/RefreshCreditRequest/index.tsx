@@ -37,7 +37,11 @@ const formik = useFormik({
 });
 
 const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-  formik.setFieldValue("typeRefresh", event.target.outerText);
+  formik.setFieldValue("typeRefresh", event.target.outerText).then(()=>{
+    formik.validateForm().then((errors)=>{
+      formik.setErrors(errors);
+    })
+  });
 };
 
 useEffect(() => {
