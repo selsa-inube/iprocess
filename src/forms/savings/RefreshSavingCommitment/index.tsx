@@ -38,7 +38,11 @@ const RefreshSavingCommitment = (props: RefreshSavingCommitmentProps) => {
   });
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    formik.setFieldValue("typeRefresh", event.target.innerText);
+    formik.setFieldValue("typeRefresh", event.target.outerText).then(()=>{
+      formik.validateForm().then((errors)=>{
+        formik.setErrors(errors);
+      })
+    });
   };
 
   useEffect(() => {
