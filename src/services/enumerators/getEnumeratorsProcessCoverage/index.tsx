@@ -1,6 +1,7 @@
 import { enviroment } from "@src/config/environment";
-import { IEnumeratorsProcessCoverage } from "@pages/startProcess/types";
+import { IEnumeratorsProcessCoverage } from "@src/forms/types";
 import { mapEnumProcessCoverageApiToEntities } from "./mappers";
+
 
 const EnumProcessCoverageData = async (): Promise<
   IEnumeratorsProcessCoverage[]

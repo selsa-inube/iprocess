@@ -48,10 +48,7 @@ interface IStartProcessResponse {
   uniqueReferenceNumberRequirement: string;
 }
 
-interface IEnumeratorsProcessCoverage{
-  id: string;
-  label: string;
-}
+
 
 export type {
   FilterProcessesForDate,
@@ -59,5 +56,4 @@ export type {
   StartProcessesFilter,
   IStartProcessesRequest,
   IStartProcessResponse,
-  IEnumeratorsProcessCoverage
 };

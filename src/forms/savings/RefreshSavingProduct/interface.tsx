@@ -7,11 +7,11 @@ import { Fieldset } from "@inubekit/fieldset";
 import { Textarea } from "@inubekit/textarea";
 import { Select } from "@inubekit/select";
 
-import { IEntries } from "@src/forms/types";
+import { IEntries, IEnumeratorsProcessCoverage } from "@src/forms/types";
 import { Datetimefield } from "@src/design/inputs/Datetimefield";
 import { tokens } from "@src/design/tokens";
 import { StyledField, StyledTextarea } from "./styles";
-import { IEnumeratorsProcessCoverage } from "@src/pages/startProcess/types";
+
 
 interface RefreshSavingProductUIProps {
   data: IEntries;

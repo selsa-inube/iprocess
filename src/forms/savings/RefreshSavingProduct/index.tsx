@@ -2,9 +2,9 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { ChangeEvent, useEffect, useState } from "react";
 
-import { IStartProcessEntry, IEntries, IFieldsEntered } from "@src/forms/types";
+import { IStartProcessEntry, IEntries, IFieldsEntered, IEnumeratorsProcessCoverage } from "@src/forms/types";
 import { RefreshSavingProductUI } from "./interface";
-import { IEnumeratorsProcessCoverage } from "@src/pages/startProcess/types";
+
 import { EnumProcessCoverageData } from "@src/services/enumerators/getEnumeratorsProcessCoverage";
 
 const validationSchema = Yup.object({
@@ -45,7 +45,6 @@ const RefreshSavingProduct = (props: RefreshSavingProductProps) => {
 
     useEffect(() => {
       validateOptionsTypeRefresh();
-      
     }, []);
 
   const formik = useFormik({
