@@ -11,6 +11,7 @@ import {
   StyledModal,
 } from "./styles";
 import { tokens } from "@src/design/tokens";
+import { mediaQueryMobile } from "@src/config/environment";
 
 interface StartProcessModalProps {
   children: React.ReactNode;
@@ -22,7 +23,7 @@ const StartProcessModal = (props: StartProcessModalProps) => {
   const { children, portalId, onCloseModal } =
     props;
 
-  const isMobile = useMediaQuery("(max-width: 500px)");
+  const isMobile = useMediaQuery(mediaQueryMobile);
 
   const node = document.getElementById(portalId);
 

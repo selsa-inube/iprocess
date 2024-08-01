@@ -26,15 +26,13 @@ const StartProcessScheduled = (props: IStartProcessScheduledProps) => {
 
   const [showModal, setShowModal] = useState(false);
 
-  const formatCutOffDate = new Date(String(dataModal.dateWithoutFormat));
-
   const handleStartProcess = () => {
     const data = startProcessAction({
       processCatalogId: String(id),
       month: Number(formatMonthEndpoint(selectedMonth)),
       suggestedDescription: String(dataModal.descriptionSuggested),
       year: Number(selectedYear),
-      cutOffDate: String(formatCutOffDate.toLocaleDateString("en-CA")),
+      cutOffDate: String(dataModal.dateWithoutFormat),
       complementaryDescription: String(fieldsEntered.descriptionComplementary),
       typeRefresh: String(fieldsEntered.typeRefresh),
       plannedExecutionDate: String(fieldsEntered.plannedExecutionDate),

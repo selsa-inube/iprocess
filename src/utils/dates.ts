@@ -31,6 +31,20 @@ const formatDate = (date: Date, withTime?: boolean) => {
   return `${day}/${capitalizeText(month)}/${year}`;
 };
 
+const formatDateEndpoint = (date: Date) => {
+  const options: Intl.DateTimeFormatOptions = {
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+    timeZone: "UTC",
+  };
+  const dateString = date.toLocaleDateString("es-ES", options);
+
+  const [day, month, year] = dateString.split("/");
+
+  return `${year}-${month}-${day}`;
+}
+
 const today = new Date();
 
 const formatMonthEndpoint = (month: string) => {
@@ -74,4 +88,5 @@ export {
   formatDate,
   filterDateChange,
   formatMonth,
+  formatDateEndpoint
 };

@@ -6,7 +6,7 @@ import { SkeletonLine } from "@inubekit/skeleton";
 import { IActions, ITitle } from "@components/data/Table/props";
 import { StyledContainerTitle } from "@components/data/Table/stories/styles";
 import { StartProcesses } from "@pages/startProcess/types";
-import { formatDate } from "@utils/dates";
+import { formatDate, formatDateEndpoint } from "@utils/dates";
 import { Details } from "../components/Details";
 import { StartProcessScheduled } from "../components/StartProcess";
 
@@ -32,7 +32,8 @@ const mapStartProcessScheduled = (
   return {
     id: process.processCatalogId,
     descriptionSuggested: formatDescriptionSuggested,
-    date: process.executionDateAndHour,
+    date:process.executionDateAndHour,
+    dateWithoutFormat: process.executionDateWithoutFormat,
     plannedAutomaticExecution: process.plannedAutomaticExecution,
   };
 };
@@ -45,6 +46,7 @@ const scheduledNormailzeEntries = (process: StartProcesses[]) =>
     process: entry.abbreviatedName,
     executionDate: entry.executionDate && formatDate(entry.executionDate),
     executionDateAndHour: formatDate(entry.executionDate, true),
+    executionDateWithoutFormat: formatDateEndpoint(entry.executionDate),
     requirements: <SkeletonLine animated />,
     plannedAutomaticExecution: "planned automatic execution", //se deja este valor para hacer pruebas con los formularios los formularios
   }));
