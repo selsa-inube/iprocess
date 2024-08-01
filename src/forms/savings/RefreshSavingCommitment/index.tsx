@@ -32,7 +32,6 @@ const RefreshSavingCommitment = (props: RefreshSavingCommitmentProps) => {
   const formik = useFormik({
     initialValues,
     validationSchema: dynamicValidationSchema,
-    validateOnBlur: false,
     validateOnChange: false,
     onSubmit: async () => true,
   });
