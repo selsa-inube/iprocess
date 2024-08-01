@@ -6,6 +6,7 @@ import { Table } from "@components/data/Table";
 import { IChangePeriodEntry } from "@components/modals/ChangePeriodModal/types";
 import { ChangePeriod } from "@src/components/feedback/ChangePeriod";
 import { periodLaterYears, periodPreviousYears } from "@src/config/environment";
+import { tokens } from "@src/design/tokens";
 
 import {
   actionsConfig,
@@ -14,7 +15,7 @@ import {
   titlesConfig,
 } from "./config/table.config";
 import { StartProcesses } from "../../types";
-import { tokens } from "@src/design/tokens";
+
 
 interface ScheduledTabUIProps {
   description: string;

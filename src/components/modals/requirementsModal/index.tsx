@@ -7,11 +7,12 @@ import { Stack } from "@inubekit/stack";
 import { Text } from "@inubekit/text";
 import { Button } from "@inubekit/button";
 
+import { tokens } from "@src/design/tokens";
 import { Table } from "@components/data/Table";
 import { IBreakpoint } from "@components/data/Table/props";
 import { StyledContainerTables, StyledModal } from "./styles";
 import { IData } from "./types";
-import { tokens } from "@src/design/tokens";
+
 
 interface RequirementsModalProps {
   breakpoints: IBreakpoint[];
