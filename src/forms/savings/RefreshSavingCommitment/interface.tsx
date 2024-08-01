@@ -37,7 +37,7 @@ const RefreshSavingCommitmentUI = (props: RefreshSavingCommitmentUIProps) => {
       <Stack direction="column" gap={tokens.spacing.s250}>
         <StyledField>
           <Text type="label" size="large">
-            Descripcion sugerida
+            Descripción sugerida
           </Text>
           <Fieldset legend="" spacing="compact">
             <Text>{String(data?.descriptionSuggested)}</Text>
