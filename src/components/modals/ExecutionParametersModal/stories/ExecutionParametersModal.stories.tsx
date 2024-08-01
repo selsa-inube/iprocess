@@ -14,7 +14,7 @@ const data = {
     "Los NFTs son tokens no fungibles únicos en la cadena de bloques",
   formOfExecution: "Los tokens únicos en la cadena de bloques.",
   error: "Los NFTs son tokens no fungibles únicos en la cadena de bloques",
-  executionDate: "31/DIC/2024",
+  executionDate: "31/DIC/2024 - - 01:00:00",
   time: 20,
 };
 
@@ -42,7 +42,7 @@ const labels = [
   },
   {
     id: "time",
-    titleName: "Tiempo(minutos) de deducción de personas a procesar.",
+    titleName: "Tiempo (en minutos) que tardó la deducción de las personas a procesar",
   },
 ];
 

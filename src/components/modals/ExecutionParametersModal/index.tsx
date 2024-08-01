@@ -58,7 +58,7 @@ const ExecutionParametersModal = (props: ExecutionParametersModalProps) => {
               <Stack direction="column" gap={tokens.spacing.s100}>
                 <Stack alignItems="center" justifyContent="space-between">
                   <Text type="title" size="medium" appearance="dark">
-                    parámetros de Ejecución
+                    Parámetros de Ejecución
                   </Text>
                   <MdClear size={tokens.spacing.s300} cursor="pointer" onClick={onCloseModal} />
                 </Stack>
