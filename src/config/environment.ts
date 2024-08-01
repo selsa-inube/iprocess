@@ -18,3 +18,4 @@ const enviroment = {
 };
 
 export { enviroment, periodLaterYears, periodPreviousYears, mediaQueryMobile };
+

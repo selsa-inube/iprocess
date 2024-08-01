@@ -6,11 +6,12 @@ import { StyledContainerTable } from "./styles";
 import { IAction, IActions, IBreakpoint, ITitle } from "./props";
 
 interface ITable {
-  actions: IAction[];
+
   entries: IActions[];
   id: string;
   loading: boolean;
   titles: ITitle[];
+  actions?: IAction[];
   widthFirstColumn?: string;
   multipleTables?: boolean;
   breakpoints?: IBreakpoint[];

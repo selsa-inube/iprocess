@@ -158,7 +158,7 @@ const TableUI = (props: Omit<ITable, "id">) => {
                 )}
               </StyledThTitle>
             ))}
-            {showActionTitle(actions, mediaActionOpen, multipleTables)}
+            {actions && showActionTitle(actions, mediaActionOpen, multipleTables)}
           </StyledTr>
         </StyledThead>
         <StyledTbody>
@@ -196,7 +196,7 @@ const TableUI = (props: Omit<ITable, "id">) => {
                         )}
                       </StyledTd>
                     ))}
-                    {ShowAction(actions, entry)}
+                    {actions && ShowAction(actions, entry)}
                   </StyledTr>
                 ))
               ) : (
