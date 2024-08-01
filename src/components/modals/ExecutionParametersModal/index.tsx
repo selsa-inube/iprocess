@@ -12,9 +12,11 @@ import { Label } from "@inubekit/label";
 
 import { Table } from "@components/data/Table";
 import { IBreakpoint, ITitle } from "@components/data/Table/props";
+import { mediaQueryMobile } from "@src/config/environment";
 import { StyledContainer, StyledModal, StyledModalFields } from "./styles";
 import { IEntries, ILabel } from "../MoreDetailsModal/types";
 import { tokens } from "@src/design/tokens";
+
 
 interface ExecutionParametersModalProps {
   isVisible: boolean;
@@ -39,7 +41,7 @@ const ExecutionParametersModal = (props: ExecutionParametersModalProps) => {
     onCloseModal,
   } = props;
 
-  const isMobile = useMediaQuery("(max-width: 500px)");
+  const isMobile = useMediaQuery(mediaQueryMobile);
 
   const node = document.getElementById(portalId);
 
