@@ -7,8 +7,7 @@ import { Fieldset } from "@inubekit/fieldset";
 import { Textarea } from "@inubekit/textarea";
 import { Select } from "@inubekit/select";
 
-import { IEntries } from "@src/forms/types";
-import { getDomainById } from "@mocks/domains/domainService.mocks";
+import { IEntries, IEnumeratorsProcessCoverage } from "@src/forms/types";
 import { Datetimefield } from "@src/design/inputs/Datetimefield";
 import { tokens } from "@src/design/tokens";
 import { mediaQueryMobile } from "@src/config/environment";
@@ -20,12 +19,13 @@ interface RefreshCreditRequestUIProps {
   data: IEntries;
   formik: FormikValues;
   comparisonData: boolean;
+  optionsTypeRefresh: IEnumeratorsProcessCoverage[];
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onStartProcess: () => void;
 }
 
 const RefreshCreditRequestUI = (props: RefreshCreditRequestUIProps) => {
-  const { data, formik, comparisonData, onChange, onStartProcess } = props;
+  const { data, formik, comparisonData, optionsTypeRefresh, onChange, onStartProcess } = props;
 
   const getFieldState = (formik: FormikValues, fieldName: string) => {
     if (formik.errors[fieldName]) return "invalid";
@@ -68,7 +68,7 @@ const RefreshCreditRequestUI = (props: RefreshCreditRequestUIProps) => {
           name="typeRefresh"
           onChange={onChange}
           onBlur={formik.handleBlur}
-          options={getDomainById("typeRefresh")}
+          options={optionsTypeRefresh}
           placeholder="Seleccione uno"
           size="wide"
           message={

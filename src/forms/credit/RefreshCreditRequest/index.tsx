@@ -2,8 +2,9 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { ChangeEvent, useEffect, useState } from "react";
 
-import { IStartProcessEntry, IEntries, IFieldsEntered } from "@src/forms/types";
+import { IStartProcessEntry, IEntries, IFieldsEntered, IEnumeratorsProcessCoverage } from "@src/forms/types";
 import { RefreshCreditRequestUI } from "./interface";
+import { EnumProcessCoverageData } from "@src/services/enumerators/getEnumeratorsProcessCoverage";
 
 const validationSchema = Yup.object({
   typeRefresh: Yup.string().required("Este campo no puede estar vacío"),
@@ -28,6 +29,22 @@ const RefreshCreditRequest = (props: RefreshCreditRequestProps) => {
 
   const [dynamicValidationSchema, setDynamicValidationSchema] =
   useState(validationSchema);
+
+  const [optionsTypeRefresh, setOptionsTypeRefresh] = useState<IEnumeratorsProcessCoverage[]>([]);
+
+  const validateOptionsTypeRefresh = async () => {
+    try {
+      const newOptions = await EnumProcessCoverageData();
+
+      setOptionsTypeRefresh(newOptions);
+    } catch (error) {
+      console.info(error);
+    } 
+  };
+
+  useEffect(() => {
+    validateOptionsTypeRefresh();
+  }, []);
 
 const formik = useFormik({
   initialValues,
@@ -79,6 +96,7 @@ return (
   <RefreshCreditRequestUI
     formik={formik}
     data={data}
+    optionsTypeRefresh={optionsTypeRefresh}
     onChange={handleChange}
     onStartProcess={onStartProcess}
     comparisonData={comparisonData}

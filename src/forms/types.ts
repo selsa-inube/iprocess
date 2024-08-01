@@ -15,4 +15,10 @@ interface IEntries {
     plannedExecutionDate?: string;
   }
 
-export type { IStartProcessEntry, IEntries, IFieldsEntered }
+  
+  interface IEnumeratorsProcessCoverage{
+    id: string;
+    label: string;
+  }
+
+export type { IStartProcessEntry, IEntries, IFieldsEntered, IEnumeratorsProcessCoverage }
