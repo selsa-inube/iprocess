@@ -11,8 +11,10 @@ import { IEntries } from "@src/forms/types";
 import { getDomainById } from "@mocks/domains/domainService.mocks";
 import { Datetimefield } from "@src/design/inputs/Datetimefield";
 import { tokens } from "@src/design/tokens";
+import { mediaQueryMobile } from "@src/config/environment";
 
 import { StyledField, StyledTextarea } from "./styles";
+
 
 interface RefreshCreditRequestUIProps {
   data: IEntries;
@@ -29,7 +31,7 @@ const RefreshCreditRequestUI = (props: RefreshCreditRequestUIProps) => {
     if (formik.errors[fieldName]) return "invalid";
   };
 
-  const isMobile = useMediaQuery("(max-width: 500px)");
+  const isMobile = useMediaQuery(mediaQueryMobile);
 
   return (
     <form
