@@ -4,6 +4,8 @@ import { ChangeEvent, useEffect, useState } from "react";
 
 import { IStartProcessEntry, IEntries, IFieldsEntered } from "@src/forms/types";
 import { RefreshSavingProductUI } from "./interface";
+import { IEnumeratorsProcessCoverage } from "@src/pages/startProcess/types";
+import { EnumProcessCoverageData } from "@src/services/enumerators/getEnumeratorsProcessCoverage";
 
 const validationSchema = Yup.object({
   typeRefresh: Yup.string().required("Este campo no puede estar vacío"),
@@ -28,6 +30,23 @@ const RefreshSavingProduct = (props: RefreshSavingProductProps) => {
 
   const [dynamicValidationSchema, setDynamicValidationSchema] =
     useState(validationSchema);
+
+    const [optionsTypeRefresh, setOptionsTypeRefresh] = useState<IEnumeratorsProcessCoverage[]>([]);
+
+    const validateOptionsTypeRefresh = async () => {
+      try {
+        const newOptions = await EnumProcessCoverageData();
+  
+        setOptionsTypeRefresh(newOptions);
+      } catch (error) {
+        console.info(error);
+      } 
+    };
+
+    useEffect(() => {
+      validateOptionsTypeRefresh();
+      
+    }, []);
 
   const formik = useFormik({
     initialValues,
@@ -79,6 +98,7 @@ const RefreshSavingProduct = (props: RefreshSavingProductProps) => {
     <RefreshSavingProductUI
       formik={formik}
       data={data}
+      optionsTypeRefresh={optionsTypeRefresh}
       onChange={handleChange}
       onStartProcess={onStartProcess}
       comparisonData={comparisonData}

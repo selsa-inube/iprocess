@@ -8,23 +8,23 @@ import { Textarea } from "@inubekit/textarea";
 import { Select } from "@inubekit/select";
 
 import { IEntries } from "@src/forms/types";
-import { getDomainById } from "@mocks/domains/domainService.mocks";
 import { Datetimefield } from "@src/design/inputs/Datetimefield";
 import { tokens } from "@src/design/tokens";
 import { mediaQueryMobile } from "@src/config/environment";
 import { StyledField, StyledTextarea } from "./styles";
-
+import { IEnumeratorsProcessCoverage } from "@src/pages/startProcess/types";
 
 interface RefreshSavingCommitmentUIProps {
   data: IEntries;
   formik: FormikValues;
   comparisonData: boolean;
+  optionsTypeRefresh: IEnumeratorsProcessCoverage[];
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onStartProcess: () => void;
 }
 
 const RefreshSavingCommitmentUI = (props: RefreshSavingCommitmentUIProps) => {
-  const { data, formik, comparisonData, onChange, onStartProcess } = props;
+  const { data, formik, comparisonData, optionsTypeRefresh, onChange, onStartProcess } = props;
 
   const getFieldState = (formik: FormikValues, fieldName: string) => {
     if (formik.errors[fieldName]) return "invalid";
@@ -64,7 +64,7 @@ const RefreshSavingCommitmentUI = (props: RefreshSavingCommitmentUIProps) => {
             name="typeRefresh"
             onChange={onChange}
             onBlur={formik.handleBlur}
-            options={getDomainById("typeRefresh")}
+            options={optionsTypeRefresh}
             placeholder="Seleccione uno"
             size="wide"
             message={

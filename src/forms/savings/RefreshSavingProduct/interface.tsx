@@ -8,21 +8,22 @@ import { Textarea } from "@inubekit/textarea";
 import { Select } from "@inubekit/select";
 
 import { IEntries } from "@src/forms/types";
-import { getDomainById } from "@mocks/domains/domainService.mocks";
 import { Datetimefield } from "@src/design/inputs/Datetimefield";
 import { tokens } from "@src/design/tokens";
 import { StyledField, StyledTextarea } from "./styles";
+import { IEnumeratorsProcessCoverage } from "@src/pages/startProcess/types";
 
 interface RefreshSavingProductUIProps {
   data: IEntries;
   formik: FormikValues;
   comparisonData: boolean;
+  optionsTypeRefresh: IEnumeratorsProcessCoverage[];
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onStartProcess: () => void;
 }
 
 const RefreshSavingProductUI = (props: RefreshSavingProductUIProps) => {
-  const { data, formik, comparisonData, onChange, onStartProcess } = props;
+  const { data, formik, comparisonData, optionsTypeRefresh, onChange, onStartProcess } = props;
 
   const getFieldState = (formik: FormikValues, fieldName: string) => {
     if (formik.errors[fieldName]) return "invalid";
@@ -65,7 +66,7 @@ const RefreshSavingProductUI = (props: RefreshSavingProductUIProps) => {
           name="typeRefresh"
           onChange={onChange}
           onBlur={formik.handleBlur}
-          options={getDomainById("typeRefresh")}
+          options={optionsTypeRefresh}
           placeholder="Seleccione uno"
           size="wide"
           message={
