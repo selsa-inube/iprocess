@@ -12,6 +12,8 @@ interface StartProcesses {
   requeriments?: string;
   aplication?: string;
   periodicity?: string;
+  plannedAutomaticExecution?: string;
+  executionDateWithoutFormat?: string;
 }
 
 interface StartProcessesFilter {
