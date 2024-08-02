@@ -2,15 +2,6 @@ import { MdSearch } from "react-icons/md";
 import { Stack } from "@inubekit/stack";
 import { Textfield } from "@inubekit/textfield";
 
-import { Table } from "@components/data/Table";
-import { IChangePeriodEntry } from "@components/modals/ChangePeriodModal/types";
-
-import {
-  actionsOnDemand,
-  breakPointsOnDemand,
-  onDemandNormailzeEntries,
-  titlesOnDemand,
-} from "./config/table.config";
 import { StartProcesses} from "../../types";
 
 interface OnDemandTabUIProps {
@@ -18,17 +9,12 @@ interface OnDemandTabUIProps {
   entries: StartProcesses[];
   loading: boolean;
   searchOnDemand: string;
-  selectedMonth: string;
-  selectedYear: string;
-  setSelectedDate: (show: IChangePeriodEntry) => void;
   handlesearchOnDemand: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleOrderData?: () => void;
 }
 
 function OnDemandTabUI(props: OnDemandTabUIProps) {
   const {
-    entries,
-    loading,
     searchOnDemand,
  
     handlesearchOnDemand,
@@ -52,16 +38,6 @@ function OnDemandTabUI(props: OnDemandTabUIProps) {
           }
         />
       </Stack>
-      <Table
-        id="portal"
-        titles={titlesOnDemand}
-        actions={actionsOnDemand}
-        entries={onDemandNormailzeEntries(entries)}
-        breakpoints={breakPointsOnDemand}
-        loading={loading}
-        filter={searchOnDemand}
-        widthFirstColumn="68%"
-      />
     </Stack>
   );
 }
