@@ -1,3 +1,4 @@
+import { mediaQueryMobile } from "@src/config/environment";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
@@ -23,7 +24,7 @@ const StyledMain = styled.main`
   overflow-y: auto;
   padding: 32px 64px;
 
-  @media screen and (max-width: 560px) {
+  @media screen and (${mediaQueryMobile}) {
     padding: 24px;
   }
 `;
