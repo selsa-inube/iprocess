@@ -27,7 +27,7 @@ const DetailsOnDemand = (props: IDetailsOnDemandProps) => {
         size="16px"
         onClick={handleToggleModal}
         cursorHover
-        spacing="none"
+        spacing="narrow"
       />
       {showModal && data && (
         <DetailModal

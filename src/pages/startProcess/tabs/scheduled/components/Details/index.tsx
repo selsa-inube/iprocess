@@ -28,7 +28,7 @@ export const Details = (props: IDetailsProps) => {
         size="16px"
         onClick={handleToggleModal}
         cursorHover
-        spacing="none"
+        spacing="narrow"
       />
       {showModal && data && (
         <DetailModal

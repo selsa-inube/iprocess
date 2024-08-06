@@ -1,10 +1,15 @@
 import styled from "styled-components";
 
-const StyledButton = styled.div`
- p{
-    font-size: 12px;
-    line-height: 16px;
- }
+interface IStyledOptionlist {
+  $numberOptions: number;
+  $ref?: React.ForwardedRef<unknown>;
+}
+
+const StyledOptionlist = styled.div<IStyledOptionlist>`
+  cursor: pointer;
+  position: relative;
+  bottom: ${({ $numberOptions }) => ($numberOptions === 5 ? "120px" : "80px")};
+  right: 40px;
 `;
 
-export { StyledButton };
+export { StyledOptionlist };
