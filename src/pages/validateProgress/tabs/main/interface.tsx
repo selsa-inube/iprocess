@@ -14,7 +14,6 @@ import {
   titlesConfig,
 } from "./config/table.config";
 import { ValidateProgresses } from "../../types";
-//import { entriesMock } from "@src/components/data/Table/stories/mocks";
 
 interface MainTabUIProps {
   description: string;
@@ -70,7 +69,6 @@ function MainTabUI(props: MainTabUIProps) {
         titles={titlesConfig(handleOrderData)}
         actions={actions}
         entries={mainNormailzeEntries(entries)}
-        //entries={entriesMock}
         breakpoints={breakPoints}
         loading={loading}
         filter={searchMain}
