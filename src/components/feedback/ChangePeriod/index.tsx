@@ -5,6 +5,9 @@ import { Text } from "@inubekit/text";
 import { Icon } from "@inubekit/icon";
 
 import { tokens } from "@src/design/tokens";
+import  {currentMonthLetters,
+currentYear,
+} from "@utils/dates";
 import { getDomainById } from "@src/mocks/domains/domainService.mocks";
 import { PeriodsOptionsList } from "@src/design/feedback/PeriodsOptionsList";
 import { IOption } from "@src/design/feedback/PeriodsOptionsList/types";
@@ -44,6 +47,9 @@ const ChangePeriod = (props: ChangePeriodProps) => {
     });
   };
 
+  const periodCurrent = currentMonthLetters + " " + currentYear;
+  const period = getDomainById("periods").find( (period) => period.label === periodCurrent)?.id;
+
   useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);
 
@@ -75,7 +81,7 @@ const ChangePeriod = (props: ChangePeriodProps) => {
         >
           <PeriodsOptionsList
             options={getDomainById("periods")}
-            selectedOption={selectedOption}
+            selectedOption={selectedOption || period!}
             onClick={(e: PointerEvent) => e.stopPropagation()}
             handleOptionClick={handleOptionClick}
           />
