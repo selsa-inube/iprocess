@@ -150,6 +150,35 @@ const businessUnitTheme = {
       track: { color: palette.neutral.N50 },
     },
   },
+  optionsPeriod: {
+    border: {
+      color: {
+        regular: palette.neutral.N0,
+        focus: palette.blue.B300,
+      },
+    },
+    background: {
+      color: {
+        regular: palette.neutral.N0,
+        selected: palette.neutral.N30,
+      },
+    },
+    content: {
+      color: {
+        regular: palette.neutral.N900,
+        disabled: palette.neutral.N70,
+      },
+    },
+    optionList: {
+      appearance: {
+        regular: "dark",
+        expanded: "primary",
+      },
+      background: {
+        selected: palette.neutral.N30,
+      }
+    }
+  }
 };
 
 export { businessUnitTheme };

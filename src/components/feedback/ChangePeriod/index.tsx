@@ -1,57 +1,85 @@
-import { useState } from "react";
-import { MdOutlineCalendarMonth } from "react-icons/md";
-import { Button } from "@inubekit/button";
+import { useEffect, useRef, useState } from "react";
+import { MdExpandMore } from "react-icons/md";
 import { Stack } from "@inubekit/stack";
 import { Text } from "@inubekit/text";
+import { Icon } from "@inubekit/icon";
 
-import { ChangePeriodModal } from "@components/modals/ChangePeriodModal";
+import { tokens } from "@src/design/tokens";
+import { getDomainById } from "@src/mocks/domains/domainService.mocks";
+import { PeriodsOptionsList } from "@src/design/feedback/PeriodsOptionsList";
+import { IOption } from "@src/design/feedback/PeriodsOptionsList/types";
 import { IChangePeriodEntry } from "@components/modals/ChangePeriodModal/types";
-import { StyledButton } from "./styles";
+import { StyledOptionlist } from "./styles";
 
 interface ChangePeriodProps {
   description: string;
-  laterYears: number;
-  previousYears: number;
-  selectedMonth: string;
-  selectedYear: string;
-  setSelectedDate: (show: IChangePeriodEntry) => void;
+  setSelectedPeriod: (show: IChangePeriodEntry) => void;
 }
 
 const ChangePeriod = (props: ChangePeriodProps) => {
-  const { description, laterYears, previousYears,  selectedMonth,
-    selectedYear, setSelectedDate } = props;
+  const { description, setSelectedPeriod } = props;
 
-  const [showModal, setShowModal] = useState(false);
+  const [showListPeriods, setShowListPeriods] = useState(false);
+  const [selectedOption, setSelectedOption] = useState<string>("");
+  const optionsListRef = useRef<HTMLDivElement>(null);
 
-  const handleToggleModal = () => {
-    setShowModal(!showModal);
+  const handleClickOutside = (event: MouseEvent) => {
+    if (
+      optionsListRef.current &&
+      !optionsListRef.current.contains(event.target as Node) &&
+      event.target !== optionsListRef.current
+    ) {
+      setShowListPeriods(false);
+    }
   };
 
+  const handleOptionClick = (option: IOption) => {
+    const changePeriod = option?.label.split(" ");
+    setSelectedOption(option.id);
+    setShowListPeriods(false);
+    setSelectedPeriod({
+      month: changePeriod[0],
+      year: changePeriod[1],
+      change: true,
+    });
+  };
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   return (
-    <Stack gap="20px" alignItems="center">
-      <Text type="label" size="medium" appearance="dark">
+    <Stack gap={tokens.spacing.s150} alignItems="center">
+      <Text type="title" size="medium" appearance="dark" weight="bold">
         {description}
       </Text>
-      <StyledButton>
-        <Button
-          onClick={() => setShowModal(true)}
-          spacing="compact"
-          iconBefore={<MdOutlineCalendarMonth size={"18px"} />}
-        >
-          Modificar mes
-        </Button>
-      </StyledButton>
 
-      {showModal && (
-        <ChangePeriodModal
-          laterYears={laterYears}
-          previousYears={previousYears}
-          portalId={"modals"}
-          selectedMonth={selectedMonth}
-          selectedYear={selectedYear}
-          onCloseModal={handleToggleModal}
-          selectedDate={setSelectedDate}
-        />
+      <Icon
+        appearance="dark"
+        icon={<MdExpandMore />}
+        cursorHover
+        spacing="narrow"
+        variant="empty"
+        size="24px"
+        onClick={() => setShowListPeriods(true)}
+      />
+
+      {showListPeriods && (
+        <StyledOptionlist
+          $numberOptions={getDomainById("periods").length}
+          $ref={optionsListRef}
+        >
+          <PeriodsOptionsList
+            options={getDomainById("periods")}
+            selectedOption={selectedOption}
+            onClick={(e: PointerEvent) => e.stopPropagation()}
+            handleOptionClick={handleOptionClick}
+          />
+        </StyledOptionlist>
       )}
     </Stack>
   );
