@@ -24,45 +24,5 @@ const StyledModal = styled.div<IStyledModal>`
   }
 `;
 
-const StyledModalFields = styled.div<IStyledModal>`
-  display: flex;
-  gap: ${tokens.spacing.s050};
-  flex-direction: column;
-  hyphens: auto;
 
-  div {
-    min-height: 0px !important;
-    margin-bottom: -8px !important;
-  }
-
-  p {
-    word-break: break-all;
-    white-space: normal;
-  }
-
-  @media screen and (max-width: 500px) {
-    div {
-      max-width: 200px;
-    }
-  }
-`;
-
-const StyledTextarea = styled.div`
-  @media (max-width: 490px) {
-    div {
-      display: inline;
-    }
-
-    div:nth-child(2) p {
-      text-align: right;
-    }
-
-    p {
-      white-space: normal;
-
-      margin: ${tokens.spacing.s0};
-    }
-  }
-`;
-
-export { StyledContainer, StyledModal, StyledModalFields, StyledTextarea };
+export { StyledContainer, StyledModal };
