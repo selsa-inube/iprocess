@@ -1,5 +1,5 @@
-import { IChangePeriodEntry } from "@components/modals/ChangePeriodModal/types";
-import { FilterProcessesForDate } from "@pages/startProcess/types";
+
+import { FilterProcessesForDate, IChangePeriodEntry } from "@pages/startProcess/types";
 import { monthsData } from "@mocks/domains/months";
 
 import { capitalizeText } from "./texts";

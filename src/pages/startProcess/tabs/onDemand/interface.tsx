@@ -3,7 +3,6 @@ import { Stack } from "@inubekit/stack";
 import { Textfield } from "@inubekit/textfield";
 
 import { Table } from "@components/data/Table";
-import { IChangePeriodEntry } from "@components/modals/ChangePeriodModal/types";
 
 import {
   actionsOnDemand,
@@ -18,9 +17,6 @@ interface OnDemandTabUIProps {
   entries: StartProcesses[];
   loading: boolean;
   searchOnDemand: string;
-  selectedMonth: string;
-  selectedYear: string;
-  setSelectedDate: (show: IChangePeriodEntry) => void;
   handlesearchOnDemand: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleOrderData?: () => void;
 }
