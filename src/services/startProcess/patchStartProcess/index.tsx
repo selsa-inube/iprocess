@@ -5,7 +5,7 @@ import { mapStartProcessEntityToApi } from "./mappers";
 const startProcess = async (process: IStartProcessesRequest): Promise<
   IStartProcessResponse | undefined
 > => {
-  const requestUrl = `${enviroment.ICLIENT_API_URL_PERSISTENCE}/process-controls`;
+  const requestUrl = `${enviroment.IPROCESS_API_URL_PERSISTENCE}/process-controls`;
   try {
     const options: RequestInit = {
       method: "PATCH",

@@ -37,7 +37,6 @@ const MonthPicker = (props: MonthPickerProps) => {
         onChange={handleChange}
         options={getDomainById("month")}
         placeholder="Seleccione un mes"
-        readonly={false}
         required={false}
         size="wide"
         fullwidth={true}
