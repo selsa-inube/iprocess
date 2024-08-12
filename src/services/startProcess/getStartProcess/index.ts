@@ -1,4 +1,4 @@
-import { enviroment } from "@src/config/environment";
+import { enviroment, fetchTimeoutServices, maxRetriesServices } from "@src/config/environment";
 import {
   FilterProcessesForDate,
   StartProcessesFilter,
@@ -9,8 +9,8 @@ import {
 
 const startProcessData = async (FilterProcesses: FilterProcessesForDate) 
 : Promise<StartProcessesFilter> => {
-  const maxRetries = 5;
-  const fetchTimeout = 3000;
+  const maxRetries = maxRetriesServices;
+  const fetchTimeout = fetchTimeoutServices;
   const emptyResponse = {
     onDemand: [],
     scheduled: [],
@@ -39,7 +39,7 @@ const startProcessData = async (FilterProcesses: FilterProcessesForDate)
       };
 
       const res = await fetch(
-        `${enviroment.ICLIENT_API_URL_QUERY}/process-controls?${queryParams.toString()}`,
+        `${enviroment.IPROCESS_API_URL_QUERY}/process-controls?${queryParams.toString()}`,
         options
       );
 
