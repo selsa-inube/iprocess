@@ -2,14 +2,6 @@ import { MdSearch } from "react-icons/md";
 import { Stack } from "@inubekit/stack";
 import { Textfield } from "@inubekit/textfield";
 
-import { Table } from "@components/data/Table";
-
-import {
-  actionsOnDemand,
-  breakPointsOnDemand,
-  onDemandNormailzeEntries,
-  titlesOnDemand,
-} from "./config/table.config";
 import { StartProcesses} from "../../types";
 
 interface OnDemandTabUIProps {
@@ -23,8 +15,6 @@ interface OnDemandTabUIProps {
 
 function OnDemandTabUI(props: OnDemandTabUIProps) {
   const {
-    entries,
-    loading,
     searchOnDemand,
  
     handlesearchOnDemand,
@@ -48,16 +38,6 @@ function OnDemandTabUI(props: OnDemandTabUIProps) {
           }
         />
       </Stack>
-      <Table
-        id="portal"
-        titles={titlesOnDemand}
-        actions={actionsOnDemand}
-        entries={onDemandNormailzeEntries(entries)}
-        breakpoints={breakPointsOnDemand}
-        loading={loading}
-        filter={searchOnDemand}
-        widthFirstColumn="68%"
-      />
     </Stack>
   );
 }

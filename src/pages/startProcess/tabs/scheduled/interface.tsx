@@ -2,14 +2,7 @@ import { MdSearch } from "react-icons/md";
 import { Stack } from "@inubekit/stack";
 import { Textfield } from "@inubekit/textfield";
 
-import { Table } from "@components/data/Table";
 
-import {
-  actions,
-  breakPoints,
-  scheduledNormailzeEntries,
-  titlesConfig,
-} from "./config/table.config";
 import { StartProcesses } from "../../types";
 import { ChangePeriod } from "@src/components/feedback/ChangePeriod";
 
@@ -25,11 +18,8 @@ interface ScheduledTabUIProps {
 function ScheduledTabUI(props: ScheduledTabUIProps) {
   const {
     description,
-    entries,
-    loading,
     searchScheduled,
     handleSearchScheduled,
-    handleOrderData,
   } = props;
 
   return (
@@ -52,16 +42,6 @@ function ScheduledTabUI(props: ScheduledTabUIProps) {
           }
         />
       </Stack>
-      <Table
-        id="portal"
-        titles={titlesConfig(handleOrderData)}
-        actions={actions}
-        entries={scheduledNormailzeEntries(entries)}
-        breakpoints={breakPoints}
-        loading={loading}
-        filter={searchScheduled}
-        widthFirstColumn="55%"
-      />
     </Stack>
   );
 }
