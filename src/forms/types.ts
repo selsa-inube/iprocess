@@ -1,6 +1,6 @@
 interface IStartProcessEntry{
   descriptionComplementary: string;
-  typeRefresh: string;
+  typeRefresh?: string;
   plannedExecutionDate: string;
 }
 
@@ -10,7 +10,7 @@ interface IEntries {
 }
 
 interface IFieldsEntered {
-  typeRefresh: string;
+  typeRefresh?: string;
   descriptionComplementary?: string;
   plannedExecutionDate?: string;
 }
