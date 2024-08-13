@@ -70,7 +70,7 @@ const CardProcess = (props: CardProcessProps) => {
           <Stack
             direction="column"
             gap={tokens.spacing.s025}
-            width="93px"
+            width="96px"
             padding={tokens.spacing.s0}
           >
             <Text type="label" size="medium" weight="bold" appearance="gray">

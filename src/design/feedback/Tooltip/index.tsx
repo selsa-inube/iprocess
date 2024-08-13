@@ -20,7 +20,7 @@ const Tooltip = (props: TooltipProps) => {
       onMouseLeave={() => setIsVisible(false)}
     >
       <StyledIcon>
-        <Icon cursorHover={true} appearance={"dark"} icon={<MdInfoOutline />} />
+        <Icon cursorHover={true} appearance={"dark"} icon={<MdInfoOutline />} size="16px"/>
 
         {isVisible && (
           <StyledText>
