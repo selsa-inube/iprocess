@@ -15,6 +15,7 @@ const enviroment = {
   AUTH0_DOMAIN: import.meta.env.VITE_AUTH0_DOMAIN,
   REDIRECT_URI: IS_PRODUCTION ? window.location.origin : AUTH_REDIRECT_URI,
   IPROCESS_API_URL_QUERY: import.meta.env.VITE_IPROCESS_API_URL_QUERY,
+  IPROCESS_API_URL_QUERY_ENUM: import.meta.env.VITE_IPROCESS_API_URL_QUERY_ENUM,
   IPROCESS_API_URL_PERSISTENCE: import.meta.env
     .VITE_IPROCESS_API_URL_PERSISTENCE,
   TEMP_BUSINESS_UNIT: "test",
@@ -28,3 +29,6 @@ export {
   maxRetriesServices,
   fetchTimeoutServices,
 };
+
+
+
