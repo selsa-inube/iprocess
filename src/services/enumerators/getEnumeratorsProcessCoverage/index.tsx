@@ -1,4 +1,4 @@
-import { enviroment } from "@src/config/environment";
+import { enviroment, fetchTimeoutServices, maxRetriesServices } from "@src/config/environment";
 import { IEnumeratorsProcessCoverage } from "@src/forms/types";
 import { mapEnumProcessCoverageApiToEntities } from "./mappers";
 
@@ -6,8 +6,8 @@ import { mapEnumProcessCoverageApiToEntities } from "./mappers";
 const EnumProcessCoverageData = async (): Promise<
   IEnumeratorsProcessCoverage[]
 > => {
-  const maxRetries = 5;
-  const fetchTimeout = 3000;
+  const maxRetries = maxRetriesServices;
+  const fetchTimeout = fetchTimeoutServices;
 
   for (let attempt = 1; attempt <= maxRetries; attempt++) {
     try {
