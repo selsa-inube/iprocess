@@ -25,7 +25,7 @@ const EnumProcessCoverageData = async (): Promise<
       };
 
       const res = await fetch(
-        `${enviroment.ICLIENT_API_URL_QUERY_ENUM}/enumerators/processcoverage`,
+        `${enviroment.IPROCESS_API_URL_QUERY_ENUM}/enumerators/processcoverage`,
         options
       );
 
