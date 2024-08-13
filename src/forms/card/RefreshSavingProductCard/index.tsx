@@ -1,11 +1,13 @@
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 
-import { IStartProcessEntry, IEntries, IFieldsEntered } from "@src/forms/types";
+import { EnumProcessCoverageData } from "@services/enumerators/getEnumeratorsProcessCoverage";
+import { IStartProcessEntry, IEntries, IFieldsEntered, IEnumeratorsProcessCoverage } from "@src/forms/types";
 import { RefreshSavingProductCardUI } from "./interface";
 
 const validationSchema = Yup.object({
+  typeRefresh: Yup.string().required("Este campo no puede estar vacío"),
   descriptionComplementary: Yup.string(),
   plannedExecutionDate: Yup.string(),
 });
@@ -18,6 +20,7 @@ interface RefreshSavingProductCardProps {
 
 const initialValues: IStartProcessEntry = {
   descriptionComplementary: "",
+  typeRefresh: "",
   plannedExecutionDate: "",
 };
 
@@ -25,53 +28,80 @@ const RefreshSavingProductCard = (props: RefreshSavingProductCardProps) => {
   const { data, setFieldsEntered, onStartProcess } = props;
 
   const [dynamicValidationSchema, setDynamicValidationSchema] =
-  useState(validationSchema);
+    useState(validationSchema);
 
-const formik = useFormik({
-  initialValues,
-  validationSchema: dynamicValidationSchema,
-  validateOnChange: false,
-  onSubmit: async () => true,
-});
+    const [optionsTypeRefresh, setOptionsTypeRefresh] = useState<IEnumeratorsProcessCoverage[]>([]);
 
+    const validateOptionsTypeRefresh = async () => {
+      try {
+        const newOptions = await EnumProcessCoverageData();
+  
+        setOptionsTypeRefresh(newOptions);
+      } catch (error) {
+        console.info(error);
+      } 
+    };
 
+    useEffect(() => {
+      validateOptionsTypeRefresh();
+    }, []);
 
-useEffect(() => {
-  if (
-    data?.plannedAutomaticExecution &&
-    data?.plannedAutomaticExecution === "planned automatic execution"
-  ) {
-    setDynamicValidationSchema(
-      validationSchema.shape({
-        plannedExecutionDate: Yup.string().required(
-          "Este campo es requerido"
-        ),
+  const formik = useFormik({
+    initialValues,
+    validationSchema: dynamicValidationSchema,
+    validateOnChange: false,
+    onSubmit: async () => true,
+  });
+
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+    formik.setFieldValue("typeRefresh", event.target.outerText).then(()=>{
+      formik.validateForm().then((errors)=>{
+        formik.setErrors(errors);
       })
-    );
-  }
-}, [data?.plannedAutomaticExecution, setDynamicValidationSchema]);
+    });
+  };
 
-useEffect(() => {
-  if (formik.values) {
-    setFieldsEntered(formik.values);
-  }
-}, [formik.values, setFieldsEntered]);
+  useEffect(() => {
+    if (
+      data?.plannedAutomaticExecution &&
+      data?.plannedAutomaticExecution === "planned automatic execution"
+    ) {
+      setDynamicValidationSchema(
+        validationSchema.shape({
+          plannedExecutionDate: Yup.string().required(
+            "Este campo es requerido"
+          ),
+        })
+      );
+    }
+  }, [data?.plannedAutomaticExecution, setDynamicValidationSchema]);
 
-const comparisonData = Boolean(
-  (data?.plannedAutomaticExecution &&
-    formik.values.plannedExecutionDate.length > 0 &&
-    formik.values.plannedExecutionDate !==
-      initialValues.plannedExecutionDate) 
-);
+  useEffect(() => {
+    if (formik.values) {
+      setFieldsEntered(formik.values);
+    }
+  }, [formik.values, setFieldsEntered]);
 
-return (
-  <RefreshSavingProductCardUI
-    formik={formik}
-    data={data}
-    onStartProcess={onStartProcess}
-    comparisonData={comparisonData}
-  />
-);
+  const comparisonData = Boolean(
+    (data?.plannedAutomaticExecution &&
+      formik.values.plannedExecutionDate.length > 0 &&
+      formik.values.typeRefresh !== initialValues.typeRefresh &&
+      formik.values.plannedExecutionDate !==
+        initialValues.plannedExecutionDate) ||
+      (!data?.plannedAutomaticExecution &&
+        formik.values.typeRefresh !== initialValues.typeRefresh)
+  );
+
+  return (
+    <RefreshSavingProductCardUI
+      formik={formik}
+      data={data}
+      optionsTypeRefresh={optionsTypeRefresh}
+      onChange={handleChange}
+      onStartProcess={onStartProcess}
+      comparisonData={comparisonData}
+    />
+  );
 };
 
 export type { RefreshSavingProductCardProps };

@@ -1,37 +1,23 @@
-import { enviroment } from "@src/config/environment";
-import {
-  FilterProcessesForDate,
-  StartProcessesFilter,
-} from "@pages/startProcess/types";
-import {
-  mapStartProcessApiToEntities,
-} from "./mappers";
+import { enviroment, fetchTimeoutServices, maxRetriesServices } from "@src/config/environment";
+import { IEnumeratorsProcessCoverage } from "@src/forms/types";
+import { mapEnumProcessCoverageApiToEntities } from "./mappers";
 
-const startProcessData = async (FilterProcesses: FilterProcessesForDate) 
-: Promise<StartProcessesFilter> => {
-  const maxRetries = 5;
-  const fetchTimeout = 3000;
-  const emptyResponse = {
-    onDemand: [],
-    scheduled: [],
-  };
+
+const EnumProcessCoverageData = async (): Promise<
+  IEnumeratorsProcessCoverage[]
+> => {
+  const maxRetries = maxRetriesServices;
+  const fetchTimeout = fetchTimeoutServices;
 
   for (let attempt = 1; attempt <= maxRetries; attempt++) {
     try {
-        
-      const queryParams = new URLSearchParams({
-        year: FilterProcesses.year,
-        month:FilterProcesses.month,
-        executionDateToTime:FilterProcesses.executionDate
-      })
-
       const controller = new AbortController();
       const timeoutId = setTimeout(() => controller.abort(), fetchTimeout);
 
       const options: RequestInit = {
         method: "GET",
         headers: {
-          "X-Action": "IProcessStartProcesses",
+          "X-Action": "GetEnum",
           "X-Business-Unit": enviroment.TEMP_BUSINESS_UNIT,
           "Content-type": "application/json; charset=UTF-8",
         },
@@ -39,14 +25,14 @@ const startProcessData = async (FilterProcesses: FilterProcessesForDate)
       };
 
       const res = await fetch(
-        `${enviroment.IPROCESS_API_URL_QUERY}/process-controls?${queryParams.toString()}`,
+        `${enviroment.IPROCESS_API_URL_QUERY_ENUM}/enumerators/processcoverage`,
         options
       );
 
       clearTimeout(timeoutId);
 
       if (res.status === 204) {
-        return emptyResponse;
+        return [];
       }
 
       const data = await res.json();
@@ -60,8 +46,8 @@ const startProcessData = async (FilterProcesses: FilterProcessesForDate)
       }
 
       const normalizedStartProcess = Array.isArray(data)
-        ? mapStartProcessApiToEntities(data)
-        : emptyResponse;
+        ? mapEnumProcessCoverageApiToEntities(data)
+        : [];
 
       return normalizedStartProcess;
     } catch (error) {
@@ -73,7 +59,7 @@ const startProcessData = async (FilterProcesses: FilterProcessesForDate)
     }
   }
 
-  return emptyResponse;
+  return [];
 };
 
-export { startProcessData };
+export { EnumProcessCoverageData };

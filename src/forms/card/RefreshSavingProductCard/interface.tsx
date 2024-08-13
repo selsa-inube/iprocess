@@ -5,29 +5,31 @@ import { Text } from "@inubekit/text";
 import { Button } from "@inubekit/button";
 import { Fieldset } from "@inubekit/fieldset";
 import { Textarea } from "@inubekit/textarea";
+import { Select } from "@inubekit/select";
 
-import { IEntries } from "@src/forms/types";
+import { IEntries, IEnumeratorsProcessCoverage } from "@src/forms/types";
 import { Datetimefield } from "@src/design/inputs/Datetimefield";
 import { tokens } from "@src/design/tokens";
-import { mediaQueryMobile } from "@src/config/environment";
-
 import { StyledField, StyledTextarea } from "./styles";
+
 
 interface RefreshSavingProductCardUIProps {
   data: IEntries;
   formik: FormikValues;
   comparisonData: boolean;
+  optionsTypeRefresh: IEnumeratorsProcessCoverage[];
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onStartProcess: () => void;
 }
 
 const RefreshSavingProductCardUI = (props: RefreshSavingProductCardUIProps) => {
-  const { data, formik, comparisonData, onStartProcess } = props;
+  const { data, formik, comparisonData, optionsTypeRefresh, onChange, onStartProcess } = props;
 
   const getFieldState = (formik: FormikValues, fieldName: string) => {
     if (formik.errors[fieldName]) return "invalid";
   };
 
-  const isMobile = useMediaQuery(mediaQueryMobile);
+  const isMobile = useMediaQuery("(max-width: 500px)");
 
   return (
     <form
@@ -57,6 +59,26 @@ const RefreshSavingProductCardUI = (props: RefreshSavingProductCardUIProps) => {
             onChange={formik.handleChange}
           />
         </StyledTextarea>
+
+        <Select
+          id="typeRefresh"
+          label="Tipo de refresco"
+          name="typeRefresh"
+          onChange={onChange}
+          onBlur={formik.handleBlur}
+          options={optionsTypeRefresh}
+          placeholder="Seleccione uno"
+          size="wide"
+          message={
+            getFieldState(formik, "typeRefresh") === "invalid"
+              ? "La tipo de refresco es requerido"
+              : ""
+          }
+          status={getFieldState(formik, "typeRefresh")}
+          value={formik.values.typeRefresh}
+          fullwidth
+          required
+        />
 
         <StyledField $smallScreen={isMobile}>
           <Text type="label" size="large" weight="bold">
