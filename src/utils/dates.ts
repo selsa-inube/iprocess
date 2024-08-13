@@ -1,5 +1,5 @@
-import { IChangePeriodEntry } from "@components/modals/ChangePeriodModal/types";
-import { FilterProcessesForDate } from "@pages/startProcess/types";
+
+import { FilterProcessesForDate, IChangePeriodEntry } from "@pages/startProcess/types";
 import { monthsData } from "@mocks/domains/months";
 
 import { capitalizeText } from "./texts";
@@ -31,10 +31,32 @@ const formatDate = (date: Date, withTime?: boolean) => {
   return `${day}/${capitalizeText(month)}/${year}`;
 };
 
+const formatDateEndpoint = (date: Date) => {
+  const options: Intl.DateTimeFormatOptions = {
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+    timeZone: "UTC",
+  };
+  const dateString = date.toLocaleDateString("es-ES", options);
+
+  const [day, month, year] = dateString.split("/");
+
+  return `${year}-${month}-${day}`;
+}
+
 const today = new Date();
 
+const formatMonthEndpoint = (month: string) => {
+  const monthNumber = monthsData.find(
+    (monthData) => monthData.label === month
+  )?.id;
+  monthNumber?.replace("0", "");
+
+  return Number(monthNumber);
+};
+
 const formatMonth = () => {
-  const today = new Date();
   const currentMonth = today.getMonth() + 1;
   return currentMonth < 10 ? `0${String(currentMonth)}` : String(currentMonth);
 };
@@ -62,7 +84,9 @@ const filterDateChange = (
 export {
   currentMonthLetters,
   currentYear,
+  formatMonthEndpoint,
   formatDate,
   filterDateChange,
   formatMonth,
+  formatDateEndpoint
 };

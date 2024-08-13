@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 
-import { IChangePeriodEntry } from "@components/modals/ChangePeriodModal/types";
 import {
   currentMonthLetters,
   currentYear,
@@ -18,10 +17,7 @@ function OnDemandTab() {
   const [searchOnDemand, setSearchOnDemand] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(true);
   const [orderAscending, setOrderAscending] = useState<boolean>(false);
-  const [selectedDate, setSelectedDate] = useState<IChangePeriodEntry>({
-    month: "",
-    year: "",
-  });
+
 
   const [onDemand, setOnDemand] = useState<StartProcesses[]>([]);
 
@@ -48,15 +44,8 @@ function OnDemandTab() {
   };
 
   useEffect(() => {
-    validateOnDemand(filterDateChange(selectedDate));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    validateOnDemand(filterDateChange({ month: currentMonthLetters!, year: currentYear }));
   }, []);
-
-  useEffect(() => {
-    if (selectedDate.change === true) {
-      validateOnDemand(filterDateChange(selectedDate));
-    }
-  }, [selectedDate]);
 
   const handlesearchOnDemand = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchOnDemand(e.target.value);
@@ -66,14 +55,11 @@ function OnDemandTab() {
     <OnDemandTabUI
       entries={onDemand}
       loading={loading}
-      description={`Procesos de mes de ${selectedDate.month || currentMonthLetters!} 
-          de ${selectedDate.year || currentYear} para inciar su ejecucion`}
+      description={`Procesos de mes de ${currentMonthLetters!} 
+          de ${currentYear} para inciar su ejecucion`}
       handlesearchOnDemand={handlesearchOnDemand}
       handleOrderData={handleOrderData}
-      selectedMonth={selectedDate.month || currentMonthLetters!}
-      selectedYear={selectedDate.year || currentYear}
       searchOnDemand={searchOnDemand}
-      setSelectedDate={setSelectedDate}
     />
   );
 }

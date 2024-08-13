@@ -1,12 +1,13 @@
 import styled from "styled-components";
 import { inube } from "@inubekit/foundations";
+import { tokens } from "@src/design/tokens";
 
 interface IStyledModal {
   $smallScreen: boolean;
 }
 
 const StyledContainer = styled.div`
-  position: relative;
+  position: relative; 
 `;
 
 const StyledModal = styled.div<IStyledModal>`
@@ -16,11 +17,12 @@ const StyledModal = styled.div<IStyledModal>`
   width: ${(props) => (props.$smallScreen ? "280px" : "450px")};
   min-height: ${(props) => (props.$smallScreen ? "100vh" : "auto")};
   height: auto;
-  border-radius: ${(props) => (props.$smallScreen ? "0" : "8px")};
+  border-radius: ${(props) => (props.$smallScreen ? `${tokens.spacing.s0}`: `${tokens.spacing.s100}`)};
 
   & > div {
-    padding: ${(props) => (props.$smallScreen ? "16px" : "24px")};
+    padding: ${(props) => (props.$smallScreen ? `${tokens.spacing.s200}` : `${tokens.spacing.s300}`)};
   }
 `;
+
 
 export { StyledContainer, StyledModal };

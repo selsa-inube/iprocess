@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 import { startProcessData } from "@services/startProcess/getStartProcess";
-import { IChangePeriodEntry } from "@components/modals/ChangePeriodModal/types";
+
 import {
   filterDateChange,
   currentMonthLetters,
@@ -17,10 +17,7 @@ function ScheduledTab() {
   const [searchScheduled, setSearchScheduled] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(true);
   const [orderAscending, setOrderAscending] = useState<boolean>(false);
-  const [selectedDate, setSelectedDate] = useState<IChangePeriodEntry>({
-    month: "",
-    year: "",
-  });
+  
 
   const [scheduled, setScheduled] = useState<StartProcesses[]>([]);
 
@@ -46,15 +43,8 @@ function ScheduledTab() {
   };
 
   useEffect(() => {
-    validateScheduled(filterDateChange(selectedDate));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    validateScheduled(filterDateChange({ month: currentMonthLetters!, year: currentYear }));
   }, []);
-
-  useEffect(() => {
-    if (selectedDate.change === true) {
-      validateScheduled(filterDateChange(selectedDate));
-    }
-  }, [selectedDate]);
 
   const handleSearchScheduled = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchScheduled(e.target.value);
@@ -64,14 +54,12 @@ function ScheduledTab() {
     <ScheduledTabUI
       entries={scheduled}
       loading={loading}
-      description={`Procesos de mes de ${selectedDate.month || currentMonthLetters!} 
-        de ${selectedDate.year || currentYear} para inciar su ejecucion`}
+      description={`Procesos de mes de ${ currentMonthLetters!} 
+        de ${currentYear} para inciar su ejecucion`}
       handleSearchScheduled={handleSearchScheduled}
       handleOrderData={handleOrderData}
-      selectedMonth={selectedDate.month || currentMonthLetters!}
-  selectedYear={selectedDate.year || currentYear}
       searchScheduled={searchScheduled}
-      setSelectedDate={setSelectedDate}
+
     />
   );
 }
