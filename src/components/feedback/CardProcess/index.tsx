@@ -1,5 +1,6 @@
 import { Stack } from "@inubekit/stack";
 import { Text } from "@inubekit/text";
+import { Link } from "@inubekit/link";
 
 import { tokens } from "@src/design/tokens";
 import { IActions, IProcess } from "./types";
@@ -13,8 +14,8 @@ interface CardProcessProps {
     | "confirm initiated"
     | "validate process"
     | "finished";
-
   descriptionTooltip: string;
+  pathDetailByDay: string;
 }
 
 function ShowAction(actionContent: IActions[], entry: IProcess) {
@@ -30,13 +31,15 @@ function ShowAction(actionContent: IActions[], entry: IProcess) {
 }
 
 const CardProcess = (props: CardProcessProps) => {
-  const { entries, optionCurrent, descriptionTooltip } = props;
+  const { entries, optionCurrent, descriptionTooltip, pathDetailByDay } = props;
 
   return (
     <StyledContainer>
       <Stack>
         <Text type="body" size="small">
-          {entries.description.toUpperCase()}
+          {entries.description.length > 100
+            ? entries.description.slice(0, 100).toUpperCase() + "..."
+            : entries.description.toUpperCase()}
         </Text>
       </Stack>
 
@@ -87,19 +90,26 @@ const CardProcess = (props: CardProcessProps) => {
 
         <Stack direction="column" gap={tokens.spacing.s025}>
           <Text type="label" size="medium" weight="bold" appearance="gray">
-            {optionCurrent !== "finished" && (typeof entries.date === "undefined" ||
-            (entries.periodicity && entries.periodicity === "Diaria"))
+            {optionCurrent !== "finished" &&
+            (typeof entries.date === "undefined" ||
+              (entries.periodicity && entries.periodicity === "Diaria"))
               ? "Diarios"
               : "Fecha"}
           </Text>
 
           <Stack>
-            <Text type="body" size="small">
-              {typeof entries.date === "undefined" ||
-              (entries.periodicity && entries.periodicity === "Diaria")
-                ? "Ver Detalle por día"
-                : String(entries.date)}
-            </Text>
+            {!entries.date ||
+            (typeof entries.date === "undefined" &&
+              entries.periodicity &&
+              entries.periodicity === "Diaria") ? (
+              <Link size="small" type="body" path={pathDetailByDay}>
+                Ver Detalle por día
+              </Link>
+            ) : (
+              <Text type="body" size="small">
+                {String(entries.date)}
+              </Text>
+            )}
           </Stack>
         </Stack>
 
@@ -136,7 +146,7 @@ const CardProcess = (props: CardProcessProps) => {
           )}
         </Stack>
         <Stack alignContent="flex-end" gap={tokens.spacing.s150}>
-          {entries.actions && ShowAction(entries.actions, entries)}
+          {entries.actions! && ShowAction(entries.actions, entries)}
         </Stack>
       </Stack>
     </StyledContainer>

@@ -119,7 +119,6 @@ export const dataStartprocess = {
   description:
     "Not specified for the event confirmationpaymentinexternalaccount / StartPaymentWorkflow",
   periodicity: "Diaria",
-  date: "31/DIC/2024",
   statusText: "Cumple",
   status: <Tag label="Cumple" appearance="success" weight="strong" />,
   actions: actionsStartprocess,
@@ -130,6 +129,7 @@ export const dataStartprocessWithInfo = {
   description:
     "Not specified for the event confirmationpaymentinexternalaccount / StartPaymentWorkflow",
   date: "31/DIC/2024",
+  periodicity: "Mensual",
   statusText: "Sin Evaluar",
   status: <Tag label="Sin Evaluar" appearance="warning" weight="strong" />,
   actions: actionsStartprocess,

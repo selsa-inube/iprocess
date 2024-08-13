@@ -1,15 +1,15 @@
 interface IProcess {
   id: string;
   description: string;
-  statusText: string;
-  status: React.ReactNode;
-  date: string | Date;
-  actions: IActions[];
-  periodicity?: string;
-  totalPersons?: number;
-  totalPersonsProsecuted?: number;
-  totalPersonsCoversProcess?: number;
+  date?: string | Date | undefined;
+  actions?: IActions[];
   duration?: number;
+  periodicity?: string;
+  status?: React.ReactNode;
+  statusText?: string;
+  totalPersons?: number;
+  totalPersonsCoversProcess?: number;
+  totalPersonsProsecuted?: number;
 }
 
 interface IActions {
