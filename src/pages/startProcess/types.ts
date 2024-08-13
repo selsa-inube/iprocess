@@ -22,6 +22,12 @@ interface StartProcessesFilter {
   scheduled: StartProcesses[];
 }
 
+interface IChangePeriodEntry {
+  month: string;
+  year: string;
+  change?: boolean;
+}
+
 interface IStartProcessesRequest {
   processCatalogId: string;
   month: number;
@@ -54,6 +60,7 @@ export type {
   FilterProcessesForDate,
   StartProcesses,
   StartProcessesFilter,
+  IChangePeriodEntry,
   IStartProcessesRequest,
   IStartProcessResponse,
 };
