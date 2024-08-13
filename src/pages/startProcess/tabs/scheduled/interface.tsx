@@ -2,9 +2,11 @@ import { MdSearch } from "react-icons/md";
 import { Stack } from "@inubekit/stack";
 import { Textfield } from "@inubekit/textfield";
 
+import { ChangePeriod } from "@src/components/feedback/ChangePeriod";
+import { tokens } from "@src/design/tokens";
 
 import { StartProcesses } from "../../types";
-import { ChangePeriod } from "@src/components/feedback/ChangePeriod";
+
 
 interface ScheduledTabUIProps {
   description: string;
@@ -23,7 +25,7 @@ function ScheduledTabUI(props: ScheduledTabUIProps) {
   } = props;
 
   return (
-    <Stack gap="32px" direction="column">
+    <Stack gap={tokens.spacing.s400} direction="column">
       <Stack justifyContent="space-between">
         <ChangePeriod
           description={description}
