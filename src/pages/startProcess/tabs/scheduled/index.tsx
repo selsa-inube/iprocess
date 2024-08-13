@@ -6,9 +6,9 @@ import {
   currentYear,
 } from "@utils/dates";
 
-import { IChangePeriodEntry } from "@components/modals/ChangePeriodModal/types";
+
 import { ScheduledTabUI } from "./interface";
-import { FilterProcessesForDate, StartProcesses } from "../../types";
+import { FilterProcessesForDate, IChangePeriodEntry, StartProcesses } from "../../types";
 
 function ScheduledTab() {
   const [searchScheduled, setSearchScheduled] = useState<string>("");

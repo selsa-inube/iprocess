@@ -11,8 +11,9 @@ currentYear,
 import { getDomainById } from "@src/mocks/domains/domainService.mocks";
 import { PeriodsOptionsList } from "@src/design/feedback/PeriodsOptionsList";
 import { IOption } from "@src/design/feedback/PeriodsOptionsList/types";
-import { IChangePeriodEntry } from "@components/modals/ChangePeriodModal/types";
+
 import { StyledOptionlist } from "./styles";
+import { IChangePeriodEntry } from "@src/pages/startProcess/types";
 
 interface ChangePeriodProps {
   description: string;
