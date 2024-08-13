@@ -1,10 +1,8 @@
 import { IServerDomain } from "@src/types/domain.types";
 import { monthsData } from "./months";
-import { typeRefreshData } from "./typeRefresh.mocks";
 
 const domains: Record<string, IServerDomain[]> = {
-  month: monthsData,
-  typeRefresh: typeRefreshData,  
+  month: monthsData, 
 };
 
 function getDomainById(domainId: string) {
