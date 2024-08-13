@@ -21,4 +21,15 @@ interface StartProcessesFilter {
   scheduled: StartProcesses[];
 }
 
-export type { FilterProcessesForDate, StartProcesses, StartProcessesFilter };
+interface IChangePeriodEntry {
+  month: string;
+  year: string;
+  change?: boolean;
+}
+
+export type {
+  FilterProcessesForDate,
+  StartProcesses,
+  StartProcessesFilter,
+  IChangePeriodEntry,
+};
