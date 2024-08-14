@@ -7,17 +7,18 @@ import { ChangePeriod } from "@src/components/feedback/ChangePeriod";
 import { CardProcess } from "@src/components/feedback/CardProcess";
 import { scheduledNormailzeEntries } from "./config/card.config";
 import { tokens } from "@src/design/tokens";
+import { Text } from "@inubekit/text";
 
 interface ScheduledTabUIProps {
   description: string;
   entries: StartProcesses[];
-  loading: boolean;
+  isLoading: boolean;
   searchScheduled: string;
   handleSearchScheduled: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 function ScheduledTabUI(props: ScheduledTabUIProps) {
-  const { description, entries, searchScheduled, handleSearchScheduled } =
+  const { description, entries, searchScheduled, isLoading, handleSearchScheduled } =
     props;
 
   return (
@@ -41,6 +42,15 @@ function ScheduledTabUI(props: ScheduledTabUIProps) {
         </Stack>
       </Stack>
 
+      {isLoading ? (
+        <Stack gap={tokens.spacing.s200} width="100%" wrap="wrap">
+          <CardProcess isLoading={isLoading} />
+          <CardProcess isLoading={isLoading} />
+        </Stack>
+      ) : (
+        <>
+          {entries.length > 0 ? (
+
       <Stack gap={tokens.spacing.s200} width="100%" wrap="wrap">
         {scheduledNormailzeEntries(entries).map(
           (entry: StartProcesses, index) => (
@@ -55,7 +65,15 @@ function ScheduledTabUI(props: ScheduledTabUIProps) {
           )
         )}
       </Stack>
+         ) : (
+          <Text type="body" size="medium">
+            No se encontró información
+          </Text>
+        )}
+      </>
+    )}
     </Stack>
+    
   );
 }
 

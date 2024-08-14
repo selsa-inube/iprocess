@@ -1,4 +1,4 @@
-import { IActions } from "@src/components/feedback/CardProcess/types";
+import { IActions } from "@components/feedback/CardProcess/types";
 
 interface FilterProcessesForDate {
   executionDate: string;
@@ -20,8 +20,9 @@ interface StartProcesses {
   totalPersonsProsecuted?: number;
   totalPersonsCoversProcess?: number;
   duration?: number;
+  plannedAutomaticExecution?: string;
+  executionDateWithoutFormat?: string;
 }
-
 
 interface StartProcessesFilter {
   onDemand: StartProcesses[];

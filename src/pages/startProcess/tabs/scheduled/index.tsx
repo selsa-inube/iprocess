@@ -44,7 +44,7 @@ function ScheduledTab() {
   return (
     <ScheduledTabUI
       entries={scheduled}
-      loading={loading}
+      isLoading={loading}
       description={`Procesos de mes de ${ currentMonthLetters!} 
         de ${currentYear} para inciar su ejecucion`}
       handleSearchScheduled={handleSearchScheduled}
