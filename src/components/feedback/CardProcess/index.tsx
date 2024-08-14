@@ -6,16 +6,18 @@ import { tokens } from "@src/design/tokens";
 import { IActions, IProcess } from "./types";
 import { StyledAction, StyledContainer, StyledStatus } from "./styles";
 import { Tooltip } from "../../../design/feedback/Tooltip";
+import { SkeletonIcon, SkeletonLine } from "@inubekit/skeleton";
 
 interface CardProcessProps {
-  entries: IProcess;
-  optionCurrent:
+  entries?: IProcess;
+  optionCurrent?:
     | "start process"
     | "confirm initiated"
     | "validate process"
     | "finished";
-  descriptionTooltip: string;
-  pathDetailByDay: string;
+  descriptionTooltip?: string;
+  pathDetailByDay?: string;
+  isLoading?: boolean;
 }
 
 function ShowAction(actionContent: IActions[], entry: IProcess) {
@@ -31,37 +33,77 @@ function ShowAction(actionContent: IActions[], entry: IProcess) {
 }
 
 const CardProcess = (props: CardProcessProps) => {
-  const { entries, optionCurrent, descriptionTooltip, pathDetailByDay } = props;
+  const {
+    entries,
+    optionCurrent,
+    descriptionTooltip,
+    pathDetailByDay,
+    isLoading,
+  } = props;
 
   return (
     <StyledContainer>
       <Stack>
-        <Text type="body" size="small">
-          {entries.description.length > 100
-            ? entries.description.slice(0, 100).toUpperCase() + "..."
-            : entries.description.toUpperCase()}
-        </Text>
+        {isLoading ? (
+          <Stack direction="column" width="100%">
+            <SkeletonLine animated />
+          </Stack>
+        ) : (
+          <Text type="body" size="small">
+            {entries && entries.description.length > 100
+              ? entries?.description.slice(0, 100).toUpperCase() + "..."
+              : entries?.description.toUpperCase()}
+          </Text>
+        )}
       </Stack>
 
       {(optionCurrent === "validate process" ||
         optionCurrent === "finished") && (
         <>
           <Stack direction="column" gap={tokens.spacing.s025}>
-            <Text type="label" size="medium" weight="bold" appearance="gray">
-              Total personas que cubre el proceso
-            </Text>
-            <Text type="body" size="small">
-              {entries.totalPersonsCoversProcess}
-            </Text>
+            {isLoading ? (
+              <Stack direction="column" width="100%">
+                <SkeletonLine animated />
+                <SkeletonLine animated />
+              </Stack>
+            ) : (
+              <>
+                <Text
+                  type="label"
+                  size="medium"
+                  weight="bold"
+                  appearance="gray"
+                >
+                  Total personas que cubre el proceso
+                </Text>
+                <Text type="body" size="small">
+                  {entries?.totalPersonsCoversProcess}
+                </Text>
+              </>
+            )}
           </Stack>
 
           <Stack direction="column" gap={tokens.spacing.s025}>
-            <Text type="label" size="medium" weight="bold" appearance="gray">
-              Total personas procesadas
-            </Text>
-            <Text type="body" size="small">
-              {entries.totalPersonsProsecuted}
-            </Text>
+            {isLoading ? (
+              <Stack direction="column" width="100%">
+                <SkeletonLine animated />
+                <SkeletonLine animated />
+              </Stack>
+            ) : (
+              <>
+                <Text
+                  type="label"
+                  size="medium"
+                  weight="bold"
+                  appearance="gray"
+                >
+                  Total personas procesadas
+                </Text>
+                <Text type="body" size="small">
+                  {entries?.totalPersonsProsecuted}
+                </Text>
+              </>
+            )}
           </Stack>
         </>
       )}
@@ -73,56 +115,95 @@ const CardProcess = (props: CardProcessProps) => {
             width="96px"
             padding={tokens.spacing.s0}
           >
-            <Text type="label" size="medium" weight="bold" appearance="gray">
-              {optionCurrent === "validate process" ? "Estado" : "Requisitos"}
-            </Text>
-            <Stack gap={tokens.spacing.s050} direction="row">
-              <StyledStatus>{entries.status}</StyledStatus>
+            {isLoading ? (
+              <Stack direction="column" width="100%" gap={tokens.spacing.s025}>
+                <SkeletonLine animated />
+                <SkeletonLine animated />
+              </Stack>
+            ) : (
+              <>
+                <Text
+                  type="label"
+                  size="medium"
+                  weight="bold"
+                  appearance="gray"
+                >
+                  {optionCurrent === "validate process"
+                    ? "Estado"
+                    : "Requisitos"}
+                </Text>
+                <Stack gap={tokens.spacing.s050} direction="row">
+                  <StyledStatus>{entries?.status}</StyledStatus>
 
-              {optionCurrent !== "validate process" &&
-                (entries.statusText === "Sin Evaluar" ||
-                  entries.statusText === "No Cumple") && (
-                  <Tooltip description={descriptionTooltip} />
-                )}
-            </Stack>
+                  {optionCurrent !== "validate process" &&
+                    (entries?.statusText === "Sin Evaluar" ||
+                      entries?.statusText === "No Cumple") && (
+                      <Tooltip description={descriptionTooltip!} />
+                    )}
+                </Stack>
+              </>
+            )}
           </Stack>
         )}
 
         <Stack direction="column" gap={tokens.spacing.s025}>
-          <Text type="label" size="medium" weight="bold" appearance="gray">
-            {typeof entries.date === "undefined" ||
-              (entries.periodicity && entries.periodicity === "Diaria")
-              ? "Diarios"
-              : "Fecha"}
-          </Text>
-
-          <Stack>
-            {!entries.date ||
-            (typeof entries.date === "undefined" &&
-              entries.periodicity &&
-              entries.periodicity === "Diaria") ? (
-              <Link size="small" type="body" path={pathDetailByDay}>
-                Ver Detalle por día
-              </Link>
-            ) : (
-              <Text type="body" size="small">
-                {String(entries.date)}
+          {isLoading ? (
+            <Stack direction="column" width="120px" gap={tokens.spacing.s025}>
+              <SkeletonLine animated />
+              <SkeletonLine animated />
+            </Stack>
+          ) : (
+            <>
+              <Text type="label" size="medium" weight="bold" appearance="gray">
+                {typeof entries?.date === "undefined" ||
+                (entries.periodicity && entries.periodicity === "Diaria")
+                  ? "Diarios"
+                  : "Fecha"}
               </Text>
-            )}
-          </Stack>
+
+              <Stack>
+                {!entries?.date ||
+                (typeof entries.date === "undefined" &&
+                  entries.periodicity &&
+                  entries.periodicity === "Diaria") ? (
+                  <Link size="small" type="body" path={pathDetailByDay!}>
+                    Ver Detalle por día
+                  </Link>
+                ) : (
+                  <Text type="body" size="small">
+                    {String(entries.date)}
+                  </Text>
+                )}
+              </Stack>
+            </>
+          )}
         </Stack>
 
         {optionCurrent === "finished" && (
           <Stack direction="column" gap={tokens.spacing.s025}>
-            <Text type="label" size="medium" weight="bold" appearance="gray">
-              Duración (Minutos)
-            </Text>
+            {isLoading ? (
+              <Stack direction="column" width="100px" gap={tokens.spacing.s025}>
+                <SkeletonLine animated />
+                <SkeletonLine animated />
+              </Stack>
+            ) : (
+              <>
+                <Text
+                  type="label"
+                  size="medium"
+                  weight="bold"
+                  appearance="gray"
+                >
+                  Duración (Minutos)
+                </Text>
 
-            <Stack>
-              <Text type="body" size="small">
-                {entries.duration}
-              </Text>
-            </Stack>
+                <Stack>
+                  <Text type="body" size="small">
+                    {entries?.duration}
+                  </Text>
+                </Stack>
+              </>
+            )}
           </Stack>
         )}
       </Stack>
@@ -135,17 +216,42 @@ const CardProcess = (props: CardProcessProps) => {
         <Stack direction="column">
           {optionCurrent === "confirm initiated" && (
             <>
-              <Text type="label" size="medium" weight="bold" appearance="gray">
-                Total personas
-              </Text>
-              <Text type="body" size="small">
-                {entries.totalPersons}
-              </Text>
+              {isLoading ? (
+                <Stack
+                  direction="column"
+                  width="100px"
+                  gap={tokens.spacing.s025}
+                >
+                  <SkeletonLine animated />
+                  <SkeletonLine animated />
+                </Stack>
+              ) : (
+                <>
+                  <Text
+                    type="label"
+                    size="medium"
+                    weight="bold"
+                    appearance="gray"
+                  >
+                    Total personas
+                  </Text>
+                  <Text type="body" size="small">
+                    {entries?.totalPersons}
+                  </Text>
+                </>
+              )}
             </>
           )}
         </Stack>
         <Stack alignContent="flex-end" gap={tokens.spacing.s150}>
-          {entries.actions! && ShowAction(entries.actions, entries)}
+          {isLoading ? (
+            <Stack width="100px" gap={tokens.spacing.s025} justifyContent="flex-end">
+              <SkeletonIcon animated />
+              <SkeletonIcon animated />
+            </Stack>
+          ) : (
+            <>{entries?.actions && ShowAction(entries.actions, entries)}</>
+          )}
         </Stack>
       </Stack>
     </StyledContainer>
