@@ -90,9 +90,8 @@ const CardProcess = (props: CardProcessProps) => {
 
         <Stack direction="column" gap={tokens.spacing.s025}>
           <Text type="label" size="medium" weight="bold" appearance="gray">
-            {optionCurrent !== "finished" &&
-            (typeof entries.date === "undefined" ||
-              (entries.periodicity && entries.periodicity === "Diaria"))
+            {typeof entries.date === "undefined" ||
+              (entries.periodicity && entries.periodicity === "Diaria")
               ? "Diarios"
               : "Fecha"}
           </Text>

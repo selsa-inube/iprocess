@@ -9,6 +9,7 @@ import {
   dataFinished,
   dataStartprocess,
   dataStartprocessWithInfo,
+  dataStartProcessWithNoDefined,
   dataValidateProcess,
 } from "@mocks/cardsProcess/cardsProcess.mock";
 
@@ -40,6 +41,14 @@ StartProcess.args = {
     "Puede hacer clic en el botón para prevalidar los requisitos .",
 };
 
+
+export const StartProcessWithNoDefined: StoryFn<CardProcessProps> = Template.bind({});
+StartProcessWithNoDefined.args = {
+  optionCurrent: "start process",
+  entries: dataStartProcessWithNoDefined,
+  descriptionTooltip:
+    "Puede hacer clic en el botón para prevalidar los requisitos .",
+};
 export const StartProcessWithInfo: StoryFn<CardProcessProps> = Template.bind(
   {}
 );

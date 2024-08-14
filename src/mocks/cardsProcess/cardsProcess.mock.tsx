@@ -31,8 +31,8 @@ const actionsStartprocess = [
         size="16px"
         cursorHover
         disabled={
-          process.statusText === "Cumple" ||
-          process.statusText === "No Definido"
+          process.statusText === "No Cumple" ||
+          process.statusText === "Sin Evaluar"
         }
       />
     ),
@@ -121,6 +121,16 @@ export const dataStartprocess = {
   periodicity: "Diaria",
   statusText: "Cumple",
   status: <Tag label="Cumple" appearance="success" weight="strong" />,
+  actions: actionsStartprocess,
+};
+
+export const dataStartProcessWithNoDefined = {
+  id: "01",
+  description:
+    "Not specified for the event confirmationpaymentinexternalaccount / StartPaymentWorkflow",
+  periodicity: "Diaria",
+  statusText: "Cumple",
+  status: <Tag label="No Definido" appearance="gray" weight="strong" />,
   actions: actionsStartprocess,
 };
 
