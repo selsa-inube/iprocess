@@ -4,7 +4,7 @@ import { Icon } from "@inubekit/icon";
 
 import { IActions } from "@components/data/Table/props";
 import { DetailModal } from "@components/modals/DetailModal";
-
+import { tokens } from "@src/design/tokens";
 
 
 interface IDetailsProps {
@@ -25,10 +25,10 @@ export const Details = (props: IDetailsProps) => {
       <Icon
         appearance="dark"
         icon={<MdOutlineRemoveRedEye />}
-        size="16px"
+        size={tokens.spacing.s200}
         onClick={handleToggleModal}
         cursorHover
-        spacing="none"
+        spacing="narrow"
       />
       {showModal && data && (
         <DetailModal

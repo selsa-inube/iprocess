@@ -22,6 +22,7 @@ interface StartProcesses {
   duration?: number;
 }
 
+
 interface StartProcessesFilter {
   onDemand: StartProcesses[];
   scheduled: StartProcesses[];
@@ -33,9 +34,39 @@ interface IChangePeriodEntry {
   change?: boolean;
 }
 
+interface IStartProcessesRequest {
+  processCatalogId: string;
+  month: number;
+  suggestedDescription: string;
+  year: number;
+  cutOffDate: string;
+  typeRefresh: string;
+  complementaryDescription?: string;
+  plannedExecutionDate?: string;
+
+}
+
+interface IStartProcessResponse {
+  confirmationForExecutionOfTheProcess: string;
+  executionDate: string;
+  executionParameters: string;
+  generalError: string;
+  plannedExecution: string;
+  plannedExecutionDate: string;
+  processCatalogId: string;
+  processControlId: string;
+  processDescription: string;
+  processStatus: string;
+  uniqueReferenceNumberRequirement: string;
+}
+
+
+
 export type {
   FilterProcessesForDate,
   StartProcesses,
   StartProcessesFilter,
   IChangePeriodEntry,
+  IStartProcessesRequest,
+  IStartProcessResponse,
 };
