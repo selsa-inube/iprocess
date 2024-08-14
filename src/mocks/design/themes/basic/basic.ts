@@ -150,40 +150,22 @@ const businessUnitTheme = {
       track: { color: palette.neutral.N50 },
     },
   },
-  input: {
+  optionsPeriod: {
     border: {
       color: {
-        regular: palette.neutral.N40,
-        disabled: palette.neutral.N40,
+        regular: palette.neutral.N0,
         focus: palette.blue.B300,
-        invalid: palette.red.R400,
       },
     },
     background: {
       color: {
         regular: palette.neutral.N0,
-        disabled: palette.neutral.N10,
+        selected: palette.neutral.N30,
       },
     },
     content: {
       color: {
         regular: palette.neutral.N900,
-        disabled: palette.neutral.N70,
-      },
-    },
-    placeholder: {
-      color: {
-        regular: palette.neutral.N300,
-      },
-    },
-    message: {
-      color: {
-        regular: palette.red.R400,
-      },
-    },
-    required: {
-      color: {
-        regular: palette.red.R400,
         disabled: palette.neutral.N70,
       },
     },
@@ -194,10 +176,9 @@ const businessUnitTheme = {
       },
       background: {
         selected: palette.neutral.N30,
-        expanded: palette.neutral.N0,
-      },
-    },
-  },
+      }
+    }
+  }
 };
 
 export { businessUnitTheme };

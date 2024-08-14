@@ -29,6 +29,7 @@ function ScheduledTabUI(props: ScheduledTabUIProps) {
       <Stack justifyContent="space-between">
         <ChangePeriod
           description={description}
+          setSelectedPeriod={() => {}}
         />
 
         <Textfield

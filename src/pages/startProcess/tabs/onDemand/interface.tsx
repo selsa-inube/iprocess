@@ -2,7 +2,8 @@ import { MdSearch } from "react-icons/md";
 import { Stack } from "@inubekit/stack";
 import { Textfield } from "@inubekit/textfield";
 
-import { StartProcesses} from "../../types";
+import { IChangePeriodEntry, StartProcesses} from "../../types";
+import { ChangePeriod } from "@src/components/feedback/ChangePeriod";
 
 interface OnDemandTabUIProps {
   description: string;
@@ -10,20 +11,25 @@ interface OnDemandTabUIProps {
   loading: boolean;
   searchOnDemand: string;
   handlesearchOnDemand: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  handleOrderData?: () => void;
+  setSelectedPeriod: (show: IChangePeriodEntry) => void;
 }
 
 function OnDemandTabUI(props: OnDemandTabUIProps) {
   const {
     searchOnDemand,
- 
+    description,
     handlesearchOnDemand,
-
+    setSelectedPeriod,
   } = props;
 
   return (
     <Stack gap="32px" direction="column">
-      <Stack justifyContent="flex-end">
+      <Stack justifyContent="space-between">
+
+      <ChangePeriod
+          description={description}
+          setSelectedPeriod={setSelectedPeriod}
+        />
        
         <Textfield
           name="searchOnDemand"
