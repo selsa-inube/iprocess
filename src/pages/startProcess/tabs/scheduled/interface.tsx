@@ -14,7 +14,6 @@ interface ScheduledTabUIProps {
   loading: boolean;
   searchScheduled: string;
   handleSearchScheduled: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  handleOrderData: () => void;
 }
 
 function ScheduledTabUI(props: ScheduledTabUIProps) {
