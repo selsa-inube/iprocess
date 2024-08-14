@@ -10,7 +10,6 @@ interface OnDemandTabUIProps {
   loading: boolean;
   searchOnDemand: string;
   handlesearchOnDemand: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  handleOrderData?: () => void;
 }
 
 function OnDemandTabUI(props: OnDemandTabUIProps) {

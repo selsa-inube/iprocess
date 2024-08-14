@@ -6,6 +6,7 @@ import { Text } from "@inubekit/text";
 import { startProcessTabsConfig } from "./config/tabs.config";
 import { ScheduledTab } from "./tabs/scheduled";
 import { OnDemandTab } from "./tabs/onDemand";
+import { tokens } from "@src/design/tokens";
 
 interface StartProcessUIProps {
   isSelected: string;
@@ -21,15 +22,15 @@ function StartProcessUI(props: StartProcessUIProps) {
     <Stack
       direction="column"
       width="-webkit-fill-available"
-      padding={smallScreen ? "24px" : "32px 64px"}
+      padding={smallScreen ? "24px" : "32px 50px"}
     >
-      <Stack gap="48px" direction="column">
-        <Stack gap="24px" direction="column">
+      <Stack gap={tokens.spacing.s600} direction="column">
+        <Stack gap={tokens.spacing.s300} direction="column">
           <Text type="title" size={smallScreen ? "medium" : "large"}>
             Procesos por Iniciar
           </Text>
         </Stack>
-        <Stack gap="32px" direction="column">
+        <Stack gap={tokens.spacing.s400} direction="column">
           <Tabs
             tabs={Object.values(startProcessTabsConfig)}
             selectedTab={isSelected}

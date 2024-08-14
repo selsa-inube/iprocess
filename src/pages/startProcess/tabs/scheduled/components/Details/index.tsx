@@ -4,7 +4,7 @@ import { Icon } from "@inubekit/icon";
 
 import { IActions } from "@components/data/Table/props";
 import { DetailModal } from "@components/modals/DetailModal";
-import { labelsDetails } from "../../config/table.config";
+
 
 
 interface IDetailsProps {
@@ -35,7 +35,7 @@ export const Details = (props: IDetailsProps) => {
         portalId= "portal"
         title="Detalle"
         data= {data}
-        labels= {labelsDetails}
+        labels= {[]}
         onCloseModal={handleToggleModal}
         />
       )}
