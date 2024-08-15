@@ -43,15 +43,15 @@ const CardProcess = (props: CardProcessProps) => {
 
   return (
     <StyledContainer>
-      <Stack>
+      <Stack height="48px" alignItems="center">
         {isLoading ? (
           <Stack direction="column" width="100%">
             <SkeletonLine animated />
           </Stack>
         ) : (
           <Text type="body" size="small">
-            {entries && entries.description.length > 100
-              ? entries?.description.slice(0, 100).toUpperCase() + "..."
+            {entries && entries.description.length > 95
+              ? entries?.description.slice(0, 95).toUpperCase() + "..."
               : entries?.description.toUpperCase()}
           </Text>
         )}
@@ -112,7 +112,7 @@ const CardProcess = (props: CardProcessProps) => {
           <Stack
             direction="column"
             gap={tokens.spacing.s025}
-            width="96px"
+            width="90px"
             padding={tokens.spacing.s0}
           >
             {isLoading ? (
