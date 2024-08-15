@@ -57,8 +57,7 @@ function ScheduledTab() {
     <ScheduledTabUI
       entries={scheduled}
       isLoading={loading}
-      description={`Procesos de mes de ${ currentMonthLetters!} 
-        de ${currentYear} para inciar su ejecucion`}
+      description={`Procesos del mes de ${selectedPeriod.month || currentMonthLetters!} ${selectedPeriod.year || currentYear}`}
       handleSearchScheduled={handleSearchScheduled}
       searchScheduled={searchScheduled}
       setSelectedPeriod={setSelectedPeriod}
