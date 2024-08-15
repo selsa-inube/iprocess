@@ -1,5 +1,6 @@
-import { tokens } from "@src/design/tokens";
 import styled from "styled-components";
+
+import { tokens } from "@src/design/tokens";
 
 interface IStyledContainer {
   $onClick?: (e: PointerEvent) => void;
