@@ -13,7 +13,6 @@ import { IBreakpoint } from "@components/data/Table/props";
 import { StyledContainerTables, StyledModal } from "./styles";
 import { IData } from "./types";
 
-
 interface RequirementsModalProps {
   breakpoints: IBreakpoint[];
   portalId: string;
@@ -46,7 +45,7 @@ function RequirementsModal(props: RequirementsModalProps) {
               icon={<MdOutlineClose />}
               onClick={onCloseModal}
               cursorHover={true}
-              size={tokens.spacing.s250}
+              size="20px"
               spacing="narrow"
             />
           </Stack>

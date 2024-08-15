@@ -2,10 +2,10 @@ import { MdSearch } from "react-icons/md";
 import { Stack } from "@inubekit/stack";
 import { Textfield } from "@inubekit/textfield";
 
-import { ChangePeriod } from "@src/components/feedback/ChangePeriod";
+import { ChangePeriod } from "@components/feedback/ChangePeriod";
 import { tokens } from "@src/design/tokens";
 
-import { StartProcesses } from "../../types";
+import { IChangePeriodEntry, StartProcesses } from "../../types";
 
 
 interface ScheduledTabUIProps {
@@ -13,14 +13,15 @@ interface ScheduledTabUIProps {
   entries: StartProcesses[];
   loading: boolean;
   searchScheduled: string;
+  setSelectedPeriod: (show: IChangePeriodEntry) => void;
   handleSearchScheduled: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  handleOrderData: () => void;
 }
 
 function ScheduledTabUI(props: ScheduledTabUIProps) {
   const {
     description,
     searchScheduled,
+    setSelectedPeriod,
     handleSearchScheduled,
   } = props;
 
@@ -29,6 +30,7 @@ function ScheduledTabUI(props: ScheduledTabUIProps) {
       <Stack justifyContent="space-between">
         <ChangePeriod
           description={description}
+          setSelectedPeriod={setSelectedPeriod}
         />
 
         <Textfield

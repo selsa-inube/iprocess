@@ -1,31 +1,23 @@
 import { useEffect, useState } from "react";
-
 import { startProcessData } from "@services/startProcess/getStartProcess";
-
 import {
   filterDateChange,
   currentMonthLetters,
   currentYear,
 } from "@utils/dates";
 
-import { ScheduledTabUI } from "./interface";
-import { orderData } from "../../utils";
-import { FilterProcessesForDate, StartProcesses } from "../../types";
 
+import { ScheduledTabUI } from "./interface";
+import { FilterProcessesForDate, IChangePeriodEntry, StartProcesses } from "../../types";
 
 function ScheduledTab() {
   const [searchScheduled, setSearchScheduled] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(true);
-  const [orderAscending, setOrderAscending] = useState<boolean>(false);
-  
-
   const [scheduled, setScheduled] = useState<StartProcesses[]>([]);
-
-  const handleOrderData = () => {
-    setOrderAscending(!orderAscending);
-    orderData(scheduled, orderAscending);
-    setScheduled(scheduled);
-  };
+  const [selectedPeriod, setSelectedPeriod] = useState<IChangePeriodEntry>({
+    month: "",
+    year: "",
+  });
 
   const validateScheduled = async (
     filterDateChange: FilterProcessesForDate
@@ -43,8 +35,16 @@ function ScheduledTab() {
   };
 
   useEffect(() => {
-    validateScheduled(filterDateChange({ month: currentMonthLetters!, year: currentYear }));
+    validateScheduled(
+      filterDateChange({ month: currentMonthLetters!, year: currentYear })
+    );
   }, []);
+
+  useEffect(() => {
+    if (selectedPeriod.change === true) {
+      validateScheduled(filterDateChange(selectedPeriod));
+    }
+  }, [selectedPeriod]);
 
   const handleSearchScheduled = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchScheduled(e.target.value);
@@ -54,12 +54,10 @@ function ScheduledTab() {
     <ScheduledTabUI
       entries={scheduled}
       loading={loading}
-      description={`Procesos de mes de ${ currentMonthLetters!} 
-        de ${currentYear} para inciar su ejecucion`}
+      description={`Procesos del mes de ${selectedPeriod.month || currentMonthLetters!} ${selectedPeriod.year || currentYear}`}
       handleSearchScheduled={handleSearchScheduled}
-      handleOrderData={handleOrderData}
       searchScheduled={searchScheduled}
-
+      setSelectedPeriod={setSelectedPeriod}
     />
   );
 }
