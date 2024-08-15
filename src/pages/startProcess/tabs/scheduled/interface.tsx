@@ -3,9 +3,10 @@ import { Stack } from "@inubekit/stack";
 import { Textfield } from "@inubekit/textfield";
 
 import { ChangePeriod } from "@components/feedback/ChangePeriod";
+import { tokens } from "@src/design/tokens";
 
 import { IChangePeriodEntry, StartProcesses } from "../../types";
-import { tokens } from "@src/design/tokens";
+
 
 interface ScheduledTabUIProps {
   description: string;

@@ -1,6 +1,7 @@
-import { StyledContainer } from "./styles";
 import { useEffect, useState } from "react";
 import { Text } from "@inubekit/text";
+
+import { StyledContainer } from "./styles";
 
 interface OptionItemProps {
   id: string;
