@@ -2,8 +2,9 @@ import { MdSearch } from "react-icons/md";
 import { Stack } from "@inubekit/stack";
 import { Textfield } from "@inubekit/textfield";
 
+import { ChangePeriod } from "@components/feedback/ChangePeriod";
 import { IChangePeriodEntry, StartProcesses} from "../../types";
-import { ChangePeriod } from "@src/components/feedback/ChangePeriod";
+
 
 interface OnDemandTabUIProps {
   description: string;
