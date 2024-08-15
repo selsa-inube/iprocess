@@ -112,7 +112,7 @@ const CardProcess = (props: CardProcessProps) => {
           <Stack
             direction="column"
             gap={tokens.spacing.s025}
-            width="96px"
+            width="90px"
             padding={tokens.spacing.s0}
           >
             {isLoading ? (
