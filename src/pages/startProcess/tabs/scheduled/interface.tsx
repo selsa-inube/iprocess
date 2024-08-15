@@ -1,31 +1,42 @@
 import { MdSearch } from "react-icons/md";
 import { Stack } from "@inubekit/stack";
 import { Textfield } from "@inubekit/textfield";
-
-import { StartProcesses } from "../../types";
-import { ChangePeriod } from "@src/components/feedback/ChangePeriod";
-import { CardProcess } from "@src/components/feedback/CardProcess";
-import { scheduledNormailzeEntries } from "./config/card.config";
-import { tokens } from "@src/design/tokens";
 import { Text } from "@inubekit/text";
+
+import { ChangePeriod } from "@components/feedback/ChangePeriod";
+import { CardProcess } from "@components/feedback/CardProcess";
+import { tokens } from "@src/design/tokens";
+import { IChangePeriodEntry, StartProcesses } from "../../types";
+import { scheduledNormailzeEntries } from "./config/card.config";
+
 
 interface ScheduledTabUIProps {
   description: string;
   entries: StartProcesses[];
   isLoading: boolean;
   searchScheduled: string;
+  setSelectedPeriod: (show: IChangePeriodEntry) => void;
   handleSearchScheduled: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 function ScheduledTabUI(props: ScheduledTabUIProps) {
-  const { description, entries, searchScheduled, isLoading, handleSearchScheduled } =
-    props;
+  const {
+    description,
+    entries,
+    isLoading,
+    searchScheduled,
+    setSelectedPeriod,
+    handleSearchScheduled,
+  } = props;
 
   return (
     <Stack direction="column" gap={tokens.spacing.s600}>
       <Stack gap={tokens.spacing.s400} direction="column">
         <Stack justifyContent="space-between">
-          <ChangePeriod description={description} />
+        <ChangePeriod
+          description={description}
+          setSelectedPeriod={setSelectedPeriod}
+        />
 
           <Textfield
             name="searchScheduled"
