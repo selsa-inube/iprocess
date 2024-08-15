@@ -30,7 +30,7 @@
     "@inubekit/stack": "^2.2.0",
     "@inubekit/tabs": "^2.1.0",
     "@inubekit/tag": "^3.2.0",
-    "@inubekit/text": "^2.6.0",
+    "@inubekit/text": "^2.9.0",
     "@inubekit/textarea": "^2.7.0",
     "@inubekit/textfield": "^2.3.0",
     "@inubekit/toggle": "^2.3.0",
