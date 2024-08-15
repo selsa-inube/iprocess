@@ -1,12 +1,13 @@
 import { Stack } from "@inubekit/stack";
 import { Text } from "@inubekit/text";
 import { Link } from "@inubekit/link";
+import { SkeletonIcon, SkeletonLine } from "@inubekit/skeleton";
 
 import { tokens } from "@src/design/tokens";
 import { IActions, IProcess } from "./types";
 import { StyledAction, StyledContainer, StyledStatus } from "./styles";
 import { Tooltip } from "../../../design/feedback/Tooltip";
-import { SkeletonIcon, SkeletonLine } from "@inubekit/skeleton";
+
 
 interface CardProcessProps {
   entries?: IProcess;

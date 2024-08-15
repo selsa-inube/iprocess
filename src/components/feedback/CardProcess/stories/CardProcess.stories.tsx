@@ -3,7 +3,6 @@ import { BrowserRouter } from "react-router-dom";
 import { Meta, StoryFn } from "@storybook/react";
 
 import { theme } from "@src/config/theme";
-import { CardProcess, CardProcessProps } from "..";
 import {
   dataConfirmInitiated,
   dataFinished,
@@ -12,6 +11,7 @@ import {
   dataStartProcessWithNoDefined,
   dataValidateProcess,
 } from "@mocks/cardsProcess/cardsProcess.mock";
+import { CardProcess, CardProcessProps } from "..";
 
 const meta: Meta<typeof CardProcess> = {
   title: "feedback/CardProcess",
