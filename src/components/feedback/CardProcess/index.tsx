@@ -169,7 +169,7 @@ const CardProcess = (props: CardProcessProps) => {
         {optionCurrent === "finished" && (
           <Stack direction="column" gap={tokens.spacing.s025}>
             {isLoading ? (
-              <Stack direction="column" width="100px" gap={tokens.spacing.s025}>
+              <Stack direction="column" width="75px" gap={tokens.spacing.s025}>
                 <SkeletonLine animated />
                 <SkeletonLine animated />
               </Stack>
