@@ -4,7 +4,7 @@ import { Link } from "@inubekit/link";
 
 import { tokens } from "@src/design/tokens";
 import { IActions, IProcess } from "./types";
-import { StyledAction, StyledContainer, StyledStatus } from "./styles";
+import { StyledAction, StyledContainer } from "./styles";
 import { SkeletonIcon, SkeletonLine } from "@inubekit/skeleton";
 
 interface CardProcessProps {
@@ -126,7 +126,7 @@ const CardProcess = (props: CardProcessProps) => {
                     : "Requisitos"}
                 </Text>
                 <Stack gap={tokens.spacing.s050} direction="row">
-                  <StyledStatus>{entries?.status}</StyledStatus>
+                  <Stack>{entries?.status}</Stack>
                 </Stack>
               </>
             )}
