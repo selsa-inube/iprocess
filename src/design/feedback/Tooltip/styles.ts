@@ -16,13 +16,15 @@ const StyledText = styled.div`
   color: ${inube.palette.neutral.N10};
   text-align: center;
   border-radius: ${tokens.spacing.s050};
-  padding: ${tokens.spacing.s100};;
+  padding: ${tokens.spacing.s100};
   position: absolute;
   z-index: 1;
   opacity: 70%;
 
   & > p {
     text-align: center;
+    word-break: keep-all;
+    white-space: normal;
   }
 
 

@@ -1,16 +1,18 @@
-import { MdInfoOutline } from "react-icons/md";
 import { useState } from "react";
 import { Text } from "@inubekit/text";
 import { Icon } from "@inubekit/icon";
 import { StyledContainer, StyledIcon, StyledText } from "./styles";
-
+import { ITooltipAppearances } from "./types";
 
 interface TooltipProps {
+  appearanceIcon: ITooltipAppearances;
   description: string;
+  icon: React.ReactNode;
+  sizeIcon: string;
 }
 
 const Tooltip = (props: TooltipProps) => {
-  const { description } = props;
+  const { description, icon, sizeIcon, appearanceIcon } = props;
 
   const [isVisible, setIsVisible] = useState(false);
 
@@ -20,7 +22,12 @@ const Tooltip = (props: TooltipProps) => {
       onMouseLeave={() => setIsVisible(false)}
     >
       <StyledIcon>
-        <Icon cursorHover={true} appearance={"dark"} icon={<MdInfoOutline />} size="16px"/>
+        <Icon
+          cursorHover={true}
+          appearance={appearanceIcon}
+          icon={icon}
+          size={sizeIcon}
+        />
 
         {isVisible && (
           <StyledText>
@@ -29,7 +36,6 @@ const Tooltip = (props: TooltipProps) => {
             </Text>
           </StyledText>
         )}
-
       </StyledIcon>
     </StyledContainer>
   );
