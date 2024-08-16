@@ -1,14 +1,16 @@
 import {
-    MdOutlineRemoveRedEye,
-    MdLaunch,
-    MdCheckCircleOutline,
-    MdOutlineSubtitles,
-    MdOutlineDelete,
-  } from "react-icons/md";
+  MdOutlineRemoveRedEye,
+  MdLaunch,
+  MdCheckCircleOutline,
+  MdOutlineSubtitles,
+  MdOutlineDelete,
+} from "react-icons/md";
 import { Icon } from "@inubekit/icon";
 import { Tag } from "@inubekit/tag";
 import { IProcess } from "@src/components/feedback/CardProcess/types";
-
+import { Tooltip } from "@src/design/feedback/Tooltip";
+import { Stack } from "@inubekit/stack";
+import { tokens } from "@src/design/tokens";
 
 const actionsStartprocess = [
   {
@@ -116,52 +118,66 @@ const actionsFinished = [
 
 export const dataStartprocess = {
   id: "01",
+  publicCode: "01",
   description:
     "Not specified for the event confirmationpaymentinexternalaccount / StartPaymentWorkflow",
   periodicity: "Diaria",
-  statusText: "Cumple",
   status: <Tag label="Cumple" appearance="success" weight="strong" />,
   actions: actionsStartprocess,
 };
 
 export const dataStartProcessWithNoDefined = {
   id: "01",
+  publicCode: "01",
   description:
     "Not specified for the event confirmationpaymentinexternalaccount / StartPaymentWorkflow",
   periodicity: "Diaria",
-  statusText: "Cumple",
   status: <Tag label="No Definido" appearance="gray" weight="strong" />,
   actions: actionsStartprocess,
 };
 
 export const dataStartprocessWithInfo = {
   id: "01",
+  publicCode: "01",
   description:
     "Not specified for the event confirmationpaymentinexternalaccount / StartPaymentWorkflow",
   date: "31/DIC/2024",
   periodicity: "Mensual",
-  statusText: "Sin Evaluar",
-  status: <Tag label="Sin Evaluar" appearance="warning" weight="strong" />,
+  status: (
+    <Stack gap={tokens.spacing.s050}>
+      <Stack height="80%">
+        <Tag label="Sin Evaluar" appearance="warning" weight="strong" />
+      </Stack>
+      <Tooltip description="Puede hacer clic en el botón para prevalidar los requisitos" />
+    </Stack>
+  ),
   actions: actionsStartprocess,
 };
 
 export const dataConfirmInitiated = {
   id: "01",
+  publicCode: "01",
   description:
     "Not specified for the event confirmationpaymentinexternalaccount / StartPaymentWorkflow",
   date: "31/DIC/2024",
-  statusText: "No Cumple",
-  status: <Tag label="No Cumple" appearance="danger" weight="strong" />,
+  status: (
+    <Stack gap={tokens.spacing.s050}>
+      <Stack height="80%">
+        <Tag label="No Cumple" appearance="danger" weight="strong" />
+      </Stack>
+      <Tooltip description="Puede hacer clic en el botón para prevalidar los requisitos" />
+    </Stack>
+  ),
   actions: actionsConfirmInitiated,
   totalPersons: 999,
 };
 
 export const dataValidateProcess = {
   id: "01",
+  publicCode: "01",
   description:
     "Not specified for the event confirmationpaymentinexternalaccount / StartPaymentWorkflow",
   date: "31/DIC/2024",
-  statusText: "Cumple",
   status: <Tag label="Cumple" appearance="success" weight="strong" />,
   actions: actionsValidateProcess,
   totalPersonsProsecuted: 1100,
@@ -169,11 +185,11 @@ export const dataValidateProcess = {
 };
 
 export const dataFinished = {
-  id: "01",
+  id: "01", 
+  publicCode: "01",
   description:
     "Not specified for the event confirmationpaymentinexternalaccount / StartPaymentWorkflow",
   date: "31/DIC/2024",
-  statusText: "No Cumple",
   status: <Tag label="No Cumple" appearance="danger" weight="strong" />,
   actions: actionsFinished,
   totalPersonsProsecuted: 1100,
