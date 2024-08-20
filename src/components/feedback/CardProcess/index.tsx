@@ -4,8 +4,7 @@ import { Link } from "@inubekit/link";
 
 import { tokens } from "@src/design/tokens";
 import { IActions, IProcess } from "./types";
-import { StyledAction, StyledContainer, StyledStatus } from "./styles";
-import { Tooltip } from "../../../design/feedback/Tooltip";
+import { StyledAction, StyledContainer } from "./styles";
 import { SkeletonIcon, SkeletonLine } from "@inubekit/skeleton";
 
 interface CardProcessProps {
@@ -33,13 +32,7 @@ function ShowAction(actionContent: IActions[], entry: IProcess) {
 }
 
 const CardProcess = (props: CardProcessProps) => {
-  const {
-    entries,
-    optionCurrent,
-    descriptionTooltip,
-    pathDetailByDay,
-    isLoading,
-  } = props;
+  const { entries, optionCurrent, pathDetailByDay, isLoading } = props;
 
   return (
     <StyledContainer>
@@ -50,9 +43,9 @@ const CardProcess = (props: CardProcessProps) => {
           </Stack>
         ) : (
           <Text type="body" size="small">
-            {entries && entries.description.length > 95
-              ? entries?.description.slice(0, 95).toUpperCase() + "..."
-              : entries?.description.toUpperCase()}
+            {entries && entries.description.length > 100
+              ? entries?.description.slice(0, 100) + "..."
+              : entries?.description}
           </Text>
         )}
       </Stack>
@@ -62,7 +55,7 @@ const CardProcess = (props: CardProcessProps) => {
         <>
           <Stack direction="column" gap={tokens.spacing.s025}>
             {isLoading ? (
-              <Stack direction="column" width="100%">
+              <Stack direction="column" width="100%" gap={tokens.spacing.s025}>
                 <SkeletonLine animated />
                 <SkeletonLine animated />
               </Stack>
@@ -85,7 +78,7 @@ const CardProcess = (props: CardProcessProps) => {
 
           <Stack direction="column" gap={tokens.spacing.s025}>
             {isLoading ? (
-              <Stack direction="column" width="100%">
+              <Stack direction="column" width="100%" gap={tokens.spacing.s025}>
                 <SkeletonLine animated />
                 <SkeletonLine animated />
               </Stack>
@@ -133,13 +126,7 @@ const CardProcess = (props: CardProcessProps) => {
                     : "Requisitos"}
                 </Text>
                 <Stack gap={tokens.spacing.s050} direction="row">
-                  <StyledStatus>{entries?.status}</StyledStatus>
-
-                  {optionCurrent !== "validate process" &&
-                    (entries?.statusText === "Sin Evaluar" ||
-                      entries?.statusText === "No Cumple") && (
-                      <Tooltip description={descriptionTooltip!} />
-                    )}
+                  <Stack>{entries?.status}</Stack>
                 </Stack>
               </>
             )}
@@ -182,7 +169,7 @@ const CardProcess = (props: CardProcessProps) => {
         {optionCurrent === "finished" && (
           <Stack direction="column" gap={tokens.spacing.s025}>
             {isLoading ? (
-              <Stack direction="column" width="100px" gap={tokens.spacing.s025}>
+              <Stack direction="column" width="75px" gap={tokens.spacing.s025}>
                 <SkeletonLine animated />
                 <SkeletonLine animated />
               </Stack>

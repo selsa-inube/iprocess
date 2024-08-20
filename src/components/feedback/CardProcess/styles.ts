@@ -23,10 +23,6 @@ const StyledContainer = styled.div`
   }
 `;
 
-const StyledStatus = styled.div`
-  cursor: pointer;
-`;
-
 const StyledAction = styled.div`
   display: flex;
   align-items: end;
@@ -34,4 +30,4 @@ const StyledAction = styled.div`
     theme?.palette?.neutral?.N0 || inube.palette.neutral.N0};
 `;
 
-export { StyledContainer, StyledStatus, StyledAction };
+export { StyledContainer, StyledAction };
