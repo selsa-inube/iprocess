@@ -22,7 +22,7 @@ function StartProcessUI(props: StartProcessUIProps) {
     <Stack
       direction="column"
       width="-webkit-fill-available"
-      padding={smallScreen ? "24px" : "32px 50px"}
+      padding={smallScreen ? "24px" : "32px 64px"}
     >
       <Stack gap={tokens.spacing.s600} direction="column">
         <Stack gap={tokens.spacing.s300} direction="column">
