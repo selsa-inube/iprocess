@@ -5,9 +5,10 @@ import { Text } from "@inubekit/text";
 
 import { tokens } from "@src/design/tokens";
 import { CardProcess } from "@components/feedback/CardProcess";
+import { ChangePeriod } from "@components/feedback/ChangePeriod";
 
 import { onDemandNormailzeEntries } from "./config/card.config";
-import { StartProcesses } from "../../types";
+import { IChangePeriodEntry, StartProcesses } from "../../types";
 
 interface OnDemandTabUIProps {
   description: string;
@@ -15,15 +16,27 @@ interface OnDemandTabUIProps {
   isLoading: boolean;
   searchOnDemand: string;
   handlesearchOnDemand: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  setSelectedPeriod: (show: IChangePeriodEntry) => void;
 }
 
 function OnDemandTabUI(props: OnDemandTabUIProps) {
-  const { entries, isLoading, searchOnDemand, handlesearchOnDemand } = props;
+  const {
+    entries,
+    isLoading,
+    description,
+    searchOnDemand,
+    setSelectedPeriod,
+    handlesearchOnDemand,
+  } = props;
 
   return (
     <Stack direction="column" gap={tokens.spacing.s600}>
       <Stack gap={tokens.spacing.s400} direction="column">
-        <Stack justifyContent="flex-end">
+        <Stack justifyContent="space-between">
+          <ChangePeriod
+            description={description}
+            setSelectedPeriod={setSelectedPeriod}
+          />
           <Textfield
             name="searchOnDemand"
             id="searchOnDemand"
@@ -51,7 +64,7 @@ function OnDemandTabUI(props: OnDemandTabUIProps) {
                 (entry: StartProcesses, index) => (
                   <Stack key={index}>
                     <CardProcess
-                    key={entry.id}
+                      key={entry.id}
                       entries={entry}
                       optionCurrent="start process"
                       descriptionTooltip="Puede hacer clic en el botón para prevalidar los requisitos."
