@@ -5,38 +5,29 @@ import { Text } from "@inubekit/text";
 
 import { tokens } from "@src/design/tokens";
 import { CardProcess } from "@components/feedback/CardProcess";
-import { ChangePeriod } from "@components/feedback/ChangePeriod";
 
 import { onDemandNormailzeEntries } from "./config/card.config";
-import { IChangePeriodEntry, StartProcesses } from "../../types";
+import { StartProcesses } from "../../types";
 
 interface OnDemandTabUIProps {
-  description: string;
   entries: StartProcesses[];
   isLoading: boolean;
   searchOnDemand: string;
   handlesearchOnDemand: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  setSelectedPeriod: (show: IChangePeriodEntry) => void;
 }
 
 function OnDemandTabUI(props: OnDemandTabUIProps) {
   const {
     entries,
     isLoading,
-    description,
     searchOnDemand,
-    setSelectedPeriod,
     handlesearchOnDemand,
   } = props;
 
   return (
     <Stack direction="column" gap={tokens.spacing.s600}>
       <Stack gap={tokens.spacing.s400} direction="column">
-        <Stack justifyContent="space-between">
-          <ChangePeriod
-            description={description}
-            setSelectedPeriod={setSelectedPeriod}
-          />
+        <Stack justifyContent="flex-end">
           <Textfield
             name="searchOnDemand"
             id="searchOnDemand"
