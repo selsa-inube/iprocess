@@ -8,16 +8,19 @@ import {
 
 
 import { ScheduledTabUI } from "./interface";
-import { FilterProcessesForDate, IChangePeriodEntry, StartProcesses } from "../../types";
+import { IChangePeriodEntry, FilterProcessesForDate, StartProcesses } from "../../types";
+
 
 function ScheduledTab() {
   const [searchScheduled, setSearchScheduled] = useState<string>("");
-  const [loading, setLoading] = useState<boolean>(true);
+  const [loading, setLoading] = useState<boolean>(true);  
+
   const [scheduled, setScheduled] = useState<StartProcesses[]>([]);
   const [selectedPeriod, setSelectedPeriod] = useState<IChangePeriodEntry>({
     month: "",
     year: "",
   });
+
 
   const validateScheduled = async (
     filterDateChange: FilterProcessesForDate
@@ -53,7 +56,7 @@ function ScheduledTab() {
   return (
     <ScheduledTabUI
       entries={scheduled}
-      loading={loading}
+      isLoading={loading}
       description={`Procesos del mes de ${selectedPeriod.month || currentMonthLetters!} ${selectedPeriod.year || currentYear}`}
       handleSearchScheduled={handleSearchScheduled}
       searchScheduled={searchScheduled}

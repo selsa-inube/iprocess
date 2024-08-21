@@ -1,3 +1,5 @@
+import { IActions } from "@components/feedback/CardProcess/types";
+
 interface FilterProcessesForDate {
   executionDate: string;
   month: string;
@@ -6,13 +8,18 @@ interface FilterProcessesForDate {
 
 interface StartProcesses {
   id: string;
-  processCatalogId: string;
-  abbreviatedName: string;
-  executionDate: Date;
-  executionDateAndHour?: Date;
-  requeriments?: string;
+  description: string;
+  date: string | Date | undefined;
+  dateAndHour?: string | Date;
   aplication?: string;
   periodicity?: string;
+  statusText?: string;
+  status?: React.ReactNode;
+  actions?: IActions[];
+  totalPersons?: number;
+  totalPersonsProsecuted?: number;
+  totalPersonsCoversProcess?: number;
+  duration?: number;
   plannedAutomaticExecution?: string;
   executionDateWithoutFormat?: string;
 }

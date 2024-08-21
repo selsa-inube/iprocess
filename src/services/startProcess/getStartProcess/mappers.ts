@@ -7,12 +7,10 @@ const mapStartProcessApiToEntity = (
 ): StartProcesses => {
   const processes: StartProcesses = {
     id: String(process.processCatalogId),
-    processCatalogId: String(process.processCatalogId),
-    abbreviatedName: String(process.abbreviatedName),
-    executionDate: new Date(String(process.estimatedExecutionDate)),
+    description: String(process.abbreviatedName),
+    date: process.estimatedExecutionDate ? new Date(String(process.estimatedExecutionDate)) : undefined,
     aplication: String(process.aplication),
     periodicity: periodicityValuesMock[String(process.periodicity)],
-    plannedAutomaticExecution: String(process.plannedAutomaticExecution),
   };
   return processes;
 };
@@ -33,7 +31,7 @@ const mapStartProcessApiToEntities = (
 
   return {
     onDemand: onDemand,
-    scheduled: scheduled.sort((a, b) => b.executionDate.getTime() - a.executionDate.getTime())
+    scheduled: scheduled
   }
 };
 
