@@ -7,27 +7,23 @@ import {
 } from "@utils/dates";
 import { startProcessData } from "@services/startProcess/getStartProcess";
 import { OnDemandTabUI } from "./interface";
-import { FilterProcessesForDate, IChangePeriodEntry, StartProcesses } from "../../types";
+import {
+  FilterProcessesForDate,
+  StartProcesses,
+} from "../../types";
 
 function OnDemandTab() {
   const [searchOnDemand, setSearchOnDemand] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(true);
+
   const [onDemand, setOnDemand] = useState<StartProcesses[]>([]);
-  const [selectedPeriod, setSelectedPeriod] = useState<IChangePeriodEntry>({
-    month: "",
-    year: "",
-  });
+ ;
 
-
-  const validateOnDemand = async (
-    filterDateChange: FilterProcessesForDate
-  ) => {
+  const validateOnDemand = async (filterDateChange: FilterProcessesForDate) => {
     setLoading(true);
     try {
       const newOnDemand = await startProcessData(filterDateChange);
-      setOnDemand(
-        newOnDemand.onDemand
-      );
+      setOnDemand(newOnDemand.onDemand);
     } catch (error) {
       console.info(error);
     } finally {
@@ -36,7 +32,9 @@ function OnDemandTab() {
   };
 
   useEffect(() => {
-    validateOnDemand(filterDateChange({ month: currentMonthLetters!, year: currentYear }));
+    validateOnDemand(
+      filterDateChange({ month: currentMonthLetters!, year: currentYear })
+    );
   }, []);
 
   const handlesearchOnDemand = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -46,10 +44,8 @@ function OnDemandTab() {
   return (
     <OnDemandTabUI
       entries={onDemand}
-      loading={loading}
-      description={`Procesos del mes de ${selectedPeriod.month || currentMonthLetters!} ${selectedPeriod.year || currentYear}`}
+      isLoading={loading}
       handlesearchOnDemand={handlesearchOnDemand}
-      setSelectedPeriod={setSelectedPeriod}
       searchOnDemand={searchOnDemand}
     />
   );
