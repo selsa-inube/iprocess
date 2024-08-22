@@ -9,8 +9,8 @@ import { DetailsOnDemand } from "../components/Details";
 const onDemandNormailzeEntries = (process: StartProcesses[]) =>
   process.map((entry) => ({
     ...entry,
-    id: `${entry.id}${entry.executionDate}`,
-    process: entry.abbreviatedName,
+    id: `${entry.id}${entry.date}`,
+    process: entry.description,
     executionDate: "",
     requirements: <SkeletonLine animated />,
   }));

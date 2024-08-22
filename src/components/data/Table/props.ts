@@ -15,6 +15,15 @@ interface IAction {
   content: (entry: IActions) => React.ReactNode;
 }
 
+export const typeTitle =[
+  "title",
+  "body",
+  "label",
+  "display",
+  "headline",
+  undefined,
+] as const;
+
 interface IBreakpoint {
   breakpoint: string;
   totalColumns: number;
@@ -117,4 +126,5 @@ const props = {
 };
 
 export { props, parameters };
+export type ITypeTitle = typeof typeTitle[number]; 
 export type { IActions, ITitle, IAction, IBreakpoint, ITableUI };

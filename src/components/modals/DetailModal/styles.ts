@@ -1,6 +1,9 @@
 import styled from "styled-components";
 import { inube } from "@inubekit/foundations";
 
+import { tokens } from "@src/design/tokens";
+import { mediaQueryMobile } from "@src/config/environment";
+
 interface IStyledModal {
   $smallScreen: boolean;
 }
@@ -25,29 +28,35 @@ const StyledModal = styled.div<IStyledModal>`
   width: ${(props) => (props.$smallScreen ? "280px" : "450px")};
   min-height: ${(props) => (props.$smallScreen ? "100vh" : "auto")};
   height: auto;
-  border-radius: ${(props) => (props.$smallScreen ? "0" : "8px")};
+  border-radius: ${(props) => (props.$smallScreen ? `${tokens.spacing.s0}` : `${tokens.spacing.s100}`)};
 
   & > div {
-    padding: ${(props) => (props.$smallScreen ? "16px" : "24px")};
+    padding: ${(props) => (props.$smallScreen ? `${tokens.spacing.s200}` : `${tokens.spacing.s300}`)};
   }
 `;
 
 const StyledModalFields = styled.div<IStyledModal>`
   display: flex;
-  gap: 4px;
+  gap: ${tokens.spacing.s050};
   flex-direction: column;
   hyphens: auto;
 
   div {
-    min-height: 0px !important;
+    min-height: ${tokens.spacing.s0} !important;
     margin-bottom: -8px !important;
   }
 
-  @media screen and (max-width: 500px) {
+  @media screen and (${mediaQueryMobile}) {
     div {
       max-width: 200px;
     }
   }
 `;
 
-export { StyledContainer, StyledModal, StyledModalFields };
+const StyledContainerTables = styled.div`
+  border: 1px solid
+    ${({ theme }) => theme?.palette?.neutral?.N40 || inube.palette.neutral.N40};
+  border-radius: ${tokens.spacing.s100};
+`;
+
+export { StyledContainer, StyledModal, StyledModalFields, StyledContainerTables };

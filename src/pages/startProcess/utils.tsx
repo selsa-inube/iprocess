@@ -1,16 +1,8 @@
 import { Button } from "@inubekit/button";
 
 import { StyledContainerButton } from "./styles";
-import { StartProcesses } from "./types";
 import { Tag } from "@inubekit/tag";
 
-const orderData = (data: StartProcesses[], orderAscending: boolean) => {
-  orderAscending
-    ? data.sort((b, a) => a.executionDate.getTime() - b.executionDate.getTime())
-    : data.sort(
-        (a, b) => a.executionDate.getTime() - b.executionDate.getTime()
-      );
-};
 
 const formatStatus = (status: string) => {
   if (status === "No cumple" ) {
@@ -64,4 +56,4 @@ const requirementsButton = () => {
   );
 };
 
-export { orderData, requirementsData, requirementsButton, formatStatus };
+export { requirementsData, requirementsButton, formatStatus };
