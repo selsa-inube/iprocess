@@ -1,4 +1,7 @@
 import { ThemeProvider } from "styled-components";
+import {
+  MdInfoOutline,
+} from "react-icons/md";
 import { BrowserRouter } from "react-router-dom";
 import { Meta, StoryFn } from "@storybook/react";
 
@@ -28,7 +31,9 @@ const Template: StoryFn<TooltipProps> = (args) => {
 export const Default: StoryFn<TooltipProps> = Template.bind({});
 Default.args = {
   description: "Puede hacer clic en el botón para prevalidar los requisitos.",
+  appearanceIcon: "dark",
+  icon: <MdInfoOutline />, 
+  sizeIcon: "16px"
 };
-
 
 export default meta;

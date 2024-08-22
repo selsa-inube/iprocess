@@ -3,6 +3,8 @@ import { Tabs } from "@inubekit/tabs";
 import { useMediaQuery } from "@inubekit/hooks";
 import { Text } from "@inubekit/text";
 
+import { tokens } from "@src/design/tokens";
+import { mediaQueryMobile } from "@src/config/environment";
 import { startProcessTabsConfig } from "./config/tabs.config";
 import { ScheduledTab } from "./tabs/scheduled";
 import { OnDemandTab } from "./tabs/onDemand";
@@ -16,7 +18,7 @@ interface StartProcessUIProps {
 function StartProcessUI(props: StartProcessUIProps) {
   const { isSelected, handleTabChange } = props;
 
-  const smallScreen = useMediaQuery("(max-width: 580px)");
+  const smallScreen = useMediaQuery(mediaQueryMobile);
 
   return (
     <Stack

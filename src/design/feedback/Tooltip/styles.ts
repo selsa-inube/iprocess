@@ -11,12 +11,12 @@ const StyledContainer = styled.div`
 const StyledIcon = styled.div``;
 
 const StyledText = styled.div`
-  min-width: 185px;  
+  min-width: 185px;
   background-color: ${inube.palette.neutralAlpha.N900A};
   color: ${inube.palette.neutral.N10};
   text-align: center;
   border-radius: ${tokens.spacing.s050};
-  padding: ${tokens.spacing.s100};;
+  padding: ${tokens.spacing.s100};
   position: absolute;
   z-index: 1;
   opacity: 70%;

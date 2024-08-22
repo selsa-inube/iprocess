@@ -4,7 +4,9 @@ import {
   MdCheckCircleOutline,
   MdOutlineSubtitles,
   MdOutlineDelete,
+  MdInfoOutline,
 } from "react-icons/md";
+
 import { Icon } from "@inubekit/icon";
 import { Tag } from "@inubekit/tag";
 import { IProcess } from "@src/components/feedback/CardProcess/types";
@@ -148,7 +150,12 @@ export const dataStartprocessWithInfo = {
       <Stack height="80%">
         <Tag label="Sin Evaluar" appearance="warning" weight="strong" />
       </Stack>
-      <Tooltip description="Puede hacer clic en el botón para prevalidar los requisitos" />
+      <Tooltip
+        description="Puede hacer clic en el botón para prevalidar los requisitos"
+        appearanceIcon="dark"
+        icon={<MdInfoOutline />}
+        sizeIcon="16px"
+      />
     </Stack>
   ),
   actions: actionsStartprocess,
@@ -165,7 +172,12 @@ export const dataConfirmInitiated = {
       <Stack height="80%">
         <Tag label="No Cumple" appearance="danger" weight="strong" />
       </Stack>
-      <Tooltip description="Puede hacer clic en el botón para prevalidar los requisitos" />
+      <Tooltip
+        description="Puede hacer clic en el botón para prevalidar los requisitos"
+        appearanceIcon="dark"
+        icon={<MdInfoOutline />}
+        sizeIcon="16px"
+      />
     </Stack>
   ),
   actions: actionsConfirmInitiated,
