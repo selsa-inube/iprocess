@@ -8,7 +8,7 @@ import { DetailModal } from "@components/modals/DetailModal";
 import { formatDateEndpoint } from "@src/utils/dates";
 import { IProcessRequirementResponse } from "@src/types/statusRequeriments.types";
 import { processRequirement } from "@src/services/processRequirements/postProcessRequirement";
-import { IData } from "@components/modals/RequirementsModal/types";
+import { IData } from "@src/components/modals/requirementsModal/types";
 import { labelsDetailsOnDemand } from "../../config/card.config";
 import { dataTablesDetailsConfig } from "./config/tablesDetails.config";
 

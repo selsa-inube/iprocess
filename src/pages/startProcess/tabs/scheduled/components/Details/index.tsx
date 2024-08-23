@@ -8,7 +8,7 @@ import { IEntries } from "@src/forms/types";
 import { IBreakpoint } from "@components/data/Table/props";
 import { processRequirement } from "@src/services/processRequirements/postProcessRequirement";
 import { IProcessRequirementResponse } from "@src/types/statusRequeriments.types";
-import { IData } from "@components/modals/RequirementsModal/types";
+import { IData } from "@src/components/modals/requirementsModal/types";
 import { formatDateEndpoint } from "@src/utils/dates";
 import { dataTablesDetailsConfig } from "./config/tablesDetails.config";
 import { labelsDetails } from "../../config/card.config";

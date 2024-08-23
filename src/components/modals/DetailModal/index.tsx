@@ -21,7 +21,7 @@ import {
   StyledModalFields,
 } from "./styles";
 import { IEntries, ILabel } from "./types";
-import { IData } from "../RequirementsModal/types";
+import { IData } from "../requirementsModal/types";
 
 
 interface DetailModalProps {

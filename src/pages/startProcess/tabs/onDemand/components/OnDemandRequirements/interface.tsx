@@ -5,14 +5,14 @@ import { Text } from "@inubekit/text";
 import { Stack } from "@inubekit/stack";
 
 import { appearances } from "@pages/startProcess/types";
-import { RequirementsModal } from "@components/modals/RequirementsModal";
+import { RequirementsModal } from "@src/components/modals/requirementsModal";
 import { Tooltip } from "@src/design/feedback/Tooltip";
 import { tokens } from "@src/design/tokens";
 import {
   IGeneralStatusRequirementResponse,
   IProcessRequirementResponse,
 } from "@src/types/statusRequeriments.types";
-import { IData } from "@components/modals/RequirementsModal/types";
+import { IData } from "@src/components/modals/requirementsModal/types";
 import {
   breakPoints,
   dataTablesOnDemandConfig,
