@@ -20,11 +20,10 @@ IProcessRequirementResponse[] | undefined
 
     const res = await fetch(requestUrl, options);
 
-    const data = await res.json();
-
     if (res.status === 204) {
       return[];
     }
+    const data = await res.json();
 
     if (!res.ok) {
       throw {

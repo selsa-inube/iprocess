@@ -78,14 +78,12 @@ const ScheduledRequirements = (props: ScheduledRequirementsProps) => {
 
   useEffect(() => {
     statusRequirementsData();
-  }, []);
-
-  useEffect(() => {
     requirementsData();
   }, []);
 
+
   const normalizeStatusRequirement = normalizeStatusRequirementByStatus(
-    statusRequirementData?.generalStatus || ""
+    "Meets"
   );
 
   useEffect(() => {
