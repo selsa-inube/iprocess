@@ -62,7 +62,7 @@ const ScheduledRequirements = (props: ScheduledRequirementsProps) => {
         plannedExecution?.toISOString() || new Date().toISOString(),
       publicCode,
       year,
-      typeExecution: "REFRESH",
+      typeExecution: "",
       cutOffDate: new Date().toISOString(),
     };
     setLoadingRequirements(true);
@@ -85,7 +85,7 @@ const ScheduledRequirements = (props: ScheduledRequirementsProps) => {
   }, []);
 
   const normalizeStatusRequirement = normalizeStatusRequirementByStatus(
-    statusRequirementData?.generalStatus || ""
+    "NoEvaluated"
   );
 
   useEffect(() => {
