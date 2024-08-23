@@ -85,7 +85,7 @@ const ScheduledRequirements = (props: ScheduledRequirementsProps) => {
   }, []);
 
   const normalizeStatusRequirement = normalizeStatusRequirementByStatus(
-    "NoEvaluated"
+    statusRequirementData?.generalStatus || ""
   );
 
   useEffect(() => {
