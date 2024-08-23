@@ -15,11 +15,11 @@ import {
 import { IData } from "@components/modals/RequirementsModal/types";
 import {
   breakPoints,
-  dataTablesConfig,
+  dataTablesOnDemandConfig,
 } from "./config/tablesRequirements.config";
 import { StyledContainer } from "./styles";
 
-interface ScheduledRequirementsUIProps {
+interface OnDemandRequirementsUIProps {
   id: string;
   isVisibleStatusReq: boolean;
   isVisibleRequirements: boolean;
@@ -34,7 +34,7 @@ interface ScheduledRequirementsUIProps {
   statusRequirement?: IGeneralStatusRequirementResponse;
 }
 
-const ScheduledRequirementsUI = (props: ScheduledRequirementsUIProps) => {
+const OnDemandRequirementsUI = (props: OnDemandRequirementsUIProps) => {
   const {
     id,
     isVisibleStatusReq,
@@ -92,7 +92,7 @@ const ScheduledRequirementsUI = (props: ScheduledRequirementsUIProps) => {
             breakpoints={breakPoints}
             loading={isVisibleRequirements}
             portalId="portal"
-            requirements={dataTablesConfig(processRequirementData) as IData[]}
+            requirements={dataTablesOnDemandConfig(processRequirementData) as IData[]}
             title="Pre-validar Requisitos"
             onCloseModal={handleToggleModal}
           />
@@ -101,4 +101,4 @@ const ScheduledRequirementsUI = (props: ScheduledRequirementsUIProps) => {
   );
 };
 
-export { ScheduledRequirementsUI };
+export { OnDemandRequirementsUI };

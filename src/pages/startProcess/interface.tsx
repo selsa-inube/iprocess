@@ -8,7 +8,7 @@ import { mediaQueryMobile } from "@src/config/environment";
 import { startProcessTabsConfig } from "./config/tabs.config";
 import { ScheduledTab } from "./tabs/scheduled";
 import { OnDemandTab } from "./tabs/onDemand";
-import { tokens } from "@src/design/tokens";
+
 
 interface StartProcessUIProps {
   isSelected: string;

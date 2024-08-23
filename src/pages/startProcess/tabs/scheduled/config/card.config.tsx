@@ -3,7 +3,6 @@ import { Icon } from "@inubekit/icon";
 
 import { StartProcesses } from "@pages/startProcess/types";
 import { formatDate } from "@utils/dates";
-import { breakPointsMock } from "@components/modals/RequirementsModal/stories/mock";
 import { Details } from "../components/Details";
 import { ScheduledRequirements } from "../components/ScheduledRequirements";
 
@@ -57,7 +56,7 @@ const actions = [
   {
     id: "Details",
     content: (process: StartProcesses) => (
-      <Details data={mapScheduled(process)} breakpoints={breakPointsMock}
+      <Details data={mapScheduled(process)} breakpoints={breakPoints}
       />
     ),
   },
@@ -72,6 +71,10 @@ const actions = [
       />
     ),
   },
+];
+
+const breakPoints = [
+  { breakpoint: "(min-width: 1091px)", totalColumns: 3 },
 ];
 
 const labelsDetails = [

@@ -38,7 +38,7 @@ export const Details = (props: IDetailsProps) => {
       plannedExecution:new Date(data.date as Date).toISOString(),
       publicCode: String(data.publicCode),
       year: Number(data.year),
-      typeExecution: "REFRESH",
+      typeExecution: "",
       cutOffDate:new Date().toISOString(),
     };
     
