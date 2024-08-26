@@ -40,7 +40,7 @@
     "prefer-const": "warn"
   },
   "parserOptions": {
-    "ecmaVersion": "latest",
+    "ecmaVersi": "latest",
     "sourceType": "module",
     "project": [
       "./tsconfig.json",

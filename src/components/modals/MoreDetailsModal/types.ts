@@ -4,7 +4,6 @@ interface ILabel {
 }
 
 interface IEntries {
-  id: string;
   [key: string]: React.ReactNode;
 }
 

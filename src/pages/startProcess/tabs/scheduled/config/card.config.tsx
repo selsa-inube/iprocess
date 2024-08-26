@@ -6,15 +6,27 @@ import { StartProcesses } from "@pages/startProcess/types";
 import { formatDate } from "@utils/dates";
 
 
-const scheduledNormailzeEntries = (process: StartProcesses[]) =>
+const scheduledNormailzeEntries = (
+  process: StartProcesses[],
+  month: number,
+  year: number,
+  status:string,
+) =>
+  
   process.map((entry) => ({
     ...entry,
-    id: `${entry.id}${entry.date}`,
+    id: entry.id,
+    publicCode: entry.publicCode,
     process: entry.description,
     date: entry.date && formatDate(new Date(entry.date)),
     dateAndHour: entry.date && formatDate(new Date(entry.date), true),
-    status: <SkeletonLine width="80px" animated/>,
-   actions: actions,
+    status: <SkeletonLine width="100px" />,
+    statusText: status,
+    dailyDetail: entry.dailyDetail,
+    actions: actions,
+    month: month,
+    year: year,
+    dateWithoutFormat: entry.date,
   }));
 
 const actions = [
