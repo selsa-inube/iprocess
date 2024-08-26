@@ -18,7 +18,7 @@ const onDemandNormailzeEntries = (
     id: `${entry.id}${entry.date}`,
     publicCode: entry.publicCode,
     process: entry.description,
-    date: entry.date && formatDate(new Date(entry.date)),
+    date: formatDate(new Date()),
     status: (
       <OnDemandRequirements
         id={entry.id}
