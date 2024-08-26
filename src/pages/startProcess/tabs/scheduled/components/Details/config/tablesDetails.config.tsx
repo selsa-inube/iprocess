@@ -1,5 +1,6 @@
 import { IData, ITitlesRequirements } from "@pages/startProcess/types";
 import { IProcessRequirementResponse } from "@src/types/statusRequeriments.types";
+import { RequirementTypeNormalize } from "@utils/requirements";
 
 const requirementsDetailsNormailze = (process: IProcessRequirementResponse[]) =>
   process.map((entry) => ({
@@ -15,7 +16,7 @@ const dataTablesDetailsConfig = (entry: IProcessRequirementResponse[]) => {
       const titleRequirements: ITitlesRequirements[] = [
         {
           id: `descriptionUse`,
-          titleName: entry.requirementType,
+          titleName: RequirementTypeNormalize[entry.requirementType],
           priority: 0,
         },
         {
