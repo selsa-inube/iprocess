@@ -30,10 +30,10 @@ function StartProcessesDaily() {
     try {
       const newScheduled = await startProcessData(filterDateChange);
 
-      const processesDaily = newScheduled.scheduled.filter(
+      const processesDailyData = newScheduled.scheduled.filter(
         (process) => process.id === process_id
       );
-      setProcessesDaily(processesDaily);
+      setProcessesDaily(processesDailyData);
     } catch (error) {
       console.info(error);
     } finally {

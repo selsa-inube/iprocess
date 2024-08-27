@@ -40,6 +40,7 @@ function StartProcessesDailyUI(props: StartProcessesDailyUIProps) {
     year,
     handleOrderData,
     OnSearchProcessDaily,
+    status,
     setStatus,
   } = props;
 
@@ -78,7 +79,7 @@ function StartProcessesDailyUI(props: StartProcessesDailyUIProps) {
             id="portal"
             titles={titlesConfig(handleOrderData)}
             actions={actions}
-            entries={processesDailyNormailzeEntries(entries, month, year, setStatus)}
+            entries={processesDailyNormailzeEntries(entries, month, year, status, setStatus)}
             breakpoints={breakPoints}
             loading={loading}
             filter={searchProcessDaily}

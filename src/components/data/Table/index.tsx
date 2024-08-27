@@ -37,16 +37,19 @@ const Table = (props: ITable) => {
   } = props;
 
   const filteredEntries = useMemo(() => {
-    const titlesId = titles.map((title) => title.id);
+    const titlesId = titles.map((title) => title.id.toString().toLowerCase());
 
     return entries.filter((entry) => {
       for (const attribute in entry) {
+        const attributeValue = entry[attribute]?.toString().toLowerCase();
+        const statusValue = entry?.[attribute]?.props?.status
+          ?.toString()
+          .toLowerCase();
+
         if (
-          titlesId.includes(attribute) &&
-          entry[attribute]
-            .toString()
-            .toLowerCase()
-            .includes(filter.toLowerCase())
+          titlesId.includes(attribute.toLowerCase()) &&
+          (attributeValue?.includes(filter.toLowerCase()) ||
+            statusValue?.includes(filter.toLowerCase()))
         ) {
           return true;
         }
@@ -90,7 +93,11 @@ const Table = (props: ITable) => {
   }
 
   return (
-    <StyledContainerTable id={id} $pageLength={pageLength} $entriesLength={entries.length}>
+    <StyledContainerTable
+      id={id}
+      $pageLength={pageLength}
+      $entriesLength={entries.length}
+    >
       <Stack direction="column">
         <TableUI
           titles={titles}

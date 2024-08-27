@@ -47,6 +47,7 @@ interface IDailyDetail{
   publicCode: string;
   abbreviatedName: string;
   estimatedExecutionDate: Date;
+  requirements: string;
 }
 
 interface IChangePeriodEntry {

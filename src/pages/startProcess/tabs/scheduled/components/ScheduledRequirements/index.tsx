@@ -7,23 +7,31 @@ import {
 } from "@src/types/statusRequeriments.types";
 import { processRequirement } from "@services/processRequirements/postProcessRequirement";
 import { formatDateEndpoint } from "@utils/dates";
-import {
-  normalizeStatusRequirementByStatus,
-} from "@utils/requirements";
+import { normalizeStatusRequirementByStatus } from "@utils/requirements";
 import { ScheduledRequirementsUI } from "./interface";
 
 interface ScheduledRequirementsProps {
   id: string;
   month: number;
-  plannedExecution?: Date;
   publicCode: string;
+  status: string;
   year: number;
-  prueba?: string;
   setStatus: (status: string) => void;
+  plannedExecution?: Date;
+  withTooltip?: boolean;
 }
 
 const ScheduledRequirements = (props: ScheduledRequirementsProps) => {
-  const { id, month, plannedExecution, publicCode, year, setStatus } = props;
+  const {
+    id,
+    month,
+    plannedExecution,
+    publicCode,
+    year,
+    status,
+    withTooltip = true,
+    setStatus,
+  } = props;
   const [loadingStatusRequirements, setLoadingStatusRequirements] =
     useState<boolean>(false);
   const [loadingRequirements, setLoadingRequirements] =
@@ -79,9 +87,8 @@ const ScheduledRequirements = (props: ScheduledRequirementsProps) => {
   useEffect(() => {
     statusRequirementsData();
     requirementsData();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
 
   const normalizeStatusRequirement = normalizeStatusRequirementByStatus(
     statusRequirementData?.generalStatus || ""
@@ -89,7 +96,8 @@ const ScheduledRequirements = (props: ScheduledRequirementsProps) => {
 
   useEffect(() => {
     setStatus(normalizeStatusRequirement?.name || "");
-  }, [normalizeStatusRequirement?.name, setStatus]);
+    status;
+  }, [normalizeStatusRequirement?.name, setStatus, status]);
 
   const handleToggleModal = () => {
     setShowModal(!showModal);
@@ -105,6 +113,7 @@ const ScheduledRequirements = (props: ScheduledRequirementsProps) => {
       processRequirementData={processRequirementData!}
       showModal={showModal}
       handleToggleModal={handleToggleModal}
+      withTooltip={withTooltip}
     />
   );
 };

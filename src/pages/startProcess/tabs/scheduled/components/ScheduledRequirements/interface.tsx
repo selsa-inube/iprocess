@@ -32,6 +32,7 @@ interface ScheduledRequirementsUIProps {
     appearance: string;
   };
   statusRequirement?: IGeneralStatusRequirementResponse;
+  withTooltip: boolean;
 }
 
 const ScheduledRequirementsUI = (props: ScheduledRequirementsUIProps) => {
@@ -44,17 +45,22 @@ const ScheduledRequirementsUI = (props: ScheduledRequirementsUIProps) => {
     processRequirementData,
     statusRequirement,
     handleToggleModal,
+    withTooltip,
   } = props;
 
-  const validateStatus= normalizeStatusRequirement?.name === "Sin Evaluar" ||
-                normalizeStatusRequirement?.name === "No Cumple"
+  const validateStatus =
+    normalizeStatusRequirement?.name === "Sin Evaluar" ||
+    normalizeStatusRequirement?.name === "No Cumple";
 
   return (
     <>
       {isVisibleStatusReq ? (
         <SkeletonLine width="80px" animated />
       ) : (
-        <StyledContainer onClick={handleToggleModal} $withCursor={validateStatus}>
+        <StyledContainer
+          onClick={handleToggleModal}
+          $withCursor={validateStatus}
+        >
           {statusRequirement && statusRequirement?.generalStatus?.length > 0 ? (
             <Stack gap={tokens.spacing.s050} direction="row">
               <Stack height="80%">
@@ -62,12 +68,12 @@ const ScheduledRequirementsUI = (props: ScheduledRequirementsUIProps) => {
                   label={normalizeStatusRequirement?.name || ""}
                   appearance={
                     (normalizeStatusRequirement?.appearance as appearances) ||
-                    "gray"
+                    "light"
                   }
                   weight="strong"
                 />
               </Stack>
-              {validateStatus && (
+              {withTooltip && validateStatus && (
                 <Tooltip
                   description={
                     "Puede hacer clic en el botón para prevalidar los requisitos"
@@ -86,18 +92,16 @@ const ScheduledRequirementsUI = (props: ScheduledRequirementsUIProps) => {
         </StyledContainer>
       )}
 
-      {validateStatus &&
-        showModal &&
-        id && (
-          <RequirementsModal
-            breakpoints={breakPoints}
-            loading={isVisibleRequirements}
-            portalId="portal"
-            requirements={dataTablesConfig(processRequirementData) as IData[]}
-            title="Pre-validar Requisitos"
-            onCloseModal={handleToggleModal}
-          />
-        )}
+      {validateStatus && showModal && id && (
+        <RequirementsModal
+          breakpoints={breakPoints}
+          loading={isVisibleRequirements}
+          portalId="portal"
+          requirements={dataTablesConfig(processRequirementData) as IData[]}
+          title="Pre-validar Requisitos"
+          onCloseModal={handleToggleModal}
+        />
+      )}
     </>
   );
 };
