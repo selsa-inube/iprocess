@@ -12,8 +12,8 @@ import { Tag } from "@inubekit/tag";
 
 import { Table } from "@components/data/Table";
 import { IBreakpoint } from "@components/data/Table/props";
-import { appearances } from "@src/pages/startProcess/types";
-import { normalizeStatusRequirementByName } from "@src/utils/requirements";
+import { appearances } from "@pages/startProcess/types";
+import { normalizeStatusRequirementByName } from "@utils/requirements";
 import {
   StyledContainer,
   StyledContainerTables,
@@ -131,7 +131,7 @@ const DetailModal = (props: DetailModalProps) => {
                           titles={requirement.titlesRequirements}
                           entries={requirement.entriesRequirements}
                           breakpoints={breakpoints}
-                          loading={isVisible}
+                          isLoading={isVisible}
                           widthFirstColumn="100%"
                           multipleTables={true}
                           typeTitle={"label"}

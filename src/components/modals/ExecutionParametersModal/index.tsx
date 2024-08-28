@@ -93,7 +93,7 @@ const ExecutionParametersModal = (props: ExecutionParametersModalProps) => {
                 titles={titlesParametersTable}
                 entries={entriesParametersTable}
                 breakpoints={breakPointsParametersTable}
-                loading={isVisible}
+                isLoading={isVisible}
                 widthFirstColumn="65%"
               />
             </Stack>

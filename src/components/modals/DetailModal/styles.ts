@@ -1,8 +1,8 @@
 import styled from "styled-components";
 import { inube } from "@inubekit/foundations";
 
-import { tokens } from "@src/design/tokens";
-import { mediaQueryMobile } from "@src/config/environment";
+import { tokens } from "@design/tokens";
+import { mediaQueryMobile } from "@config/environment";
 
 interface IStyledModal {
   $smallScreen: boolean;
