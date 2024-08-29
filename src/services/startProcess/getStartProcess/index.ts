@@ -1,4 +1,4 @@
-import { enviroment, fetchTimeoutServices, maxRetriesServices } from "@src/config/environment";
+import { enviroment, fetchTimeoutServices, maxRetriesServices } from "@config/environment";
 import {
   FilterProcessesForDate,
   StartProcessesFilter,

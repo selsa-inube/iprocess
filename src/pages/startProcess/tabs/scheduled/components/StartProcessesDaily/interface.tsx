@@ -6,9 +6,9 @@ import { useMediaQuery } from "@inubekit/hooks";
 
 import { IDailyDetail } from "@pages/startProcess/types";
 import { Table } from "@components/data/Table";
-import { tokens } from "@src/design/tokens";
-import { mediaQueryMobile } from "@src/config/environment";
-import { Title } from "@src/design/data/Title";
+import { tokens } from "@design/tokens";
+import { mediaQueryMobile } from "@config/environment";
+import { Title } from "@design/data/Title";
 import {
   actions,
   breakPoints,
@@ -81,7 +81,7 @@ function StartProcessesDailyUI(props: StartProcessesDailyUIProps) {
             actions={actions}
             entries={processesDailyNormailzeEntries(entries, month, year, status, setStatus)}
             breakpoints={breakPoints}
-            loading={loading}
+            isLoading={loading}
             filter={searchProcessDaily}
             widthFirstColumn="55%"
           />

@@ -1,16 +1,17 @@
-import { MdLaunch, MdOutlineRemoveRedEye } from "react-icons/md";
+import { MdLaunch } from "react-icons/md";
 import { Icon } from "@inubekit/icon";
-import { SkeletonLine } from "@inubekit/skeleton";
 
 import { StartProcesses } from "@pages/startProcess/types";
 import { formatDate } from "@utils/dates";
-
+import { Details } from "../components/Details";
+import { ScheduledRequirements } from "../components/ScheduledRequirements";
 
 const scheduledNormailzeEntries = (
   process: StartProcesses[],
   month: number,
   year: number,
   status:string,
+  setStatus: (status: string) => void,
 ) =>
   
   process.map((entry) => ({
@@ -20,7 +21,17 @@ const scheduledNormailzeEntries = (
     process: entry.description,
     date: entry.date && formatDate(new Date(entry.date)),
     dateAndHour: entry.date && formatDate(new Date(entry.date), true),
-    status: <SkeletonLine width="100px" />,
+    status: (
+      <ScheduledRequirements
+        id={entry.id}
+        month={month}
+        publicCode={entry.publicCode}
+        plannedExecution={entry.date ? new Date(entry.date) : undefined}
+        year={year}
+        setStatus={setStatus}
+        status={status}
+      />
+    ),
     statusText: status,
     dailyDetail: entry.dailyDetail,
     actions: actions,
@@ -29,15 +40,25 @@ const scheduledNormailzeEntries = (
     dateWithoutFormat: entry.date,
   }));
 
+const mapScheduled = (entry: StartProcesses) => {
+  return {
+    id: entry.id,
+    publicCode: entry.publicCode,
+    aplication: entry.aplication,
+    date: entry.dateWithoutFormat ? new Date(entry.dateWithoutFormat) : new Date(),
+    process: entry.description,
+    periodicity: entry.periodicity,
+    statusText: entry.statusText,
+    month: entry.month,
+    year: entry.year,
+  };
+};
+
 const actions = [
   {
     id: "Details",
-    content: () =>  (
-      <Icon
-        appearance="gray"
-        icon={<MdOutlineRemoveRedEye />}
-        size="16px"
-        cursorHover={true}
+    content: (process: StartProcesses) => (
+      <Details data={mapScheduled(process)} breakpoints={breakPoints}
       />
     ),
   },
@@ -54,9 +75,33 @@ const actions = [
   },
 ];
 
+const breakPoints = [
+  { breakpoint: "(min-width: 1091px)", totalColumns: 3 },
+];
+
+const labelsDetails = [
+  {
+    id: "aplication",
+    titleName: "Aplicación",
+  },
+  {
+    id: "process",
+    titleName: "Proceso",
+    priority: 1,
+  },
+  {
+    id: "periodicity",
+    titleName: "Periodicidad",
+  },
+  {
+    id: "executionDateAndHour",
+    titleName: "Fecha Estimada de Ejecución",
+  },
+  {
+    id: "statusText",
+    titleName: "Requisitos",
+  },
+];
 
 
-export {
-  actions,
-  scheduledNormailzeEntries,
-};
+export { actions, labelsDetails, scheduledNormailzeEntries, mapScheduled };

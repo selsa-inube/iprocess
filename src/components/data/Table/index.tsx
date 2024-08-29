@@ -8,7 +8,7 @@ import { IAction, IActions, IBreakpoint, ITitle, ITypeTitle } from "./props";
 interface ITable {
   entries: IActions[];
   id: string;
-  loading: boolean;
+  isLoading: boolean;
   titles: ITitle[];
   actions?: IAction[];
   typeTitle?: ITypeTitle;
@@ -28,7 +28,7 @@ const Table = (props: ITable) => {
     actions,
     entries,
     filter = "",
-    loading,
+    isLoading,
     widthFirstColumn,
     multipleTables,
     pageLength = 40,
@@ -104,7 +104,7 @@ const Table = (props: ITable) => {
           typeTitle={typeTitle}
           actions={actions}
           entries={getPageEntries()}
-          loading={loading}
+          isLoading={isLoading}
           widthFirstColumn={widthFirstColumn}
           multipleTables={multipleTables}
           breakpoints={breakpoints!}

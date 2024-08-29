@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import { tokens } from "@src/design/tokens";
+import { tokens } from "@design/tokens";
 
 interface StyledContainerProps {
   $isSelected: boolean;

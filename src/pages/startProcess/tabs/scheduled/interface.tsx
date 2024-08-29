@@ -4,7 +4,7 @@ import { Textfield } from "@inubekit/textfield";
 import { Text } from "@inubekit/text";
 import { ChangePeriod } from "@components/feedback/ChangePeriod";
 import { CardProcess } from "@components/feedback/CardProcess";
-import { tokens } from "@src/design/tokens";
+import { tokens } from "@design/tokens";
 import { formatMonthEndpoint } from "@utils/dates";
 import { IProcess } from "@components/feedback/CardProcess/types";
 
@@ -31,7 +31,7 @@ function ScheduledTabUI(props: ScheduledTabUIProps) {
     searchScheduled,
     year,
     status,
-    // setStatus,
+    setStatus,
     setSelectedPeriod,
     handleSearchScheduled,
   } = props;
@@ -77,7 +77,7 @@ function ScheduledTabUI(props: ScheduledTabUIProps) {
                 formatMonth,
                 formatYear,
                 status,
-                // setStatus
+                setStatus
               ).map((entry, index) => (
                 <Stack key={index}>
                   <CardProcess

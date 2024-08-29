@@ -1,4 +1,4 @@
-import { IProcessRequirementRequest } from "@src/types/statusRequeriments.types";
+import { IProcessRequirementRequest } from "@ptypes/statusRequeriments.types";
 
 const mapprocessRequirementEntityToApi = (
   process: IProcessRequirementRequest

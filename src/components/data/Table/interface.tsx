@@ -114,7 +114,7 @@ const TableUI = (props: Omit<ITable, "id">) => {
     actions,
     entries,
     breakpoints,
-    loading,
+    isLoading,
     pageLength,
     titles,
     typeTitle,
@@ -170,7 +170,7 @@ const TableUI = (props: Omit<ITable, "id">) => {
           </StyledTr>
         </StyledThead>
         <StyledTbody>
-          {loading ? (
+          {isLoading ? (
             dataLoading(TitleColumns, numberActions)
           ) : (
             <>

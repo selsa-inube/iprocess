@@ -15,7 +15,7 @@ interface IEntries {
     id: string;
     titlesRequirements: ITitlesRequirements[];
     entriesRequirements: IEntries[];
-    actionsRequirements: IAction[];
+    actionsRequirements?: IAction[];
   }
   
 

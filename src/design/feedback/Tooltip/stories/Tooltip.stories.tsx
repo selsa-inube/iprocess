@@ -5,7 +5,7 @@ import {
 import { BrowserRouter } from "react-router-dom";
 import { Meta, StoryFn } from "@storybook/react";
 
-import { theme } from "@src/config/theme";
+import { theme } from "@config/theme";
 import { Tooltip, TooltipProps } from "..";
 
 const meta: Meta<typeof Tooltip> = {

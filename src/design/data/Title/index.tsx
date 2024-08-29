@@ -5,8 +5,8 @@ import { Icon } from "@inubekit/icon";
 import { Stack } from "@inubekit/stack";
 import { Text } from "@inubekit/text";
 
-import { mediaQueryMobile } from "@src/config/environment";
-import { tokens } from "@src/design/tokens";
+import { mediaQueryMobile } from "@config/environment";
+import { tokens } from "@design/tokens";
 import { StyledContainerText } from "./styles";
 
 interface TitleProps {

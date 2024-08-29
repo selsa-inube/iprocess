@@ -1,5 +1,5 @@
-import { enviroment } from "@src/config/environment";
-import { IGeneralStatusRequirementRequest, IGeneralStatusRequirementResponse } from "@src/types/statusRequeriments.types";
+import { enviroment } from "@config/environment";
+import { IGeneralStatusRequirementRequest, IGeneralStatusRequirementResponse } from "@ptypes/statusRequeriments.types";
 
 import { mapGeneralStatusRequirementEntityToApi } from "./mappers";
 

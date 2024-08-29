@@ -1,7 +1,7 @@
 import { BrowserRouter } from "react-router-dom";
 import { Meta, StoryFn } from "@storybook/react";
 
-import { AppContext } from "@src/context/AppContext";
+import { AppContext } from "@context/AppContext";
 import linparLogo from "@assets/images/linpar.png";
 
 import { AppPage } from ".";

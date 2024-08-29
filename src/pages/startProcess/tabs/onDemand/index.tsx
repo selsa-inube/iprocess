@@ -7,17 +7,15 @@ import {
 } from "@utils/dates";
 import { startProcessData } from "@services/startProcess/getStartProcess";
 import { OnDemandTabUI } from "./interface";
-import {
-  FilterProcessesForDate,
-  StartProcesses,
-} from "../../types";
+import { FilterProcessesForDate, StartProcesses } from "../../types";
 
 function OnDemandTab() {
   const [searchOnDemand, setSearchOnDemand] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(true);
 
   const [onDemand, setOnDemand] = useState<StartProcesses[]>([]);
- ;
+
+  const [status, setStatus] = useState<string>("");
 
   const validateOnDemand = async (filterDateChange: FilterProcessesForDate) => {
     setLoading(true);
@@ -46,7 +44,11 @@ function OnDemandTab() {
       entries={onDemand}
       isLoading={loading}
       handlesearchOnDemand={handlesearchOnDemand}
+      month={currentMonthLetters!}
+      year={currentYear}
       searchOnDemand={searchOnDemand}
+      status={status}
+      setStatus={setStatus}
     />
   );
 }

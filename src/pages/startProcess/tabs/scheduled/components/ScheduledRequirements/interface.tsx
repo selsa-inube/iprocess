@@ -5,13 +5,13 @@ import { Text } from "@inubekit/text";
 import { Stack } from "@inubekit/stack";
 
 import { appearances } from "@pages/startProcess/types";
-import { RequirementsModal } from "@src/components/modals/requirementsModal";
-import { Tooltip } from "@src/design/feedback/Tooltip";
-import { tokens } from "@src/design/tokens";
+import { RequirementsModal } from "@components/modals/requirementsModal";
+import { Tooltip } from "@design/feedback/Tooltip";
+import { tokens } from "@design/tokens";
 import {
   IGeneralStatusRequirementResponse,
   IProcessRequirementResponse,
-} from "@src/types/statusRequeriments.types";
+} from "@ptypes/statusRequeriments.types";
 import { IData } from "@components/modals/requirementsModal/types";
 import {
   breakPoints,
@@ -95,7 +95,7 @@ const ScheduledRequirementsUI = (props: ScheduledRequirementsUIProps) => {
       {validateStatus && showModal && id && (
         <RequirementsModal
           breakpoints={breakPoints}
-          loading={isVisibleRequirements}
+          isLoading={isVisibleRequirements}
           portalId="portal"
           requirements={dataTablesConfig(processRequirementData) as IData[]}
           title="Pre-validar Requisitos"

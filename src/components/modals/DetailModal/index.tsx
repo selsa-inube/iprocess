@@ -8,15 +8,30 @@ import { useMediaQuery } from "@inubekit/hooks";
 import { Stack } from "@inubekit/stack";
 import { Text } from "@inubekit/text";
 import { Blanket } from "@inubekit/blanket";
+import { Tag } from "@inubekit/tag";
 
-import { StyledContainer, StyledModal, StyledModalFields } from "./styles";
+import { Table } from "@components/data/Table";
+import { IBreakpoint } from "@components/data/Table/props";
+import { appearances } from "@pages/startProcess/types";
+import { normalizeStatusRequirementByName } from "@utils/requirements";
+import {
+  StyledContainer,
+  StyledContainerTables,
+  StyledModal,
+  StyledModalFields,
+} from "./styles";
 import { IEntries, ILabel } from "./types";
+import { IData } from "../requirementsModal/types";
+
 
 interface DetailModalProps {
   portalId: string;
   title: string;
   data: IEntries;
   labels: ILabel[];
+  requirement: IData[];
+  breakpoints: IBreakpoint[];
+  isVisible: boolean;
   onCloseModal: () => void;
 }
 
@@ -25,10 +40,12 @@ const DetailModal = (props: DetailModalProps) => {
     portalId,
     title,
     data,
+    breakpoints,
     labels,
+    requirement,
+    isVisible,
     onCloseModal,
   } = props;
-
 
   const isMobile = useMediaQuery("(max-width: 500px)");
 
@@ -87,11 +104,43 @@ const DetailModal = (props: DetailModalProps) => {
                       >
                         {field.titleName}
                       </Label>
-                      <Stack>{data[field.id]}</Stack>
+                      <Tag
+                        appearance={
+                          normalizeStatusRequirementByName(data[field.id])
+                            ?.appearance as appearances
+                        }
+                        label={
+                          normalizeStatusRequirementByName(data[field.id])
+                            ?.name || ""
+                        }
+                        weight="strong"
+                      />
                     </Stack>
                   )
               )}
             </Stack>
+
+            {data.statusText === "Cumple" && (
+              <StyledContainerTables>
+                {requirement.length === 0
+                  ? "No se han encontrado resultados"
+                  : requirement.map((requirement) => (
+                      <Stack direction="column" key={requirement.id}>
+                        <Table
+                          id="portal"
+                          titles={requirement.titlesRequirements}
+                          entries={requirement.entriesRequirements}
+                          breakpoints={breakpoints}
+                          isLoading={isVisible}
+                          widthFirstColumn="100%"
+                          multipleTables={true}
+                          typeTitle={"label"}
+                        />
+                      </Stack>
+                    ))}
+              </StyledContainerTables>
+            )}
+
             <Stack gap="8px" justifyContent="flex-end">
               <Button
                 spacing="wide"

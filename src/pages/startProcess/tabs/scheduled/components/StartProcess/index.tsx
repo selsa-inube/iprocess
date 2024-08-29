@@ -4,10 +4,10 @@ import { Icon } from "@inubekit/icon";
 
 import { StartProcessModal } from "@components/modals/StartProcessModal";
 import { IEntries } from "@components/modals/MoreDetailsModal/types";
-import { formatMonthEndpoint } from "@src/utils/dates";
-import { IFieldsEntered } from "@src/forms/types";
-import { tokens } from "@src/design/tokens";
-import { RefreshSavingProduct } from "@src/forms/savings/RefreshSavingProduct";
+import { formatMonthEndpoint } from "@utils/dates";
+import { IFieldsEntered } from "@forms/types";
+import { tokens } from "@design/tokens";
+import { RefreshSavingProduct } from "@forms/savings/RefreshSavingProduct";
 import { startProcessAction } from "./utils";
 
 

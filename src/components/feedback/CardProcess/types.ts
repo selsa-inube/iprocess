@@ -18,4 +18,9 @@ interface IActions {
   content: (entry: IProcess) => React.ReactNode;
 }
 
-export type { IProcess, IActions };
+interface IEntries {
+  id: string;
+  [key: string]: string | object |React.ReactNode;
+}
+
+export type { IProcess, IActions, IEntries };

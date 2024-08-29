@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import { mediaQueryMobile } from "@src/config/environment";
-import { tokens } from "@src/design/tokens";
+import { mediaQueryMobile } from "@config/environment";
+import { tokens } from "@design/tokens";
 
 
 interface IStyledField {

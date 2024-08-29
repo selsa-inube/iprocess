@@ -48,7 +48,6 @@ function StartProcessesDaily() {
         year: year || "",
       })
     );
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {

@@ -1,5 +1,5 @@
 import { IActions } from "@components/feedback/CardProcess/types";
-import { IProcessRequirementResponse } from "@src/types/statusRequeriments.types";
+import { IProcessRequirementResponse } from "@ptypes/statusRequeriments.types";
 
 export const appearance = [
   "primary",

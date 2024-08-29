@@ -1,5 +1,5 @@
-import { enviroment } from "@src/config/environment";
-import { IProcessRequirementRequest, IProcessRequirementResponse } from "@src/types/statusRequeriments.types";
+import { enviroment } from "@config/environment";
+import { IProcessRequirementRequest, IProcessRequirementResponse } from "@ptypes/statusRequeriments.types";
 
 import { mapprocessRequirementEntityToApi } from "./mappers";
 

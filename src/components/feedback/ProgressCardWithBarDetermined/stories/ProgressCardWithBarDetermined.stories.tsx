@@ -5,8 +5,8 @@ import { Meta, StoryFn } from "@storybook/react";
 import { Button } from "@inubekit/button";
 
 
-import { tokens } from "@src/design/tokens";
-import { theme } from "@src/config/theme";
+import { tokens } from "@design/tokens";
+import { theme } from "@config/theme";
 import { appearances } from "../types";
 import { ProgressCardWithBarDetermined, ProgressCardWithBarDeterminedProps } from "..";
 

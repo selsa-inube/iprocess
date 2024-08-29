@@ -8,7 +8,7 @@ import {
   IEntries,
   IFieldsEntered,
   IEnumeratorsProcessCoverage,
-} from "@src/forms/types";
+} from "@forms/types";
 import { RefreshCardCreditProductUI } from "./interface";
 
 const validationSchema = Yup.object({

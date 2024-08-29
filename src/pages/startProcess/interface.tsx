@@ -3,11 +3,12 @@ import { Tabs } from "@inubekit/tabs";
 import { useMediaQuery } from "@inubekit/hooks";
 import { Text } from "@inubekit/text";
 
-import { tokens } from "@src/design/tokens";
-import { mediaQueryMobile } from "@src/config/environment";
+import { tokens } from "@design/tokens";
+import { mediaQueryMobile } from "@config/environment";
 import { startProcessTabsConfig } from "./config/tabs.config";
 import { ScheduledTab } from "./tabs/scheduled";
 import { OnDemandTab } from "./tabs/onDemand";
+
 
 interface StartProcessUIProps {
   isSelected: string;

@@ -4,7 +4,7 @@ import { generalStatusRequirement } from "@services/processRequirements/postGene
 import {
   IGeneralStatusRequirementResponse,
   IProcessRequirementResponse,
-} from "@src/types/statusRequeriments.types";
+} from "@ptypes/statusRequeriments.types";
 import { processRequirement } from "@services/processRequirements/postProcessRequirement";
 import { formatDateEndpoint } from "@utils/dates";
 import { normalizeStatusRequirementByStatus } from "@utils/requirements";
@@ -87,7 +87,6 @@ const ScheduledRequirements = (props: ScheduledRequirementsProps) => {
   useEffect(() => {
     statusRequirementsData();
     requirementsData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const normalizeStatusRequirement = normalizeStatusRequirementByStatus(

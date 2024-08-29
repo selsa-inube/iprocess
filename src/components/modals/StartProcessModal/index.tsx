@@ -6,8 +6,8 @@ import { useMediaQuery } from "@inubekit/hooks";
 import { Stack } from "@inubekit/stack";
 import { Text } from "@inubekit/text";
 import { Blanket } from "@inubekit/blanket";
-import { tokens } from "@src/design/tokens";
-import { mediaQueryMobile } from "@src/config/environment";
+import { tokens } from "@design/tokens";
+import { mediaQueryMobile } from "@config/environment";
 import {
   StyledContainer,
   StyledModal,

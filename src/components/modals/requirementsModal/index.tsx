@@ -15,7 +15,7 @@ import { StyledContainerTables, StyledModal } from "./styles";
 
 interface RequirementsModalProps {
   breakpoints: IBreakpoint[];
-  loading: boolean;
+  isLoading: boolean;
   portalId: string;
   requirements: IData[];
   title: string;
@@ -23,7 +23,7 @@ interface RequirementsModalProps {
 }
 
 function RequirementsModal(props: RequirementsModalProps) {
-  const { breakpoints, loading, portalId, requirements, title, onCloseModal } =
+  const { breakpoints, isLoading, portalId, requirements, title, onCloseModal } =
     props;
 
   const node = document.getElementById(portalId);
@@ -69,7 +69,7 @@ function RequirementsModal(props: RequirementsModalProps) {
                   titles={requirement.titlesRequirements}
                   actions={requirement.actionsRequirements}
                   entries={requirement.entriesRequirements}
-                  loading={loading}
+                  isLoading={isLoading}
                   breakpoints={breakpoints}
                   widthFirstColumn="55%"
                   multipleTables={true}

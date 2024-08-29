@@ -9,10 +9,10 @@ import {
 
 import { Icon } from "@inubekit/icon";
 import { Tag } from "@inubekit/tag";
-import { IProcess } from "@src/components/feedback/CardProcess/types";
-import { Tooltip } from "@src/design/feedback/Tooltip";
+import { IProcess } from "@components/feedback/CardProcess/types";
+import { Tooltip } from "@design/feedback/Tooltip";
 import { Stack } from "@inubekit/stack";
-import { tokens } from "@src/design/tokens";
+import { tokens } from "@design/tokens";
 
 const actionsStartprocess = [
   {

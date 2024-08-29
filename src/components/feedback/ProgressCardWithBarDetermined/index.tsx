@@ -5,7 +5,7 @@ import { Stack } from "@inubekit/stack";
 import { Text } from "@inubekit/text";
 import { Blanket } from "@inubekit/blanket";
 
-import { tokens } from "@src/design/tokens";
+import { tokens } from "@design/tokens";
 import { StyledContainer, StyledModal } from "./styles";
 import { ProgressBar } from "../../../design/feedback/ProgressBar";
 import { ProgressCardWithBarType } from "./types";
