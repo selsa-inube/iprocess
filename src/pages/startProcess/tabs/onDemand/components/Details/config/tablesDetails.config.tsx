@@ -1,5 +1,5 @@
 import { IData, ITitlesRequirements } from "@pages/startProcess/types";
-import { IProcessRequirementResponse } from "@src/types/statusRequeriments.types";
+import { IProcessRequirementResponse } from "@ptypes/statusRequeriments.types";
 
 const requirementsDetailsNormailze = (process: IProcessRequirementResponse[]) =>
   process.map((entry) => ({

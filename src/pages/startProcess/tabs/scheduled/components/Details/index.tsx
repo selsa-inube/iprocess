@@ -3,13 +3,13 @@ import { MdOutlineRemoveRedEye } from "react-icons/md";
 import { Icon } from "@inubekit/icon";
 
 import { DetailModal } from "@components/modals/DetailModal";
-import { tokens } from "@src/design/tokens";
-import { IEntries } from "@src/forms/types";
+import { tokens } from "@design/tokens";
+import { IEntries } from "@forms/types";
 import { IBreakpoint } from "@components/data/Table/props";
-import { processRequirement } from "@src/services/processRequirements/postProcessRequirement";
-import { IProcessRequirementResponse } from "@src/types/statusRequeriments.types";
-import { IData } from "@src/components/modals/requirementsModal/types";
-import { formatDateEndpoint } from "@src/utils/dates";
+import { processRequirement } from "@services/processRequirements/postProcessRequirement";
+import { IProcessRequirementResponse } from "@ptypes/statusRequeriments.types";
+import { IData } from "@components/modals/requirementsModal/types";
+import { formatDateEndpoint } from "@utils/dates";
 import { dataTablesDetailsConfig } from "./config/tablesDetails.config";
 import { labelsDetails } from "../../config/card.config";
 

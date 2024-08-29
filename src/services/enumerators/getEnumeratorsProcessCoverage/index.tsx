@@ -1,5 +1,5 @@
-import { enviroment, fetchTimeoutServices, maxRetriesServices } from "@src/config/environment";
-import { IEnumeratorsProcessCoverage } from "@src/forms/types";
+import { enviroment, fetchTimeoutServices, maxRetriesServices } from "@config/environment";
+import { IEnumeratorsProcessCoverage } from "@forms/types";
 import { mapEnumProcessCoverageApiToEntities } from "./mappers";
 
 

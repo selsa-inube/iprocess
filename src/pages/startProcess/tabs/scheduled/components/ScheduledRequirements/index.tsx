@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react";
 
-import { generalStatusRequirement } from "@src/services/processRequirements/postGeneralStatusRequirement";
+import { generalStatusRequirement } from "@services/processRequirements/postGeneralStatusRequirement";
 import {
   IGeneralStatusRequirementResponse,
   IProcessRequirementResponse,
-} from "@src/types/statusRequeriments.types";
-import { processRequirement } from "@src/services/processRequirements/postProcessRequirement";
-import { formatDateEndpoint } from "@src/utils/dates";
+} from "@ptypes/statusRequeriments.types";
+import { processRequirement } from "@services/processRequirements/postProcessRequirement";
+import { formatDateEndpoint } from "@utils/dates";
 import {
   normalizeStatusRequirementByStatus,
-} from "@src/utils/requirements";
+} from "@utils/requirements";
 import { ScheduledRequirementsUI } from "./interface";
 
 interface ScheduledRequirementsProps {

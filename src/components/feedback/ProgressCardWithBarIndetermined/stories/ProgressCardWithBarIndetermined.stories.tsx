@@ -9,7 +9,7 @@ import {
   ProgressCardWithBarIndeterminedProps,
 } from "..";
 
-import { theme } from "@src/config/theme";
+import { theme } from "@config/theme";
 import { appearances } from "../../ProgressCardWithBarDetermined/types";
 
 

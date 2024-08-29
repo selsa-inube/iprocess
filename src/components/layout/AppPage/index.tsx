@@ -5,7 +5,7 @@ import { Header } from "@inubekit/header";
 import { Nav } from "@inubekit/nav";
 import { useMediaQuery } from "@inubekit/hooks";
 
-import { nav } from "@src/config/nav";
+import { nav } from "@config/nav";
 import { AppContext } from "@context/AppContext";
 import {
   StyledAppPage,

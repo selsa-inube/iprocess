@@ -4,8 +4,8 @@ import { Textfield } from "@inubekit/textfield";
 import { Text } from "@inubekit/text";
 import { ChangePeriod } from "@components/feedback/ChangePeriod";
 import { CardProcess } from "@components/feedback/CardProcess";
-import { tokens } from "@src/design/tokens";
-import { formatMonthEndpoint } from "@src/utils/dates";
+import { tokens } from "@design/tokens";
+import { formatMonthEndpoint } from "@utils/dates";
 import { IProcess } from "@components/feedback/CardProcess/types";
 
 import { IChangePeriodEntry } from "../../types";

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { BrowserRouter } from "react-router-dom";
 import { Meta, StoryFn } from "@storybook/react";
 import { Button } from "@inubekit/button";
-import { RefreshSavingProduct } from "@src/forms/savings/RefreshSavingProduct";
+import { RefreshSavingProduct } from "@forms/savings/RefreshSavingProduct";
 
 import { StartProcessModal, StartProcessModalProps } from "..";
 

@@ -3,7 +3,7 @@ import { BrowserRouter } from "react-router-dom";
 import { Meta, StoryFn } from "@storybook/react";
 import { Button } from "@inubekit/button";
 
-import { theme } from "@src/config/theme";
+import { theme } from "@config/theme";
 import { ExecutionParametersModal, ExecutionParametersModalProps } from "..";
 import { ThemeProvider } from "styled-components";
 

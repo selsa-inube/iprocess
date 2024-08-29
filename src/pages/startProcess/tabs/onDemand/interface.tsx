@@ -3,9 +3,9 @@ import { Stack } from "@inubekit/stack";
 import { Textfield } from "@inubekit/textfield";
 import { Text } from "@inubekit/text";
 
-import { tokens } from "@src/design/tokens";
+import { tokens } from "@design/tokens";
 import { CardProcess } from "@components/feedback/CardProcess";
-import { formatMonthEndpoint } from "@src/utils/dates";
+import { formatMonthEndpoint } from "@utils/dates";
 import { onDemandNormailzeEntries } from "./config/card.config";
 import { StartProcesses } from "../../types";
 

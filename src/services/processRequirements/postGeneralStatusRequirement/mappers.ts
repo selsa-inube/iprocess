@@ -1,4 +1,4 @@
-import { IGeneralStatusRequirementRequest } from "@src/types/statusRequeriments.types";
+import { IGeneralStatusRequirementRequest } from "@ptypes/statusRequeriments.types";
 
 const mapGeneralStatusRequirementEntityToApi = (
   process: IGeneralStatusRequirementRequest

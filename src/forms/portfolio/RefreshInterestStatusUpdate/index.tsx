@@ -2,7 +2,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useEffect, useState } from "react";
 
-import { IStartProcessEntry, IEntries, IFieldsEntered } from "@src/forms/types";
+import { IStartProcessEntry, IEntries, IFieldsEntered } from "@forms/types";
 import { RefreshInterestStatusUpdateUI } from "./interface";
 
 const validationSchema = Yup.object({

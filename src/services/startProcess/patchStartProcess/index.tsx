@@ -1,4 +1,4 @@
-import { enviroment } from "@src/config/environment";
+import { enviroment } from "@config/environment";
 import { IStartProcessesRequest, IStartProcessResponse } from "@pages/startProcess/types";
 import { mapStartProcessEntityToApi } from "./mappers";
 

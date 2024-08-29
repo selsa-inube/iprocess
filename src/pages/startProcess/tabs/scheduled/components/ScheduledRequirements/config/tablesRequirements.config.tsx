@@ -7,11 +7,11 @@ import {
   IData,
   ITitlesRequirements,
 } from "@pages/startProcess/types";
-import { IProcessRequirementResponse } from "@src/types/statusRequeriments.types";
+import { IProcessRequirementResponse } from "@ptypes/statusRequeriments.types";
 import {
   normalizeEvalStatusRequirementByStatus,
   RequirementTypeNormalize,
-} from "@src/utils/requirements";
+} from "@utils/requirements";
 
 const requirementsNormailzeEntries = (process: IProcessRequirementResponse[]) =>
   process.map((entry) => ({
