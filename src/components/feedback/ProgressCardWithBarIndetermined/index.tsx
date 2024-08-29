@@ -9,7 +9,7 @@ import { Spinner } from "@inubekit/spinner";
 
 import { StyledContainer, StyledModal } from "./styles";
 import { ProgressCardWithBarType } from "../ProgressCardWithBarDetermined/types";
-import { tokens } from "@src/design/tokens";
+import { tokens } from "@design/tokens";
 
 
 interface ProgressCardWithBarIndeterminedProps {

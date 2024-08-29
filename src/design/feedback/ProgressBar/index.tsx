@@ -1,6 +1,6 @@
 import { AnimationEvent } from "react";
 
-import { tokens } from "@src/design/tokens";
+import { tokens } from "@design/tokens";
 import { StyledContainerProgressBar, StyledProgressBar } from "./styles";
 import { ProgressBarAppearanceType } from "./types";
 

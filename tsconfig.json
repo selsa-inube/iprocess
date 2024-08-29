@@ -8,15 +8,18 @@
     "baseUrl": ".",
     "paths": {
       "@src/*": ["src/*"],
+      "@design/*": ["src/design/*"],
       "@components/*": ["src/components/*"],
-      "@hooks/*": ["src/hooks/*"],
-      "@utils/*": ["src/utils/*"],
-      "@types/*": ["src/types/*"],
-      "@mocks/*": ["src/mocks/*"],
-      "@context/*": ["src/context/*"],
+      "@config/*": ["src/config/*"],
       "@pages/*": ["src/pages/*"],
+      "@hooks/*": ["src/hooks/*"],
+      "@mocks/*": ["src/mocks/*"],
+      "@ptypes/*": ["src/types/*"],
+      "@forms/*": ["src/forms/*"],
       "@assets/*": ["src/assets/*"],
-      "@services/*": ["src/services/*"]
+      "@services/*": ["src/services/*"],
+      "@context/*": ["src/context/*"],
+      "@utils/*": ["src/utils/*"]
     },
 
     /* Bundler mode */

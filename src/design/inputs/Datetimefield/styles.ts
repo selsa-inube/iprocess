@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { inube } from "@inubekit/foundations";
-import { tokens } from "@src/design/tokens";
+import { tokens } from "@design/tokens";
 
 interface IStyledContainer {
   $withFullwidth?: boolean;
@@ -133,7 +133,7 @@ const StyledMessageContainer = styled.div`
   margin-left: ${tokens.spacing.s200};
   pointer-events: none;
   color: ${({ theme }) =>
-    theme?.input?.message?.color?.regular || inube.input.message.color.regular};
+    theme?.input?.message?.color?.regular || inube.input.message.appearance};
 
   & svg {
     width: 14px;

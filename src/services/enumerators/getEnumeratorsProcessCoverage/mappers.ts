@@ -1,4 +1,4 @@
-import { IEnumeratorsProcessCoverage } from "@src/forms/types";
+import { IEnumeratorsProcessCoverage } from "@forms/types";
 
 const mapEnumProcessCoverageApiToEntity = (
     ProcessCoverage: Record<string, string | number | object>

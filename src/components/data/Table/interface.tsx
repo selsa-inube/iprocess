@@ -15,7 +15,7 @@ import {
   StyledTdActions,
   StyledContainer,
 } from "./styles";
-import { IAction, IActions, IBreakpoint, ITitle } from "./props";
+import { IAction, IActions, IBreakpoint, ITitle, ITypeTitle } from "./props";
 import { ITable } from ".";
 
 const actionsLoading = (numberActions: number) => {
@@ -72,7 +72,8 @@ function totalTitleColumns(
 function showActionTitle(
   actionTitle: IAction[],
   mediaQuery: boolean,
-  multipleTables: boolean
+  multipleTables: boolean,
+  typeTitle: ITypeTitle
 ) {
   return !mediaQuery ? (
     actionTitle.map((action) => (
@@ -81,7 +82,7 @@ function showActionTitle(
         $multipleTables={multipleTables}
       >
         <Text
-          type="title"
+          type={typeTitle}
           size="small"
           textAlign="center"
           appearance="dark"
@@ -113,9 +114,10 @@ const TableUI = (props: Omit<ITable, "id">) => {
     actions,
     entries,
     breakpoints,
-    loading,
+    isLoading,
     pageLength,
     titles,
+    typeTitle,
     widthFirstColumn,
     multipleTables = false,
   } = props;
@@ -147,7 +149,7 @@ const TableUI = (props: Omit<ITable, "id">) => {
                   title.titleName
                 ) : (
                   <Text
-                    type="title"
+                    type={typeTitle}
                     size="small"
                     appearance="dark"
                     textAlign="start"
@@ -158,11 +160,17 @@ const TableUI = (props: Omit<ITable, "id">) => {
                 )}
               </StyledThTitle>
             ))}
-            {actions && showActionTitle(actions, mediaActionOpen, multipleTables)}
+            {actions &&
+              showActionTitle(
+                actions,
+                mediaActionOpen,
+                multipleTables,
+                typeTitle
+              )}
           </StyledTr>
         </StyledThead>
         <StyledTbody>
-          {loading ? (
+          {isLoading ? (
             dataLoading(TitleColumns, numberActions)
           ) : (
             <>

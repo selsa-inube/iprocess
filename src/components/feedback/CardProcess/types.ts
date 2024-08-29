@@ -1,10 +1,11 @@
 interface IProcess {
   id: string;
+  publicCode: string;
   description: string;
-  date?: string | Date | undefined;
+  date?:  Date | string | undefined;
   actions?: IActions[];
   duration?: number;
-  periodicity?: string;
+  periodicity?: string; 
   status?: React.ReactNode;
   statusText?: string;
   totalPersons?: number;
@@ -17,4 +18,9 @@ interface IActions {
   content: (entry: IProcess) => React.ReactNode;
 }
 
-export type { IProcess, IActions };
+interface IEntries {
+  id: string;
+  [key: string]: string | object |React.ReactNode;
+}
+
+export type { IProcess, IActions, IEntries };

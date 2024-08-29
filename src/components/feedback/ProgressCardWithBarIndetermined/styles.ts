@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { inube } from "@inubekit/foundations";
-import { tokens } from "@src/design/tokens";
+import { tokens } from "@design/tokens";
 
 interface IStyledModal {
   $withSmallScreen: boolean;
