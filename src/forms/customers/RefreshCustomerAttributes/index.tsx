@@ -1,11 +1,10 @@
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { ChangeEvent, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
-import { IStartProcessEntry, IEntries, IFieldsEntered, IEnumeratorsProcessCoverage } from "@src/forms/types";
+import { EnumProcessCoverageData } from "@services/enumerators/getEnumeratorsProcessCoverage";
+import { IStartProcessEntry, IEntries, IFieldsEntered, IEnumeratorsProcessCoverage } from "@forms/types";
 import { RefreshCustomerAttributesUI } from "./interface";
-
-import { EnumProcessCoverageData } from "@src/services/enumerators/getEnumeratorsProcessCoverage";
 
 const validationSchema = Yup.object({
   typeRefresh: Yup.string().required("Este campo no puede estar vacío"),
@@ -54,11 +53,11 @@ const RefreshCustomerAttributes = (props: RefreshCustomerAttributesProps) => {
     onSubmit: async () => true,
   });
 
-  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    formik.setFieldValue("typeRefresh", event.target.outerText).then(()=>{
-      formik.validateForm().then((errors)=>{
+  const handleChange = (name: string, value: string) => {
+    formik.setFieldValue(name, value).then(()=> {
+      formik.validateForm().then((errors) => {
         formik.setErrors(errors);
-      })
+      });
     });
   };
 

@@ -1,6 +1,6 @@
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { ChangeEvent, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 import { EnumProcessCoverageData } from "@services/enumerators/getEnumeratorsProcessCoverage";
 import {
@@ -8,7 +8,7 @@ import {
   IEntries,
   IFieldsEntered,
   IEnumeratorsProcessCoverage,
-} from "@src/forms/types";
+} from "@forms/types";
 import { RefreshCardCreditProductUI } from "./interface";
 
 const validationSchema = Yup.object({
@@ -60,8 +60,8 @@ const RefreshCardCreditProduct = (props: RefreshCardCreditProductProps) => {
     onSubmit: async () => true,
   });
 
-  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    formik.setFieldValue("typeRefresh", event.target.outerText).then(() => {
+  const handleChange = (name: string, value: string) => {
+    formik.setFieldValue(name, value).then(()=> {
       formik.validateForm().then((errors) => {
         formik.setErrors(errors);
       });

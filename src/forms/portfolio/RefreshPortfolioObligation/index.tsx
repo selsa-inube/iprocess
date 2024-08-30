@@ -1,10 +1,15 @@
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { ChangeEvent, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
-import { IStartProcessEntry, IEntries, IFieldsEntered, IEnumeratorsProcessCoverage } from "@src/forms/types";
+import {
+  IStartProcessEntry,
+  IEntries,
+  IFieldsEntered,
+  IEnumeratorsProcessCoverage,
+} from "@forms/types";
+import { EnumProcessCoverageData } from "@services/enumerators/getEnumeratorsProcessCoverage";
 import { RefreshPortfolioObligationUI } from "./interface";
-import { EnumProcessCoverageData } from "@src/services/enumerators/getEnumeratorsProcessCoverage";
 
 const validationSchema = Yup.object({
   typeRefresh: Yup.string().required("Este campo no puede estar vacío"),
@@ -28,10 +33,11 @@ const RefreshPortfolioObligation = (props: RefreshPortfolioObligationProps) => {
   const { data, setFieldsEntered, onStartProcess } = props;
 
   const [dynamicValidationSchema, setDynamicValidationSchema] =
-  useState(validationSchema);
+    useState(validationSchema);
 
-  
-  const [optionsTypeRefresh, setOptionsTypeRefresh] = useState<IEnumeratorsProcessCoverage[]>([]);
+  const [optionsTypeRefresh, setOptionsTypeRefresh] = useState<
+    IEnumeratorsProcessCoverage[]
+  >([]);
 
   const validateOptionsTypeRefresh = async () => {
     try {
@@ -40,70 +46,69 @@ const RefreshPortfolioObligation = (props: RefreshPortfolioObligationProps) => {
       setOptionsTypeRefresh(newOptions);
     } catch (error) {
       console.info(error);
-    } 
+    }
   };
 
   useEffect(() => {
     validateOptionsTypeRefresh();
   }, []);
 
-
-const formik = useFormik({
-  initialValues,
-  validationSchema: dynamicValidationSchema,
-  validateOnChange: false,
-  onSubmit: async () => true,
-});
-
-const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-  formik.setFieldValue("typeRefresh", event.target.outerText).then(()=>{
-    formik.validateForm().then((errors)=>{
-      formik.setErrors(errors);
-    })
+  const formik = useFormik({
+    initialValues,
+    validationSchema: dynamicValidationSchema,
+    validateOnChange: false,
+    onSubmit: async () => true,
   });
-};
 
-useEffect(() => {
-  if (
-    data?.plannedAutomaticExecution &&
-    data?.plannedAutomaticExecution === "planned automatic execution"
-  ) {
-    setDynamicValidationSchema(
-      validationSchema.shape({
-        plannedExecutionDate: Yup.string().required(
-          "Este campo es requerido"
-        ),
-      })
-    );
-  }
-}, [data?.plannedAutomaticExecution, setDynamicValidationSchema]);
+  const handleChange = (name: string, value: string) => {
+    formik.setFieldValue(name, value).then(() => {
+      formik.validateForm().then((errors) => {
+        formik.setErrors(errors);
+      });
+    });
+  };
 
-useEffect(() => {
-  if (formik.values) {
-    setFieldsEntered(formik.values);
-  }
-}, [formik.values, setFieldsEntered]);
+  useEffect(() => {
+    if (
+      data?.plannedAutomaticExecution &&
+      data?.plannedAutomaticExecution === "planned automatic execution"
+    ) {
+      setDynamicValidationSchema(
+        validationSchema.shape({
+          plannedExecutionDate: Yup.string().required(
+            "Este campo es requerido"
+          ),
+        })
+      );
+    }
+  }, [data?.plannedAutomaticExecution, setDynamicValidationSchema]);
 
-const comparisonData = Boolean(
-  (data?.plannedAutomaticExecution &&
-    formik.values.plannedExecutionDate.length > 0 &&
-    formik.values.typeRefresh !== initialValues.typeRefresh &&
-    formik.values.plannedExecutionDate !==
-      initialValues.plannedExecutionDate) ||
-    (!data?.plannedAutomaticExecution &&
-      formik.values.typeRefresh !== initialValues.typeRefresh)
-);
+  useEffect(() => {
+    if (formik.values) {
+      setFieldsEntered(formik.values);
+    }
+  }, [formik.values, setFieldsEntered]);
 
-return (
-  <RefreshPortfolioObligationUI
-    formik={formik}
-    data={data}
-    optionsTypeRefresh={optionsTypeRefresh}
-    onChange={handleChange}
-    onStartProcess={onStartProcess}
-    comparisonData={comparisonData}
-  />
-);
+  const comparisonData = Boolean(
+    (data?.plannedAutomaticExecution &&
+      formik.values.plannedExecutionDate.length > 0 &&
+      formik.values.typeRefresh !== initialValues.typeRefresh &&
+      formik.values.plannedExecutionDate !==
+        initialValues.plannedExecutionDate) ||
+      (!data?.plannedAutomaticExecution &&
+        formik.values.typeRefresh !== initialValues.typeRefresh)
+  );
+
+  return (
+    <RefreshPortfolioObligationUI
+      formik={formik}
+      data={data}
+      optionsTypeRefresh={optionsTypeRefresh}
+      onChange={handleChange}
+      onStartProcess={onStartProcess}
+      comparisonData={comparisonData}
+    />
+  );
 };
 
 export type { RefreshPortfolioObligationProps };

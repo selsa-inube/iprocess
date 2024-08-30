@@ -6,6 +6,7 @@ const mapEnumProcessCoverageApiToEntity = (
   const processes: IEnumeratorsProcessCoverage = {
     id: String(ProcessCoverage.code),
     label: String(ProcessCoverage.code),
+    value: String(ProcessCoverage.value),
     
   };
   return processes;

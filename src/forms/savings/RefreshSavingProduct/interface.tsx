@@ -7,9 +7,9 @@ import { Fieldset } from "@inubekit/fieldset";
 import { Textarea } from "@inubekit/textarea";
 import { Select } from "@inubekit/select";
 
-import { IEntries, IEnumeratorsProcessCoverage } from "@src/forms/types";
-import { Datetimefield } from "@src/design/inputs/Datetimefield";
-import { tokens } from "@src/design/tokens";
+import { IEntries, IEnumeratorsProcessCoverage } from "@forms/types";
+import { Datetimefield } from "@design/inputs/Datetimefield";
+import { tokens } from "@design/tokens";
 import { StyledField, StyledTextarea } from "./styles";
 
 
@@ -18,7 +18,7 @@ interface RefreshSavingProductUIProps {
   formik: FormikValues;
   comparisonData: boolean;
   optionsTypeRefresh: IEnumeratorsProcessCoverage[];
-  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange: (name: string, value: string) => void;
   onStartProcess: () => void;
 }
 
@@ -74,7 +74,9 @@ const RefreshSavingProductUI = (props: RefreshSavingProductUIProps) => {
               ? "La tipo de refresco es requerido"
               : ""
           }
-          status={getFieldState(formik, "typeRefresh")}
+          invalid={
+            getFieldState(formik, "typeRefresh") === "invalid" && formik.errors.typeRefresh
+          }
           value={formik.values.typeRefresh}
           fullwidth
           required

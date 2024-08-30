@@ -18,7 +18,7 @@ interface RefreshCustomerAttributesUIProps {
   formik: FormikValues;
   comparisonData: boolean;
   optionsTypeRefresh: IEnumeratorsProcessCoverage[];
-  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange: (name: string, value: string) => void;
   onStartProcess: () => void;
 }
 
@@ -74,7 +74,9 @@ const RefreshCustomerAttributesUI = (props: RefreshCustomerAttributesUIProps) =>
               ? "La tipo de refresco es requerido"
               : ""
           }
-          status={getFieldState(formik, "typeRefresh")}
+          invalid={
+            getFieldState(formik, "typeRefresh") === "invalid" && formik.errors.typeRefresh
+          }
           value={formik.values.typeRefresh}
           fullwidth
           required

@@ -19,7 +19,7 @@ interface RefreshPortfolioObligationUIProps {
   formik: FormikValues;
   comparisonData: boolean;
   optionsTypeRefresh: IEnumeratorsProcessCoverage[];
-  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange: (name: string, value: string) => void;
   onStartProcess: () => void;
 }
 
@@ -75,7 +75,9 @@ const RefreshPortfolioObligationUI = (props: RefreshPortfolioObligationUIProps) 
               ? "La tipo de refresco es requerido"
               : ""
           }
-          status={getFieldState(formik, "typeRefresh")}
+          invalid={
+            getFieldState(formik, "typeRefresh") === "invalid" && formik.errors.typeRefresh
+          }
           value={formik.values.typeRefresh}
           fullwidth
           required

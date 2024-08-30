@@ -1,20 +1,18 @@
 import { useState } from "react";
-import { MdPinInvoke } from "react-icons/md";
+import { MdLaunch } from "react-icons/md";
 import { Icon } from "@inubekit/icon";
 
 import { StartProcessModal } from "@components/modals/StartProcessModal";
 import { IEntries } from "@components/modals/MoreDetailsModal/types";
-import { formatMonthEndpoint } from "@src/utils/dates";
 import { IFieldsEntered } from "@src/forms/types";
 import { tokens } from "@src/design/tokens";
 import { RefreshSavingProduct } from "@src/forms/savings/RefreshSavingProduct";
 import { startProcessAction } from "./utils";
 
-
 interface IStartProcessScheduledProps {
   id: string;
-  selectedMonth: string;
-  selectedYear: string;
+  selectedMonth: number;
+  selectedYear: number;
   dataModal: IEntries;
 }
 
@@ -29,14 +27,13 @@ const StartProcessScheduled = (props: IStartProcessScheduledProps) => {
   const handleStartProcess = () => {
     const data = startProcessAction({
       processCatalogId: String(id),
-      month: Number(formatMonthEndpoint(selectedMonth)),
+      month: Number(selectedMonth),
       suggestedDescription: String(dataModal.descriptionSuggested),
       year: Number(selectedYear),
       cutOffDate: String(dataModal.dateWithoutFormat),
       complementaryDescription: String(fieldsEntered.descriptionComplementary),
       typeRefresh: String(fieldsEntered.typeRefresh),
       plannedExecutionDate: String(fieldsEntered.plannedExecutionDate),
-
     });
     data.then().catch();
   };
@@ -49,7 +46,7 @@ const StartProcessScheduled = (props: IStartProcessScheduledProps) => {
     <>
       <Icon
         appearance="dark"
-        icon={<MdPinInvoke />}
+        icon={<MdLaunch />}
         size={tokens.spacing.s200}
         onClick={handleToggleModal}
         cursorHover

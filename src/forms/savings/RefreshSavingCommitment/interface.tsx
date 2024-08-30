@@ -7,10 +7,10 @@ import { Fieldset } from "@inubekit/fieldset";
 import { Textarea } from "@inubekit/textarea";
 import { Select } from "@inubekit/select";
 
-import { IEntries, IEnumeratorsProcessCoverage } from "@src/forms/types";
-import { Datetimefield } from "@src/design/inputs/Datetimefield";
-import { tokens } from "@src/design/tokens";
-import { mediaQueryMobile } from "@src/config/environment";
+import { IEntries, IEnumeratorsProcessCoverage } from "@forms/types";
+import { Datetimefield } from "@design/inputs/Datetimefield";
+import { tokens } from "@design/tokens";
+import { mediaQueryMobile } from "@config/environment";
 import { StyledField, StyledTextarea } from "./styles";
 
 
@@ -19,7 +19,7 @@ interface RefreshSavingCommitmentUIProps {
   formik: FormikValues;
   comparisonData: boolean;
   optionsTypeRefresh: IEnumeratorsProcessCoverage[];
-  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange: (name: string, value: string) => void;
   onStartProcess: () => void;
 }
 
@@ -33,7 +33,9 @@ const RefreshSavingCommitmentUI = (props: RefreshSavingCommitmentUIProps) => {
   const isMobile = useMediaQuery(mediaQueryMobile);
 
   return (
-    <form>
+    <form   onSubmit={(e) => {
+      e.preventDefault();
+    }}>
       <Stack direction="column" gap={tokens.spacing.s250}>
         <StyledField>
           <Text type="label" size="large">
@@ -58,25 +60,27 @@ const RefreshSavingCommitmentUI = (props: RefreshSavingCommitmentUIProps) => {
           />
         </StyledTextarea>
 
-          <Select
-            id="typeRefresh"
-            label="Tipo de refresco"
-            name="typeRefresh"
-            onChange={onChange}
-            onBlur={formik.handleBlur}
-            options={optionsTypeRefresh}
-            placeholder="Seleccione uno"
-            size="wide"
-            message={
-              getFieldState(formik, "typeRefresh") === "invalid"
-                ? "La tipo de refresco es requerido"
-                : ""
-            }
-            status={getFieldState(formik, "typeRefresh")}
-            value={formik.values.typeRefresh}
-            fullwidth={true}
-            required
-          />
+        <Select
+          id="typeRefresh"
+          label="Tipo de refresco"
+          name="typeRefresh"
+          onChange={onChange}
+          onBlur={formik.handleBlur}
+          options={optionsTypeRefresh}
+          placeholder="Seleccione uno"
+          size="wide"
+          message={
+            getFieldState(formik, "typeRefresh") === "invalid"
+              ? "La tipo de refresco es requerido"
+              : ""
+          }
+          invalid={
+            getFieldState(formik, "typeRefresh") === "invalid" && formik.errors.typeRefresh
+          }
+          value={formik.values.typeRefresh}
+          fullwidth
+          required
+        />
 
         <StyledField $smallScreen={isMobile}>
           <Text type="label" size="large">
@@ -114,6 +118,7 @@ const RefreshSavingCommitmentUI = (props: RefreshSavingCommitmentUIProps) => {
             appearance="primary"
             variant="filled"
             onClick={onStartProcess}
+            type="submit"
             disabled={!comparisonData || !formik.isValid}
           >
             Iniciar proceso

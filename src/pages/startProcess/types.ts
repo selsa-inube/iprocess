@@ -8,25 +8,35 @@ interface FilterProcessesForDate {
 
 interface StartProcesses {
   id: string;
+  publicCode: string;
   description: string;
-  date: string | Date | undefined;
-  dateAndHour?: string | Date;
+  date?: Date | string | undefined;
+  dateAndHour?: Date;
   aplication?: string;
   periodicity?: string;
   statusText?: string;
   status?: React.ReactNode;
+  dailyDetail?: IDailyDetail[];
   actions?: IActions[];
-  totalPersons?: number;
-  totalPersonsProsecuted?: number;
-  totalPersonsCoversProcess?: number;
-  duration?: number;
+  month?: number;
+  year?: number;
   plannedAutomaticExecution?: string;
-  executionDateWithoutFormat?: string;
+  dateWithoutFormat?: string;
 }
+
 
 interface StartProcessesFilter {
   onDemand: StartProcesses[];
   scheduled: StartProcesses[];
+}
+
+interface IDailyDetail{
+  processCatalogId: string;
+  aplication: string;
+  publicCode: string;
+  abbreviatedName: string;
+  estimatedExecutionDate: Date;
+  requirements: string;
 }
 
 interface IChangePeriodEntry {
