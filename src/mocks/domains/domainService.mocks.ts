@@ -1,4 +1,4 @@
-import { IServerDomain } from "@src/types/domain.types";
+import { IServerDomain } from "@ptypes/domain.types";
 import { monthsData } from "./months";
 import { periodsData } from "./periods";
 

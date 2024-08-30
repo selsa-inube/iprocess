@@ -2,8 +2,7 @@ import { useState } from "react";
 import { Meta, StoryFn } from "@storybook/react";
 import { BrowserRouter } from "react-router-dom";
 import { Button } from "@inubekit/button";
-
-import { RequirementsModal, RequirementsModalProps } from "../index";
+import { RequirementsModal, RequirementsModalProps } from "..";
 import { breakPointsMock, dataMock } from "./mock";
 
 const meta: Meta<typeof RequirementsModal> = {

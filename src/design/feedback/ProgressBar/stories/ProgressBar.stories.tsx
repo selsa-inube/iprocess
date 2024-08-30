@@ -4,7 +4,7 @@ import { Meta, StoryFn } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 
 import { ProgressBar, ProgressBarProps } from "..";
-import { tokens } from "@src/design/tokens";
+import { tokens } from "@design/tokens";
 import { themes } from "@mocks/design/themes";
 import { ThemeProvider } from "styled-components";
 import { appearances } from "../types";

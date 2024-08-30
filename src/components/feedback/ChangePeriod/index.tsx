@@ -4,13 +4,13 @@ import { Stack } from "@inubekit/stack";
 import { Text } from "@inubekit/text";
 import { Icon } from "@inubekit/icon";
 
-import { tokens } from "@src/design/tokens";
+import { tokens } from "@design/tokens";
 import  {currentMonthLetters,
 currentYear,
 } from "@utils/dates";
-import { getDomainById } from "@src/mocks/domains/domainService.mocks";
-import { PeriodsOptionsList } from "@src/design/feedback/PeriodsOptionsList";
-import { IOption } from "@src/design/feedback/PeriodsOptionsList/types";
+import { getDomainById } from "@mocks/domains/domainService.mocks";
+import { PeriodsOptionsList } from "@design/feedback/PeriodsOptionsList";
+import { IOption } from "@design/feedback/PeriodsOptionsList/types";
 import { IChangePeriodEntry } from "@pages/startProcess/types";
 
 import { StyledOptionlist } from "./styles";

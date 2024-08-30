@@ -3,7 +3,7 @@ import * as Yup from "yup";
 import { useEffect, useState } from "react";
 
 import { EnumProcessCoverageData } from "@services/enumerators/getEnumeratorsProcessCoverage";
-import { IStartProcessEntry, IEntries, IFieldsEntered, IEnumeratorsProcessCoverage } from "@src/forms/types";
+import { IStartProcessEntry, IEntries, IFieldsEntered, IEnumeratorsProcessCoverage } from "@forms/types";
 import { RefreshSavingProductCardUI } from "./interface";
 
 const validationSchema = Yup.object({

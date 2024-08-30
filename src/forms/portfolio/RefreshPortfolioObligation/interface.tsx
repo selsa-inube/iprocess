@@ -7,10 +7,10 @@ import { Fieldset } from "@inubekit/fieldset";
 import { Textarea } from "@inubekit/textarea";
 import { Select } from "@inubekit/select";
 
-import { IEntries, IEnumeratorsProcessCoverage } from "@src/forms/types";
-import { Datetimefield } from "@src/design/inputs/Datetimefield";
-import { tokens } from "@src/design/tokens";
-import { mediaQueryMobile } from "@src/config/environment";
+import { IEntries, IEnumeratorsProcessCoverage } from "@forms/types";
+import { Datetimefield } from "@design/inputs/Datetimefield";
+import { tokens } from "@design/tokens";
+import { mediaQueryMobile } from "@config/environment";
 import { StyledField, StyledTextarea } from "./styles";
 
 

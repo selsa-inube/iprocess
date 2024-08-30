@@ -3,15 +3,15 @@ import { Stack } from "@inubekit/stack";
 import { Pagination } from "./Pagination";
 import { TableUI } from "./interface";
 import { StyledContainerTable } from "./styles";
-import { IAction, IActions, IBreakpoint, ITitle } from "./props";
+import { IAction, IActions, IBreakpoint, ITitle, ITypeTitle } from "./props";
 
 interface ITable {
-
   entries: IActions[];
   id: string;
-  loading: boolean;
+  isLoading: boolean;
   titles: ITitle[];
   actions?: IAction[];
+  typeTitle?: ITypeTitle;
   widthFirstColumn?: string;
   multipleTables?: boolean;
   breakpoints?: IBreakpoint[];
@@ -24,10 +24,11 @@ const Table = (props: ITable) => {
   const {
     id,
     titles,
+    typeTitle = "title",
     actions,
     entries,
     filter = "",
-    loading,
+    isLoading,
     widthFirstColumn,
     multipleTables,
     pageLength = 30,
@@ -93,9 +94,10 @@ const Table = (props: ITable) => {
       <Stack direction="column">
         <TableUI
           titles={titles}
+          typeTitle={typeTitle}
           actions={actions}
           entries={getPageEntries()}
-          loading={loading}
+          isLoading={isLoading}
           widthFirstColumn={widthFirstColumn}
           multipleTables={multipleTables}
           breakpoints={breakpoints!}

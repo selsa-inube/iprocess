@@ -1,4 +1,16 @@
 import { IActions } from "@components/feedback/CardProcess/types";
+import { IProcessRequirementResponse } from "@ptypes/statusRequeriments.types";
+
+export const appearance = [
+  "primary",
+  "success",
+  "warning",
+  "danger",
+  "help",
+  "dark",
+  "gray",
+  "light",
+] as const;
 
 interface FilterProcessesForDate {
   executionDate: string;
@@ -54,7 +66,6 @@ interface IStartProcessesRequest {
   typeRefresh: string;
   complementaryDescription?: string;
   plannedExecutionDate?: string;
-
 }
 
 interface IStartProcessResponse {
@@ -71,7 +82,31 @@ interface IStartProcessResponse {
   uniqueReferenceNumberRequirement: string;
 }
 
+interface IAction {
+  id: string;
+  actionName: string;
+  content: (entry: IProcessRequirementResponse) => React.ReactNode;
+}
 
+interface ITitlesRequirements {
+  id: string;
+  titleName: string;
+  priority: number;
+}
+
+interface IEntries {
+  id: string;
+  [key: string]: React.ReactNode;
+}
+
+interface IData {
+  id: string;
+  titlesRequirements: ITitlesRequirements[];
+  entriesRequirements: IEntries[];
+  actionsRequirements?: IAction[];
+}
+
+export type appearances = (typeof appearance)[number];
 
 export type {
   FilterProcessesForDate,
@@ -80,4 +115,7 @@ export type {
   IChangePeriodEntry,
   IStartProcessesRequest,
   IStartProcessResponse,
+  IAction,
+  ITitlesRequirements,
+  IData,
 };

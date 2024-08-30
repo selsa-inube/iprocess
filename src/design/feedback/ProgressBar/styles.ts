@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components";
 import { keyframes } from "styled-components";
 
-import { tokens } from "@src/design/tokens";
+import { tokens } from "@design/tokens";
 
 import { ProgressBarAppearanceType } from "./types";
 

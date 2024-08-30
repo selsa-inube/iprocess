@@ -12,10 +12,10 @@ import { Label } from "@inubekit/label";
 
 import { Table } from "@components/data/Table";
 import { IBreakpoint, ITitle } from "@components/data/Table/props";
-import { mediaQueryMobile } from "@src/config/environment";
+import { mediaQueryMobile } from "@config/environment";
 import { StyledContainer, StyledModal, StyledModalFields } from "./styles";
 import { IEntries, ILabel } from "../MoreDetailsModal/types";
-import { tokens } from "@src/design/tokens";
+import { tokens } from "@design/tokens";
 
 
 interface ExecutionParametersModalProps {
@@ -93,7 +93,7 @@ const ExecutionParametersModal = (props: ExecutionParametersModalProps) => {
                 titles={titlesParametersTable}
                 entries={entriesParametersTable}
                 breakpoints={breakPointsParametersTable}
-                loading={isVisible}
+                isLoading={isVisible}
                 widthFirstColumn="65%"
               />
             </Stack>

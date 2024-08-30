@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { inube } from "@inubekit/foundations";
-import { tokens } from "@src/design/tokens";
+import { tokens } from "@design/tokens";
 
 const StyledContainer = styled.div`
   display: flex;
@@ -18,7 +18,7 @@ const StyledContainer = styled.div`
   box-sizing: border-box;
 
   & > div:nth-child(1) p:nth-child(1) {
-    word-break: break-all;
+    word-break: keep-all;
     white-space: normal;
   }
 `;

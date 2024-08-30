@@ -4,8 +4,8 @@ import { Textfield } from "@inubekit/textfield";
 import { Text } from "@inubekit/text";
 import { ChangePeriod } from "@components/feedback/ChangePeriod";
 import { CardProcess } from "@components/feedback/CardProcess";
-import { tokens } from "@src/design/tokens";
-import { formatMonthEndpoint } from "@src/utils/dates";
+import { tokens } from "@design/tokens";
+import { formatMonthEndpoint } from "@utils/dates";
 import { IProcess } from "@components/feedback/CardProcess/types";
 
 import { IChangePeriodEntry } from "../../types";
@@ -28,6 +28,7 @@ function ScheduledTabUI(props: ScheduledTabUIProps) {
     entries,
     isLoading,
     month,
+
     searchScheduled,
     year,
     status,
@@ -43,6 +44,10 @@ function ScheduledTabUI(props: ScheduledTabUIProps) {
     <Stack direction="column" gap={tokens.spacing.s600}>
       <Stack gap={tokens.spacing.s400} direction="column">
         <Stack justifyContent="space-between">
+          <ChangePeriod
+            description={`Procesos del mes de ${month} ${year}`}
+            setSelectedPeriod={setSelectedPeriod}
+          />
           <ChangePeriod
             description={`Procesos del mes de ${month} ${year}`}
             setSelectedPeriod={setSelectedPeriod}
@@ -84,6 +89,7 @@ function ScheduledTabUI(props: ScheduledTabUIProps) {
                     entries={entry as IProcess}
                     optionCurrent="start process"
                     descriptionTooltip="Puede hacer clic en el botón para prevalidar los requisitos."
+                    pathDetailByDay="/"
                   />
                 </Stack>
               ))}
