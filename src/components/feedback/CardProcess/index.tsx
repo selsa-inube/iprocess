@@ -145,7 +145,7 @@ const CardProcess = (props: CardProcessProps) => {
             <>
               <Text type="label" size="medium" weight="bold" appearance="gray">
                 {typeof entries?.date === "undefined" ||
-                (entries.periodicity && entries.periodicity === "Diaria")
+                (entries.periodicity && entries.periodicity === "Diario")
                   ? "Diarios"
                   : "Fecha"}
               </Text>
@@ -154,7 +154,7 @@ const CardProcess = (props: CardProcessProps) => {
                 {!entries?.date ||
                 (typeof entries.date === "undefined" &&
                   entries.periodicity &&
-                  entries.periodicity === "Diaria") ? (
+                  entries.periodicity === "Diario") ? (
                   <Link size="small" type="body" path={pathDetailByDay!}>
                     Ver Detalle por día
                   </Link>

@@ -48,10 +48,6 @@ function ScheduledTabUI(props: ScheduledTabUIProps) {
             description={`Procesos del mes de ${month} ${year}`}
             setSelectedPeriod={setSelectedPeriod}
           />
-          <ChangePeriod
-            description={`Procesos del mes de ${month} ${year}`}
-            setSelectedPeriod={setSelectedPeriod}
-          />
 
           <Textfield
             name="searchScheduled"

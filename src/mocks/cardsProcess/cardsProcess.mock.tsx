@@ -123,7 +123,7 @@ export const dataStartprocess = {
   publicCode: "01",
   description:
     "Not specified for the event confirmationpaymentinexternalaccount / StartPaymentWorkflow",
-  periodicity: "Diaria",
+  periodicity: "Diario",
   status: <Tag label="Cumple" appearance="success" weight="strong" />,
   actions: actionsStartprocess,
 };
@@ -133,7 +133,7 @@ export const dataStartProcessWithNoDefined = {
   publicCode: "01",
   description:
     "Not specified for the event confirmationpaymentinexternalaccount / StartPaymentWorkflow",
-  periodicity: "Diaria",
+  periodicity: "Diario",
   status: <Tag label="No Definido" appearance="gray" weight="strong" />,
   actions: actionsStartprocess,
 };

@@ -95,7 +95,8 @@ const RefreshInterestStatusUpdateUI = (props: RefreshInterestStatusUpdateUIProps
             variant="filled"
             type="submit"
             onClick={onStartProcess}
-            disabled={!comparisonData || !formik.isValid}
+            disabled={data?.plannedAutomaticExecution &&
+              data?.plannedAutomaticExecution === "planned automatic execution" ? !comparisonData : false }
           >
             Iniciar proceso
           </Button>

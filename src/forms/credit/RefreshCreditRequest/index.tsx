@@ -78,7 +78,14 @@ useEffect(() => {
 
 useEffect(() => {
   if (formik.values) {
-    setFieldsEntered(formik.values);
+    const dataForm = {
+      descriptionComplementary: formik.values.descriptionComplementary,
+      plannedExecutionDate: formik.values.plannedExecutionDate,
+      parameters: {
+        typeExecution: formik.values.typeRefresh || "",
+      },
+    };
+    setFieldsEntered(dataForm);
   }
 }, [formik.values, setFieldsEntered]);
 

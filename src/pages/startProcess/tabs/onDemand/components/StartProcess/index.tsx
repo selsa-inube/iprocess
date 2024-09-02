@@ -2,27 +2,26 @@ import { Suspense, useState } from "react";
 import { MdLaunch } from "react-icons/md";
 import { Icon } from "@inubekit/icon";
 import { Stack } from "@inubekit/stack";
+import { Spinner } from "@inubekit/spinner";
 
 import { StartProcessModal } from "@components/modals/StartProcessModal";
 import { IEntries } from "@components/modals/MoreDetailsModal/types";
 import { IFieldsEntered } from "@forms/types";
 import { tokens } from "@design/tokens";
 import { formatDate, formatDateEndpoint } from "@utils/dates";
-import { IStartProcessResponse } from "@pages/startProcess/types";
 import { startProcess } from "@services/startProcess/patchStartProcess";
+import { IStartProcessResponse } from "@pages/startProcess/types";
 import { routesComponent } from "@pages/startProcess/config/routesForms.config";
-import { Spinner } from "@inubekit/spinner";
 
-interface IStartProcessScheduledProps {
-  id: string;
+interface IStartProcessOnDemandProps {
   dataModal: IEntries;
+  id: string;
 }
 
-const StartProcessScheduled = (props: IStartProcessScheduledProps) => {
-  const { dataModal, id } = props;
-  const [fieldsEntered, setFieldsEntered] = useState<IFieldsEntered>(
-    {} as IFieldsEntered
-  );
+const StartProcessOnDemand = (props: IStartProcessOnDemandProps) => {
+  const { id, dataModal } = props;
+  const [fieldsEntered, setFieldsEntered] = useState({} as IFieldsEntered);
+
   const [responseStartProcess, setResponseStartProcess] =
     useState<IStartProcessResponse>();
 
@@ -45,6 +44,7 @@ const StartProcessScheduled = (props: IStartProcessScheduledProps) => {
         ? fieldsEntered.parameters
         : {},
     };
+
     try {
       const newProcess = await startProcess(processData);
       setResponseStartProcess(newProcess);
@@ -71,17 +71,12 @@ const StartProcessScheduled = (props: IStartProcessScheduledProps) => {
         cursorHover
         spacing="narrow"
       />
-
       {showModal && dataModal && (
         <StartProcessModal portalId="portal" onCloseModal={handleToggleModal}>
-          {routesComponent.map((comp, index) => {
-            // if (comp.path === dataModal.url) {
-            if (
-              comp.path === "src/forms/portfolio/RefreshInterestStatusUpdate"
-            ) {
+          {routesComponent.map((comp) => {
+            if (comp.path === dataModal.url) {
               return (
                 <Suspense
-                  key={index}
                   fallback={
                     <Stack justifyContent="center">
                       <Spinner size="small" appearance="primary" transparent />
@@ -89,7 +84,7 @@ const StartProcessScheduled = (props: IStartProcessScheduledProps) => {
                   }
                 >
                   <comp.component
-                    key={index}
+                    key={id}
                     data={{
                       id: id,
                       descriptionSuggested: dataModal?.descriptionSuggested,
@@ -113,4 +108,4 @@ const StartProcessScheduled = (props: IStartProcessScheduledProps) => {
   );
 };
 
-export { StartProcessScheduled };
+export { StartProcessOnDemand };

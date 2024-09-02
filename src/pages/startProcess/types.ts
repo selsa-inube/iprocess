@@ -22,6 +22,7 @@ interface StartProcesses {
   id: string;
   publicCode: string;
   description: string;
+  url?: string;
   date?: Date | string | undefined;
   dateAndHour?: Date;
   aplication?: string;
@@ -57,15 +58,21 @@ interface IChangePeriodEntry {
   change?: boolean;
 }
 
+interface IExecutionParameters {
+[parameter: string]: string;
+}
+
 interface IStartProcessesRequest {
-  processCatalogId: string;
+  cutOffDate: string;
   month: number;
+  plannedExecution: string;
+  plannedExecutionDate: string;
+  processCatalogId: string;
+  publicCode: string;
   suggestedDescription: string;
   year: number;
-  cutOffDate: string;
-  typeRefresh: string;
+  executionParameters: IExecutionParameters
   complementaryDescription?: string;
-  plannedExecutionDate?: string;
 }
 
 interface IStartProcessResponse {

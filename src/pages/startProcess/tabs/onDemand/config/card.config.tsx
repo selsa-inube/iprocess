@@ -1,10 +1,8 @@
-import { MdLaunch} from "react-icons/md";
-import { Icon } from "@inubekit/icon";
-
 import { StartProcesses } from "@pages/startProcess/types";
 import { formatDate } from "@utils/dates";
 import { OnDemandRequirements } from "../components/OnDemandRequirements";
 import { DetailsOnDemand } from "../components/Details";
+import { StartProcessOnDemand } from "../components/StartProcess";
 
 const onDemandNormailzeEntries = (
   process: StartProcesses[],
@@ -36,45 +34,57 @@ const onDemandNormailzeEntries = (
     dateWithoutFormat: entry.date,
   }));
 
-  const mapOnDemand = (entry: StartProcesses) => {
-    return {
-      id: entry.id,
-      publicCode: entry.publicCode,
-      aplication: entry.aplication,
-      date: entry.dateWithoutFormat ? new Date(entry.dateWithoutFormat) : new Date(),
-      process: entry.description,
-      periodicity: entry.periodicity,
-      month: entry.month,
-      year: entry.year,
-      statusText: entry.statusText,
-    };
+const mapOnDemand = (entry: StartProcesses) => {
+  return {
+    id: entry.id,
+    publicCode: entry.publicCode,
+    aplication: entry.aplication,
+    date: entry.dateWithoutFormat
+      ? new Date(entry.dateWithoutFormat)
+      : new Date(),
+    process: entry.description,
+    periodicity: entry.periodicity,
+    month: entry.month,
+    year: entry.year,
+    statusText: entry.statusText,
   };
+};
 
+const mapStartProcessOnDemand = (entry: StartProcesses) => {
+  const formatDescriptionSuggested = 
+      `${entry.description} Del mes de ${entry.month} del año ${entry.year}, fecha estimada de ejecución es ${entry.date}`;
+  return {
+    id: entry.description,
+    descriptionSuggested: formatDescriptionSuggested,
+    publicCode: entry.publicCode,
+    date: entry.dateWithoutFormat
+      ? new Date(entry.dateWithoutFormat)
+      : new Date(),
+    month: entry.month,
+    year: entry.year,
+    url: entry.url,
+  };
+};
 
 const actionsOnDemand = [
-   {
+  {
     id: "Details",
     content: (process: StartProcesses) => (
-      <DetailsOnDemand data={mapOnDemand(process)} breakpoints={breakPoints}
-      />
+      <DetailsOnDemand data={mapOnDemand(process)} breakpoints={breakPoints} />
     ),
   },
   {
     id: "StartProcess",
-    content: () => (
-      <Icon
-        appearance="gray"
-        icon={<MdLaunch />}
-        size="16px"
-        cursorHover={true}
+    content: (process: StartProcesses) => (
+      <StartProcessOnDemand
+        dataModal={mapStartProcessOnDemand(process)}
+        id={process.id}
       />
     ),
   },
 ];
 
-const breakPoints = [
-  { breakpoint: "(min-width: 1091px)", totalColumns: 3 },
-];
+const breakPoints = [{ breakpoint: "(min-width: 1091px)", totalColumns: 3 }];
 
 const labelsDetailsOnDemand = [
   {
