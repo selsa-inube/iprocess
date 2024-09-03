@@ -9,21 +9,20 @@ import { IEntries } from "@components/modals/MoreDetailsModal/types";
 import { IFieldsEntered } from "@forms/types";
 import { tokens } from "@design/tokens";
 import { formatDate, formatDateEndpoint } from "@utils/dates";
-import { IStartProcessResponse } from "@pages/startProcess/types";
 import { startProcess } from "@services/startProcess/patchStartProcess";
+import { IStartProcessResponse } from "@pages/startProcess/types";
 import { routesComponent } from "@pages/startProcess/config/routesForms.config";
 import { Text } from "@inubekit/text";
 
-interface IStartProcessScheduledProps {
-  id: string;
+interface IStartProcessOnDemandProps {
   dataModal: IEntries;
+  id: string;
 }
 
-const StartProcessScheduled = (props: IStartProcessScheduledProps) => {
-  const { dataModal, id } = props;
-  const [fieldsEntered, setFieldsEntered] = useState<IFieldsEntered>(
-    {} as IFieldsEntered
-  );
+const StartProcessOnDemand = (props: IStartProcessOnDemandProps) => {
+  const { id, dataModal } = props;
+  const [fieldsEntered, setFieldsEntered] = useState({} as IFieldsEntered);
+
   const [responseStartProcess, setResponseStartProcess] =
     useState<IStartProcessResponse>();
 
@@ -46,6 +45,7 @@ const StartProcessScheduled = (props: IStartProcessScheduledProps) => {
         ? fieldsEntered.parameters
         : {},
     };
+
     try {
       const newProcess = await startProcess(processData);
       setResponseStartProcess(newProcess);
@@ -72,7 +72,6 @@ const StartProcessScheduled = (props: IStartProcessScheduledProps) => {
         cursorHover
         spacing="narrow"
       />
-
       {showModal && dataModal && (
         <StartProcessModal portalId="portal" onCloseModal={handleToggleModal}>
           { dataModal.url !== "" ? (
@@ -125,4 +124,4 @@ const StartProcessScheduled = (props: IStartProcessScheduledProps) => {
   );
 };
 
-export { StartProcessScheduled };
+export { StartProcessOnDemand };

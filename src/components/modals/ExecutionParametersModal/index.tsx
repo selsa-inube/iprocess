@@ -81,7 +81,7 @@ const ExecutionParametersModal = (props: ExecutionParametersModalProps) => {
                       </Label>
                       <Fieldset legend="" spacing="compact">
                         <Text type="body" size="medium">
-                          {data[field.id]}
+                          {String(data[field.id])}
                         </Text>
                       </Fieldset>
                     </StyledModalFields>

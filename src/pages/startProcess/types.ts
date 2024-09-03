@@ -22,12 +22,14 @@ interface StartProcesses {
   id: string;
   publicCode: string;
   description: string;
+  url?: string;
   date?: Date | string | undefined;
   dateAndHour?: Date;
   aplication?: string;
   periodicity?: string;
   statusText?: string;
   status?: React.ReactNode;
+  dailyDetail?: IDailyDetail[];
   actions?: IActions[];
   month?: number;
   year?: number;
@@ -35,9 +37,19 @@ interface StartProcesses {
   dateWithoutFormat?: string;
 }
 
+
 interface StartProcessesFilter {
   onDemand: StartProcesses[];
   scheduled: StartProcesses[];
+}
+
+interface IDailyDetail{
+  processCatalogId: string;
+  aplication: string;
+  publicCode: string;
+  abbreviatedName: string;
+  estimatedExecutionDate: Date;
+  requirements: string;
 }
 
 interface IChangePeriodEntry {
@@ -46,15 +58,21 @@ interface IChangePeriodEntry {
   change?: boolean;
 }
 
+interface IExecutionParameters {
+[parameter: string]: string;
+}
+
 interface IStartProcessesRequest {
-  processCatalogId: string;
+  cutOffDate: string;
   month: number;
+  plannedExecution: string;
+  plannedExecutionDate: string;
+  processCatalogId: string;
+  publicCode: string;
   suggestedDescription: string;
   year: number;
-  cutOffDate: string;
-  typeRefresh: string;
+  executionParameters: IExecutionParameters
   complementaryDescription?: string;
-  plannedExecutionDate?: string;
 }
 
 interface IStartProcessResponse {

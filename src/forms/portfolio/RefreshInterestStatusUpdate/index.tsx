@@ -35,7 +35,6 @@ const formik = useFormik({
 });
 
 
-
 useEffect(() => {
   if (
     data?.plannedAutomaticExecution &&
@@ -58,11 +57,9 @@ useEffect(() => {
 }, [formik.values, setFieldsEntered]);
 
 const comparisonData = Boolean(
-  (data?.plannedAutomaticExecution &&
-    formik.values.plannedExecutionDate.length > 0 &&
-    formik.values.plannedExecutionDate !==
-      initialValues.plannedExecutionDate) 
+  formik.values.plannedExecutionDate !== initialValues.plannedExecutionDate
 );
+
 
 return (
   <RefreshInterestStatusUpdateUI

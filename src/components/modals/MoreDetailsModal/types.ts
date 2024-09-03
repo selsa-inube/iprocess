@@ -4,7 +4,7 @@ interface ILabel {
 }
 
 interface IEntries {
-  [key: string]: React.ReactNode;
+  [key: string]: string | Date |React.ReactNode;
 }
 
 export type { ILabel, IEntries };

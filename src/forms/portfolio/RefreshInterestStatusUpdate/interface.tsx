@@ -5,6 +5,7 @@ import { Text } from "@inubekit/text";
 import { Button } from "@inubekit/button";
 import { Fieldset } from "@inubekit/fieldset";
 import { Textarea } from "@inubekit/textarea";
+import { Divider } from "@inubekit/divider";
 
 import { IEntries } from "@forms/types";
 import { Datetimefield } from "@design/inputs/Datetimefield";
@@ -12,6 +13,7 @@ import { tokens } from "@design/tokens";
 import { mediaQueryMobile } from "@config/environment";
 
 import { StyledField, StyledTextarea } from "./styles";
+
 
 interface RefreshInterestStatusUpdateUIProps {
   data: IEntries;
@@ -30,6 +32,11 @@ const RefreshInterestStatusUpdateUI = (props: RefreshInterestStatusUpdateUIProps
   const isMobile = useMediaQuery(mediaQueryMobile);
 
   return (
+    <Stack direction="column" gap={tokens.spacing.s250}>
+      <Text type="title" size="medium" appearance="dark" weight="bold">
+        Estado de interés
+      </Text>
+      <Divider dashed />
     <form
       onSubmit={(e) => {
         e.preventDefault();
@@ -95,13 +102,15 @@ const RefreshInterestStatusUpdateUI = (props: RefreshInterestStatusUpdateUIProps
             variant="filled"
             type="submit"
             onClick={onStartProcess}
-            disabled={!comparisonData || !formik.isValid}
+            disabled={data?.plannedAutomaticExecution &&
+              data?.plannedAutomaticExecution === "planned automatic execution" ? !comparisonData : false }
           >
             Iniciar proceso
           </Button>
         </Stack>
       </Stack>
     </form>
+    </Stack>
   );
 };
 
