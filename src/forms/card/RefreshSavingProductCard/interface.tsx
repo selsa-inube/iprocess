@@ -6,10 +6,12 @@ import { Button } from "@inubekit/button";
 import { Fieldset } from "@inubekit/fieldset";
 import { Textarea } from "@inubekit/textarea";
 import { Select } from "@inubekit/select";
+import { Divider } from "@inubekit/divider";
 
 import { IEntries, IEnumeratorsProcessCoverage } from "@forms/types";
 import { Datetimefield } from "@design/inputs/Datetimefield";
 import { tokens } from "@design/tokens";
+import { mediaQueryMobile } from "@config/environment";
 import { StyledField, StyledTextarea } from "./styles";
 
 
@@ -29,9 +31,15 @@ const RefreshSavingProductCardUI = (props: RefreshSavingProductCardUIProps) => {
     if (formik.errors[fieldName]) return "invalid";
   };
 
-  const isMobile = useMediaQuery("(max-width: 500px)");
+  const isMobile = useMediaQuery(mediaQueryMobile);
 
   return (
+    <Stack direction="column" gap={tokens.spacing.s200}>
+      <Text type="title" size="medium" appearance="dark" weight="bold">
+          Solicitud de crédito
+        </Text>
+        <Divider dashed />
+   
     <form
       onSubmit={(e) => {
         e.preventDefault();
@@ -126,6 +134,8 @@ const RefreshSavingProductCardUI = (props: RefreshSavingProductCardUIProps) => {
         </Stack>
       </Stack>
     </form>
+
+    </Stack>
   );
 };
 

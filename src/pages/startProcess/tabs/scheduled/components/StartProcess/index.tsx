@@ -12,7 +12,7 @@ import { formatDate, formatDateEndpoint } from "@utils/dates";
 import { IStartProcessResponse } from "@pages/startProcess/types";
 import { startProcess } from "@services/startProcess/patchStartProcess";
 import { routesComponent } from "@pages/startProcess/config/routesForms.config";
-
+import { Text } from "@inubekit/text";
 
 interface IStartProcessScheduledProps {
   id: string;
@@ -75,36 +75,50 @@ const StartProcessScheduled = (props: IStartProcessScheduledProps) => {
 
       {showModal && dataModal && (
         <StartProcessModal portalId="portal" onCloseModal={handleToggleModal}>
-          {routesComponent.map((comp, index) => {
-            if (comp.path === dataModal.url) {
-              return (
-                <Suspense
-                  key={index}
-                  fallback={
-                    <Stack justifyContent="center">
-                      <Spinner size="small" appearance="primary" transparent />
-                    </Stack>
-                  }
-                >
-                  <comp.component
-                    key={index}
-                    data={{
-                      id: id,
-                      descriptionSuggested: dataModal?.descriptionSuggested,
-                      date: formatDate(
-                        new Date(dataModal.date as string),
-                        true
-                      ),
-                      plannedAutomaticExecution:
-                        dataModal?.plannedAutomaticExecution,
-                    }}
-                    onStartProcess={handleStartProcess}
-                    setFieldsEntered={setFieldsEntered}
-                  />
-                </Suspense>
-              );
-            }
-          })}
+          { dataModal.url !== "" ? (
+            <>
+              {routesComponent.map((comp, index) => {
+                if (comp.path === dataModal.url) {
+                  return (
+                    <Suspense
+                      key={index}
+                      fallback={
+                        <Stack justifyContent="center">
+                          <Spinner
+                            size="small"
+                            appearance="primary"
+                            transparent
+                          />
+                        </Stack>
+                      }
+                    >
+                      <comp.component
+                        key={index}
+                        data={{
+                          id: id,
+                          descriptionSuggested: dataModal?.descriptionSuggested,
+                          date: formatDate(
+                            new Date(dataModal.date as string),
+                            true
+                          ),
+                          plannedAutomaticExecution:
+                            dataModal?.plannedAutomaticExecution,
+                        }}
+                        onStartProcess={handleStartProcess}
+                        setFieldsEntered={setFieldsEntered}
+                      />
+                    </Suspense>
+                  );
+                }
+              })}
+            </>
+          ) : (
+            <Stack>
+              <Text type="label" size="medium">
+                No se ha encontrado datos para este proceso
+              </Text>
+            </Stack>
+          )}
         </StartProcessModal>
       )}
     </>

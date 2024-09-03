@@ -6,10 +6,12 @@ import { Button } from "@inubekit/button";
 import { Fieldset } from "@inubekit/fieldset";
 import { Textarea } from "@inubekit/textarea";
 import { Select } from "@inubekit/select";
+import { Divider } from "@inubekit/divider";
 
 import { IEntries, IEnumeratorsProcessCoverage } from "@forms/types";
 import { Datetimefield } from "@design/inputs/Datetimefield";
 import { tokens } from "@design/tokens";
+import { mediaQueryMobile } from "@config/environment";
 import { StyledField, StyledTextarea } from "./styles";
 
 
@@ -29,9 +31,14 @@ const RefreshSavingProductUI = (props: RefreshSavingProductUIProps) => {
     if (formik.errors[fieldName]) return "invalid";
   };
 
-  const isMobile = useMediaQuery("(max-width: 500px)");
+  const isMobile = useMediaQuery(mediaQueryMobile);
 
   return (
+    <Stack direction="column" gap={tokens.spacing.s250}>
+    <Text type="title" size="medium" appearance="dark" weight="bold">
+      Producto de tarjeta de crédito
+    </Text>
+    <Divider dashed />
     <form
       onSubmit={(e) => {
         e.preventDefault();
@@ -126,6 +133,7 @@ const RefreshSavingProductUI = (props: RefreshSavingProductUIProps) => {
         </Stack>
       </Stack>
     </form>
+    </Stack>
   );
 };
 
