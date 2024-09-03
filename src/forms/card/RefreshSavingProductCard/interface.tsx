@@ -36,7 +36,7 @@ const RefreshSavingProductCardUI = (props: RefreshSavingProductCardUIProps) => {
   return (
     <Stack direction="column" gap={tokens.spacing.s200}>
       <Text type="title" size="medium" appearance="dark" weight="bold">
-          Solicitud de crédito
+          Productos de ahorro de tarjeta
         </Text>
         <Divider dashed />
    
