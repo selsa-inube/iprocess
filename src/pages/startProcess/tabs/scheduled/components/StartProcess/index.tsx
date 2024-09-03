@@ -2,6 +2,7 @@ import { Suspense, useState } from "react";
 import { MdLaunch } from "react-icons/md";
 import { Icon } from "@inubekit/icon";
 import { Stack } from "@inubekit/stack";
+import { Spinner } from "@inubekit/spinner";
 
 import { StartProcessModal } from "@components/modals/StartProcessModal";
 import { IEntries } from "@components/modals/MoreDetailsModal/types";
@@ -11,7 +12,7 @@ import { formatDate, formatDateEndpoint } from "@utils/dates";
 import { IStartProcessResponse } from "@pages/startProcess/types";
 import { startProcess } from "@services/startProcess/patchStartProcess";
 import { routesComponent } from "@pages/startProcess/config/routesForms.config";
-import { Spinner } from "@inubekit/spinner";
+
 
 interface IStartProcessScheduledProps {
   id: string;
@@ -75,10 +76,7 @@ const StartProcessScheduled = (props: IStartProcessScheduledProps) => {
       {showModal && dataModal && (
         <StartProcessModal portalId="portal" onCloseModal={handleToggleModal}>
           {routesComponent.map((comp, index) => {
-            // if (comp.path === dataModal.url) {
-            if (
-              comp.path === "src/forms/portfolio/RefreshInterestStatusUpdate"
-            ) {
+            if (comp.path === dataModal.url) {
               return (
                 <Suspense
                   key={index}
