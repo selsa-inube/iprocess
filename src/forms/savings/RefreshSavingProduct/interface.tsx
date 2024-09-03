@@ -6,10 +6,12 @@ import { Button } from "@inubekit/button";
 import { Fieldset } from "@inubekit/fieldset";
 import { Textarea } from "@inubekit/textarea";
 import { Select } from "@inubekit/select";
+import { Divider } from "@inubekit/divider";
 
 import { IEntries, IEnumeratorsProcessCoverage } from "@forms/types";
 import { Datetimefield } from "@design/inputs/Datetimefield";
 import { tokens } from "@design/tokens";
+import { mediaQueryMobile } from "@config/environment";
 import { StyledField, StyledTextarea } from "./styles";
 
 
@@ -18,7 +20,7 @@ interface RefreshSavingProductUIProps {
   formik: FormikValues;
   comparisonData: boolean;
   optionsTypeRefresh: IEnumeratorsProcessCoverage[];
-  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange: (name: string, value: string) => void;
   onStartProcess: () => void;
 }
 
@@ -29,9 +31,14 @@ const RefreshSavingProductUI = (props: RefreshSavingProductUIProps) => {
     if (formik.errors[fieldName]) return "invalid";
   };
 
-  const isMobile = useMediaQuery("(max-width: 500px)");
+  const isMobile = useMediaQuery(mediaQueryMobile);
 
   return (
+    <Stack direction="column" gap={tokens.spacing.s250}>
+    <Text type="title" size="medium" appearance="dark" weight="bold">
+        Productos de ahorro
+    </Text>
+    <Divider dashed />
     <form
       onSubmit={(e) => {
         e.preventDefault();
@@ -74,7 +81,9 @@ const RefreshSavingProductUI = (props: RefreshSavingProductUIProps) => {
               ? "La tipo de refresco es requerido"
               : ""
           }
-          status={getFieldState(formik, "typeRefresh")}
+          invalid={
+            getFieldState(formik, "typeRefresh") === "invalid" && formik.errors.typeRefresh
+          }
           value={formik.values.typeRefresh}
           fullwidth
           required
@@ -124,6 +133,7 @@ const RefreshSavingProductUI = (props: RefreshSavingProductUIProps) => {
         </Stack>
       </Stack>
     </form>
+    </Stack>
   );
 };
 

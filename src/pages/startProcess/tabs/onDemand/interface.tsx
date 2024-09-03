@@ -38,7 +38,7 @@ function OnDemandTabUI(props: OnDemandTabUIProps) {
   return (
     <Stack direction="column" gap={tokens.spacing.s600}>
       <Stack gap={tokens.spacing.s400} direction="column">
-        <Stack justifyContent="flex-end">
+        <Stack justifyContent="flex-start">
           <Textfield
             name="searchOnDemand"
             id="searchOnDemand"

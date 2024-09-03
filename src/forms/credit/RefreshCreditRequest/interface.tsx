@@ -6,6 +6,7 @@ import { Button } from "@inubekit/button";
 import { Fieldset } from "@inubekit/fieldset";
 import { Textarea } from "@inubekit/textarea";
 import { Select } from "@inubekit/select";
+import { Divider } from "@inubekit/divider";
 
 import { IEntries, IEnumeratorsProcessCoverage } from "@forms/types";
 import { Datetimefield } from "@design/inputs/Datetimefield";
@@ -14,18 +15,24 @@ import { mediaQueryMobile } from "@config/environment";
 
 import { StyledField, StyledTextarea } from "./styles";
 
-
 interface RefreshCreditRequestUIProps {
   data: IEntries;
   formik: FormikValues;
   comparisonData: boolean;
   optionsTypeRefresh: IEnumeratorsProcessCoverage[];
-  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange: (name: string, value: string) => void;
   onStartProcess: () => void;
 }
 
 const RefreshCreditRequestUI = (props: RefreshCreditRequestUIProps) => {
-  const { data, formik, comparisonData, optionsTypeRefresh, onChange, onStartProcess } = props;
+  const {
+    data,
+    formik,
+    comparisonData,
+    optionsTypeRefresh,
+    onChange,
+    onStartProcess,
+  } = props;
 
   const getFieldState = (formik: FormikValues, fieldName: string) => {
     if (formik.errors[fieldName]) return "invalid";
@@ -40,6 +47,11 @@ const RefreshCreditRequestUI = (props: RefreshCreditRequestUIProps) => {
       }}
     >
       <Stack direction="column" gap={tokens.spacing.s250}>
+        <Text type="title" size="medium" appearance="dark" weight="bold">
+          Solicitud de crédito
+        </Text>
+        <Divider dashed />
+
         <StyledField>
           <Text type="label" size="large" weight="bold">
             Descripción sugerida
@@ -76,7 +88,10 @@ const RefreshCreditRequestUI = (props: RefreshCreditRequestUIProps) => {
               ? "La tipo de refresco es requerido"
               : ""
           }
-          status={getFieldState(formik, "typeRefresh")}
+          invalid={
+            getFieldState(formik, "typeRefresh") === "invalid" &&
+            formik.errors.typeRefresh
+          }
           value={formik.values.typeRefresh}
           fullwidth
           required

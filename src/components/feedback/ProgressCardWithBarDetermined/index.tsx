@@ -4,10 +4,14 @@ import { useMediaQuery } from "@inubekit/hooks";
 import { Stack } from "@inubekit/stack";
 import { Text } from "@inubekit/text";
 import { Blanket } from "@inubekit/blanket";
+import { ProgressBar } from "@inubekit/progressbar";
 
 import { tokens } from "@design/tokens";
-import { StyledContainer, StyledModal } from "./styles";
-import { ProgressBar } from "../../../design/feedback/ProgressBar";
+import {
+  StyledContainer,
+  StyledContainerProgressBar,
+  StyledModal,
+} from "./styles";
 import { ProgressCardWithBarType } from "./types";
 
 interface ProgressCardWithBarDeterminedProps {
@@ -65,13 +69,19 @@ const ProgressCardWithBarDetermined = (
                     {progress.toFixed(0)}%
                   </Text>
                 </Stack>
-                <ProgressBar
-                  progress={progress}
-                  height={heightProgressBar}
-                  appearance={appearance}
-                  withAnimated
-                  onProgress={() => true}
-                />
+
+                <StyledContainerProgressBar
+                  $appearance={"primary"}
+                  $height={heightProgressBar}
+                >
+                  <ProgressBar
+                    progress={progress}
+                    height={heightProgressBar}
+                    animated
+                    appearance={appearance}
+                  />
+                </StyledContainerProgressBar>
+
               </Stack>
             </Stack>
             {withButtonClose && (

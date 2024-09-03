@@ -28,6 +28,7 @@ function ScheduledTabUI(props: ScheduledTabUIProps) {
     entries,
     isLoading,
     month,
+
     searchScheduled,
     year,
     status,

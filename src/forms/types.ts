@@ -6,18 +6,24 @@ interface IStartProcessEntry{
 
 interface IEntries {
   id: string;
-  [key: string]: string | object |React.ReactNode;
+  [key: string]: string | Date |object |React.ReactNode;
 }
+
+interface IParameters {
+  [parameter: string]: string;
+  }
 
 interface IFieldsEntered {
   typeRefresh?: string;
   descriptionComplementary?: string;
   plannedExecutionDate?: string;
+  parameters?: IParameters
 }
 
 interface IEnumeratorsProcessCoverage{
   id: string;
   label: string;
+  value: string;
 }
 
 export type { IStartProcessEntry, IEntries, IFieldsEntered, IEnumeratorsProcessCoverage }

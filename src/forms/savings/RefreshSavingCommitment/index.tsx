@@ -1,11 +1,15 @@
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { ChangeEvent, useEffect, useState } from "react";
-
-import { IStartProcessEntry, IEntries, IFieldsEntered, IEnumeratorsProcessCoverage } from "@forms/types";
-import { RefreshSavingCommitmentUI } from "./interface";
+import { useEffect, useState } from "react";
 
 import { EnumProcessCoverageData } from "@services/enumerators/getEnumeratorsProcessCoverage";
+import {
+  IStartProcessEntry,
+  IEntries,
+  IFieldsEntered,
+  IEnumeratorsProcessCoverage,
+} from "@forms/types";
+import { RefreshSavingCommitmentUI } from "./interface";
 
 const validationSchema = Yup.object({
   typeRefresh: Yup.string().required("Este campo no puede estar vacío"),
@@ -31,21 +35,23 @@ const RefreshSavingCommitment = (props: RefreshSavingCommitmentProps) => {
   const [dynamicValidationSchema, setDynamicValidationSchema] =
     useState(validationSchema);
 
-    const [optionsTypeRefresh, setOptionsTypeRefresh] = useState<IEnumeratorsProcessCoverage[]>([]);
+  const [optionsTypeRefresh, setOptionsTypeRefresh] = useState<
+    IEnumeratorsProcessCoverage[]
+  >([]);
 
-    const validateOptionsTypeRefresh = async () => {
-      try {
-        const newOptions = await EnumProcessCoverageData();
-  
-        setOptionsTypeRefresh(newOptions);
-      } catch (error) {
-        console.info(error);
-      } 
-    };
+  const validateOptionsTypeRefresh = async () => {
+    try {
+      const newOptions = await EnumProcessCoverageData();
 
-    useEffect(() => {
-      validateOptionsTypeRefresh();
-    }, []);
+      setOptionsTypeRefresh(newOptions);
+    } catch (error) {
+      console.info(error);
+    }
+  };
+
+  useEffect(() => {
+    validateOptionsTypeRefresh();
+  }, []);
 
   const formik = useFormik({
     initialValues,
@@ -54,11 +60,11 @@ const RefreshSavingCommitment = (props: RefreshSavingCommitmentProps) => {
     onSubmit: async () => true,
   });
 
-  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    formik.setFieldValue("typeRefresh", event.target.outerText).then(()=>{
-      formik.validateForm().then((errors)=>{
+  const handleChange = (name: string, value: string) => {
+    formik.setFieldValue(name, value).then(() => {
+      formik.validateForm().then((errors) => {
         formik.setErrors(errors);
-      })
+      });
     });
   };
 
@@ -79,7 +85,14 @@ const RefreshSavingCommitment = (props: RefreshSavingCommitmentProps) => {
 
   useEffect(() => {
     if (formik.values) {
-      setFieldsEntered(formik.values);
+      const dataForm = {
+        descriptionComplementary: formik.values.descriptionComplementary,
+        plannedExecutionDate: formik.values.plannedExecutionDate,
+        parameters: {
+          typeExecution: formik.values.typeRefresh || "",
+        },
+      };
+      setFieldsEntered(dataForm);
     }
   }, [formik.values, setFieldsEntered]);
 
