@@ -77,15 +77,16 @@ const routesComponent = [
     component: refreshPortfolioObligation,
   },
   {
-    component: refreshCreditRequest,
-  },
-  {
     path: "src/forms/card/RefreshCardCreditProduct",
     component: refreshCardCreditProduct,
   },
   {
     path: "src/forms/otherDebt/RefreshOtherDebt",
     component: refreshOtherDebt,
+  },
+  {
+    path: "src/forms/credit/RefreshCreditRequest",
+    component: refreshCreditRequest,
   },
 ];
 
