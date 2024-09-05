@@ -48,15 +48,15 @@ const timeToCompleteProcess = async (
 
       if (!res.ok) {
         throw {
-          message: "Error al obtener los procesos",
+          message: `Error al obtener el tiempo estimado al iniciar el proceso ${processControlId}`,
           status: res.status,
           data,
         };
       }
 
-      const normalizedStartProcess = mapTimeToCompleteProcessApiToEntity(data);
+      const normalizedTimeToCompleteProcess = mapTimeToCompleteProcessApiToEntity(data);
 
-      return normalizedStartProcess;
+      return normalizedTimeToCompleteProcess;
     } catch (error) {
       if (attempt === maxRetries) {
         throw new Error(
