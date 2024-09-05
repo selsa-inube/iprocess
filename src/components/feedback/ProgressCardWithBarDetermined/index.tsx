@@ -18,6 +18,7 @@ interface ProgressCardWithBarDeterminedProps {
   estime: number;
   progress: number;
   portalId: string;
+  isAnimated: boolean;
   withButtonClose?: boolean;
   heightProgressBar?: string;
   appearance?: ProgressCardWithBarType;
@@ -34,6 +35,7 @@ const ProgressCardWithBarDetermined = (
     portalId,
     heightProgressBar = tokens.spacing.s200,
     appearance,
+    isAnimated,
     onCancel,
   } = props;
 
@@ -77,7 +79,7 @@ const ProgressCardWithBarDetermined = (
                   <ProgressBar
                     progress={progress}
                     height={heightProgressBar}
-                    animated
+                    animated={isAnimated}
                     appearance={appearance}
                   />
                 </StyledContainerProgressBar>

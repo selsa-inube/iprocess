@@ -13,7 +13,7 @@ const onDemandNormailzeEntries = (
 ) =>
   process.map((entry) => ({
     ...entry,
-    id: `${entry.id}${entry.date}`,
+    id: `${entry.id}`,
     publicCode: entry.publicCode,
     process: entry.description,
     date: formatDate(new Date()),

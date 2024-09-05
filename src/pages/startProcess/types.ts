@@ -113,6 +113,12 @@ interface IData {
   actionsRequirements?: IAction[];
 }
 
+interface ITimeEstimedCompleteProcess {
+  totalPersons: number;
+  totalProcessedPersons: number;
+  duration: string;
+}
+
 export type appearances = (typeof appearance)[number];
 
 export type {
@@ -126,4 +132,5 @@ export type {
   ITitlesRequirements,
   IData,
   IDailyDetail,
+  ITimeEstimedCompleteProcess
 };

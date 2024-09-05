@@ -1,8 +1,9 @@
-import { Suspense, useState } from "react";
+import { lazy, Suspense, useState } from "react";
 import { MdLaunch } from "react-icons/md";
 import { Icon } from "@inubekit/icon";
 import { Stack } from "@inubekit/stack";
 import { Spinner } from "@inubekit/spinner";
+import { Text } from "@inubekit/text";
 
 import { StartProcessModal } from "@components/modals/StartProcessModal";
 import { IEntries } from "@components/modals/MoreDetailsModal/types";
@@ -12,7 +13,6 @@ import { formatDate, formatDateEndpoint } from "@utils/dates";
 import { startProcess } from "@services/startProcess/patchStartProcess";
 import { IStartProcessResponse } from "@pages/startProcess/types";
 import { routesComponent } from "@pages/startProcess/config/routesForms.config";
-import { Text } from "@inubekit/text";
 
 interface IStartProcessOnDemandProps {
   dataModal: IEntries;
@@ -23,10 +23,17 @@ const StartProcessOnDemand = (props: IStartProcessOnDemandProps) => {
   const { id, dataModal } = props;
   const [fieldsEntered, setFieldsEntered] = useState({} as IFieldsEntered);
 
+  const ProgressOfStartProcessOnDemand = lazy(
+    () =>
+      import(
+        "@pages/startProcess/tabs/onDemand/components/StartProcess/ProgressOfStartProcess"
+      )
+  );
+
   const [responseStartProcess, setResponseStartProcess] =
     useState<IStartProcessResponse>();
-
-  const [showModal, setShowModal] = useState(false);
+  const [showProgressModal, setShowProgressModal] = useState(false);
+  const [showStartProcessModal, setShowStartProcessModal] = useState(false);
 
   const handleStartProcess = async () => {
     const processData = {
@@ -49,6 +56,8 @@ const StartProcessOnDemand = (props: IStartProcessOnDemandProps) => {
     try {
       const newProcess = await startProcess(processData);
       setResponseStartProcess(newProcess);
+      setShowStartProcessModal(!showStartProcessModal);
+      setShowProgressModal(true);
     } catch (error) {
       throw new Error(
         `Error al iniciar los procesos en formulario: ${(error as Error).message} `
@@ -56,10 +65,8 @@ const StartProcessOnDemand = (props: IStartProcessOnDemandProps) => {
     }
   };
 
-  console.log(responseStartProcess); // el responseStartProcess se utilizara en la siguiente tarea de conectar la barra de progreso
-
   const handleToggleModal = () => {
-    setShowModal(!showModal);
+    setShowStartProcessModal(!showStartProcessModal);
   };
 
   return (
@@ -72,9 +79,9 @@ const StartProcessOnDemand = (props: IStartProcessOnDemandProps) => {
         cursorHover
         spacing="narrow"
       />
-      {showModal && dataModal && (
+      {showStartProcessModal && dataModal && (
         <StartProcessModal portalId="portal" onCloseModal={handleToggleModal}>
-          { dataModal.url !== "" ? (
+          {dataModal.url !== "" ? (
             <>
               {routesComponent.map((comp, index) => {
                 if (comp.path === dataModal.url) {
@@ -119,6 +126,15 @@ const StartProcessOnDemand = (props: IStartProcessOnDemandProps) => {
             </Stack>
           )}
         </StartProcessModal>
+      )}
+      {showProgressModal && (
+        <Suspense fallback={null}>
+          <ProgressOfStartProcessOnDemand
+            id={responseStartProcess?.processControlId || ""}
+            handleShowProgressModal={setShowProgressModal}
+            dateStart={new Date()}
+          />
+        </Suspense>
       )}
     </>
   );
