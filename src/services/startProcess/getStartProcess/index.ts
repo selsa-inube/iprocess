@@ -22,7 +22,6 @@ const startProcessData = async (FilterProcesses: FilterProcessesForDate)
       const queryParams = new URLSearchParams({
         year: FilterProcesses.year,
         month:FilterProcesses.month,
-        executionDateToTime:FilterProcesses.executionDate
       })
 
       const controller = new AbortController();

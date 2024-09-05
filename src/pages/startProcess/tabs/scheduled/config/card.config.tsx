@@ -26,9 +26,11 @@ const scheduledNormailzeEntries = (
         plannedExecution={entry.date ? new Date(entry.date) : undefined}
         year={year}
         setStatus={setStatus}
+        status={status}
       />
     ),
     statusText: status,
+    dailyDetail: entry.dailyDetail,
     actions: actions,
     month: month,
     year: year,

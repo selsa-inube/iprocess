@@ -16,7 +16,7 @@ const nav: INav = {
           id: "startProcess",
           label: "Iniciar procesos",
           icon: <MdOutlineStart />,
-          path: "/",
+          path:"/",
         },
         confirmInitiated: {
           id: "confirmInitiated",

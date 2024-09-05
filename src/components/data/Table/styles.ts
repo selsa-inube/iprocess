@@ -83,11 +83,8 @@ const StyledThTitle = styled.th`
 `;
 
 const StyledThAction = styled.th<IStyledThAction>`
-  background-color: ${({ $multipleTables, theme }) =>
-    !$multipleTables
-      ? theme?.palette?.neutral?.N30 || inube.palette.neutral.N30
-      : theme?.palette?.neutral?.N0 || inube.palette.neutral.N0};
-  width: 80px;
+  background-color: ${({ theme }) =>
+    theme?.palette?.neutral?.N0 || inube.palette.neutral.N0};
   padding: 12px 16px;
 `;
 

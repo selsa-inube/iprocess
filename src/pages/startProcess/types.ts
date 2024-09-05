@@ -13,16 +13,15 @@ export const appearance = [
 ] as const;
 
 interface FilterProcessesForDate {
-  executionDate: string;
   month: string;
   year: string;
+  executionDate?: string;
 }
 
 interface StartProcesses {
   id: string;
   publicCode: string;
   description: string;
-  url?: string;
   date?: Date | string | undefined;
   dateAndHour?: Date;
   aplication?: string;
@@ -35,8 +34,8 @@ interface StartProcesses {
   year?: number;
   plannedAutomaticExecution?: string;
   dateWithoutFormat?: string;
+  url?: string;
 }
-
 
 interface StartProcessesFilter {
   onDemand: StartProcesses[];
@@ -56,23 +55,24 @@ interface IChangePeriodEntry {
   month: string;
   year: string;
   change?: boolean;
+  
 }
 
 interface IExecutionParameters {
-[parameter: string]: string;
-}
+  [parameter: string]: string;
+  }
 
 interface IStartProcessesRequest {
   cutOffDate: string;
   month: number;
   plannedExecution: string;
-  plannedExecutionDate: string;
   processCatalogId: string;
   publicCode: string;
   suggestedDescription: string;
   year: number;
   executionParameters: IExecutionParameters
   complementaryDescription?: string;
+  plannedExecutionDate?: string;
 }
 
 interface IStartProcessResponse {
@@ -125,4 +125,5 @@ export type {
   IAction,
   ITitlesRequirements,
   IData,
+  IDailyDetail,
 };

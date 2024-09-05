@@ -85,7 +85,7 @@ function ScheduledTabUI(props: ScheduledTabUIProps) {
                     entries={entry as IProcess}
                     optionCurrent="start process"
                     descriptionTooltip="Puede hacer clic en el botón para prevalidar los requisitos."
-                    pathDetailByDay="/"
+                    pathDetailByDay={`/start-process/startProcessesDaily/${month}/${year}/${entry.id}`}
                   />
                 </Stack>
               ))}

@@ -9,7 +9,6 @@ import {
 import { ScheduledTabUI } from "./interface";
 import { IChangePeriodEntry, FilterProcessesForDate, StartProcesses } from "../../types";
 
-
 function ScheduledTab() {
   const [searchScheduled, setSearchScheduled] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(true);  
