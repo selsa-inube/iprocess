@@ -127,7 +127,7 @@ const StartProcessOnDemand = (props: IStartProcessOnDemandProps) => {
           )}
         </StartProcessModal>
       )}
-      {showProgressModal && (
+      {responseStartProcess?.processStatus === "Initiated" &&  showProgressModal && (
         <Suspense fallback={null}>
           <ProgressOfStartProcessOnDemand
             id={responseStartProcess?.processControlId || ""}

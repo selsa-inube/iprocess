@@ -128,7 +128,7 @@ const StartProcessScheduled = (props: IStartProcessScheduledProps) => {
         </StartProcessModal>
       )}
       {
-        showProgressModal && (
+        responseStartProcess?.processStatus === "Initiated" && showProgressModal && (
           <Suspense fallback={null}>
             <ProgressOfStartProcess
               id={responseStartProcess?.processControlId || ""}
