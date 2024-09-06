@@ -42,7 +42,7 @@ interface StartProcessesFilter {
   scheduled: StartProcesses[];
 }
 
-interface IDailyDetail{
+interface IDailyDetail {
   processCatalogId: string;
   aplication: string;
   publicCode: string;
@@ -55,12 +55,11 @@ interface IChangePeriodEntry {
   month: string;
   year: string;
   change?: boolean;
-  
 }
 
 interface IExecutionParameters {
   [parameter: string]: string;
-  }
+}
 
 interface IStartProcessesRequest {
   cutOffDate: string;
@@ -70,7 +69,7 @@ interface IStartProcessesRequest {
   publicCode: string;
   suggestedDescription: string;
   year: number;
-  executionParameters: IExecutionParameters
+  executionParameters: IExecutionParameters;
   complementaryDescription?: string;
   plannedExecutionDate?: string;
 }
@@ -113,6 +112,12 @@ interface IData {
   actionsRequirements?: IAction[];
 }
 
+interface IListPeriods {
+  numberMonth: number;
+  month: string;
+  year: number;
+}
+
 export type appearances = (typeof appearance)[number];
 
 export type {
@@ -126,4 +131,5 @@ export type {
   ITitlesRequirements,
   IData,
   IDailyDetail,
+  IListPeriods,
 };

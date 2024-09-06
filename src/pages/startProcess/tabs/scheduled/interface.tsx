@@ -5,10 +5,10 @@ import { Text } from "@inubekit/text";
 import { ChangePeriod } from "@components/feedback/ChangePeriod";
 import { CardProcess } from "@components/feedback/CardProcess";
 import { tokens } from "@design/tokens";
-import { formatMonthEndpoint } from "@utils/dates";
+import { formatMonthEndpoint, monthNormalize } from "@utils/dates";
 import { IProcess } from "@components/feedback/CardProcess/types";
 
-import { IChangePeriodEntry } from "../../types";
+import { IChangePeriodEntry, IListPeriods } from "../../types";
 import { scheduledNormailzeEntries } from "./config/card.config";
 
 interface ScheduledTabUIProps {
@@ -18,6 +18,7 @@ interface ScheduledTabUIProps {
   searchScheduled: string;
   year: string;
   status: string;
+  listOfPeriods: IListPeriods[];
   setStatus: (status: string) => void;
   setSelectedPeriod: (show: IChangePeriodEntry) => void;
   handleSearchScheduled: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -28,7 +29,7 @@ function ScheduledTabUI(props: ScheduledTabUIProps) {
     entries,
     isLoading,
     month,
-
+    listOfPeriods,
     searchScheduled,
     year,
     status,
@@ -40,12 +41,19 @@ function ScheduledTabUI(props: ScheduledTabUIProps) {
   const formatMonth = formatMonthEndpoint(month);
   const formatYear = Number(year);
 
+  
+  const normalizedPeriods = listOfPeriods.map((period) => ({
+    id: period.numberMonth.toString(),
+    label: `${monthNormalize[period.month]} ${period.year}`,
+  }));
+
   return (
     <Stack direction="column" gap={tokens.spacing.s600}>
       <Stack gap={tokens.spacing.s400} direction="column">
         <Stack justifyContent="space-between">
           <ChangePeriod
             description={`Procesos del mes de ${month} ${year}`}
+            listOfPeriods={normalizedPeriods}
             setSelectedPeriod={setSelectedPeriod}
           />
 
