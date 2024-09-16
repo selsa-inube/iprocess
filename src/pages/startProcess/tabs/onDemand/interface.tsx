@@ -3,11 +3,11 @@ import { Stack } from "@inubekit/stack";
 import { Textfield } from "@inubekit/textfield";
 
 import { tokens } from "@design/tokens";
+import { CardProcessGroup } from "@components/feedback/CardProcessGroup";
 import { CardProcess } from "@components/feedback/CardProcess";
 import { formatMonthEndpoint } from "@utils/dates";
 import { onDemandNormailzeEntries } from "./config/card.config";
 import { StartProcesses } from "../../types";
-import { CardProcessGroup } from "@src/components/feedback/CardProcessGroup";
 
 interface OnDemandTabUIProps {
   entries: StartProcesses[];
