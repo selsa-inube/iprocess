@@ -1,12 +1,13 @@
 import { MdSearch } from "react-icons/md";
 import { Stack } from "@inubekit/stack";
 import { Textfield } from "@inubekit/textfield";
-import { Text } from "@inubekit/text";
+
 import { ChangePeriod } from "@components/feedback/ChangePeriod";
 import { CardProcess } from "@components/feedback/CardProcess";
 import { tokens } from "@design/tokens";
 import { formatMonthEndpoint, monthNormalize } from "@utils/dates";
 import { IProcess } from "@components/feedback/CardProcess/types";
+import { CardProcessGroup } from "@components/feedback/CardProcessGroup";
 
 import { IChangePeriodEntry, IListPeriods } from "../../types";
 import { scheduledNormailzeEntries } from "./config/card.config";
@@ -78,32 +79,22 @@ function ScheduledTabUI(props: ScheduledTabUIProps) {
           <CardProcess isLoading={isLoading} />
         </Stack>
       ) : (
-        <>
-          {entries.length > 0 ? (
-            <Stack gap={tokens.spacing.s200} width="100%" wrap="wrap">
-              {scheduledNormailzeEntries(
-                entries,
-                formatMonth,
-                formatYear,
-                status,
-                setStatus
-              ).map((entry, index) => (
-                <Stack key={index}>
-                  <CardProcess
-                    entries={entry as IProcess}
-                    optionCurrent="start process"
-                    descriptionTooltip="Puede hacer clic en el botón para prevalidar los requisitos."
-                    pathDetailByDay={`/start-process/startProcessesDaily/${month}/${year}/${entry.id}`}
-                  />
-                </Stack>
-              ))}
-            </Stack>
-          ) : (
-            <Text type="body" size="medium">
-              No se encontró información
-            </Text>
+        <CardProcessGroup
+          entries={scheduledNormailzeEntries(
+            entries,
+            formatMonth,
+            formatYear,
+            status,
+            setStatus
           )}
-        </>
+          month={month}
+          year={year}
+          filter={searchScheduled}
+          attributes={["description", "periodicity", "statusText", "date"]}
+          optionCurrent="start process"
+          descriptionTooltip="Puede hacer clic en el botón para prevalidar los requisitos."
+          pathDetailByDay={`start-process/startProcessesDaily`}
+        />
       )}
     </Stack>
   );

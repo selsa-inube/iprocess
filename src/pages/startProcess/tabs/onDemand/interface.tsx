@@ -1,9 +1,9 @@
 import { MdSearch } from "react-icons/md";
 import { Stack } from "@inubekit/stack";
 import { Textfield } from "@inubekit/textfield";
-import { Text } from "@inubekit/text";
 
 import { tokens } from "@design/tokens";
+import { CardProcessGroup } from "@components/feedback/CardProcessGroup";
 import { CardProcess } from "@components/feedback/CardProcess";
 import { formatMonthEndpoint } from "@utils/dates";
 import { onDemandNormailzeEntries } from "./config/card.config";
@@ -59,33 +59,21 @@ function OnDemandTabUI(props: OnDemandTabUIProps) {
           <CardProcess isLoading={isLoading} />
         </Stack>
       ) : (
-        <>
-          {entries.length > 0 ? (
-            <Stack gap={tokens.spacing.s200} width="100%" wrap="wrap">
-              {onDemandNormailzeEntries(
-                entries,
-                formatMonth,
-                formatYear,
-                status,
-                setStatus
-              ).map((entry, index) => (
-                <Stack key={index}>
-                  <CardProcess
-                    key={entry.id}
-                    entries={entry}
-                    optionCurrent="start process"
-                    descriptionTooltip="Puede hacer clic en el botón para prevalidar los requisitos."
-                    pathDetailByDay="/"
-                  />
-                </Stack>
-              ))}
-            </Stack>
-          ) : (
-            <Text type="body" size="medium">
-              No se encontró información
-            </Text>
+        <CardProcessGroup
+          entries={onDemandNormailzeEntries(
+            entries,
+            formatMonth,
+            formatYear,
+            status,
+            setStatus
           )}
-        </>
+          month={month}
+          year={year}
+          filter={searchOnDemand}
+          attributes={["description", "statusText", "date"]}
+          optionCurrent="start process"
+          descriptionTooltip="Puede hacer clic en el botón para prevalidar los requisitos."
+        />
       )}
     </Stack>
   );
