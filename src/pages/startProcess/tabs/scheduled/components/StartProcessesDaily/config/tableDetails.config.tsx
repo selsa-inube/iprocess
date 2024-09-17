@@ -2,9 +2,9 @@ import { MdImportExport, MdLaunch } from "react-icons/md";
 import { Icon } from "@inubekit/icon";
 import { Text } from "@inubekit/text";
 
-import { IAction, IActions, ITitle } from "@components/data/Table/props";
+import { IActions, ITitle } from "@components/data/Table/props";
 import { StyledContainerTitle } from "@components/data/Table/stories/styles";
-import { IDailyDetail } from "@pages/startProcess/types";
+import { IDailyDetail, StartProcesses } from "@pages/startProcess/types";
 import { formatDate } from "@utils/dates";
 import { ScheduledRequirements } from "../../ScheduledRequirements";
 import { DetailsProcessDaily } from "../components/DetailsProcessDaily";
@@ -95,11 +95,11 @@ const titlesConfig = (handleOrderData: () => void) => {
   return titles;
 };
 
-const actions: IAction[] = [
+const actions = [
   {
     id: "Details",
     actionName: "Detalles",
-    content: (process: IActions) => (
+    content: (process: StartProcesses) => (
       <DetailsProcessDaily
         data={mapScheduled(process)}
         breakpoints={breakPoints}
