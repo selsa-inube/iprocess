@@ -4,6 +4,21 @@ import { monthsData } from "@mocks/domains/months";
 
 import { capitalizeText } from "./texts";
 
+const monthNormalize: Record<string, string> = {
+  January: "Enero",
+  February: "Febrero",
+  March: "Marzo",
+  April: "Abril",
+  May: "Mayo",
+  June: "Junio",
+  july: "julio",
+  August: "Agosto",
+  September: "Septiembre",
+  October: "Octubre",
+  November: "Noviembre",
+  December: "Diciembre",
+}
+
 const formatDate = (date: Date, withTime?: boolean) => {
   const options: Intl.DateTimeFormatOptions = {
     day: "2-digit",
@@ -84,6 +99,7 @@ const filterDateChange = (
 export {
   currentMonthLetters,
   currentYear,
+  monthNormalize,
   formatMonthEndpoint,
   formatDate,
   filterDateChange,

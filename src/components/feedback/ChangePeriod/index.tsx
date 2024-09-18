@@ -8,21 +8,20 @@ import { tokens } from "@design/tokens";
 import  {currentMonthLetters,
 currentYear,
 } from "@utils/dates";
-import { getDomainById } from "@mocks/domains/domainService.mocks";
 import { PeriodsOptionsList } from "@design/feedback/PeriodsOptionsList";
 import { IOption } from "@design/feedback/PeriodsOptionsList/types";
 import { IChangePeriodEntry } from "@pages/startProcess/types";
 
 import { StyledOptionlist } from "./styles";
 
-
 interface ChangePeriodProps {
   description: string;
+  listOfPeriods?: IOption[];
   setSelectedPeriod: (show: IChangePeriodEntry) => void;
 }
 
 const ChangePeriod = (props: ChangePeriodProps) => {
-  const { description, setSelectedPeriod } = props;
+  const { description, listOfPeriods, setSelectedPeriod } = props;
 
   const [showListPeriods, setShowListPeriods] = useState(false);
   const [selectedOption, setSelectedOption] = useState<string>("");
@@ -50,7 +49,7 @@ const ChangePeriod = (props: ChangePeriodProps) => {
   };
 
   const periodCurrent = currentMonthLetters + " " + currentYear;
-  const period = getDomainById("periods").find( (period) => period.label === periodCurrent)?.id;
+  const period = listOfPeriods?.find( (period) => period.label === periodCurrent)?.id;
 
   useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);
@@ -76,13 +75,13 @@ const ChangePeriod = (props: ChangePeriodProps) => {
         onClick={() => setShowListPeriods(true)}
       />
 
-      {showListPeriods && (
+      {showListPeriods && listOfPeriods &&(
         <StyledOptionlist
-          $numberOptions={getDomainById("periods").length}
+          $numberOptions={listOfPeriods.length}
           $ref={optionsListRef}
         >
           <PeriodsOptionsList
-            options={getDomainById("periods")}
+            options={listOfPeriods}
             selectedOption={selectedOption || period!}
             onClick={(e: PointerEvent) => e.stopPropagation()}
             handleOptionClick={handleOptionClick}
