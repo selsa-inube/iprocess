@@ -94,19 +94,9 @@ const StartProcessOnDemand = (props: IStartProcessOnDemandProps) => {
       if (responseStartProcess.processStatus === "Finished")
         navigate("/finished");
 
-      if (responseStartProcess.processStatus === "Initiated")
+      if (responseStartProcess.processStatus === "Initiated" || responseStartProcess.processStatus === "PartiallyStarted")
         navigate("/confirm-initiated");
 
-      if (responseStartProcess.processStatus === "PartiallyStarted")
-      {  setError(true);
-        addFlag({
-          title: "Error al iniciar los procesos",
-          description:
-            "No fue posible iniciar los procesos, por favor intenta más tarde",
-          appearance: "danger",
-          duration: 5000,
-        })
-      }
     }
   }, [responseStartProcess]);
 
