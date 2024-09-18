@@ -85,8 +85,8 @@ const ScheduledRequirementsUI = (props: ScheduledRequirementsUIProps) => {
               )}
             </Stack>
           ) : (
-            <Text type="body" size="medium">
-              No se encontró información
+            <Text type="label" size="small" appearance="gray">
+              No hay información
             </Text>
           )}
         </StyledContainer>
