@@ -1,16 +1,13 @@
-import {
-  MdImportExport,
-  MdOutlineRemoveRedEye,
-  MdLaunch,
-} from "react-icons/md";
+import { MdImportExport, MdLaunch } from "react-icons/md";
 import { Icon } from "@inubekit/icon";
 import { Text } from "@inubekit/text";
 
-import { ITitle } from "@components/data/Table/props";
+import { IActions, ITitle } from "@components/data/Table/props";
 import { StyledContainerTitle } from "@components/data/Table/stories/styles";
-import { IDailyDetail } from "@pages/startProcess/types";
+import { IDailyDetail, StartProcesses } from "@pages/startProcess/types";
 import { formatDate } from "@utils/dates";
 import { ScheduledRequirements } from "../../ScheduledRequirements";
+import { DetailsProcessDaily } from "../components/DetailsProcessDaily";
 
 const processesDailyNormailzeEntries = (
   process: IDailyDetail[],
@@ -22,6 +19,8 @@ const processesDailyNormailzeEntries = (
   process.map((entry) => ({
     ...entry,
     id: String(`${entry.processCatalogId}${entry.estimatedExecutionDate}`),
+    processCatalogId: entry.processCatalogId,
+    description: entry.abbreviatedName,
     executionDate:
       entry.estimatedExecutionDate &&
       formatDate(new Date(entry.estimatedExecutionDate)),
@@ -41,7 +40,23 @@ const processesDailyNormailzeEntries = (
         withTooltip={false}
       />
     ),
+    statusText: status,
+    month: month,
+    year: year,
   }));
+
+const mapScheduled = (entry: IActions) => {
+  return {
+    id: entry.id,
+    publicCode: entry.publicCode,
+    aplication: entry.aplication,
+    date: entry.estimatedExecutionDate,
+    process: entry.description,
+    statusText: entry.statusText,
+    month: entry.month,
+    year: entry.year,
+  };
+};
 
 const titlesConfig = (handleOrderData: () => void) => {
   const titles: ITitle[] = [
@@ -84,12 +99,10 @@ const actions = [
   {
     id: "Details",
     actionName: "Detalles",
-    content: () => (
-      <Icon
-        appearance="gray"
-        icon={<MdOutlineRemoveRedEye />}
-        size="16px"
-        cursorHover={true}
+    content: (process: StartProcesses) => (
+      <DetailsProcessDaily
+        data={mapScheduled(process)}
+        breakpoints={breakPoints}
       />
     ),
   },
