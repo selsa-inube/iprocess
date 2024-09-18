@@ -11,14 +11,6 @@ interface ProgressOfStartProcessProps {
   dateStart: Date;
 }
 
-
-  //se crea funcion para que genere dos posibles tiempos aleatorios ya que se va ajustar 
-  //el endpoint que calcula el tiempo de inicio de un proceso
-  function getRandomTime(): string {
-    const randomValue = Math.floor(Math.random() * 2);
-    return randomValue === 0 ? "00:00:00" : "00:00:50";
-}
-
 const calculatePercentage = (
   currentMoment: number,
   time: number,
@@ -58,7 +50,6 @@ const ProgressOfStartProcess = (props: ProgressOfStartProcessProps) => {
     try {
       const newTime = await timeToCompleteProcess(progressControlId);
       setProcessTime(newTime.duration);
-
       processTime
     } catch (error) {
       console.info(error);
@@ -79,7 +70,7 @@ const ProgressOfStartProcess = (props: ProgressOfStartProcessProps) => {
     };
   }, []);
 
-  const time = stringToTime(getRandomTime());
+  const time = stringToTime("00:00:00"); ///se coloca este tiempo para pruebas debido a que estan ajustando el endpoint que calcula el tiempo
   const timeSeconds = calculateSeconds(time);
 
   useEffect(() => {

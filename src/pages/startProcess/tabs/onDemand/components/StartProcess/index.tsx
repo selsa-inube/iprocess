@@ -14,6 +14,7 @@ import { formatDate, formatDateEndpoint } from "@utils/dates";
 import { startProcess } from "@services/startProcess/patchStartProcess";
 import { IStartProcessResponse } from "@pages/startProcess/types";
 import { routesComponent } from "@pages/startProcess/config/routesForms.config";
+import { useFlag } from "@inubekit/flag";
 
 interface IStartProcessOnDemandProps {
   dataModal: IEntries;
@@ -23,6 +24,7 @@ interface IStartProcessOnDemandProps {
 const StartProcessOnDemand = (props: IStartProcessOnDemandProps) => {
   const { id, dataModal } = props;
   const [fieldsEntered, setFieldsEntered] = useState({} as IFieldsEntered);
+  const { addFlag } = useFlag();
 
   const navigate = useNavigate();
 
@@ -65,6 +67,13 @@ const StartProcessOnDemand = (props: IStartProcessOnDemandProps) => {
       
     } catch (error) {
       setError(true);
+      addFlag({
+        title: "Error al iniciar los procesos",
+        description:
+          "No fue posible iniciar los procesos, por favor intenta más tarde",
+        appearance: "danger",
+        duration: 5000,
+      })
       throw new Error(
         `Error al iniciar los procesos en formulario: ${(error as Error).message} `
       );
@@ -89,7 +98,15 @@ const StartProcessOnDemand = (props: IStartProcessOnDemandProps) => {
         navigate("/confirm-initiated");
 
       if (responseStartProcess.processStatus === "PartiallyStarted")
-        setError(true);
+      {  setError(true);
+        addFlag({
+          title: "Error al iniciar los procesos",
+          description:
+            "No fue posible iniciar los procesos, por favor intenta más tarde",
+          appearance: "danger",
+          duration: 5000,
+        })
+      }
     }
   }, [responseStartProcess]);
 

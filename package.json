@@ -20,6 +20,7 @@
     "@inubekit/countdownbar": "^2.5.0",
     "@inubekit/divider": "^0.2.0",
     "@inubekit/fieldset": "^0.6.0",
+    "@inubekit/flag": "^7.1.0",
     "@inubekit/foundations": "^5.11.2",
     "@inubekit/grid": "^2.1.0",
     "@inubekit/header": "^2.1.2",

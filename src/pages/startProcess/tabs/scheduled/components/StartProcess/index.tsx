@@ -14,6 +14,7 @@ import { formatDate, formatDateEndpoint } from "@utils/dates";
 import { IStartProcessResponse } from "@pages/startProcess/types";
 import { startProcess } from "@services/startProcess/patchStartProcess";
 import { routesComponent } from "@pages/startProcess/config/routesForms.config";
+import { useFlag } from "@inubekit/flag";
 
 interface IStartProcessScheduledProps {
   id: string;
@@ -41,6 +42,8 @@ const StartProcessScheduled = (props: IStartProcessScheduledProps) => {
   const [showProgressModal, setShowProgressModal] = useState(false);
   const [error, setError] = useState(false);
 
+  const {addFlag} =useFlag();
+
   const handleStartProcess = async () => {
     const processData = {
       processCatalogId: String(id),
@@ -65,6 +68,14 @@ const StartProcessScheduled = (props: IStartProcessScheduledProps) => {
       setResponseStartProcess(newProcess);
     } catch (error) {
       setError(true);
+      addFlag({
+        title: "Error al iniciar los procesos",
+        description:
+          "No fue posible iniciar los procesos, por favor intenta más tarde",
+        appearance: "danger",
+        duration: 5000,
+      })
+
       throw new Error(
         `Error al iniciar los procesos en formulario: ${(error as Error).message} `
       );
@@ -87,8 +98,16 @@ const StartProcessScheduled = (props: IStartProcessScheduledProps) => {
       if (responseStartProcess.processStatus === "Initiated")
         navigate("/confirm-initiated");
 
-      if (responseStartProcess.processStatus === "PartiallyStarted")
+      if (responseStartProcess.processStatus === "PartiallyStarted"){
         setError(true);
+        addFlag({
+          title: "Error al iniciar los procesos",
+          description:
+            "No fue posible iniciar los procesos, por favor intenta más tarde",
+          appearance: "danger",
+          duration: 5000,
+        })
+      }
     }
   }, [responseStartProcess]);
 
