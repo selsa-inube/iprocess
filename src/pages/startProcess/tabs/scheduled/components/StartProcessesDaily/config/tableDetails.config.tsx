@@ -1,15 +1,15 @@
 import {
   MdImportExport,
-  MdOutlineRemoveRedEye,
 } from "react-icons/md";
 import { Icon } from "@inubekit/icon";
 import { Text } from "@inubekit/text";
 
-import { ITitle } from "@components/data/Table/props";
+import { IActions, ITitle } from "@components/data/Table/props";
 import { StyledContainerTitle } from "@components/data/Table/stories/styles";
 import { IDailyDetail, StartProcesses } from "@pages/startProcess/types";
 import { formatDate } from "@utils/dates";
 import { ScheduledRequirements } from "../../ScheduledRequirements";
+import { DetailsProcessDaily } from "../components/DetailsProcessDaily";
 import { StartProcessScheduled } from "../../StartProcess";
 
 const processesDailyNormailzeEntries = (
@@ -49,6 +49,18 @@ const processesDailyNormailzeEntries = (
     dateWithoutFormat: entry.estimatedExecutionDate,
   }));
 
+  const mapScheduled = (entry: IActions) => {
+    return {
+      id: entry.id,
+      publicCode: entry.publicCode,
+      aplication: entry.aplication,
+      date: entry.estimatedExecutionDate,
+      process: entry.description,
+      statusText: entry.statusText,
+      month: entry.month,
+      year: entry.year,
+    };
+  };
 
   const mapStartProcessScheduled = (entry: StartProcesses) => {
     const formatDescriptionSuggested = 
@@ -106,12 +118,10 @@ const actionsConfig = (url: string) => {
     {
       id: "Details",
       actionName: "Detalles",
-      content: () => (
-        <Icon
-          appearance="gray"
-          icon={<MdOutlineRemoveRedEye />}
-          size="16px"
-          cursorHover={true}
+      content: (process: StartProcesses) => (
+        <DetailsProcessDaily
+          data={mapScheduled(process)}
+          breakpoints={breakPoints}
         />
       ),
     },

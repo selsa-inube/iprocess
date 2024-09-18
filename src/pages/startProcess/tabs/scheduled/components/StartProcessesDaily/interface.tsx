@@ -5,11 +5,11 @@ import { Breadcrumbs } from "@inubekit/breadcrumbs";
 import { useMediaQuery } from "@inubekit/hooks";
 
 import { IDailyDetail } from "@pages/startProcess/types";
+import { IAction } from "@components/data/Table/props";
 import { Table } from "@components/data/Table";
 import { tokens } from "@design/tokens";
 import { mediaQueryMobile } from "@config/environment";
 import { Title } from "@design/data/Title";
-import { IAction } from "@components/data/Table/props";
 import {
   actionsConfig,
   breakPoints,

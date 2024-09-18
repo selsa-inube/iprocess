@@ -34,6 +34,7 @@ interface StartProcesses {
   year?: number;
   plannedAutomaticExecution?: string;
   dateWithoutFormat?: string;
+  estimatedExecutionDate?: string;
   url?: string;
 }
 
