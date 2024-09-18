@@ -17,10 +17,11 @@ import { Text } from "@inubekit/text";
 interface IStartProcessScheduledProps {
   id: string;
   dataModal: IEntries;
+  urlParams?: string;
 }
 
 const StartProcessScheduled = (props: IStartProcessScheduledProps) => {
-  const { dataModal, id } = props;
+  const { dataModal, id, urlParams } = props;
   const [fieldsEntered, setFieldsEntered] = useState<IFieldsEntered>(
     {} as IFieldsEntered
   );
@@ -56,10 +57,9 @@ const StartProcessScheduled = (props: IStartProcessScheduledProps) => {
     }
   };
 
-  console.log(responseStartProcess); // el responseStartProcess se utilizara en la siguiente tarea de conectar la barra de progreso
-
   const handleToggleModal = () => {
     setShowModal(!showModal);
+    responseStartProcess;
   };
 
   return (
@@ -75,10 +75,10 @@ const StartProcessScheduled = (props: IStartProcessScheduledProps) => {
 
       {showModal && dataModal && (
         <StartProcessModal portalId="portal" onCloseModal={handleToggleModal}>
-          { dataModal.url !== "" ? (
+          { (dataModal.url !== "" || urlParams)? (
             <>
               {routesComponent.map((comp, index) => {
-                if (comp.path === dataModal.url) {
+                if (comp.path === dataModal.url || comp.path === urlParams) {
                   return (
                     <Suspense
                       key={index}
