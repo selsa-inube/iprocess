@@ -3,11 +3,19 @@ import { useEffect, useState } from "react";
 import { ProgressCardWithBarDetermined } from "@components/feedback/ProgressCardWithBarDetermined";
 import { timeToCompleteProcess } from "@services/startProcess/getTimeToCompleteProcess";
 import { calculateSeconds, stringToTime } from "@pages/startProcess/utils";
+import { ProgressCardWithBarIndetermined } from "@components/feedback/ProgressCardWithBarIndetermined";
 
 interface ProgressOfStartProcessOnDemandProps {
   dateStart: Date;
   id: string;
-  handleShowProgressModal: (showModal: boolean) => void;
+  handleShowProgressModal?: (showModal: boolean) => void;
+}
+
+ //se crea funcion para que genere dos posibles tiempos aleatorios ya que se va ajustar 
+  //el endpoint que calcula el tiempo de inicio de un proceso
+  function getRandomTime(): string {
+    const randomValue = Math.floor(Math.random() * 2);
+    return randomValue === 0 ? "00:00:00" : "00:00:50";
 }
 
 const calculatePercentage = (
@@ -42,16 +50,15 @@ const percentageElapsed = (
 const ProgressOfStartProcessOnDemand = (
   props: ProgressOfStartProcessOnDemandProps
 ) => {
-  const { id, handleShowProgressModal, dateStart } = props;
+  const { id,  dateStart } = props;
   const [percentage, setPercentage] = useState(0);
-  const [showModal, setShowModal] = useState(false);
   const [processTime, setProcessTime] = useState<string>("");
 
   const validateTimeToCompleteProcess = async (progressControlId: string) => {
     try {
       const newTime = await timeToCompleteProcess(progressControlId);
       setProcessTime(newTime.duration);
-      setShowModal(true);
+      processTime
     } catch (error) {
       console.info(error);
     }
@@ -71,7 +78,7 @@ const ProgressOfStartProcessOnDemand = (
     };
   }, []);
 
-  const time = stringToTime(processTime);
+  const time = stringToTime(getRandomTime());
   const timeSeconds = calculateSeconds(time);
 
   useEffect(() => {
@@ -92,22 +99,23 @@ const ProgressOfStartProcessOnDemand = (
     return () => clearInterval(timer);
   }, [percentage]);
 
-  const handleToggleModal = () => {
-    setShowModal(!showModal);
-    handleShowProgressModal(false);
-  };
+
 
   return (
     <>
+    {!timeSeconds || timeSeconds === 0 ? (
+      <ProgressCardWithBarIndetermined
+        portalId="portal"
+      />
+    ) : (
       <ProgressCardWithBarDetermined
         estime={timeSeconds}
         progress={percentage}
         portalId="portal"
-        withButtonClose
         isAnimated={percentage === 100 ? false : true}
-        onCancel={handleToggleModal}
       />
-    </>
+    )}
+  </>
   );
 };
 

@@ -70,8 +70,8 @@ const RefreshOtherDebt = (props: RefreshOtherDebtProps) => {
 
   useEffect(() => {
     if (
-      data?.plannedAutomaticExecution &&
-      data?.plannedAutomaticExecution === "planned automatic execution"
+      data?.executionWay &&
+      data?.executionWay === "PlannedAutomaticExecution"
     ) {
       setDynamicValidationSchema(
         validationSchema.shape({
@@ -81,7 +81,7 @@ const RefreshOtherDebt = (props: RefreshOtherDebtProps) => {
         })
       );
     }
-  }, [data?.plannedAutomaticExecution, setDynamicValidationSchema]);
+  }, [data?.executionWay, setDynamicValidationSchema]);
 
   useEffect(() => {
     if (formik.values) {
@@ -97,13 +97,11 @@ const RefreshOtherDebt = (props: RefreshOtherDebtProps) => {
   }, [formik.values, setFieldsEntered]);
 
   const comparisonData = Boolean(
-    (data?.plannedAutomaticExecution &&
-      formik.values.plannedExecutionDate.length > 0 &&
+    (data?.executionWay === "PlannedAutomaticExecution" &&
       formik.values.typeRefresh !== initialValues.typeRefresh &&
       formik.values.plannedExecutionDate !==
         initialValues.plannedExecutionDate) ||
-      (!data?.plannedAutomaticExecution &&
-        formik.values.typeRefresh !== initialValues.typeRefresh)
+      formik.values.typeRefresh !== initialValues.typeRefresh
   );
 
   return (

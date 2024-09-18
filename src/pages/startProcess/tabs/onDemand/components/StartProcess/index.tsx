@@ -1,4 +1,5 @@
-import { lazy, Suspense, useState } from "react";
+import { lazy, Suspense, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { MdLaunch } from "react-icons/md";
 import { Icon } from "@inubekit/icon";
 import { Stack } from "@inubekit/stack";
@@ -23,6 +24,8 @@ const StartProcessOnDemand = (props: IStartProcessOnDemandProps) => {
   const { id, dataModal } = props;
   const [fieldsEntered, setFieldsEntered] = useState({} as IFieldsEntered);
 
+  const navigate = useNavigate();
+
   const ProgressOfStartProcessOnDemand = lazy(
     () =>
       import(
@@ -34,6 +37,7 @@ const StartProcessOnDemand = (props: IStartProcessOnDemandProps) => {
     useState<IStartProcessResponse>();
   const [showProgressModal, setShowProgressModal] = useState(false);
   const [showStartProcessModal, setShowStartProcessModal] = useState(false);
+  const [error, setError] = useState(false);
 
   const handleStartProcess = async () => {
     const processData = {
@@ -54,16 +58,46 @@ const StartProcessOnDemand = (props: IStartProcessOnDemandProps) => {
     };
 
     try {
-      const newProcess = await startProcess(processData);
-      setResponseStartProcess(newProcess);
       setShowStartProcessModal(!showStartProcessModal);
       setShowProgressModal(true);
+      const newProcess = await startProcess(processData);
+      setResponseStartProcess(newProcess);
+      
     } catch (error) {
+      setError(true);
       throw new Error(
         `Error al iniciar los procesos en formulario: ${(error as Error).message} `
       );
     }
   };
+
+  useEffect(() => {
+    if (responseStartProcess?.processStatus.length) {
+      setShowProgressModal(false);
+
+      if (
+        responseStartProcess.processStatus === "StartedImmediately" ||
+        responseStartProcess.processStatus === "Programmed" ||
+        responseStartProcess.processStatus === "InAction"
+      )
+        navigate("/validate-progress");
+
+      if (responseStartProcess.processStatus === "Finished")
+        navigate("/finished");
+
+      if (responseStartProcess.processStatus === "Initiated")
+        navigate("/confirm-initiated");
+
+      if (responseStartProcess.processStatus === "PartiallyStarted")
+        setError(true);
+    }
+  }, [responseStartProcess]);
+
+  useEffect(() => {
+    if (error) {
+      setShowProgressModal(false);
+    }
+  }, [error]);
 
   const handleToggleModal = () => {
     setShowStartProcessModal(!showStartProcessModal);
@@ -107,8 +141,8 @@ const StartProcessOnDemand = (props: IStartProcessOnDemandProps) => {
                             new Date(dataModal.date as string),
                             true
                           ),
-                          plannedAutomaticExecution:
-                            dataModal?.plannedAutomaticExecution,
+                          executionWay:
+                            dataModal?.executionWay,
                         }}
                         onStartProcess={handleStartProcess}
                         setFieldsEntered={setFieldsEntered}
@@ -127,10 +161,10 @@ const StartProcessOnDemand = (props: IStartProcessOnDemandProps) => {
           )}
         </StartProcessModal>
       )}
-      {responseStartProcess?.processStatus === "Initiated" &&  showProgressModal && (
+      {showProgressModal && (
         <Suspense fallback={null}>
           <ProgressOfStartProcessOnDemand
-            id={responseStartProcess?.processControlId || ""}
+            id={"9fa42ff7-4de8-4c50-b103-4399089652e0"} /// Se deja temporalmente este id ya que en proximas tareas se ajustara debido a que realizaran cambios en el endpoint que calcula el tiempo que se demora el iniciar un proceso
             handleShowProgressModal={setShowProgressModal}
             dateStart={new Date()}
           />

@@ -32,7 +32,7 @@ interface StartProcesses {
   actions?: IActions[];
   month?: number;
   year?: number;
-  plannedAutomaticExecution?: string;
+  executionWay?: string;
   dateWithoutFormat?: string;
   url?: string;
 }

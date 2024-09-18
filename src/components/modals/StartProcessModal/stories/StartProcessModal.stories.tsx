@@ -32,7 +32,7 @@ const data = {
   descriptionSuggested:
     "Los NFTs son tokens no fungibles únicos en la cadena de bloques. A diferencia de las criptomonedas",
   date: "10/Jul/2024 - 14:05:00",
-  plannedAutomaticExecution: "planned automatic execution"
+  executionWay: "PlannedAutomaticExecution"
 };
 
 const Template: StoryFn<StartProcessModalProps> = (args) => {
@@ -70,8 +70,8 @@ const TemplateWithPlannedAutomatic: StoryFn<StartProcessModalProps> = (args) => 
   );
 };
 
-export const WithPlannedAutomaticExecution: StoryFn<StartProcessModalProps>  = TemplateWithPlannedAutomatic.bind({});
-WithPlannedAutomaticExecution.args = {
+export const WithexecutionWay: StoryFn<StartProcessModalProps>  = TemplateWithPlannedAutomatic.bind({});
+WithexecutionWay.args = {
   portalId: "portal",
   children: (  <RefreshSavingProduct data={data}
     onStartProcess={() => true}

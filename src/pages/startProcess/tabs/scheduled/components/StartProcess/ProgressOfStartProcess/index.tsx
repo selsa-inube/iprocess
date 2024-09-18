@@ -2,12 +2,21 @@ import { useEffect, useState } from "react";
 
 import { ProgressCardWithBarDetermined } from "@components/feedback/ProgressCardWithBarDetermined";
 import { timeToCompleteProcess } from "@services/startProcess/getTimeToCompleteProcess";
+import { ProgressCardWithBarIndetermined } from "@components/feedback/ProgressCardWithBarIndetermined";
 import { calculateSeconds, stringToTime } from "@pages/startProcess/utils";
 
 interface ProgressOfStartProcessProps {
   id: string;
   handleShowProgressModal: (showModal: boolean) => void;
   dateStart: Date;
+}
+
+
+  //se crea funcion para que genere dos posibles tiempos aleatorios ya que se va ajustar 
+  //el endpoint que calcula el tiempo de inicio de un proceso
+  function getRandomTime(): string {
+    const randomValue = Math.floor(Math.random() * 2);
+    return randomValue === 0 ? "00:00:00" : "00:00:50";
 }
 
 const calculatePercentage = (
@@ -33,23 +42,24 @@ const percentageElapsed = (
   const currentMoment = calculateSeconds(dateCurrent);
   const percentageResp = calculatePercentage(currentMoment, time, dateStart);
 
-  if (percentageResp >= 100 || isNaN(percentageResp)) {
+  if (percentageResp >= 100) {
     return 100;
   }
   return percentageResp;
 };
 
 const ProgressOfStartProcess = (props: ProgressOfStartProcessProps) => {
-  const { id, handleShowProgressModal, dateStart } = props;
+  const { id, dateStart} =
+    props;
   const [percentage, setPercentage] = useState(0);
-  const [showModal, setShowModal] = useState(false);
   const [processTime, setProcessTime] = useState<string>("");
 
   const validateTimeToCompleteProcess = async (progressControlId: string) => {
     try {
       const newTime = await timeToCompleteProcess(progressControlId);
       setProcessTime(newTime.duration);
-      setShowModal(true);
+
+      processTime
     } catch (error) {
       console.info(error);
     }
@@ -69,7 +79,7 @@ const ProgressOfStartProcess = (props: ProgressOfStartProcessProps) => {
     };
   }, []);
 
-  const time = stringToTime(processTime);
+  const time = stringToTime(getRandomTime());
   const timeSeconds = calculateSeconds(time);
 
   useEffect(() => {
@@ -90,21 +100,22 @@ const ProgressOfStartProcess = (props: ProgressOfStartProcessProps) => {
     return () => clearInterval(timer);
   }, [percentage]);
 
-  const handleToggleModal = () => {
-    setShowModal(!showModal);
-    handleShowProgressModal(false);
-  };
-
+  
   return (
     <>
-      <ProgressCardWithBarDetermined
-        estime={timeSeconds}
-        progress={percentage}
-        portalId="portal"
-        withButtonClose
-        isAnimated={percentage === 100 ? false : true}
-        onCancel={handleToggleModal}
-      />
+      {!timeSeconds || timeSeconds === 0 ? (
+        <ProgressCardWithBarIndetermined
+          portalId="portal"
+
+        />
+      ) : (
+        <ProgressCardWithBarDetermined
+          estime={timeSeconds}
+          progress={percentage}
+          portalId="portal"
+          isAnimated={percentage === 100 ? false : true}
+        />
+      )}
     </>
   );
 };

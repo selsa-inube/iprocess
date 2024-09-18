@@ -1,4 +1,5 @@
-import { lazy, Suspense, useState } from "react";
+import { lazy, Suspense, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { MdLaunch } from "react-icons/md";
 import { Icon } from "@inubekit/icon";
 import { Stack } from "@inubekit/stack";
@@ -14,7 +15,6 @@ import { IStartProcessResponse } from "@pages/startProcess/types";
 import { startProcess } from "@services/startProcess/patchStartProcess";
 import { routesComponent } from "@pages/startProcess/config/routesForms.config";
 
-
 interface IStartProcessScheduledProps {
   id: string;
   dataModal: IEntries;
@@ -22,6 +22,8 @@ interface IStartProcessScheduledProps {
 
 const StartProcessScheduled = (props: IStartProcessScheduledProps) => {
   const { dataModal, id } = props;
+
+  const navigate = useNavigate();
 
   const ProgressOfStartProcess = lazy(
     () =>
@@ -37,6 +39,7 @@ const StartProcessScheduled = (props: IStartProcessScheduledProps) => {
     useState<IStartProcessResponse>();
   const [showStartProcessModal, setShowStartProcessModal] = useState(false);
   const [showProgressModal, setShowProgressModal] = useState(false);
+  const [error, setError] = useState(false);
 
   const handleStartProcess = async () => {
     const processData = {
@@ -56,17 +59,44 @@ const StartProcessScheduled = (props: IStartProcessScheduledProps) => {
         : {},
     };
     try {
-      const newProcess = await startProcess(processData);
-      setResponseStartProcess(newProcess);
       setShowStartProcessModal(!showStartProcessModal);
       setShowProgressModal(true);
+      const newProcess = await startProcess(processData);
+      setResponseStartProcess(newProcess);
     } catch (error) {
+      setError(true);
       throw new Error(
         `Error al iniciar los procesos en formulario: ${(error as Error).message} `
       );
-    } 
-      
+    }
   };
+  useEffect(() => {
+    if (responseStartProcess?.processStatus.length) {
+      setShowProgressModal(false);
+
+      if (
+        responseStartProcess.processStatus === "StartedImmediately" ||
+        responseStartProcess.processStatus === "Programmed" ||
+        responseStartProcess.processStatus === "InAction"
+      )
+        navigate("/validate-progress");
+
+      if (responseStartProcess.processStatus === "Finished")
+        navigate("/finished");
+
+      if (responseStartProcess.processStatus === "Initiated")
+        navigate("/confirm-initiated");
+
+      if (responseStartProcess.processStatus === "PartiallyStarted")
+        setError(true);
+    }
+  }, [responseStartProcess]);
+
+  useEffect(() => {
+    if (error) {
+      setShowProgressModal(false);
+    }
+  }, [error]);
 
   const handleToggleModal = () => {
     setShowStartProcessModal(!showStartProcessModal);
@@ -85,58 +115,61 @@ const StartProcessScheduled = (props: IStartProcessScheduledProps) => {
 
       {showStartProcessModal && dataModal && (
         <StartProcessModal portalId="portal" onCloseModal={handleToggleModal}>
-          { dataModal.url !== "" ? (
+          {dataModal.url !== "" ? (
             <>
-          {routesComponent.map((comp, index) => {
-            if (comp.path === dataModal.url) {
-              return (
-                <Suspense
-                  key={index}
-                  fallback={
-                    <Stack justifyContent="center">
-                      <Spinner size="small" appearance="primary" transparent />
-                    </Stack>
-                  }
-                >
-                  <comp.component
-                    key={index}
-                    data={{
-                      id: id,
-                      descriptionSuggested: dataModal?.descriptionSuggested,
-                      date: formatDate(
-                        new Date(dataModal.date as string),
-                        true
-                      ),
-                      plannedAutomaticExecution:
-                        dataModal?.plannedAutomaticExecution,
-                    }}
-                    onStartProcess={handleStartProcess}
-                    setFieldsEntered={setFieldsEntered}
-                  />
-                </Suspense>
-              );
-            }
-          })}
-          </>
+              {routesComponent.map((comp, index) => {
+                if (comp.path === dataModal.url) {
+                  return (
+                    <Suspense
+                      key={index}
+                      fallback={
+                        <Stack justifyContent="center">
+                          <Spinner
+                            size="small"
+                            appearance="primary"
+                            transparent
+                          />
+                        </Stack>
+                      }
+                    >
+                      <comp.component
+                        key={index}
+                        data={{
+                          id: id,
+                          descriptionSuggested: dataModal?.descriptionSuggested,
+                          date: formatDate(
+                            new Date(dataModal.date as string),
+                            true
+                          ),
+                          executionWay:
+                            dataModal?.executionWay,
+                        }}
+                        onStartProcess={handleStartProcess}
+                        setFieldsEntered={setFieldsEntered}
+                      />
+                    </Suspense>
+                  );
+                }
+              })}
+            </>
           ) : (
             <Stack>
               <Text type="label" size="medium">
                 No se ha encontrado datos para este proceso
               </Text>
             </Stack>
-               )}
+          )}
         </StartProcessModal>
       )}
-      {
-        responseStartProcess?.processStatus === "Initiated" && showProgressModal && (
-          <Suspense fallback={null}>
-            <ProgressOfStartProcess
-              id={responseStartProcess?.processControlId || ""}
-              handleShowProgressModal={setShowProgressModal}
-              dateStart={new Date()}
-            />
-          </Suspense>
-        )}
+      {showProgressModal && (
+        <Suspense fallback={null}>
+          <ProgressOfStartProcess
+            id={"9fa42ff7-4de8-4c50-b103-4399089652e0"} /// Se deja temporalmente este id ya que en proximas tareas se ajustara debido a que realizaran cambios en el endpoint que calcula el tiempo que se demora el iniciar un proceso
+            handleShowProgressModal={setShowProgressModal}
+            dateStart={new Date()}
+          />
+        </Suspense>
+      )}
     </>
   );
 };

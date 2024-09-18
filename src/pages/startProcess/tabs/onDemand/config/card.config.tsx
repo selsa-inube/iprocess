@@ -47,6 +47,7 @@ const mapOnDemand = (entry: StartProcesses) => {
     month: entry.month,
     year: entry.year,
     statusText: entry.statusText,
+    executionWay: entry.executionWay,
   };
 };
 
@@ -63,6 +64,7 @@ const mapStartProcessOnDemand = (entry: StartProcesses) => {
     month: entry.month,
     year: entry.year,
     url: entry.url,
+    executionWay: entry.executionWay,
   };
 };
 

@@ -35,6 +35,7 @@ const scheduledNormailzeEntries = (
     month: month,
     year: year,
     dateWithoutFormat: entry.date,
+    executionWay: entry.executionWay,
   }));
 
 const mapScheduled = (entry: StartProcesses) => {
@@ -64,6 +65,7 @@ const mapStartProcessScheduled = (entry: StartProcesses) => {
     month: entry.month,
     year: entry.year,
     url: entry.url,
+    executionWay: entry.executionWay
   };
 };
 
