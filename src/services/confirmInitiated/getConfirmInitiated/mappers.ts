@@ -7,7 +7,7 @@ const mapConfirmInitiatedApiToEntity = (
     id: String(process.processControlId),
     description: String(process.processDescription),
     dateAndHour: new Date(String(process.executionDate)),
-    totalPerson: Number(process.totalPerson)
+    totalPerson: Number(process.totalPeople)
   };
   return processes;
 };
