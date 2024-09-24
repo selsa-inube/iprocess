@@ -36,6 +36,7 @@ interface StartProcesses {
   dateWithoutFormat?: string;
   estimatedExecutionDate?: string;
   url?: string;
+  totalPerson?: number;
 }
 
 interface StartProcessesFilter {
