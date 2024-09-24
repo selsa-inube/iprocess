@@ -1,47 +1,28 @@
-import { Icon } from "@inubekit/icon";
 import {
   MdCheckCircleOutline,
   MdOutlineDelete,
   MdOutlineRemoveRedEye,
 } from "react-icons/md";
+import { SkeletonLine } from '@inubekit/skeleton';
+import { Icon } from "@inubekit/icon";
 
 import { StartProcesses } from "@pages/startProcess/types";
 import { formatDate } from "@utils/dates";
-import { ScheduledRequirements } from "@pages/startProcess/tabs/scheduled/components/ScheduledRequirements";
+
 
 const confirmInitiatedNormailzeEntries = (
-  process: StartProcesses[],
-  month: number,
-  year: number,
-  status: string,
-  setStatus: (status: string) => void
+  process: StartProcesses[],  
 ) =>
   process.map((entry) => ({
     ...entry,
     id: entry.id,
-    publicCode: entry.publicCode,
     process: entry.description,
     date: entry.dateAndHour && formatDate(new Date(entry.dateAndHour)),
     dateAndHour: entry.dateAndHour && formatDate(new Date(entry.dateAndHour), true),
     totalPerson: entry.totalPerson,
-    status: (
-      <ScheduledRequirements
-        id={entry.id}
-        month={month}
-        publicCode={"undefined"}
-        plannedExecution={
-          entry.dateAndHour ? new Date(entry.dateAndHour) : undefined
-        }
-        year={year}
-        setStatus={setStatus}
-        status={status}
-      />
-    ),
-    statusText: status,
+    status: <SkeletonLine width="80px" animated />,
     dailyDetail: entry.dailyDetail,
     actions: actions,
-    month: month,
-    year: year,
     dateWithoutFormat: entry.date,
   }));
 

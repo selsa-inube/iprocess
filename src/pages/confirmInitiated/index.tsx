@@ -1,9 +1,5 @@
 import { useEffect, useState } from "react";
 import { confirmInitiatedData } from "@services/confirmInitiated/getConfirmInitiated";
-import {
-  currentMonthLetters,
-  currentYear,
-} from "@utils/dates";
 import { ConfirmInitiatedUI } from "./interface";
 import { StartProcesses } from "../startProcess/types";
 
@@ -13,7 +9,6 @@ function ConfirmInitiated() {
 
   const [confirmInitiated, setConfirmInitiated] = useState<StartProcesses[]>([]);
 
-  const [status, setStatus] = useState<string>("");
 
   const validateConfirmInitiated = async () => {
     setLoading(true);
@@ -40,12 +35,11 @@ function ConfirmInitiated() {
     <ConfirmInitiatedUI
       entries={confirmInitiated}
       isLoading={loading}
-      month={currentMonthLetters!}
-      year={ currentYear}
+
+ 
       handleSearchConfirmInitiated={handleSearchConfirmInitiated}
       searchConfirmInitiated={searchConfirmInitiated}
-      status={status}
-      setStatus={setStatus}
+
     />
   );
 }
