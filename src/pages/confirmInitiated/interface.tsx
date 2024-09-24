@@ -6,7 +6,6 @@ import { useMediaQuery } from "@inubekit/hooks";
 
 import { CardProcess } from "@components/feedback/CardProcess";
 import { tokens } from "@design/tokens";
-import { formatMonthEndpoint } from "@utils/dates";
 import { IProcess } from "@components/feedback/CardProcess/types";
 import { CardProcessGroup } from "@components/feedback/CardProcessGroup";
 import { mediaQueryMobile } from "@config/environment";
@@ -15,11 +14,7 @@ import { confirmInitiatedNormailzeEntries } from "./config/card.config";
 interface ConfirmInitiatedUIProps {
   entries: IProcess[];
   isLoading: boolean;
-  month: string;
   searchConfirmInitiated: string;
-  year: string;
-  status: string;
-  setStatus: (status: string) => void;
   handleSearchConfirmInitiated: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
@@ -27,16 +22,9 @@ function ConfirmInitiatedUI(props: ConfirmInitiatedUIProps) {
   const {
     entries,
     isLoading,
-    month,
     searchConfirmInitiated,
-    year,
-    status,
-    setStatus,
     handleSearchConfirmInitiated,
   } = props;
-
-  const formatMonth = formatMonthEndpoint(month);
-  const formatYear = Number(year);
 
   const smallScreen = useMediaQuery(mediaQueryMobile);
 
@@ -76,18 +64,12 @@ function ConfirmInitiatedUI(props: ConfirmInitiatedUIProps) {
         <CardProcessGroup
           entries={confirmInitiatedNormailzeEntries(
             entries,
-            formatMonth,
-            formatYear,
-            status,
-            setStatus
           )}
-          month={month}
-          year={year}
           filter={searchConfirmInitiated}
           attributes={["description", "statusText", "date", "totalPerson"]}
           optionCurrent="confirm initiated"
           descriptionTooltip="Puede hacer clic en el botón para prevalidar los requisitos."
-          pathDetailByDay={"/"}
+          pathDetailByDay="/"
         />
       )}
         </Stack>

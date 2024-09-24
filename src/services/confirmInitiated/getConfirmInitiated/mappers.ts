@@ -5,7 +5,6 @@ const mapConfirmInitiatedApiToEntity = (
 ): StartProcesses => {
   const processes: StartProcesses = {
     id: String(process.processControlId),
-    publicCode: String(process.publicCode),
     description: String(process.processDescription),
     dateAndHour: new Date(String(process.executionDate)),
     totalPerson: Number(process.totalPerson),
