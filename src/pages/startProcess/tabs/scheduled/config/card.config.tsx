@@ -22,7 +22,7 @@ const scheduledNormailzeEntries = (
       <ScheduledRequirements
         id={entry.id}
         month={month}
-        publicCode={entry.publicCode}
+        publicCode={entry.publicCode ? entry.publicCode : "" }
         plannedExecution={entry.date ? new Date(entry.date) : undefined}
         year={year}
         setStatus={setStatus}
