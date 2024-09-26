@@ -4,9 +4,7 @@ const mapTimeToCompleteProcessApiToEntity = (
   data:  Record<string, string | number | object> 
 ): ITimeEstimedCompleteProcess => {
   const processes: ITimeEstimedCompleteProcess = {
-    totalPersons: Number(data.totalPersons),
-    totalProcessedPersons: Number(data.totalProcessedPersons),
-    duration: String(data.remainingDuration),
+    secondsTime: Number(data.secondsTimeToInsertPeople),
   };
   return processes;
 };

@@ -7,15 +7,13 @@ import { ITimeEstimedCompleteProcess } from "@pages/startProcess/types";
 import { mapTimeToCompleteProcessApiToEntity } from "./mappers";
 
 const timeToCompleteProcess = async (
-  processControlId: string
+  processCatalogId: string
 ): Promise<ITimeEstimedCompleteProcess> => {
   const maxRetries = maxRetriesServices;
   const fetchTimeout = fetchTimeoutServices;
 
   const emptyResponse = {
-    totalPersons: 0,
-    totalProcessedPersons: 0,
-    duration: "",
+    secondsTime: 0,
   };
 
   for (let attempt = 1; attempt <= maxRetries; attempt++) {
@@ -26,7 +24,7 @@ const timeToCompleteProcess = async (
       const options: RequestInit = {
         method: "GET",
         headers: {
-          "X-Action": "CalculateEstimatedTimeToCompleteProcess",
+          "X-Action": "SearchEstimatedTimeToInsertPeople",
           "X-Business-Unit": enviroment.TEMP_BUSINESS_UNIT,
           "Content-type": "application/json; charset=UTF-8",
         },
@@ -34,7 +32,7 @@ const timeToCompleteProcess = async (
       };
 
       const res = await fetch(
-        `${enviroment.IPROCESS_API_URL_QUERY}/process-controls/process-control-executions/${processControlId}`,
+        `${enviroment.IPROCESS_API_URL_QUERY}/process-controls/information/${processCatalogId}`,
         options
       );
 
@@ -48,7 +46,7 @@ const timeToCompleteProcess = async (
 
       if (!res.ok) {
         throw {
-          message: `Error al obtener el tiempo estimado al iniciar el proceso ${processControlId}`,
+          message: `Error al obtener el tiempo estimado al iniciar el proceso ${processCatalogId}`,
           status: res.status,
           data,
         };

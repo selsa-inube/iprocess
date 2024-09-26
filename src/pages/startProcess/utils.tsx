@@ -2,8 +2,11 @@ import { Button } from "@inubekit/button";
 
 import { StyledContainerButton } from "./styles";
 
-const stringToTime = (timeString: string): Date => {
-  const [hours, minutes, seconds] = timeString.split(":").map(Number);
+const stringToTime = (secondsProcess: number): Date => {
+  
+  const hours = Math.floor(secondsProcess / 3600);
+  const minutes = Math.floor((secondsProcess % 3600) / 60);
+  const seconds = secondsProcess % 60;
   const date = new Date();
   date.setHours(hours, minutes, seconds, 0);
   return date;

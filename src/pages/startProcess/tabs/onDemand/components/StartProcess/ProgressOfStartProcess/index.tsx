@@ -34,7 +34,7 @@ const percentageElapsed = (
   const currentMoment = calculateSeconds(dateCurrent);
   const percentageResp = calculatePercentage(currentMoment, time, dateStart);
 
-  if (percentageResp >= 100 || isNaN(percentageResp)) {
+  if (percentageResp >= 100) {
     return 100;
   }
   return percentageResp;
@@ -45,13 +45,13 @@ const ProgressOfStartProcessOnDemand = (
 ) => {
   const { id,  dateStart } = props;
   const [percentage, setPercentage] = useState(0);
-  const [processTime, setProcessTime] = useState<string>("");
+  const [processTime, setProcessTime] = useState<number | undefined>();
+  const [time, setTime] = useState<Date | undefined>();
 
   const validateTimeToCompleteProcess = async (progressControlId: string) => {
     try {
       const newTime = await timeToCompleteProcess(progressControlId);
-      setProcessTime(newTime.duration);
-      processTime
+      setProcessTime(newTime.secondsTime);
     } catch (error) {
       console.info(error);
     }
@@ -69,13 +69,19 @@ const ProgressOfStartProcessOnDemand = (
     return () => {
       window.removeEventListener("beforeunload", handleBeforeUnload);
     };
-  }, []);
-
-  const time = stringToTime("00:00:50"); ///se coloca este tiempo para pruebas debido a que estan ajustando el endpoint que calcula el tiempo
-  const timeSeconds = calculateSeconds(time);
+  }, [id]);
 
   useEffect(() => {
-    const timer = setInterval(() => {
+    if (processTime) {
+      setTime(stringToTime(processTime));
+    }
+  }, [processTime]);
+
+  const timeSeconds = time ? calculateSeconds(time as Date) : 0;
+
+
+  useEffect(() => {
+     const timer = setInterval(() => {
       const newPercentage = percentageElapsed(
         timeSeconds,
         percentage,
@@ -90,13 +96,12 @@ const ProgressOfStartProcessOnDemand = (
       }
     }, 300);
     return () => clearInterval(timer);
-  }, [percentage]);
-
+  }, [percentage, timeSeconds, dateStart]);
 
 
   return (
     <>
-    {!timeSeconds || timeSeconds === 0 ? (
+    {!time ? (
       <ProgressCardWithBarIndetermined
         portalId="portal"
       />

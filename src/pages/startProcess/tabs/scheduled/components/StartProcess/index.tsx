@@ -5,6 +5,7 @@ import { Icon } from "@inubekit/icon";
 import { Stack } from "@inubekit/stack";
 import { Spinner } from "@inubekit/spinner";
 import { Text } from "@inubekit/text";
+import { useFlag } from "@inubekit/flag";
 
 import { StartProcessModal } from "@components/modals/StartProcessModal";
 import { IEntries } from "@components/modals/MoreDetailsModal/types";
@@ -14,7 +15,6 @@ import { formatDate, formatDateEndpoint } from "@utils/dates";
 import { IStartProcessResponse } from "@pages/startProcess/types";
 import { startProcess } from "@services/startProcess/patchStartProcess";
 import { routesComponent } from "@pages/startProcess/config/routesForms.config";
-import { useFlag } from "@inubekit/flag";
 
 interface IStartProcessScheduledProps {
   id: string;
@@ -75,7 +75,7 @@ const StartProcessScheduled = (props: IStartProcessScheduledProps) => {
         appearance: "danger",
         duration: 5000,
       })
-
+      window.location.reload();
       throw new Error(
         `Error al iniciar los procesos en formulario: ${(error as Error).message} `
       );
@@ -173,7 +173,7 @@ const StartProcessScheduled = (props: IStartProcessScheduledProps) => {
       {showProgressModal && (
         <Suspense fallback={null}>
           <ProgressOfStartProcess
-            id={"9fa42ff7-4de8-4c50-b103-4399089652e0"} /// Se deja temporalmente este id ya que en proximas tareas se ajustara debido a que realizaran cambios en el endpoint que calcula el tiempo que se demora el iniciar un proceso
+            id={String(id) || ""}
             handleShowProgressModal={setShowProgressModal}
             dateStart={new Date()}
           />

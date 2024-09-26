@@ -119,9 +119,7 @@ interface IListPeriods {
 }
 
 interface ITimeEstimedCompleteProcess {
-  totalPersons: number;
-  totalProcessedPersons: number;
-  duration: string;
+  secondsTime: number;
 }
 
 export type appearances = (typeof appearance)[number];

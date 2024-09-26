@@ -41,20 +41,20 @@ const percentageElapsed = (
 };
 
 const ProgressOfStartProcess = (props: ProgressOfStartProcessProps) => {
-  const { id, dateStart} =
-    props;
+  const { id, dateStart } = props;
   const [percentage, setPercentage] = useState(0);
-  const [processTime, setProcessTime] = useState<string>("");
+  const [processTime, setProcessTime] = useState<number | undefined>();
+  const [time, setTime] = useState<Date | undefined>();
 
   const validateTimeToCompleteProcess = async (progressControlId: string) => {
     try {
       const newTime = await timeToCompleteProcess(progressControlId);
-      setProcessTime(newTime.duration);
-      processTime
+      setProcessTime(newTime.secondsTime);
     } catch (error) {
       console.info(error);
     }
   };
+
   useEffect(() => {
     validateTimeToCompleteProcess(id);
     const handleBeforeUnload = (event: BeforeUnloadEvent) => {
@@ -68,10 +68,15 @@ const ProgressOfStartProcess = (props: ProgressOfStartProcessProps) => {
     return () => {
       window.removeEventListener("beforeunload", handleBeforeUnload);
     };
-  }, []);
+  }, [id]);
 
-  const time = stringToTime("00:00:00"); ///se coloca este tiempo para pruebas debido a que estan ajustando el endpoint que calcula el tiempo
-  const timeSeconds = calculateSeconds(time);
+  useEffect(() => {
+    if (processTime) {
+      setTime(stringToTime(processTime));
+    }
+  }, [processTime]);
+
+  const timeSeconds = time ? calculateSeconds(time as Date) : 0;
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -89,16 +94,12 @@ const ProgressOfStartProcess = (props: ProgressOfStartProcessProps) => {
       }
     }, 300);
     return () => clearInterval(timer);
-  }, [percentage]);
+  }, [percentage, timeSeconds, dateStart]);
 
-  
   return (
     <>
-      {!timeSeconds || timeSeconds === 0 ? (
-        <ProgressCardWithBarIndetermined
-          portalId="portal"
-
-        />
+      {!time ? (
+        <ProgressCardWithBarIndetermined portalId="portal" />
       ) : (
         <ProgressCardWithBarDetermined
           estime={timeSeconds}
