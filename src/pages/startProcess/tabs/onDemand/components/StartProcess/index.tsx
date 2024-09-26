@@ -39,7 +39,6 @@ const StartProcessOnDemand = (props: IStartProcessOnDemandProps) => {
     useState<IStartProcessResponse>();
   const [showProgressModal, setShowProgressModal] = useState(false);
   const [showStartProcessModal, setShowStartProcessModal] = useState(false);
-  const [error, setError] = useState(false);
 
   const handleStartProcess = async () => {
     const processData = {
@@ -66,8 +65,7 @@ const StartProcessOnDemand = (props: IStartProcessOnDemandProps) => {
       setResponseStartProcess(newProcess);
       
     } catch (error) {
-      setError(true);
-  
+      setShowProgressModal(false);
       addFlag({
         title: "Error al iniciar los procesos",
         description:
@@ -75,11 +73,9 @@ const StartProcessOnDemand = (props: IStartProcessOnDemandProps) => {
         appearance: "danger",
         duration: 5000,
       });
-      window.location.reload();
       throw new Error(
         `Error al iniciar los procesos en formulario: ${(error as Error).message} `
       );
-      
     }
   };
 
@@ -102,12 +98,6 @@ const StartProcessOnDemand = (props: IStartProcessOnDemandProps) => {
 
     }
   }, [responseStartProcess]);
-
-  useEffect(() => {
-    if (error) {
-      setShowProgressModal(false);
-    }
-  }, [error]);
 
   const handleToggleModal = () => {
     setShowStartProcessModal(!showStartProcessModal);
