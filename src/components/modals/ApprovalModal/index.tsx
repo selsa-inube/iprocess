@@ -1,5 +1,5 @@
 import { useFormik } from "formik";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import * as Yup from "yup";
 
 import { ApprovalModalUI } from "./interface";
@@ -7,12 +7,14 @@ import { IApprovalEntry } from "./types";
 
 const validationSchema = Yup.object({
   approval: Yup.boolean().required(""),
-  observation: Yup.string().required(""),
+  observation: Yup.string().required("Este campo no debe estar vacío"),
 });
 
 interface ApprovalModalProps {
   portalId: string;
+  setFieldsEntered: (show: IApprovalEntry) => void; 
   onCloseModal: () => void;
+  onConfirm: () => void;
 }
 
 const initialValues: IApprovalEntry = {
@@ -21,7 +23,7 @@ const initialValues: IApprovalEntry = {
 };
 
 const ApprovalModal = (props: ApprovalModalProps) => {
-  const { portalId, onCloseModal } = props;
+  const { portalId, setFieldsEntered, onCloseModal, onConfirm } = props;
   const [approvalChecked, setApprovalChecked] = useState(false);
   const [loading] = useState(false);
 
@@ -37,11 +39,19 @@ const ApprovalModal = (props: ApprovalModalProps) => {
     formik.setFieldValue("approval", e.target.checked);
   };
 
+  useEffect(() => {
+    if (formik.values) {
+      const dataForm = {
+        approval: formik.values.approval,
+        observation: formik.values.observation,
+      };
+      setFieldsEntered(dataForm);
+    }
+  }, [formik.values, setFieldsEntered]);
+
   const dataComparison =
     JSON.stringify(initialValues.observation) !==
       JSON.stringify(formik.values.observation);
-
-  const handleConfirm = () => {};
 
   return (
     <ApprovalModalUI
@@ -50,7 +60,7 @@ const ApprovalModal = (props: ApprovalModalProps) => {
       dataComparison={dataComparison}
       approvalChecked={approvalChecked}
       portalId={portalId}
-      handleConfirm={handleConfirm}
+      handleConfirm={onConfirm}
       onCloseModal={onCloseModal}
       handleChange={handleChange}
     />

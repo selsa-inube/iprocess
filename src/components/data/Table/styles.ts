@@ -86,6 +86,7 @@ const StyledThAction = styled.th<IStyledThAction>`
   background-color: ${({ theme }) =>
     theme?.palette?.neutral?.N0 || inube.palette.neutral.N0};
   padding: 12px 16px;
+  min-width: 70px;
 `;
 
 const StyledTd = styled.td<IStyledTd>`

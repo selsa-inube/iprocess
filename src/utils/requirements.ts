@@ -1,6 +1,7 @@
 const statusRequirement = [
   { status: "Meets", name: "Cumple", appearance: "success" },
   { status: "NotMeets", name: "No Cumple", appearance: "danger" },
+  { status: "NoMeets", name: "No Cumple", appearance: "danger" },
   { status: "NoEvaluated", name: "Sin Evaluar", appearance: "warning" },
   { status: "Undefined", name: "No Definido", appearance: "gray" },
 ];

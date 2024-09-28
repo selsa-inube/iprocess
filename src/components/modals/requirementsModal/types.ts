@@ -7,7 +7,7 @@ interface ITitlesRequirements {
 }
 
 interface IEntries {
-    id: string;
+    id?: string;
     [key: string]: React.ReactNode;
   }
 
