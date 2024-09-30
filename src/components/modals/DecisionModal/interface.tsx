@@ -101,7 +101,7 @@ const DecisionModalUI = (props: DecisionModalUIProps) => {
             variant="filled"
             onClick={onCloseModal}
           >
-            cancelar
+            Cancelar
           </Button>
           <Button
             spacing="wide"
