@@ -6,13 +6,14 @@ const mapConfirmInitiatedApiToEntity = (
   const processes: StartProcesses = {
     id: String(process.processControlId),
     description: String(process.processDescription),
+    date:new Date(String(process.executionDate)),
     dateAndHour: new Date(String(process.executionDate)),
     totalPerson: Number(process.totalPeople),
     timeUsedToInsertPeople: Number(process.timeUsedToInsertPeople),
     executionParameters: Object(process.executionParameters),
     generalError: String(process.generalError),
     referenceNumberRequirement: String(process.uniqueReferenceNumberRequirement),
-    plannedExecutionDate: String(process.plannedExecution),
+    plannedExecutionDate: String(process.plannedExecutionDate),
     executionOfTheProcess: String(process.confirmationForExecutionOfTheProcess),
     processControlId: String(process.processControlId),
   };

@@ -16,13 +16,14 @@ const confirmInitiatedNormailzeEntries = (
     ...entry,
     id: entry.id,
     process: entry.description,
-    date: entry.dateAndHour && formatDate(new Date(entry.dateAndHour)),
+    date: entry.date && formatDate(new Date(entry.date)),
     dateAndHour: entry.dateAndHour && formatDate(new Date(entry.dateAndHour), true),
     totalPerson: entry.totalPerson,
     status: <SkeletonLine width="80px" animated />,
     dailyDetail: entry.dailyDetail,
     actions: actions,
     dateWithoutFormat: entry.date,
+    plannedExecution: entry.plannedExecutionDate,
   }));
 
 
@@ -76,7 +77,7 @@ const labelsDetails = [
     titleName: "Error",
   },
   {
-    id: "date",
+    id: "plannedExecution",
     titleName: "Fecha planeada de ejecución",
   },
   {
