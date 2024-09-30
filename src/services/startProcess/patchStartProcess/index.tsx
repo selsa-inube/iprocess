@@ -27,7 +27,7 @@ const startProcess = async (process: IStartProcessesRequest): Promise<
 
     if (!res.ok) {
       throw {
-        message: "Error al descartar publicación",
+        message: "Error al iniciar proceso",
         status: res.status,
         data,
       };

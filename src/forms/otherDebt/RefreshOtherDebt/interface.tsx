@@ -106,9 +106,9 @@ const RefreshOtherDebtUI = (props: RefreshOtherDebtUIProps) => {
             </Fieldset>
           </StyledField>
 
-          {data?.plannedAutomaticExecution &&
-            data?.plannedAutomaticExecution ===
-              "planned automatic execution" && (
+          {data?.executionWay &&
+            data?.executionWay ===
+              "PlannedAutomaticExecution" && (
               <Datetimefield
                 withFullwidth={true}
                 id="plannedExecutionDate"
