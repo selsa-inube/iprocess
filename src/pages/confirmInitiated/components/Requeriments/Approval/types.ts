@@ -12,21 +12,21 @@ interface IListOfRequirementsByPackage {
 }
 
 interface ItraceabilityInRequirements {
-  traceabilityId: string;
   assignedStatus: string;
   justificationForChangeOfStatus: string;
   traceabilityDate: string;
-  requirementPackageId?: string;
   packageId?: string;
+  requirementPackageId?: string;
+  traceabilityId?: string;
   transactionOperation?: string;
 }
 
 interface IApprovalRequest {
   id: string;
-  justification: string;
   date: string;
   description: string;
   uniqueReferenceNumber: string;
+  justification?: string;
   listOfRequirementsByPackage?: IListOfRequirementsByPackage[];
   traceabilityInRequirements?: ItraceabilityInRequirements[];
 }

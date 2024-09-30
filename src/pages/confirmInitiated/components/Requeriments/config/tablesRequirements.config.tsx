@@ -9,17 +9,19 @@ import {
   normalizeEvalStatusRequirementByStatus,
   RequirementTypeNormalize,
 } from "@utils/requirements";
-import {
-  IlistOfRequirements,
-  IRefNumPackageRequirement,
-} from "@ptypes/packageRequeriment.types";
 import { appearances } from "@pages/confirmInitiated/types";
 import { MoreDetails } from "../MoreDetails";
 import { Approval } from "../Approval";
-import { IListOfRequirementsByPackage } from "../Approval/types";
+import {
+  IApprovalRequest,
+} from "../Approval/types";
+import {
+  IlistOfRequirements,
+  IRefNumPackageRequirement,
+} from "@src/types/packageRequeriment.types";
 
-const requirementsNormailzeEntries = (process: IlistOfRequirements[]) =>
-  process.map((entry) => ({
+const requirementsNormailzeEntries = (entry: IlistOfRequirements[]) =>
+  entry.map((entry) => ({
     ...entry,
     id: entry.requirementId,
     descriptionUse: entry.descriptionUse,
@@ -53,14 +55,32 @@ const moreDetailsNormailzeEntries = (requiriment: IlistOfRequirements) => {
   };
 };
 
-const approvalsNormailzeEntries = (requirement: IRefNumPackageRequirement) =>
- {return ({
+const approvalsListOfReqNormailzeEntries = (
+  requirement: IlistOfRequirements
+) => {
+   return {
+    packageId: requirement.id,
+    requirementId: requirement.requirementId,
+    requirementPackageId: requirement.requirementId,
+    requirementDate: requirement.requirementDate,
+    descriptionUse: requirement.descriptionUse,
+    descriptionUseForCustomer: requirement.descriptionUseForCustomer,
+    requirementType: requirement.typeOfRequirementToEvaluated,
+    requirementStatus: requirement.requirementStatus,
+    descriptionEvaluationRequirement:
+      requirement.descriptionEvaluationRequirement,
+    typeOfRequirementToEvaluated: requirement.typeOfRequirementToEvaluated,
+  }};
+
+
+const approvalsNormailzeEntries = (requirement: IApprovalRequest) => {
+  return {
     id: requirement.id,
     date: requirement.date,
     description: requirement.description,
     uniqueReferenceNumber: requirement.uniqueReferenceNumber,
-  })};
-
+  };
+};
 
 const dataTablesConfig = (data: IRefNumPackageRequirement) => {
   const dataTables: IData[] = [];
@@ -103,8 +123,10 @@ const dataTablesConfig = (data: IRefNumPackageRequirement) => {
               actionName: "Aprobaciones",
               content: (entry: IActions) => (
                 <Approval
-                  dataListOfRequirements={entry as IListOfRequirementsByPackage}
-                  dataPackage={approvalsNormailzeEntries(data)}
+                dataListOfRequirements={
+                  approvalsListOfReqNormailzeEntries(entry as IlistOfRequirements)
+                }
+                  dataPackage={approvalsNormailzeEntries(data as unknown as IApprovalRequest) }
                 />
               ),
             },
@@ -126,9 +148,11 @@ const dataTablesConfig = (data: IRefNumPackageRequirement) => {
               actionName: "",
               content: (entry: IActions) => (
                 <Approval
-                dataListOfRequirements={entry as IListOfRequirementsByPackage}
-                dataPackage={approvalsNormailzeEntries(data)}
-              />
+                dataListOfRequirements={
+                  approvalsListOfReqNormailzeEntries(entry as IlistOfRequirements)
+                }
+                  dataPackage={approvalsNormailzeEntries(data as unknown as IApprovalRequest)}
+                />
               ),
             },
           ],

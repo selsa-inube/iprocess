@@ -43,6 +43,7 @@ const ApprovalModalUI = (props: ApprovalModalUIProps) => {
   const isMobile = useMediaQuery("(max-width: 500px)");
 
   const node = document.getElementById(portalId);
+  dataComparison;
 
   if (!node) {
     throw new Error(
@@ -101,7 +102,7 @@ const ApprovalModalUI = (props: ApprovalModalUIProps) => {
                 appearance="primary"
                 variant="filled"
                 loading={loading}
-                disabled={!dataComparison || !formik.isValid}
+                disabled={true}//cambiar en una tarea posterior
                 onClick={handleConfirm}
               >
                 Confirmar

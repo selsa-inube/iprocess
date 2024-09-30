@@ -6,14 +6,14 @@ import { useFlag } from "@inubekit/flag";
 import { approvalRequirement } from "@services/confirmInitiated/patchApproval";
 import { ApprovalModal } from "@components/modals/ApprovalModal";
 import { IApprovalEntry } from "@components/modals/ApprovalModal/types";
-import { IRefNumPackageRequirement } from "@ptypes/packageRequeriment.types";
 import { ProgressCardWithBarIndetermined } from "@components/feedback/ProgressCardWithBarIndetermined";
 import { AppContext } from "@context/AppContext";
-import { IApprovalResponse, IListOfRequirementsByPackage } from "./types";
+import { IApprovalRequest, IApprovalResponse, IListOfRequirementsByPackage} from "./types";
+
 
 interface ApprovalProps {
   dataListOfRequirements: IListOfRequirementsByPackage;
-  dataPackage: IRefNumPackageRequirement;
+  dataPackage: IApprovalRequest;
 }
 
 const Approval = (props: ApprovalProps) => {
@@ -26,7 +26,7 @@ const Approval = (props: ApprovalProps) => {
   const { addFlag } = useFlag();
 
   const handleApproval = async () => {
-    const justification = `Actualizado por el usuario ${user.username} del gestor de procesos INUBE -${fieldsEntered?.observation}`;
+    const justification = `Actualizado por el usuario ${user.username} del gestor de procesos INUBE`;
 
     const dataApproval = {
       id: dataPackage?.id,
@@ -35,7 +35,15 @@ const Approval = (props: ApprovalProps) => {
       description: dataPackage?.description,
       uniqueReferenceNumber: dataPackage?.uniqueReferenceNumber,
       listOfRequirementsByPackage: [dataListOfRequirements],
-      //traceabilityInRequirements: {},///////////////////revisar
+      traceabilityInRequirements: [
+        {
+          assignedStatus: "", //cambiar en una tarea posterior
+          justificationForChangeOfStatus: fieldsEntered?.observation || "",
+          traceabilityDate: new Date().toISOString(),
+          packageId: dataPackage?.id,
+          transactionOperation: "Insert"
+        }
+      ],
     };
     try {
       setShowModal(!showModal);
@@ -45,20 +53,20 @@ const Approval = (props: ApprovalProps) => {
     } catch (error) {
       setShowProgressModal(false);
       addFlag({
-        title: "Error al iniciar los procesos",
+        title: "Error al aprobar o rechazar el requerimiento",
         description:
-          "No fue posible iniciar los procesos, por favor intenta más tarde",
+          "No fue posible aprobar o rechazar el requerimiento, por favor intenta más tarde",
         appearance: "danger",
         duration: 5000,
       });
       throw new Error(
-        `Error al aprobar en el requerimiento: ${(error as Error).message} `
+        `Error al aprobar o rechazar en el requerimiento: ${(error as Error).message} `
       );
     }
   };
 
   useEffect(() => {
-    if(responseApproval){///////////////////revisar
+    if(responseApproval){
       setShowProgressModal(false);
     }
   }, [responseApproval]);
