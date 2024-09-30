@@ -58,7 +58,7 @@ const mapStartProcessScheduled = (entry: StartProcesses) => {
   const formatDescriptionSuggested = 
     `${entry.description} Del mes de ${entry.month} del año ${entry.year}, fecha estimada de ejecución es ${entry.date}`;
   return {
-    id: entry.description,
+    id: entry.id,
     descriptionSuggested: formatDescriptionSuggested,
     publicCode: entry.publicCode,
     date: entry.dateWithoutFormat,

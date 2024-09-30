@@ -46,9 +46,9 @@ const ProgressOfStartProcess = (props: ProgressOfStartProcessProps) => {
   const [processTime, setProcessTime] = useState<number | undefined>();
   const [time, setTime] = useState<Date | undefined>();
 
-  const validateTimeToCompleteProcess = async (progressControlId: string) => {
+  const validateTimeToCompleteProcess = async (progressCatalogId: string) => {
     try {
-      const newTime = await timeToCompleteProcess(progressControlId);
+      const newTime = await timeToCompleteProcess(progressCatalogId);
       setProcessTime(newTime.secondsTime);
     } catch (error) {
       console.info(error);
