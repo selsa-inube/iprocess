@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 
 import { IStartProcessEntry, IEntries, IFieldsEntered, IEnumeratorsProcessCoverage } from "@forms/types";
 import { EnumProcessCoverageData } from "@services/enumerators/getEnumeratorsProcessCoverage";
+import { comparisonDataForms, validateExecutionWay } from "@forms/utils";
 import { RefreshCreditRequestUI } from "./interface";
 
 const validationSchema = Yup.object({
@@ -64,7 +65,7 @@ const handleChange = (name: string, value: string) => {
 useEffect(() => {
   if (
     data?.executionWay &&
-    data?.executionWay === "PlannedAutomaticExecution"
+    validateExecutionWay(data?.executionWay as string)
   ) {
     setDynamicValidationSchema(
       validationSchema.shape({
@@ -89,13 +90,7 @@ useEffect(() => {
   }
 }, [formik.values, setFieldsEntered]);
 
-const comparisonData = Boolean(
-  (data?.executionWay === "PlannedAutomaticExecution" &&
-    formik.values.typeRefresh !== initialValues.typeRefresh &&
-    formik.values.plannedExecutionDate !==
-      initialValues.plannedExecutionDate) ||
-    formik.values.typeRefresh !== initialValues.typeRefresh
-);
+const comparisonData = comparisonDataForms(data?.executionWay as string ,formik.values ,initialValues)
 
 return (
   <RefreshCreditRequestUI

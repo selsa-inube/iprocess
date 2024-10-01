@@ -12,7 +12,10 @@ import { IEntries, IEnumeratorsProcessCoverage } from "@forms/types";
 import { Datetimefield } from "@design/inputs/Datetimefield";
 import { tokens } from "@design/tokens";
 import { mediaQueryMobile } from "@config/environment";
+import { getFieldState, validateExecutionWay } from "@forms/utils";
+import { ComponentAppearance } from "@ptypes/aparences.types";
 import { StyledField, StyledTextarea } from "./styles";
+
 
 interface RefreshSavingCommitmentUIProps {
   data: IEntries;
@@ -32,10 +35,6 @@ const RefreshSavingCommitmentUI = (props: RefreshSavingCommitmentUIProps) => {
     onChange,
     onStartProcess,
   } = props;
-
-  const getFieldState = (formik: FormikValues, fieldName: string) => {
-    if (formik.errors[fieldName]) return "invalid";
-  };
 
   const isMobile = useMediaQuery(mediaQueryMobile);
 
@@ -107,8 +106,7 @@ const RefreshSavingCommitmentUI = (props: RefreshSavingCommitmentUIProps) => {
           </StyledField>
 
           {data?.executionWay &&
-            data?.executionWay ===
-              "PlannedAutomaticExecution" && (
+            validateExecutionWay(data?.executionWay as string) && (
               <Datetimefield
                 withFullwidth={true}
                 id="plannedExecutionDate"
@@ -131,7 +129,7 @@ const RefreshSavingCommitmentUI = (props: RefreshSavingCommitmentUIProps) => {
           <Stack gap={tokens.spacing.s100} justifyContent="flex-end">
             <Button
               spacing="wide"
-              appearance="primary"
+              appearance={ComponentAppearance.PRIMARY}
               variant="filled"
               onClick={onStartProcess}
               type="submit"

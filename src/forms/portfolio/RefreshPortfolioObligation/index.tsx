@@ -10,6 +10,7 @@ import {
 } from "@forms/types";
 import { EnumProcessCoverageData } from "@services/enumerators/getEnumeratorsProcessCoverage";
 import { RefreshPortfolioObligationUI } from "./interface";
+import { comparisonDataForms, validateExecutionWay } from "@forms/utils";
 
 const validationSchema = Yup.object({
   typeRefresh: Yup.string().required("Este campo no puede estar vacío"),
@@ -71,7 +72,7 @@ const RefreshPortfolioObligation = (props: RefreshPortfolioObligationProps) => {
   useEffect(() => {
     if (
       data?.executionWay &&
-      data?.executionWay === "PlannedAutomaticExecution"
+      validateExecutionWay(data?.executionWay as string)
     ) {
       setDynamicValidationSchema(
         validationSchema.shape({
@@ -96,13 +97,7 @@ const RefreshPortfolioObligation = (props: RefreshPortfolioObligationProps) => {
     }
   }, [formik.values, setFieldsEntered]);
 
-  const comparisonData = Boolean(
-    (data?.executionWay === "PlannedAutomaticExecution" &&
-      formik.values.typeRefresh !== initialValues.typeRefresh &&
-      formik.values.plannedExecutionDate !==
-        initialValues.plannedExecutionDate) ||
-      formik.values.typeRefresh !== initialValues.typeRefresh
-  );
+  const comparisonData = comparisonDataForms(data?.executionWay as string ,formik.values ,initialValues)
 
   return (
     <RefreshPortfolioObligationUI
