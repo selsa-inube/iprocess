@@ -11,14 +11,15 @@ interface CardProcessGroupProps {
   descriptionTooltip: string;
   entries: IProcess[];
   filter: string;
-  month: string;
+ 
   optionCurrent:
     | "start process"
     | "confirm initiated"
     | "validate process"
     | "finished"
     | undefined;
-  year: string;
+    month?: string;
+  year?: string;
   pathDetailByDay?: string;
 }
 

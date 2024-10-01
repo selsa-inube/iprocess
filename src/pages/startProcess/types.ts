@@ -20,8 +20,8 @@ interface FilterProcessesForDate {
 
 interface StartProcesses {
   id: string;
-  publicCode: string;
   description: string;
+  publicCode?: string;
   date?: Date | string | undefined;
   dateAndHour?: Date;
   aplication?: string;
@@ -36,6 +36,7 @@ interface StartProcesses {
   dateWithoutFormat?: string;
   estimatedExecutionDate?: string;
   url?: string;
+  totalPerson?: number;
 }
 
 interface StartProcessesFilter {

@@ -6,6 +6,7 @@ import {
   createRoutesFromElements,
 } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
+import { FlagProvider } from "@inubekit/flag";
 
 import { useAuth0 } from "@auth0/auth0-react";
 import { ErrorPage } from "@components/layout/ErrorPage";
@@ -69,9 +70,11 @@ function App() {
     <>
     <GlobalStyles />
     <ThemeProvider theme={theme}> 
+    <FlagProvider>
     <AppContextProvider>
       <RouterProvider router={router} />
     </AppContextProvider>
+    </FlagProvider>
     </ThemeProvider>
     </>
   );

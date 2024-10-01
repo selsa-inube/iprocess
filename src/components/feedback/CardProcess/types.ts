@@ -1,6 +1,6 @@
 interface IProcess {
   id: string;
-  publicCode: string;
+  publicCode?: string;
   description: string;
   date?:  Date | string | undefined;
   actions?: IActions[];
@@ -8,7 +8,7 @@ interface IProcess {
   periodicity?: string; 
   status?: React.ReactNode;
   statusText?: string;
-  totalPersons?: number;
+  totalPerson?: number;
   totalPersonsCoversProcess?: number;
   totalPersonsProsecuted?: number;
 }
