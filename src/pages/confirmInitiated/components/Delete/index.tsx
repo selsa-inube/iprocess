@@ -69,7 +69,7 @@ const DeleteProcessConfirmInitiated = (
         <DecisionModal
           actionText="Eliminar"
           portalId="portal"
-          appearance="danger"
+          appearance= {ComponentAppearance.DANGER}
           description="¿Confirma que desea Eliminar el Proceso?"
           isLoading={false}
           justificationOfDecision
