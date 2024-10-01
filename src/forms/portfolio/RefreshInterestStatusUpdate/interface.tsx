@@ -74,8 +74,8 @@ const RefreshInterestStatusUpdateUI = (props: RefreshInterestStatusUpdateUIProps
           </Fieldset>
         </StyledField>
 
-        {data?.plannedAutomaticExecution &&
-          data?.plannedAutomaticExecution === "planned automatic execution" && (
+        {data?.executionWay &&
+          data?.executionWay === "PlannedAutomaticExecution" && (
             <Datetimefield
               withFullwidth={true}
               id="plannedExecutionDate"
@@ -102,8 +102,8 @@ const RefreshInterestStatusUpdateUI = (props: RefreshInterestStatusUpdateUIProps
             variant="filled"
             type="submit"
             onClick={onStartProcess}
-            disabled={data?.plannedAutomaticExecution &&
-              data?.plannedAutomaticExecution === "planned automatic execution" ? !comparisonData : false }
+            disabled={data?.executionWay &&
+              data?.executionWay === "PlannedAutomaticExecution" ? !comparisonData : false }
           >
             Iniciar proceso
           </Button>

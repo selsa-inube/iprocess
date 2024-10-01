@@ -35,6 +35,7 @@ const scheduledNormailzeEntries = (
     month: month,
     year: year,
     dateWithoutFormat: entry.date,
+    executionWay: entry.executionWay,
   }));
 
 const mapScheduled = (entry: StartProcesses) => {
@@ -57,13 +58,14 @@ const mapStartProcessScheduled = (entry: StartProcesses) => {
   const formatDescriptionSuggested = 
     `${entry.description} Del mes de ${entry.month} del año ${entry.year}, fecha estimada de ejecución es ${entry.date}`;
   return {
-    id: entry.description,
+    id: entry.id,
     descriptionSuggested: formatDescriptionSuggested,
     publicCode: entry.publicCode,
     date: entry.dateWithoutFormat,
     month: entry.month,
     year: entry.year,
     url: entry.url,
+    executionWay: entry.executionWay
   };
 };
 

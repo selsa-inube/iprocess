@@ -11,21 +11,22 @@ import { StyledContainer, StyledModal } from "./styles";
 import { ProgressCardWithBarType } from "../ProgressCardWithBarDetermined/types";
 import { tokens } from "@design/tokens";
 
-
 interface ProgressCardWithBarIndeterminedProps {
   portalId: string;
-  appearance?:ProgressCardWithBarType;
+  appearance?: ProgressCardWithBarType;
   withButtonClose?: boolean;
-  withDisabledButton?: boolean;
+  isProcessCompleted?: boolean;
   onCancel?: () => void;
 }
 
-const ProgressCardWithBarIndetermined = (props: ProgressCardWithBarIndeterminedProps) => {
+const ProgressCardWithBarIndetermined = (
+  props: ProgressCardWithBarIndeterminedProps
+) => {
   const {
     portalId,
     appearance = "primary",
     withButtonClose,
-    withDisabledButton,
+    isProcessCompleted,
     onCancel,
   } = props;
 
@@ -65,7 +66,7 @@ const ProgressCardWithBarIndetermined = (props: ProgressCardWithBarIndeterminedP
                   appearance="primary"
                   variant="filled"
                   onClick={onCancel}
-                  disabled={withDisabledButton}
+                  disabled={!isProcessCompleted}
                 >
                   Cerrar
                 </Button>

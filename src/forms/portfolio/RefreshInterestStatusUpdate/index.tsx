@@ -37,8 +37,8 @@ const formik = useFormik({
 
 useEffect(() => {
   if (
-    data?.plannedAutomaticExecution &&
-    data?.plannedAutomaticExecution === "planned automatic execution"
+    data?.executionWay &&
+    data?.executionWay === "PlannedAutomaticExecution"
   ) {
     setDynamicValidationSchema(
       validationSchema.shape({
@@ -48,7 +48,7 @@ useEffect(() => {
       })
     );
   }
-}, [data?.plannedAutomaticExecution, setDynamicValidationSchema]);
+}, [data?.executionWay, setDynamicValidationSchema]);
 
 useEffect(() => {
   if (formik.values) {
