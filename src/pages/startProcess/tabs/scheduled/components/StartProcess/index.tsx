@@ -23,7 +23,7 @@ interface IStartProcessScheduledProps {
 }
 
 const StartProcessScheduled = (props: IStartProcessScheduledProps) => {
-  const { dataModal, id } = props;
+  const { dataModal, id, urlParams } = props;
 
   const navigate = useNavigate();
 
