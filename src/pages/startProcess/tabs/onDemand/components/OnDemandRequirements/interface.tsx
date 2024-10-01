@@ -46,12 +46,16 @@ const OnDemandRequirementsUI = (props: OnDemandRequirementsUIProps) => {
     handleToggleModal,
   } = props;
 
+  const validateStatus =
+    normalizeStatusRequirement?.name === "Sin Evaluar" ||
+    normalizeStatusRequirement?.name === "No Cumple";
+
   return (
     <>
       {isVisibleStatusReq ? (
         <SkeletonLine width="80px" animated />
       ) : (
-        <StyledContainer onClick={handleToggleModal}>
+        <StyledContainer onClick={handleToggleModal} $withCursor={validateStatus}>
           {statusRequirement && statusRequirement?.generalStatus?.length > 0 ? (
             <Stack gap={tokens.spacing.s050} direction="row">
               <Stack height="80%">
@@ -64,8 +68,7 @@ const OnDemandRequirementsUI = (props: OnDemandRequirementsUIProps) => {
                   weight="strong"
                 />
               </Stack>
-              {(normalizeStatusRequirement?.name === "Sin Evaluar" ||
-                normalizeStatusRequirement?.name === "No Cumple") && (
+              {validateStatus && (
                 <Tooltip
                   description={
                     "Puede hacer clic en el botón para prevalidar los requisitos"
@@ -84,8 +87,7 @@ const OnDemandRequirementsUI = (props: OnDemandRequirementsUIProps) => {
         </StyledContainer>
       )}
 
-      {(normalizeStatusRequirement?.name === "Sin Evaluar" ||
-        normalizeStatusRequirement?.name === "No Cumple") &&
+      {validateStatus &&
         showModal &&
         id && (
           <RequirementsModal

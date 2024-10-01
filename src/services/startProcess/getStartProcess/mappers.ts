@@ -14,6 +14,7 @@ const mapStartProcessApiToEntity = (
     dateWithoutFormat: String(process.estimatedExecutionDate),
     url: String(process.urlExecutionParameters),
     dailyDetail: Object(process.dailyDetail),
+    executionWay: String(process.executionWay),
   };
   return processes;
 };

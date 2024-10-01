@@ -18,6 +18,8 @@ interface ProgressCardWithBarDeterminedProps {
   estime: number;
   progress: number;
   portalId: string;
+  isAnimated: boolean;
+  isProcessCompleted?: boolean;
   withButtonClose?: boolean;
   heightProgressBar?: string;
   appearance?: ProgressCardWithBarType;
@@ -29,11 +31,13 @@ const ProgressCardWithBarDetermined = (
 ) => {
   const {
     withButtonClose = false,
+    isProcessCompleted = false,
     estime,
     progress,
     portalId,
     heightProgressBar = tokens.spacing.s200,
     appearance,
+    isAnimated,
     onCancel,
   } = props;
 
@@ -57,7 +61,6 @@ const ProgressCardWithBarDetermined = (
                 Este proceso tomará algo de tiempo, por favor espere hasta que
                 se complete.
               </Text>
-
               <Stack direction="column" alignItems="center">
                 <Text type="body" size="medium" appearance="dark">
                   Tiempo Estimado: {estime} Segundos
@@ -77,7 +80,7 @@ const ProgressCardWithBarDetermined = (
                   <ProgressBar
                     progress={progress}
                     height={heightProgressBar}
-                    animated
+                    animated={isAnimated}
                     appearance={appearance}
                   />
                 </StyledContainerProgressBar>
@@ -91,7 +94,7 @@ const ProgressCardWithBarDetermined = (
                   appearance="primary"
                   variant="filled"
                   onClick={onCancel}
-                  disabled={progress !== 100}
+                  disabled={isProcessCompleted}
                 >
                   Cerrar
                 </Button>
