@@ -7,6 +7,7 @@ import { removeProcessConfirmInitiated } from "@services/confirmInitiated/getCon
 import { tokens } from "@design/tokens";
 import { StartProcesses } from "@pages/startProcess/types";
 import { DecisionModal } from "@components/modals/DecisionModal";
+import { ComponentAppearance } from "@ptypes/aparences.types";
 
 interface DeleteProcessConfirmInitiatedProps {
   data: StartProcesses;
@@ -33,7 +34,7 @@ const DeleteProcessConfirmInitiated = (
         title: "Eliminación Exitosa",
         description:
           "Se elimino el proceso con éxito",
-        appearance: "success",
+        appearance: ComponentAppearance.SUCCESS,
         duration: 5000,
       });
     } catch (error) {
@@ -42,7 +43,7 @@ const DeleteProcessConfirmInitiated = (
         title: "Error al eliminar el proceso",
         description:
           "No fue posible eliminar el proceso, por favor intenta más tarde",
-        appearance: "danger",
+        appearance: ComponentAppearance.DANGER,
         duration: 5000,
       });
       throw new Error(
