@@ -12,6 +12,7 @@ import { IEntries, IEnumeratorsProcessCoverage } from "@forms/types";
 import { Datetimefield } from "@design/inputs/Datetimefield";
 import { tokens } from "@design/tokens";
 import { mediaQueryMobile } from "@config/environment";
+import { getFieldState } from "@forms/utils";
 import { StyledField, StyledTextarea } from "./styles";
 
 interface RefreshCardUIProps {
@@ -32,10 +33,6 @@ const RefreshCardUI = (props: RefreshCardUIProps) => {
     onChange,
     onStartProcess,
   } = props;
-
-  const getFieldState = (formik: FormikValues, fieldName: string) => {
-    if (formik.errors[fieldName]) return "invalid";
-  };
 
   const isMobile = useMediaQuery(mediaQueryMobile);
 
