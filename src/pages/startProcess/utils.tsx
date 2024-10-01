@@ -1,21 +1,23 @@
 import { Button } from "@inubekit/button";
 
 import { StyledContainerButton } from "./styles";
-import { Tag } from "@inubekit/tag";
 
+const stringToTime = (secondsProcess: number): Date => {
+  
+  const hours = Math.floor(secondsProcess / 3600);
+  const minutes = Math.floor((secondsProcess % 3600) / 60);
+  const seconds = secondsProcess % 60;
+  const date = new Date();
+  date.setHours(hours, minutes, seconds, 0);
+  return date;
+};
 
-const formatStatus = (status: string) => {
-  if (status === "No cumple" ) {
-    return <Tag label="Error" appearance="danger" weight="strong" />;
-  }
-
-  if (status === "Cumple") {
-    return <Tag label="Sin Procesar" appearance="success" weight="strong" />;
-  }
-
-  if (status === "Sin evaluar") {
-    return <Tag label="Sin Procesar" appearance="warning" weight="strong" />;
-  }
+const calculateSeconds = (dateProcess: Date) => {
+  return (
+    dateProcess.getHours() * 3600 +
+    dateProcess.getMinutes() * 60 +
+    dateProcess.getSeconds()
+  );
 };
 
 const requirementsData = () => {
@@ -56,4 +58,9 @@ const requirementsButton = () => {
   );
 };
 
-export { requirementsData, requirementsButton, formatStatus };
+export {
+  stringToTime,
+  calculateSeconds,
+  requirementsData,
+  requirementsButton,
+};

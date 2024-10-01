@@ -20,6 +20,7 @@ import { FinishedRoutes } from "./routes/finished";
 import { StartProcessRoutes } from "./routes/startProcess";
 import { ValidateProgressRoutes } from "./routes/validateProgress";
 import { theme } from "./config/theme";
+import { FlagProvider } from "@inubekit/flag";
 
 
 function LogOut() {

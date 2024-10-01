@@ -1,8 +1,11 @@
-import { Suspense, useState } from "react";
+import { lazy, Suspense, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { MdLaunch } from "react-icons/md";
 import { Icon } from "@inubekit/icon";
 import { Stack } from "@inubekit/stack";
 import { Spinner } from "@inubekit/spinner";
+import { Text } from "@inubekit/text";
+import { useFlag } from "@inubekit/flag";
 
 import { StartProcessModal } from "@components/modals/StartProcessModal";
 import { IEntries } from "@components/modals/MoreDetailsModal/types";
@@ -12,7 +15,6 @@ import { formatDate, formatDateEndpoint } from "@utils/dates";
 import { startProcess } from "@services/startProcess/patchStartProcess";
 import { IStartProcessResponse } from "@pages/startProcess/types";
 import { routesComponent } from "@pages/startProcess/config/routesForms.config";
-import { Text } from "@inubekit/text";
 
 interface IStartProcessOnDemandProps {
   dataModal: IEntries;
@@ -22,11 +24,21 @@ interface IStartProcessOnDemandProps {
 const StartProcessOnDemand = (props: IStartProcessOnDemandProps) => {
   const { id, dataModal } = props;
   const [fieldsEntered, setFieldsEntered] = useState({} as IFieldsEntered);
+  const { addFlag } = useFlag();
+
+  const navigate = useNavigate();
+
+  const ProgressOfStartProcessOnDemand = lazy(
+    () =>
+      import(
+        "@pages/startProcess/tabs/onDemand/components/StartProcess/ProgressOfStartProcess"
+      )
+  );
 
   const [responseStartProcess, setResponseStartProcess] =
     useState<IStartProcessResponse>();
-
-  const [showModal, setShowModal] = useState(false);
+  const [showProgressModal, setShowProgressModal] = useState(false);
+  const [showStartProcessModal, setShowStartProcessModal] = useState(false);
 
   const handleStartProcess = async () => {
     const processData = {
@@ -47,19 +59,48 @@ const StartProcessOnDemand = (props: IStartProcessOnDemandProps) => {
     };
 
     try {
+      setShowStartProcessModal(!showStartProcessModal);
+      setShowProgressModal(true);
       const newProcess = await startProcess(processData);
       setResponseStartProcess(newProcess);
+      
     } catch (error) {
+      setShowProgressModal(false);
+      addFlag({
+        title: "Error al iniciar los procesos",
+        description:
+          "No fue posible iniciar los procesos, por favor intenta más tarde",
+        appearance: "danger",
+        duration: 5000,
+      });
       throw new Error(
         `Error al iniciar los procesos en formulario: ${(error as Error).message} `
       );
     }
   };
 
-  console.log(responseStartProcess); // el responseStartProcess se utilizara en la siguiente tarea de conectar la barra de progreso
+  useEffect(() => {
+    if (responseStartProcess?.processStatus.length) {
+      setShowProgressModal(false);
+
+      if (
+        responseStartProcess.processStatus === "StartedImmediately" ||
+        responseStartProcess.processStatus === "Programmed" ||
+        responseStartProcess.processStatus === "InAction"
+      )
+        navigate("/validate-progress");
+
+      if (responseStartProcess.processStatus === "Finished")
+        navigate("/finished");
+
+      if (responseStartProcess.processStatus === "Initiated" || responseStartProcess.processStatus === "PartiallyStarted")
+        navigate("/confirm-initiated");
+
+    }
+  }, [responseStartProcess]);
 
   const handleToggleModal = () => {
-    setShowModal(!showModal);
+    setShowStartProcessModal(!showStartProcessModal);
   };
 
   return (
@@ -72,9 +113,9 @@ const StartProcessOnDemand = (props: IStartProcessOnDemandProps) => {
         cursorHover
         spacing="narrow"
       />
-      {showModal && dataModal && (
+      {showStartProcessModal && dataModal && (
         <StartProcessModal portalId="portal" onCloseModal={handleToggleModal}>
-          { dataModal.url !== "" ? (
+          {dataModal.url !== "" ? (
             <>
               {routesComponent.map((comp, index) => {
                 if (comp.path === dataModal.url) {
@@ -100,8 +141,8 @@ const StartProcessOnDemand = (props: IStartProcessOnDemandProps) => {
                             new Date(dataModal.date as string),
                             true
                           ),
-                          plannedAutomaticExecution:
-                            dataModal?.plannedAutomaticExecution,
+                          executionWay:
+                            dataModal?.executionWay,
                         }}
                         onStartProcess={handleStartProcess}
                         setFieldsEntered={setFieldsEntered}
@@ -119,6 +160,15 @@ const StartProcessOnDemand = (props: IStartProcessOnDemandProps) => {
             </Stack>
           )}
         </StartProcessModal>
+      )}
+      {showProgressModal && (
+        <Suspense fallback={null}>
+          <ProgressOfStartProcessOnDemand
+            id={String(id) || ""}
+            handleShowProgressModal={setShowProgressModal}
+            dateStart={new Date()}
+          />
+        </Suspense>
       )}
     </>
   );

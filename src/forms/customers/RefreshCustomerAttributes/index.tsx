@@ -3,7 +3,12 @@ import * as Yup from "yup";
 import { useEffect, useState } from "react";
 
 import { EnumProcessCoverageData } from "@services/enumerators/getEnumeratorsProcessCoverage";
-import { IStartProcessEntry, IEntries, IFieldsEntered, IEnumeratorsProcessCoverage } from "@forms/types";
+import {
+  IStartProcessEntry,
+  IEntries,
+  IFieldsEntered,
+  IEnumeratorsProcessCoverage,
+} from "@forms/types";
 import { RefreshCustomerAttributesUI } from "./interface";
 
 const validationSchema = Yup.object({
@@ -30,21 +35,23 @@ const RefreshCustomerAttributes = (props: RefreshCustomerAttributesProps) => {
   const [dynamicValidationSchema, setDynamicValidationSchema] =
     useState(validationSchema);
 
-    const [optionsTypeRefresh, setOptionsTypeRefresh] = useState<IEnumeratorsProcessCoverage[]>([]);
+  const [optionsTypeRefresh, setOptionsTypeRefresh] = useState<
+    IEnumeratorsProcessCoverage[]
+  >([]);
 
-    const validateOptionsTypeRefresh = async () => {
-      try {
-        const newOptions = await EnumProcessCoverageData();
-  
-        setOptionsTypeRefresh(newOptions);
-      } catch (error) {
-        console.info(error);
-      } 
-    };
+  const validateOptionsTypeRefresh = async () => {
+    try {
+      const newOptions = await EnumProcessCoverageData();
 
-    useEffect(() => {
-      validateOptionsTypeRefresh();
-    }, []);
+      setOptionsTypeRefresh(newOptions);
+    } catch (error) {
+      console.info(error);
+    }
+  };
+
+  useEffect(() => {
+    validateOptionsTypeRefresh();
+  }, []);
 
   const formik = useFormik({
     initialValues,
@@ -54,7 +61,7 @@ const RefreshCustomerAttributes = (props: RefreshCustomerAttributesProps) => {
   });
 
   const handleChange = (name: string, value: string) => {
-    formik.setFieldValue(name, value).then(()=> {
+    formik.setFieldValue(name, value).then(() => {
       formik.validateForm().then((errors) => {
         formik.setErrors(errors);
       });
@@ -63,8 +70,8 @@ const RefreshCustomerAttributes = (props: RefreshCustomerAttributesProps) => {
 
   useEffect(() => {
     if (
-      data?.plannedAutomaticExecution &&
-      data?.plannedAutomaticExecution === "planned automatic execution"
+      data?.executionWay &&
+      data?.executionWay === "PlannedAutomaticExecution"
     ) {
       setDynamicValidationSchema(
         validationSchema.shape({
@@ -74,7 +81,7 @@ const RefreshCustomerAttributes = (props: RefreshCustomerAttributesProps) => {
         })
       );
     }
-  }, [data?.plannedAutomaticExecution, setDynamicValidationSchema]);
+  }, [data?.executionWay, setDynamicValidationSchema]);
 
   useEffect(() => {
     if (formik.values) {
@@ -90,13 +97,11 @@ const RefreshCustomerAttributes = (props: RefreshCustomerAttributesProps) => {
   }, [formik.values, setFieldsEntered]);
 
   const comparisonData = Boolean(
-    (data?.plannedAutomaticExecution &&
-      formik.values.plannedExecutionDate.length > 0 &&
+    (data?.executionWay === "PlannedAutomaticExecution" &&
       formik.values.typeRefresh !== initialValues.typeRefresh &&
       formik.values.plannedExecutionDate !==
         initialValues.plannedExecutionDate) ||
-      (!data?.plannedAutomaticExecution &&
-        formik.values.typeRefresh !== initialValues.typeRefresh)
+      formik.values.typeRefresh !== initialValues.typeRefresh
   );
 
   return (

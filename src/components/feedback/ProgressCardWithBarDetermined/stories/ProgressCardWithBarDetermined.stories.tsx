@@ -50,7 +50,7 @@ const meta: Meta<typeof ProgressCardWithBarDetermined> = {
   ],
 };
 
-const DynamicProgressCardWithBarDetermined = ({ children }: { children: React.ReactElement<{ progress: number }> }) => {
+const DynamicProgressCardWithBarDetermined = ({ children }: { children: React.ReactElement<{ progress: number, isProcessCompleted: boolean, isAnimated: boolean }> }) => {
   const [percentage, setPercentage] = useState(0);
 
   useEffect(() => {
@@ -70,6 +70,8 @@ const DynamicProgressCardWithBarDetermined = ({ children }: { children: React.Re
     <>
       {React.isValidElement(children) && React.cloneElement(children, {
         progress: percentage,
+        isProcessCompleted: percentage !== 100,
+        isAnimated: percentage !== 100,
       })}
     </>
   );
@@ -101,6 +103,7 @@ Default.args = {
   portalId: "portal",
   heightProgressBar: tokens.spacing.s200,
   appearance: "primary",
+  
 };
 
 Default.argTypes ={

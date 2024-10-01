@@ -13,7 +13,7 @@ const onDemandNormailzeEntries = (
 ) =>
   process.map((entry) => ({
     ...entry,
-    id: `${entry.id}${entry.date}`,
+    id: `${entry.id}`,
     publicCode: entry.publicCode,
     process: entry.description,
     date: formatDate(new Date()),
@@ -47,6 +47,7 @@ const mapOnDemand = (entry: StartProcesses) => {
     month: entry.month,
     year: entry.year,
     statusText: entry.statusText,
+    executionWay: entry.executionWay,
   };
 };
 
@@ -54,7 +55,7 @@ const mapStartProcessOnDemand = (entry: StartProcesses) => {
   const formatDescriptionSuggested = 
       `${entry.description} Del mes de ${entry.month} del año ${entry.year}, fecha estimada de ejecución es ${entry.date}`;
   return {
-    id: entry.description,
+    id: entry.id,
     descriptionSuggested: formatDescriptionSuggested,
     publicCode: entry.publicCode,
     date: entry.dateWithoutFormat
@@ -63,6 +64,7 @@ const mapStartProcessOnDemand = (entry: StartProcesses) => {
     month: entry.month,
     year: entry.year,
     url: entry.url,
+    executionWay: entry.executionWay,
   };
 };
 

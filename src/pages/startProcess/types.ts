@@ -32,7 +32,7 @@ interface StartProcesses {
   actions?: IActions[];
   month?: number;
   year?: number;
-  plannedAutomaticExecution?: string;
+  executionWay?: string;
   dateWithoutFormat?: string;
   estimatedExecutionDate?: string;
   url?: string;
@@ -120,6 +120,10 @@ interface IListPeriods {
   year: number;
 }
 
+interface ITimeEstimedCompleteProcess {
+  secondsTime: number;
+}
+
 export type appearances = (typeof appearance)[number];
 
 export type {
@@ -134,4 +138,5 @@ export type {
   IData,
   IDailyDetail,
   IListPeriods,
+  ITimeEstimedCompleteProcess
 };
