@@ -13,7 +13,7 @@ const StyledContainer = styled.div`
   }
 
   p {
-    word-break: break-all;
+    word-break: keep-all;
     white-space: normal;
   }
 `;
