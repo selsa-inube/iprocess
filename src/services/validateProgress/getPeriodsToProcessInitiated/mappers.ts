@@ -3,12 +3,12 @@ import { IListPeriods } from "@pages/startProcess/types";
 const mapListPeriodToProcessInitiatedApiToEntity = (
   period: Record<string, string | number | object>
 ): IListPeriods => {
-  const periodStartProcess: IListPeriods = {
+  const periodToProcessInitiated: IListPeriods = {
     numberMonth: Number(period.numberMonth),
     month: String(period.month),
     year: Number(period.year),
   };
-  return periodStartProcess;
+  return periodToProcessInitiated;
 };
 
 const mapListPeriodToProcessInitiatedApiToEntities = (
