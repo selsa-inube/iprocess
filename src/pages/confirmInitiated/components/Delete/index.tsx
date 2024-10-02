@@ -19,9 +19,11 @@ const DeleteProcessConfirmInitiated = (
   const { data } = props;
   const [fieldEntered, setFieldEntered] = useState("");
   const [showModal, setShowModal] = useState(false);
+  const [loading, setLoading] = useState(false);
   const { addFlag } = useFlag();
 
   const handleDeleteConfirmInitiated = async () => {
+    setLoading(true);
     const dataRemove = {
       processControlId: data.id,
       processDescription: data.description,
@@ -49,6 +51,8 @@ const DeleteProcessConfirmInitiated = (
       throw new Error(
         `Error al eliminar el proceso: ${(error as Error).message} `
       );
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -69,9 +73,9 @@ const DeleteProcessConfirmInitiated = (
         <DecisionModal
           actionText="Eliminar"
           portalId="portal"
-          appearance= {ComponentAppearance.DANGER}
+          appearance= {ComponentAppearance.PRIMARY}
           description="¿Confirma que desea Eliminar el Proceso?"
-          isLoading={false}
+          isLoading={loading}
           justificationOfDecision
           onCloseModal={handleToggleModal}
           onClick={handleDeleteConfirmInitiated}
