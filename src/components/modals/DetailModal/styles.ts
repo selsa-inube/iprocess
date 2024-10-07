@@ -28,10 +28,12 @@ const StyledModal = styled.div<IStyledModal>`
   width: ${(props) => (props.$smallScreen ? "280px" : "450px")};
   min-height: ${(props) => (props.$smallScreen ? "100vh" : "auto")};
   height: auto;
-  border-radius: ${(props) => (props.$smallScreen ? `${tokens.spacing.s0}` : `${tokens.spacing.s100}`)};
+  border-radius: ${(props) =>
+    props.$smallScreen ? `${tokens.spacing.s0}` : `${tokens.spacing.s100}`};
 
   & > div {
-    padding: ${(props) => (props.$smallScreen ? `${tokens.spacing.s200}` : `${tokens.spacing.s300}`)};
+    padding: ${(props) =>
+      props.$smallScreen ? `${tokens.spacing.s200}` : `${tokens.spacing.s300}`};
   }
 `;
 
@@ -41,10 +43,20 @@ const StyledModalFields = styled.div<IStyledModal>`
   flex-direction: column;
   hyphens: auto;
 
-  div {
-    min-height: ${tokens.spacing.s0} !important;
-    margin-bottom: -8px !important;
+  & > fieldset {
+    padding: ${tokens.spacing.s150};
   }
+
+  & > fieldset div:nth-child(1) {
+    padding: ${tokens.spacing.s100} ${tokens.spacing.s0};
+    background-color: red;
+  }
+ 
+  & > div {
+    min-height: ${tokens.spacing.s0} !important;
+    margin-bottom: 8px !important;
+  }
+  
 
   @media screen and (${mediaQueryMobile}) {
     div {
@@ -59,4 +71,9 @@ const StyledContainerTables = styled.div`
   border-radius: ${tokens.spacing.s100};
 `;
 
-export { StyledContainer, StyledModal, StyledModalFields, StyledContainerTables };
+export {
+  StyledContainer,
+  StyledModal,
+  StyledModalFields,
+  StyledContainerTables,
+};
