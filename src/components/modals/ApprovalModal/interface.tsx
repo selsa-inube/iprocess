@@ -12,6 +12,7 @@ import { Textarea } from "@inubekit/textarea";
 import { Toggle } from "@inubekit/toggle";
 
 import { StyledContainer, StyledModal, StyledTextarea } from "./styles";
+import { Label } from "@inubekit/label";
 
 interface ApprovalModalUIProps {
   dataComparison: boolean;
@@ -67,10 +68,11 @@ const ApprovalModalUI = (props: ApprovalModalUIProps) => {
 
               <Divider dashed />
 
+              <Label htmlFor="approval" size="medium" />
+
               <Toggle
                 checked={approvalChecked}
                 id="approval"
-                label="Aprobar"
                 margin="0px"
                 name="approval"
                 onChange={handleChange}

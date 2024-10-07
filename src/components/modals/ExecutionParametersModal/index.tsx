@@ -79,7 +79,7 @@ const ExecutionParametersModal = (props: ExecutionParametersModalProps) => {
                       >
                         {field.titleName}
                       </Label>
-                      <Fieldset legend="" spacing="compact">
+                      <Fieldset legend="" spacing="compact" type="title" size="medium">
                         <Text type="body" size="medium">
                           {String(data[field.id])}
                         </Text>
