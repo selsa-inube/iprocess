@@ -90,7 +90,7 @@ const labelsDetails = [
   },
   {
     id: "timeUsedToInsertPeople",
-    titleName: "Tiempo (en minutos) que tardó la deducción de las personas a procesar",
+    titleName: "Tiempo (en segundos) que tardó la deducción de las personas a procesar",
   },
 ];
 
