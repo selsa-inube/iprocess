@@ -61,7 +61,7 @@ const MoreDetailsModal = (props: MoreDetailsModalProps) => {
                       >
                         {field.titleName}
                       </Label>
-                      <Fieldset legend="" spacing="compact">
+                      <Fieldset legend="" spacing="compact" type="title" size="medium">
                         <Text>{String(data[field.id])}</Text>
                       </Fieldset>
                     </StyledModalFields>

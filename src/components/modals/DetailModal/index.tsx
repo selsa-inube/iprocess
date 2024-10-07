@@ -82,12 +82,12 @@ const DetailModal = (props: DetailModalProps) => {
                     <StyledModalFields key={id} $smallScreen={isMobile}>
                       <Label
                         htmlFor={field.id}
-                        size="small"
+                        size="large"
                         margin="0px 0px 0px 16px"
                       >
                         {field.titleName}
                       </Label>
-                      <Fieldset legend="" spacing="compact">
+                      <Fieldset legend="" spacing="compact" type="title" size="large">
                         <Text>{data[field.id]}</Text>
                       </Fieldset>
                     </StyledModalFields>

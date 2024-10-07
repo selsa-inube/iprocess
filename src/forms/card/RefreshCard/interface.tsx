@@ -12,9 +12,10 @@ import { IEntries, IEnumeratorsProcessCoverage } from "@forms/types";
 import { Datetimefield } from "@design/inputs/Datetimefield";
 import { tokens } from "@design/tokens";
 import { mediaQueryMobile } from "@config/environment";
+import { getFieldState } from "@forms/utils";
 import { StyledField, StyledTextarea } from "./styles";
 
-interface RefreshSavingCommitmentUIProps {
+interface RefreshCardUIProps {
   data: IEntries;
   formik: FormikValues;
   comparisonData: boolean;
@@ -23,7 +24,7 @@ interface RefreshSavingCommitmentUIProps {
   onStartProcess: () => void;
 }
 
-const RefreshSavingCommitmentUI = (props: RefreshSavingCommitmentUIProps) => {
+const RefreshCardUI = (props: RefreshCardUIProps) => {
   const {
     data,
     formik,
@@ -33,16 +34,12 @@ const RefreshSavingCommitmentUI = (props: RefreshSavingCommitmentUIProps) => {
     onStartProcess,
   } = props;
 
-  const getFieldState = (formik: FormikValues, fieldName: string) => {
-    if (formik.errors[fieldName]) return "invalid";
-  };
-
   const isMobile = useMediaQuery(mediaQueryMobile);
 
   return (
     <Stack direction="column" gap={tokens.spacing.s250}>
       <Text type="title" size="medium" appearance="dark" weight="bold">
-        Compromiso de ahorro
+        Producto de tarjeta
       </Text>
       <Divider dashed />
       <form
@@ -52,7 +49,7 @@ const RefreshSavingCommitmentUI = (props: RefreshSavingCommitmentUIProps) => {
       >
         <Stack direction="column" gap={tokens.spacing.s250}>
           <StyledField>
-            <Text type="label" size="large">
+            <Text type="label" size="large" weight="bold">
               Descripción sugerida
             </Text>
             <Fieldset legend="" spacing="compact" type="title" size="medium">
@@ -67,7 +64,6 @@ const RefreshSavingCommitmentUI = (props: RefreshSavingCommitmentUIProps) => {
               id="descriptionComplementary"
               placeholder=""
               value={formik.values.descriptionComplementary}
-              message={formik.errors.descriptionComplementary}
               fullwidth
               maxLength={220}
               onChange={formik.handleChange}
@@ -133,8 +129,8 @@ const RefreshSavingCommitmentUI = (props: RefreshSavingCommitmentUIProps) => {
               spacing="wide"
               appearance="primary"
               variant="filled"
-              onClick={onStartProcess}
               type="submit"
+              onClick={onStartProcess}
               disabled={!comparisonData || !formik.isValid}
             >
               Iniciar proceso
@@ -146,5 +142,5 @@ const RefreshSavingCommitmentUI = (props: RefreshSavingCommitmentUIProps) => {
   );
 };
 
-export { RefreshSavingCommitmentUI };
-export type { RefreshSavingCommitmentUIProps };
+export { RefreshCardUI };
+export type { RefreshCardUIProps };

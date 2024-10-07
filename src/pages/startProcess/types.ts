@@ -37,6 +37,7 @@ interface StartProcesses {
   estimatedExecutionDate?: string;
   url?: string;
   totalPerson?: number;
+  referenceNumberRequirement?: string;
 }
 
 interface StartProcessesFilter {

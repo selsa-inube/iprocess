@@ -6,7 +6,7 @@ import { StartProcesses } from "../startProcess/types";
 function ConfirmInitiated() {
   const [searchConfirmInitiated, setSearchConfirmInitiated] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(true);
-
+  const [status, setStatus] = useState<string>("");
   const [confirmInitiated, setConfirmInitiated] = useState<StartProcesses[]>([]);
 
 
@@ -35,8 +35,8 @@ function ConfirmInitiated() {
     <ConfirmInitiatedUI
       entries={confirmInitiated}
       isLoading={loading}
-
- 
+      status={status}
+      setStatus={setStatus}
       handleSearchConfirmInitiated={handleSearchConfirmInitiated}
       searchConfirmInitiated={searchConfirmInitiated}
 

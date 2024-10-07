@@ -11,7 +11,7 @@ const StyledField = styled.div<IStyledField>`
   gap: ${tokens.spacing.s050};
   flex-direction: column;
   hyphens: auto;
-  
+
   & > fieldset {
     padding: ${tokens.spacing.s150};
   }
@@ -26,6 +26,7 @@ const StyledField = styled.div<IStyledField>`
     min-height:${tokens.spacing.s0} !important;
     margin-bottom: -8px !important;
   }
+  
   p:first-child{
     padding-left: ${tokens.spacing.s200};
   }

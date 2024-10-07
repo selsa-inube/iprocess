@@ -51,24 +51,24 @@ const StyledInputContainer = styled.div<IStyledInputContainer>`
       if ($isDisabled) {
         return (
           theme?.input?.border?.color?.disabled ||
-          inube.input.border.color.disabled
+          inube.palette.neutral.N40
         );
       }
 
       if ($status === "invalid") {
         return (
           theme?.input?.border?.color?.invalid ||
-          inube.input.border.color.invalid
+          inube.palette.red.R400
         );
       }
 
       if ($focused) {
         return (
-          theme?.input?.border?.color?.focus || inube.input.border.color.focus
+          theme?.input?.border?.color?.focus || inube.palette.blue.B300
         );
       }
       return (
-        theme?.input?.border?.color?.regular || inube.input.border.color.regular
+        theme?.input?.border?.color?.regular || inube.palette.neutral.N40
       );
     }};
 
@@ -84,13 +84,13 @@ const StyledInputContainer = styled.div<IStyledInputContainer>`
     padding-right: ${tokens.spacing.s200};
     background-color: ${({ theme }) =>
       theme?.input?.background?.color?.regular ||
-      inube.input.background.color.regular};
+    inube.palette.neutral.N0};
     color: ${({ $isDisabled, theme }) =>
       $isDisabled
         ? theme?.input?.content?.color?.isDisabled ||
-          inube.input.content.color.disabled
+        inube.palette.neutral.N70
         : theme?.input?.content?.color?.regular ||
-          inube.input.content.color.regular};
+          inube.palette.neutral.N900};
 
     width: ${({ $withFullwidth }) => $withFullwidth && "auto"};
     height: ${({ $size }) => ($size === "compact" ? "40px" : "48px")};
@@ -99,7 +99,7 @@ const StyledInputContainer = styled.div<IStyledInputContainer>`
     ::placeholder {
       color: ${({ theme }) =>
         theme?.input?.content?.color?.regular ||
-        inube.input.content.color.regular};
+      inube.palette.neutral.N900};
     }
 
     &:focus {
@@ -133,7 +133,7 @@ const StyledMessageContainer = styled.div`
   margin-left: ${tokens.spacing.s200};
   pointer-events: none;
   color: ${({ theme }) =>
-    theme?.input?.message?.color?.regular || inube.input.message.appearance};
+    theme?.input?.message?.color?.regular || inube.palette.red.R400};
 
   & svg {
     width: 14px;

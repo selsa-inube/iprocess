@@ -1,27 +1,34 @@
 import {
   MdCheckCircleOutline,
-
   MdOutlineRemoveRedEye,
 } from "react-icons/md";
-import { SkeletonLine } from '@inubekit/skeleton';
 import { Icon } from "@inubekit/icon";
 
 import { StartProcesses } from "@pages/startProcess/types";
 import { formatDate } from "@utils/dates";
+import { Requirements } from "../components/Requeriments";
 import { DeleteProcessConfirmInitiated } from "../components/Delete";
 
-
 const confirmInitiatedNormailzeEntries = (
-  process: StartProcesses[],  
+  process: StartProcesses[],
+  status: string,
+  setStatus: (status: string) => void
 ) =>
   process.map((entry) => ({
     ...entry,
     id: entry.id,
     process: entry.description,
     date: entry.dateAndHour && formatDate(new Date(entry.dateAndHour)),
-    dateAndHour: entry.dateAndHour && formatDate(new Date(entry.dateAndHour), true),
+    dateAndHour:
+      entry.dateAndHour && formatDate(new Date(entry.dateAndHour), true),
     totalPerson: entry.totalPerson,
-    status: <SkeletonLine width="80px" animated />,
+    status: (
+      <Requirements
+        uniqueReferenceNumber={entry.referenceNumberRequirement || ""}
+        status={status}
+        setStatus={setStatus}
+      />
+    ),
     dailyDetail: entry.dailyDetail,
     actions: actions,
     dateWithoutFormat: entry.date,
@@ -53,8 +60,8 @@ const actions = [
   {
     id: "delete",
     content: (entry: StartProcesses) => (
-     <DeleteProcessConfirmInitiated data={entry} />
-    ),
+      <DeleteProcessConfirmInitiated data={entry} />
+     ),
   },
 ];
 
