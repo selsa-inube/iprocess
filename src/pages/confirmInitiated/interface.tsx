@@ -15,7 +15,9 @@ interface ConfirmInitiatedUIProps {
   entries: IProcess[];
   isLoading: boolean;
   searchConfirmInitiated: string;
+  status: string;
   handleSearchConfirmInitiated: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  setStatus: (status: string) => void;
 }
 
 function ConfirmInitiatedUI(props: ConfirmInitiatedUIProps) {
@@ -23,7 +25,9 @@ function ConfirmInitiatedUI(props: ConfirmInitiatedUIProps) {
     entries,
     isLoading,
     searchConfirmInitiated,
+    status,
     handleSearchConfirmInitiated,
+    setStatus,
   } = props;
 
   const smallScreen = useMediaQuery(mediaQueryMobile);
@@ -64,6 +68,8 @@ function ConfirmInitiatedUI(props: ConfirmInitiatedUIProps) {
         <CardProcessGroup
           entries={confirmInitiatedNormailzeEntries(
             entries,
+            status,
+            setStatus
           )}
           filter={searchConfirmInitiated}
           attributes={["description", "statusText", "date", "totalPerson"]}

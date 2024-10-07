@@ -55,7 +55,7 @@ const RefreshSavingCommitmentUI = (props: RefreshSavingCommitmentUIProps) => {
             <Text type="label" size="large">
               Descripción sugerida
             </Text>
-            <Fieldset legend="" spacing="compact">
+            <Fieldset legend="" spacing="compact" type="title" size="medium">
               <Text>{String(data?.descriptionSuggested)}</Text>
             </Fieldset>
           </StyledField>
@@ -98,17 +98,17 @@ const RefreshSavingCommitmentUI = (props: RefreshSavingCommitmentUIProps) => {
           />
 
           <StyledField $smallScreen={isMobile}>
-            <Text type="label" size="large">
+            <Text type="label" size="large" weight="bold">
               Fecha y hora de ejecución
             </Text>
-            <Fieldset legend="" spacing="compact">
+            <Fieldset legend="" spacing="compact" type="title" size="medium">
               <Text>{String(data.date)}</Text>
             </Fieldset>
           </StyledField>
 
-          {data?.plannedAutomaticExecution &&
-            data?.plannedAutomaticExecution ===
-              "planned automatic execution" && (
+          {data?.executionWay &&
+            data?.executionWay ===
+              "PlannedAutomaticExecution" && (
               <Datetimefield
                 withFullwidth={true}
                 id="plannedExecutionDate"

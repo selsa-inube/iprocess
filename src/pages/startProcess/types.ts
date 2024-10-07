@@ -22,7 +22,7 @@ interface StartProcesses {
   id: string;
   description: string;
   publicCode?: string;
-   date?: Date | string | undefined;
+  date?: Date | string | undefined;
   dateAndHour?: Date;
   aplication?: string;
   periodicity?: string;
@@ -32,15 +32,15 @@ interface StartProcesses {
   actions?: IActions[];
   month?: number;
   year?: number;
-  plannedAutomaticExecution?: string;
+  executionWay?: string;
   dateWithoutFormat?: string;
   estimatedExecutionDate?: string;
   url?: string;
   totalPerson?: number;
+  referenceNumberRequirement?: string;
   timeUsedToInsertPeople?: number;
   executionParameters?: IExecutionParameters;
   generalError?: string;
-  referenceNumberRequirement?: string;
   plannedExecutionDate?: string;
   executionOfTheProcess?: string;
   processControlId?: string;
@@ -127,6 +127,10 @@ interface IListPeriods {
   year: number;
 }
 
+interface ITimeEstimedCompleteProcess {
+  secondsTime: number;
+}
+
 export type appearances = (typeof appearance)[number];
 
 export type {
@@ -141,4 +145,5 @@ export type {
   IData,
   IDailyDetail,
   IListPeriods,
+  ITimeEstimedCompleteProcess
 };

@@ -82,6 +82,7 @@ export const WithButtonClose: StoryFn<ProgressCardWithBarIndeterminedProps> =
 WithButtonClose.args = {
   withButtonClose: true,
   portalId: "portal",
+  isProcessCompleted: true,
 };
 
 const TemplateThemed: StoryFn<ProgressCardWithBarIndeterminedProps> = (

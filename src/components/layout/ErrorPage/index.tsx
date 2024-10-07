@@ -18,6 +18,8 @@ interface ErrorPageProps {
   description?: string;
   image?: string;
   imageAlt?: string;
+  nameButton?: string;
+  onClick?: () => void;
 }
 
 function ErrorPage(props: ErrorPageProps) {
@@ -28,6 +30,8 @@ function ErrorPage(props: ErrorPageProps) {
     description = "El servicio no se encuentra disponible en el momento. Por favor intenta de nuevo más tarde.",
     image = errorImage,
     imageAlt = "Ha surgido un error. Revisa la descripción",
+    nameButton = "volver",
+    onClick,
   } = props;
 
   const mediaQueries = ["(max-width: 1000px)", "(max-width: 600px)"];
@@ -55,7 +59,7 @@ function ErrorPage(props: ErrorPageProps) {
               {description}
             </Text>
           </Stack>
-          <Button iconBefore={<MdChevronLeft size={18} />}>Exit</Button>
+          <Button iconBefore={<MdChevronLeft size={18} />} onClick={onClick}>{nameButton}</Button>
         </Stack>
         <StyledErrorImage src={image} alt={imageAlt} />
       </Grid>
