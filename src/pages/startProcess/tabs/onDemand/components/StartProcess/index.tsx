@@ -16,6 +16,7 @@ import { startProcess } from "@services/startProcess/patchStartProcess";
 import { IStartProcessResponse } from "@pages/startProcess/types";
 import { routesComponent } from "@pages/startProcess/config/routesForms.config";
 import { rediectToConfirmInitiated, redirectToFinished, redirectToValidateProgress } from "@pages/startProcess/utils";
+import { ComponentAppearance } from "@src/types/aparences.types";
 
 interface IStartProcessOnDemandProps {
   dataModal: IEntries;
@@ -71,7 +72,7 @@ const StartProcessOnDemand = (props: IStartProcessOnDemandProps) => {
         title: "Error al iniciar los procesos",
         description:
           "No fue posible iniciar los procesos, por favor intenta más tarde",
-        appearance: "danger",
+        appearance: ComponentAppearance.DANGER,
         duration: 5000,
       });
       throw new Error(
@@ -103,7 +104,7 @@ const StartProcessOnDemand = (props: IStartProcessOnDemandProps) => {
   return (
     <>
       <Icon
-        appearance="dark"
+        appearance={ComponentAppearance.DARK}
         icon={<MdLaunch />}
         size={tokens.spacing.s200}
         onClick={handleToggleModal}
@@ -123,7 +124,7 @@ const StartProcessOnDemand = (props: IStartProcessOnDemandProps) => {
                         <Stack justifyContent="center">
                           <Spinner
                             size="small"
-                            appearance="primary"
+                            appearance={ComponentAppearance.PRIMARY}
                             transparent
                           />
                         </Stack>

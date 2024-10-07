@@ -16,6 +16,7 @@ import { IStartProcessResponse } from "@pages/startProcess/types";
 import { startProcess } from "@services/startProcess/patchStartProcess";
 import { routesComponent } from "@pages/startProcess/config/routesForms.config";
 import { rediectToConfirmInitiated, redirectToFinished, redirectToValidateProgress } from "@pages/startProcess/utils";
+import { ComponentAppearance } from "@ptypes/aparences.types";
 
 interface IStartProcessScheduledProps {
   id: string;
@@ -72,7 +73,7 @@ const StartProcessScheduled = (props: IStartProcessScheduledProps) => {
         title: "Error al iniciar los procesos",
         description:
           "No fue posible iniciar los procesos, por favor intenta más tarde",
-        appearance: "danger",
+        appearance: ComponentAppearance.DANGER,
         duration: 5000,
       })
       throw new Error(
@@ -103,7 +104,7 @@ const StartProcessScheduled = (props: IStartProcessScheduledProps) => {
   return (
     <>
       <Icon
-        appearance="dark"
+        appearance={ComponentAppearance.DARK}
         icon={<MdLaunch />}
         size={tokens.spacing.s200}
         onClick={handleToggleModal}
@@ -124,7 +125,7 @@ const StartProcessScheduled = (props: IStartProcessScheduledProps) => {
                         <Stack justifyContent="center">
                           <Spinner
                             size="small"
-                            appearance="primary"
+                            appearance={ComponentAppearance.PRIMARY}
                             transparent
                           />
                         </Stack>
