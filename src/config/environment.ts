@@ -19,6 +19,7 @@ const enviroment = {
   IPROCESS_API_URL_PERSISTENCE: import.meta.env
     .VITE_IPROCESS_API_URL_PERSISTENCE,
     IREQUER_API_URL_QUERY: import.meta.env.VITE_IREQUER_API_URL_QUERY,  
+    IREQUER_API_URL_PERSISTENCE: import.meta.env.VITE_IREQUER_API_URL_PERSISTENCE,
   TEMP_BUSINESS_UNIT: "test",
 };
 
@@ -30,6 +31,3 @@ export {
   maxRetriesServices,
   fetchTimeoutServices,
 };
-
-
-

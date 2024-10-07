@@ -20,11 +20,11 @@ interface ItraceabilityInRequirements {
 }
 
 interface IRefNumPackageRequirement {
-  generalStatusRequirement: string;
   date: Date;
   description: string;
   id: string;
   uniqueReferenceNumber: string;
+  generalStatusRequirement?: string;
   listOfRequirements?: IlistOfRequirements[];
   traceabilityInRequirements?: ItraceabilityInRequirements[];
 }
