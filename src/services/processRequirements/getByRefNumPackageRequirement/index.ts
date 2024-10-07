@@ -32,7 +32,7 @@ const refNumPackageRequirement = async (
       };
 
       const res = await fetch(
-        `${enviroment.IPROCESS_API_URL_QUERY_IREQUER}/package-requirements-management?${queryParams.toString()}`,
+        `${enviroment.IREQUER_API_URL_QUERY}/package-requirements-management?${queryParams.toString()}`,
         options
       );
 

@@ -12,16 +12,35 @@ const StyledField = styled.div<IStyledField>`
   flex-direction: column;
   hyphens: auto;
 
-  div {
+  & > fieldset {
+    padding: ${tokens.spacing.s150};
+  }
+
+  & > fieldset div:nth-child(1) {
+    padding: ${tokens.spacing.s100} ${tokens.spacing.s0};
+    background-color: red;
+  }
+ 
+  & > fieldset {
+    padding: ${tokens.spacing.s150};
+  }
+
+  & > fieldset div:nth-child(1) {
+    padding: ${tokens.spacing.s100} ${tokens.spacing.s0};
+    background-color: red;
+  }
+
+  & > div {
     min-height:${tokens.spacing.s0} !important;
     margin-bottom: -8px !important;
   }
+
   p:first-child{
     padding-left: ${tokens.spacing.s200};
   }
 
    p:last-child{
-    word-break: break-all;
+    word-break: keep-all;
     white-space: normal;
     padding-left: ${tokens.spacing.s0};
   }

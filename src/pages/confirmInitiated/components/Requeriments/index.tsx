@@ -27,10 +27,10 @@ const Requirements = (props: RequirementsProps) => {
 
   const generalStatusRequirement = async () => {
     setLoading(true);
-    uniqueReferenceNumber
     try {
-      const newStatusRequirement = await refNumPackageRequirement("PM1cda3bca-63b7-4bbc-98f0-f4fa8e726095"); ///cambiar
+      const newStatusRequirement = await refNumPackageRequirement(uniqueReferenceNumber);
       const statusRequirementData = newStatusRequirement.find((item) => item.id);
+
       setStatusRequirementData(statusRequirementData);
     } catch (error) {
       console.info(error);

@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { inube } from "@inubekit/foundations";
+import { tokens } from "@design/tokens";
 
 interface IStyledModal {
   $smallScreen: boolean;
@@ -13,7 +14,7 @@ const StyledContainer = styled.div`
   }
 
   p {
-    word-break: break-all;
+    word-break: keep-all;
     white-space: normal;
   }
 `;
@@ -38,8 +39,17 @@ const StyledModalFields = styled.div<IStyledModal>`
   flex-direction: column;
   hyphens: auto;
 
-  div {
-    min-height: 0px !important;
+  & > fieldset {
+    padding: ${tokens.spacing.s150};
+  }
+
+  & > fieldset div:nth-child(1) {
+    padding: ${tokens.spacing.s100} ${tokens.spacing.s0};
+    background-color: red;
+  }
+ 
+  & > div {
+    min-height:${tokens.spacing.s0} !important;
     margin-bottom: -8px !important;
   }
 
