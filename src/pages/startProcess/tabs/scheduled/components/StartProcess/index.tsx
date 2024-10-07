@@ -15,6 +15,7 @@ import { formatDate, formatDateEndpoint } from "@utils/dates";
 import { IStartProcessResponse } from "@pages/startProcess/types";
 import { startProcess } from "@services/startProcess/patchStartProcess";
 import { routesComponent } from "@pages/startProcess/config/routesForms.config";
+import { rediectToConfirmInitiated, redirectToFinished, redirectToValidateProgress } from "@pages/startProcess/utils";
 
 interface IStartProcessScheduledProps {
   id: string;
@@ -83,17 +84,13 @@ const StartProcessScheduled = (props: IStartProcessScheduledProps) => {
     if (responseStartProcess?.processStatus.length) {
       setShowProgressModal(false);
 
-      if (
-        responseStartProcess.processStatus === "StartedImmediately" ||
-        responseStartProcess.processStatus === "Programmed" ||
-        responseStartProcess.processStatus === "InAction"
-      )
+      if ( redirectToValidateProgress.includes(responseStartProcess.processStatus) )
         navigate("/validate-progress");
 
-      if (responseStartProcess.processStatus === "Finished")
+      if (redirectToFinished.includes(responseStartProcess.processStatus))
         navigate("/finished");
 
-      if (responseStartProcess.processStatus === "Initiated" || responseStartProcess.processStatus === "PartiallyStarted")
+      if (rediectToConfirmInitiated.includes(responseStartProcess.processStatus))
         navigate("/confirm-initiated");
 
     }
