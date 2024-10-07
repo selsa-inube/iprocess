@@ -22,7 +22,7 @@ const StyledField = styled.div<IStyledField>`
   }
 
    p:last-child{
-    word-break: break-all;
+    word-break: keep-all;
     white-space: normal;
     padding-left: ${tokens.spacing.s0};
   }

@@ -9,7 +9,8 @@ import {
   IFieldsEntered,
   IEnumeratorsProcessCoverage,
 } from "@forms/types";
-import { RefreshCustomerAttributesUI } from "./interface";
+import { comparisonDataForms, validateExecutionWay } from "@forms/utils";
+import { RefreshCardUI } from "./interface";
 
 const validationSchema = Yup.object({
   typeRefresh: Yup.string().required("Este campo no puede estar vacío"),
@@ -17,7 +18,7 @@ const validationSchema = Yup.object({
   plannedExecutionDate: Yup.string(),
 });
 
-interface RefreshCustomerAttributesProps {
+interface RefreshCardProps {
   data: IEntries;
   onStartProcess: () => void;
   setFieldsEntered: (show: IFieldsEntered) => void;
@@ -29,7 +30,7 @@ const initialValues: IStartProcessEntry = {
   plannedExecutionDate: "",
 };
 
-const RefreshCustomerAttributes = (props: RefreshCustomerAttributesProps) => {
+const RefreshCard = (props: RefreshCardProps) => {
   const { data, setFieldsEntered, onStartProcess } = props;
 
   const [dynamicValidationSchema, setDynamicValidationSchema] =
@@ -61,7 +62,7 @@ const RefreshCustomerAttributes = (props: RefreshCustomerAttributesProps) => {
   });
 
   const handleChange = (name: string, value: string) => {
-    formik.setFieldValue(name, value).then(() => {
+    formik.setFieldValue(name, value).then(()=> {
       formik.validateForm().then((errors) => {
         formik.setErrors(errors);
       });
@@ -71,7 +72,7 @@ const RefreshCustomerAttributes = (props: RefreshCustomerAttributesProps) => {
   useEffect(() => {
     if (
       data?.executionWay &&
-      data?.executionWay === "PlannedAutomaticExecution"
+      validateExecutionWay(data?.executionWay as string)
     ) {
       setDynamicValidationSchema(
         validationSchema.shape({
@@ -96,16 +97,10 @@ const RefreshCustomerAttributes = (props: RefreshCustomerAttributesProps) => {
     }
   }, [formik.values, setFieldsEntered]);
 
-  const comparisonData = Boolean(
-    (data?.executionWay === "PlannedAutomaticExecution" &&
-      formik.values.typeRefresh !== initialValues.typeRefresh &&
-      formik.values.plannedExecutionDate !==
-        initialValues.plannedExecutionDate) ||
-      formik.values.typeRefresh !== initialValues.typeRefresh
-  );
+  const comparisonData = comparisonDataForms(data?.executionWay as string ,formik.values ,initialValues)
 
   return (
-    <RefreshCustomerAttributesUI
+    <RefreshCardUI
       formik={formik}
       data={data}
       optionsTypeRefresh={optionsTypeRefresh}
@@ -116,5 +111,5 @@ const RefreshCustomerAttributes = (props: RefreshCustomerAttributesProps) => {
   );
 };
 
-export type { RefreshCustomerAttributesProps };
-export { RefreshCustomerAttributes };
+export type { RefreshCardProps };
+export { RefreshCard };

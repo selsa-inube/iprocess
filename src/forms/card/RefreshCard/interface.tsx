@@ -12,10 +12,10 @@ import { IEntries, IEnumeratorsProcessCoverage } from "@forms/types";
 import { Datetimefield } from "@design/inputs/Datetimefield";
 import { tokens } from "@design/tokens";
 import { mediaQueryMobile } from "@config/environment";
+import { getFieldState } from "@forms/utils";
 import { StyledField, StyledTextarea } from "./styles";
 
-
-interface RefreshPortfolioObligationUIProps {
+interface RefreshCardUIProps {
   data: IEntries;
   formik: FormikValues;
   comparisonData: boolean;
@@ -24,9 +24,7 @@ interface RefreshPortfolioObligationUIProps {
   onStartProcess: () => void;
 }
 
-const RefreshPortfolioObligationUI = (
-  props: RefreshPortfolioObligationUIProps
-) => {
+const RefreshCardUI = (props: RefreshCardUIProps) => {
   const {
     data,
     formik,
@@ -36,16 +34,12 @@ const RefreshPortfolioObligationUI = (
     onStartProcess,
   } = props;
 
-  const getFieldState = (formik: FormikValues, fieldName: string) => {
-    if (formik.errors[fieldName]) return "invalid";
-  };
-
   const isMobile = useMediaQuery(mediaQueryMobile);
 
   return (
     <Stack direction="column" gap={tokens.spacing.s250}>
       <Text type="title" size="medium" appearance="dark" weight="bold">
-        Obligación de cartera
+        Producto de tarjeta
       </Text>
       <Divider dashed />
       <form
@@ -148,5 +142,5 @@ const RefreshPortfolioObligationUI = (
   );
 };
 
-export { RefreshPortfolioObligationUI };
-export type { RefreshPortfolioObligationUIProps };
+export { RefreshCardUI };
+export type { RefreshCardUIProps };
