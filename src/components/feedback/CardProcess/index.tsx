@@ -225,7 +225,7 @@ const CardProcess = (props: CardProcessProps) => {
                     Total personas
                   </Text>
                   <Text type="body" size="small">
-                    {entries?.totalPersons}
+                    {entries?.totalPerson}
                   </Text>
                 </>
               )}

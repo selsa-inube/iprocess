@@ -48,7 +48,7 @@ const RefreshSavingProductCardUI = (props: RefreshSavingProductCardUIProps) => {
           <Text type="label" size="large" weight="bold">
             Descripción sugerida
           </Text>
-          <Fieldset legend="" spacing="compact">
+          <Fieldset legend="" spacing="compact" type="title" size="medium">
             <Text>{String(data?.descriptionSuggested)}</Text>
           </Fieldset>
         </StyledField>
@@ -92,7 +92,7 @@ const RefreshSavingProductCardUI = (props: RefreshSavingProductCardUIProps) => {
           <Text type="label" size="large" weight="bold">
             Fecha y hora de ejecución
           </Text>
-          <Fieldset legend="" spacing="compact">
+          <Fieldset legend="" spacing="compact" type="title" size="medium">
             <Text>{String(data.date)}</Text>
           </Fieldset>
         </StyledField>

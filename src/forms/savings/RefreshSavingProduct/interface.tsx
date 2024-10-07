@@ -41,22 +41,22 @@ const RefreshSavingProductUI = (props: RefreshSavingProductUIProps) => {
     <Stack direction="column" gap={tokens.spacing.s250}>
       <Text type="title" size="medium" appearance="dark" weight="bold">
         Productos de ahorro
-      </Text>
-      <Divider dashed />
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-        }}
-      >
-        <Stack direction="column" gap={tokens.spacing.s250}>
-          <StyledField>
-            <Text type="label" size="large" weight="bold">
-              Descripción sugerida
-            </Text>
-            <Fieldset legend="" spacing="compact">
-              <Text>{String(data?.descriptionSuggested)}</Text>
-            </Fieldset>
-          </StyledField>
+    </Text>
+    <Divider dashed />
+    <form
+      onSubmit={(e) => {
+        e.preventDefault();
+      }}
+    >
+      <Stack direction="column" gap={tokens.spacing.s250}>
+        <StyledField>
+          <Text type="label" size="large" weight="bold">
+            Descripción sugerida
+          </Text>
+          <Fieldset legend="" spacing="compact" type="title" size="medium">
+            <Text>{String(data?.descriptionSuggested)}</Text>
+          </Fieldset>
+        </StyledField>
 
           <StyledTextarea>
             <Textarea
@@ -94,14 +94,14 @@ const RefreshSavingProductUI = (props: RefreshSavingProductUIProps) => {
             required
           />
 
-          <StyledField $smallScreen={isMobile}>
-            <Text type="label" size="large" weight="bold">
-              Fecha y hora de ejecución
-            </Text>
-            <Fieldset legend="" spacing="compact">
-              <Text>{String(data.date)}</Text>
-            </Fieldset>
-          </StyledField>
+        <StyledField $smallScreen={isMobile}>
+          <Text type="label" size="large" weight="bold">
+            Fecha y hora de ejecución
+          </Text>
+          <Fieldset legend="" spacing="compact" type="title" size="medium">
+            <Text>{String(data.date)}</Text>
+          </Fieldset>
+        </StyledField>
 
           {data?.executionWay &&
             validateExecutionWay(data?.executionWay as string) && (
