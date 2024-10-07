@@ -8,7 +8,7 @@ import { mapApprovalRequirementEntityToApi } from "./mappers";
 const approvalRequirement = async (
   dataApproval: IApprovalRequest
 ): Promise<IApprovalResponse | undefined> => {
-  const requestUrl = `${enviroment.IPROCESS_API_URL_PERSISTENCE_IREQUER}/package-requirements-management`;
+  const requestUrl = `${enviroment.IREQUER_API_URL_PERSISTENCE}/package-requirements-management`;
   try {
     const options: RequestInit = {
       method: "PATCH",
