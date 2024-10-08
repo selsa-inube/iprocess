@@ -1,4 +1,4 @@
-import { IRemoveProcessRequest } from "@src/pages/confirmInitiated/components/Delete/types";
+import { IRemoveProcessRequest } from "@pages/confirmInitiated/components/Delete/types";
 
 const mapDeleteConfirmInitiatedToApi = (
   process: IRemoveProcessRequest

@@ -1,5 +1,5 @@
 import { enviroment } from "@config/environment";
-import { IRemoveProcessRequest, IRemoveProcessResponse } from "@src/pages/confirmInitiated/components/Delete/types";
+import { IRemoveProcessRequest, IRemoveProcessResponse } from "@pages/confirmInitiated/components/Delete/types";
 import { mapDeleteConfirmInitiatedToApi } from "./mappers";
 
   
