@@ -16,7 +16,7 @@ import { startProcess } from "@services/startProcess/patchStartProcess";
 import { IStartProcessResponse } from "@pages/startProcess/types";
 import { routesComponent } from "@pages/startProcess/config/routesForms.config";
 import { rediectToConfirmInitiated, redirectToFinished, redirectToValidateProgress } from "@pages/startProcess/utils";
-import { ComponentAppearance } from "@src/types/aparences.types";
+import { ComponentAppearance } from "@ptypes/aparences.types";
 
 interface IStartProcessOnDemandProps {
   dataModal: IEntries;

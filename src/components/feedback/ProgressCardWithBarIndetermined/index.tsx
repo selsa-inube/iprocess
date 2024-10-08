@@ -7,10 +7,10 @@ import { Text } from "@inubekit/text";
 import { Blanket } from "@inubekit/blanket";
 import { Spinner } from "@inubekit/spinner";
 import { tokens } from "@design/tokens";
+import { ComponentAppearance } from "@ptypes/aparences.types";
 
 import { StyledContainer, StyledModal } from "./styles";
 import { ProgressCardWithBarType } from "../ProgressCardWithBarDetermined/types";
-import { ComponentAppearance } from "@src/types/aparences.types";
 
 interface ProgressCardWithBarIndeterminedProps {
   portalId: string;

@@ -9,8 +9,8 @@ import {
   IEnumeratorsProcessCoverage,
 } from "@forms/types";
 import { EnumProcessCoverageData } from "@services/enumerators/getEnumeratorsProcessCoverage";
-import { RefreshPortfolioObligationUI } from "./interface";
 import { comparisonDataForms, validateExecutionWay } from "@forms/utils";
+import { RefreshPortfolioObligationUI } from "./interface";
 
 const validationSchema = Yup.object({
   typeRefresh: Yup.string().required("Este campo no puede estar vacío"),
