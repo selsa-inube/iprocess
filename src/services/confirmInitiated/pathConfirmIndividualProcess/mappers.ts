@@ -1,4 +1,4 @@
-import { IConfirmProcessRequest } from "@src/pages/confirmInitiated/types";
+import { IConfirmProcessRequest } from "@pages/confirmInitiated/types";
 
 const mapConfirmProcessEntityToApi = (
   confirmProcess: IConfirmProcessRequest
