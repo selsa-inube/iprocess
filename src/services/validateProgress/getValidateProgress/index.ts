@@ -17,7 +17,7 @@ const validateProgressData = async (
   for (let attempt = 1; attempt <= maxRetries; attempt++) {
     try {
       const queryParams = new URLSearchParams({
-        processStatus: "InAction",
+        processStatus: "StartedImmediately",
         page: "1",
         per_page: "50",
         executionDate:`bt.${date.startDate};${date.endDate}`,
