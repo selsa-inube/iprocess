@@ -1,6 +1,7 @@
 const statusRequirement = [
   { status: "Meets", name: "Cumple", appearance: "success" },
   { status: "NotMeets", name: "No Cumple", appearance: "danger" },
+  { status: "NoMeets", name: "No Cumple", appearance: "danger" },
   { status: "NoEvaluated", name: "Sin Evaluar", appearance: "warning" },
   { status: "Undefined", name: "No Definido", appearance: "gray" },
 ];
@@ -14,12 +15,12 @@ const evaluationStatusRequirement = [
   { status: "UNVALIDATED", name: "No Valido", appearance: "danger" },
   {
     status: "PASSED_WITH_SYSTEM_VALIDATION",
-    name: "Aprobado con validación sistema",
+    name: "Validación sistema cumplida",
     appearance: "success",
   },
   {
     status: "FAILED_SYSTEM_VALIDATION",
-    name: "Fallo validación sistema",
+    name: "Validacion del sistema NO cumplida",
     appearance: "warning",
   },
   {
