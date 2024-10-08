@@ -38,6 +38,7 @@ interface StartProcesses {
   url?: string;
   totalPerson?: number;
   referenceNumberRequirement?: string;
+  totalPersonsProsecuted?: number;
 }
 
 interface StartProcessesFilter {
