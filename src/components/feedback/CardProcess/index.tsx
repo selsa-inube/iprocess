@@ -103,7 +103,7 @@ const CardProcess = (props: CardProcessProps) => {
         </>
       )}
       <Stack direction="row" gap={tokens.spacing.s400}>
-        {optionCurrent !== "finished" && (
+        {(optionCurrent !== "finished" && optionCurrent !== "validate process" ) && (
           <Stack
             direction="column"
             gap={tokens.spacing.s025}
@@ -123,9 +123,7 @@ const CardProcess = (props: CardProcessProps) => {
                   weight="bold"
                   appearance="gray"
                 >
-                  {optionCurrent === "validate process"
-                    ? "Estado"
-                    : "Requisitos"}
+                  Requisitos
                 </Text>
                 <Stack gap={tokens.spacing.s050} direction="row">
                   <Stack>{entries?.status}</Stack>

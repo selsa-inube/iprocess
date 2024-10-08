@@ -8,16 +8,15 @@ import { CardProcess } from "../CardProcess";
 
 interface CardProcessGroupProps {
   attributes: string[];
-  descriptionTooltip: string;
   entries: IProcess[];
   filter: string;
- 
   optionCurrent:
-    | "start process"
-    | "confirm initiated"
-    | "validate process"
-    | "finished"
-    | undefined;
+  | "start process"
+  | "confirm initiated"
+  | "validate process"
+  | "finished"
+  | undefined;
+  descriptionTooltip?: string;
     month?: string;
   year?: string;
   pathDetailByDay?: string;
