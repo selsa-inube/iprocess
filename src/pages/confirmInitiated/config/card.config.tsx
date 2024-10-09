@@ -1,5 +1,4 @@
 import {
-  MdCheckCircleOutline,
   MdOutlineDelete,
 } from "react-icons/md";
 import { Icon } from "@inubekit/icon";
@@ -8,6 +7,7 @@ import { StartProcesses } from "@pages/startProcess/types";
 import { formatDate } from "@utils/dates";
 import { DetailsConfirmInitiated } from "../components/DetailsConfirmInitiated";
 import { Requirements } from "../components/Requeriments";
+import { ConfirmProcess } from "../components/Confirm";
 
 const confirmInitiatedNormailzeEntries = (
   process: StartProcesses[],
@@ -44,13 +44,8 @@ const actions = [
   },
   {
     id: "verification",
-    content: () => (
-      <Icon
-        appearance="dark"
-        icon={<MdCheckCircleOutline />}
-        size="16px"
-        cursorHover
-      />
+    content: (entry: StartProcesses) => (
+      <ConfirmProcess data={entry} />
     ),
   },
   {
