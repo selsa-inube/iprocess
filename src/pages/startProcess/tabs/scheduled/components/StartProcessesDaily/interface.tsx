@@ -11,7 +11,7 @@ import { tokens } from "@design/tokens";
 import { mediaQueryMobile } from "@config/environment";
 import { Title } from "@design/data/Title";
 import {
-  actions,
+  actionsConfig,
   breakPoints,
   processesDailyNormailzeEntries,
   titlesConfig,
@@ -20,6 +20,7 @@ import { crumbsStartProcessesDaily } from "./config/navigation";
 
 interface StartProcessesDailyUIProps {
   descriptionProcess: string;
+  nameAplication: string;
   entries: IDailyDetail[];
   loading: boolean;
   month: number;
@@ -34,6 +35,7 @@ interface StartProcessesDailyUIProps {
 function StartProcessesDailyUI(props: StartProcessesDailyUIProps) {
   const {
     descriptionProcess,
+    nameAplication,
     entries,
     loading,
     month,
@@ -79,7 +81,7 @@ function StartProcessesDailyUI(props: StartProcessesDailyUIProps) {
           <Table
             id="portal"
             titles={titlesConfig(handleOrderData)}
-            actions={actions as IAction[]}
+            actions={actionsConfig(nameAplication) as IAction[]}
             entries={processesDailyNormailzeEntries(entries, month, year, status, setStatus)}
             breakpoints={breakPoints}
             isLoading={loading}

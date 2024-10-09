@@ -20,6 +20,7 @@ const processesDailyNormailzeEntries = (
     ...entry,
     id: String(`${entry.processCatalogId}${entry.estimatedExecutionDate}`),
     processCatalogId: entry.processCatalogId,
+    aplication: entry.aplication,
     description: entry.abbreviatedName,
     executionDate:
       entry.estimatedExecutionDate &&
@@ -95,31 +96,39 @@ const titlesConfig = (handleOrderData: () => void) => {
   return titles;
 };
 
-const actions = [
-  {
-    id: "Details",
-    actionName: "Detalles",
-    content: (process: StartProcesses) => (
-      <DetailsProcessDaily
-        data={mapScheduled(process)}
-        breakpoints={breakPoints}
-      />
-    ),
-  },
-  {
-    id: "StartProcess",
-    actionName: "Iniciar Proceso",
-    content: () => (
-      <Icon
-        appearance="gray"
-        icon={<MdLaunch />}
-        size="16px"
-        cursorHover={true}
-      />
-    ),
-  },
-];
+
+const actionsConfig = (nameAplication: string) => {
+
+    const actions = [
+    {
+      id: "Details",
+      actionName: "Detalles",
+      content: (process: StartProcesses) => (
+        <DetailsProcessDaily
+          data={mapScheduled(process)}
+          nameAplication={nameAplication}
+          breakpoints={breakPoints}
+        />
+      ),
+    },
+    {
+      id: "StartProcess",
+      actionName: "Iniciar Proceso",
+      content: () => (
+        <Icon
+          appearance="gray"
+          icon={<MdLaunch />}
+          size="16px"
+          cursorHover={true}
+        />
+      ),
+    },
+  ];
+
+  return actions;
+}
+
 
 const breakPoints = [{ breakpoint: "(min-width: 1091px)", totalColumns: 3 }];
 
-export { titlesConfig, actions, breakPoints, processesDailyNormailzeEntries };
+export { titlesConfig, actionsConfig, breakPoints, processesDailyNormailzeEntries };

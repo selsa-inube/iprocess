@@ -70,6 +70,7 @@ function StartProcessesDaily() {
   return (
     <StartProcessesDailyUI
       descriptionProcess={processesDaily[0]?.description || ""} 
+      nameAplication={processesDaily[0]?.aplication?.abbreviatedName || ""}
       entries={entriesDetailsDaily}
       loading={loading}
       month={formatMonthEndpoint(month!)}
