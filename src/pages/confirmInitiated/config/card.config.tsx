@@ -1,18 +1,15 @@
-import {
-  MdOutlineDelete,
-} from "react-icons/md";
-import { Icon } from "@inubekit/icon";
-
 import { StartProcesses } from "@pages/startProcess/types";
 import { formatDate } from "@utils/dates";
 import { DetailsConfirmInitiated } from "../components/DetailsConfirmInitiated";
 import { Requirements } from "../components/Requeriments";
 import { ConfirmProcess } from "../components/Confirm";
+import { DeleteProcessConfirmInitiated } from "../components/Delete";
 
 const confirmInitiatedNormailzeEntries = (
   process: StartProcesses[],
   status: string,
-  setStatus: (status: string) => void  
+  setStatus: (status: string) => void,  
+  setDeleteProcess: (processControlId: string) => void
 ) =>
   process.map((entry) => ({
     ...entry,
@@ -29,12 +26,12 @@ const confirmInitiatedNormailzeEntries = (
       />
     ),
     dailyDetail: entry.dailyDetail,
-    actions: actions,
+    actions: actionsConfig(setDeleteProcess),
     dateWithoutFormat: entry.date,
     plannedExecution: entry.plannedExecutionDate,
   }));
 
-
+  const actionsConfig = (setDeleteProcess: (processControlId: string) => void) => {
 const actions = [
   {
     id: "Details",
@@ -50,16 +47,13 @@ const actions = [
   },
   {
     id: "delete",
-    content: () => (
-      <Icon
-        appearance="dark"
-        icon={<MdOutlineDelete />}
-        size="16px"
-        cursorHover
-      />
-    ),
+    content: (entry: StartProcesses) => (
+      <DeleteProcessConfirmInitiated data={entry} setDeleteProcess={setDeleteProcess} />
+     ),
   },
 ];
+return actions
+  }
 
 const labelsDetails = [
   {
@@ -90,4 +84,4 @@ const labelsDetails = [
 ];
 
 
-export { actions, labelsDetails, confirmInitiatedNormailzeEntries };
+export { actionsConfig, labelsDetails, confirmInitiatedNormailzeEntries };

@@ -6,6 +6,7 @@ import {
   createRoutesFromElements,
 } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
+import { FlagProvider } from "@inubekit/flag";
 
 import { useAuth0 } from "@auth0/auth0-react";
 import { ErrorPage } from "@components/layout/ErrorPage";
@@ -19,7 +20,6 @@ import { FinishedRoutes } from "./routes/finished";
 import { StartProcessRoutes } from "./routes/startProcess";
 import { ValidateProgressRoutes } from "./routes/validateProgress";
 import { theme } from "./config/theme";
-import { FlagProvider } from "@inubekit/flag";
 
 
 function LogOut() {
