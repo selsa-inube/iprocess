@@ -50,6 +50,7 @@ function StartProcessesDaily() {
     );
   }, []);
 
+
   useEffect(() => {
     processesDaily.length > 0 &&
       setEntriesDetailsDaily(
@@ -80,6 +81,7 @@ function StartProcessesDaily() {
       handleOrderData={handleOrderData}
       OnSearchProcessDaily={handleSearchProcessDaily}
       setStatus={setStatus}
+      urlParams={processesDaily[0]?.url || ""}
     />
   );
 }

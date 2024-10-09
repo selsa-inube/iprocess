@@ -1,4 +1,4 @@
-import { MdImportExport, MdLaunch } from "react-icons/md";
+import { MdImportExport } from "react-icons/md";
 import { Icon } from "@inubekit/icon";
 import { Text } from "@inubekit/text";
 
@@ -8,6 +8,7 @@ import { IDailyDetail, StartProcesses } from "@pages/startProcess/types";
 import { formatDate } from "@utils/dates";
 import { ScheduledRequirements } from "../../ScheduledRequirements";
 import { DetailsProcessDaily } from "../components/DetailsProcessDaily";
+import { StartProcessScheduled } from "../../StartProcess";
 
 const processesDailyNormailzeEntries = (
   process: IDailyDetail[],
@@ -22,7 +23,7 @@ const processesDailyNormailzeEntries = (
     processCatalogId: entry.processCatalogId,
     aplication: entry.aplication,
     description: entry.abbreviatedName,
-    executionDate:
+    date:
       entry.estimatedExecutionDate &&
       formatDate(new Date(entry.estimatedExecutionDate)),
     requirements: (
@@ -44,6 +45,7 @@ const processesDailyNormailzeEntries = (
     statusText: status,
     month: month,
     year: year,
+    dateWithoutFormat: entry.estimatedExecutionDate,
   }));
 
 const mapScheduled = (entry: IActions) => {
@@ -59,10 +61,22 @@ const mapScheduled = (entry: IActions) => {
   };
 };
 
+const mapStartProcessScheduled = (entry: StartProcesses) => {
+  const formatDescriptionSuggested = `${entry.description} Del mes de ${entry.month} del año ${entry.year}, fecha estimada de ejecución es ${entry.date}`;
+  return {
+    id: entry.description,
+    descriptionSuggested: formatDescriptionSuggested,
+    publicCode: entry.publicCode,
+    date: entry.dateWithoutFormat,
+    month: entry.month,
+    year: entry.year,
+  };
+};
+
 const titlesConfig = (handleOrderData: () => void) => {
   const titles: ITitle[] = [
     {
-      id: "executionDate",
+      id: "date",
       titleName: (
         <StyledContainerTitle>
           <Text
@@ -96,10 +110,8 @@ const titlesConfig = (handleOrderData: () => void) => {
   return titles;
 };
 
-
-const actionsConfig = (nameAplication: string) => {
-
-    const actions = [
+const actionsConfig = (url: string, nameAplication: string) => {
+  const actions = [
     {
       id: "Details",
       actionName: "Detalles",
@@ -114,21 +126,24 @@ const actionsConfig = (nameAplication: string) => {
     {
       id: "StartProcess",
       actionName: "Iniciar Proceso",
-      content: () => (
-        <Icon
-          appearance="gray"
-          icon={<MdLaunch />}
-          size="16px"
-          cursorHover={true}
+      content: (process: StartProcesses) => (
+        <StartProcessScheduled
+          dataModal={mapStartProcessScheduled(process)}
+          id={process.id}
+          urlParams={url}
         />
       ),
     },
   ];
 
   return actions;
-}
-
+};
 
 const breakPoints = [{ breakpoint: "(min-width: 1091px)", totalColumns: 3 }];
 
-export { titlesConfig, actionsConfig, breakPoints, processesDailyNormailzeEntries };
+export {
+  titlesConfig,
+  actionsConfig,
+  breakPoints,
+  processesDailyNormailzeEntries,
+};

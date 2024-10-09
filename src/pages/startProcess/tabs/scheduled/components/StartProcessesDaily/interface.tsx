@@ -26,6 +26,7 @@ interface StartProcessesDailyUIProps {
   month: number;
   searchProcessDaily: string;
   status: string;
+  urlParams: string;
   year: number;
   handleOrderData: () => void;
   OnSearchProcessDaily: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -40,6 +41,7 @@ function StartProcessesDailyUI(props: StartProcessesDailyUIProps) {
     loading,
     month,
     searchProcessDaily,
+    urlParams,
     year,
     handleOrderData,
     OnSearchProcessDaily,
@@ -81,8 +83,14 @@ function StartProcessesDailyUI(props: StartProcessesDailyUIProps) {
           <Table
             id="portal"
             titles={titlesConfig(handleOrderData)}
-            actions={actionsConfig(nameAplication) as IAction[]}
-            entries={processesDailyNormailzeEntries(entries, month, year, status, setStatus)}
+            actions={actionsConfig(urlParams, nameAplication) as IAction[]}
+            entries={processesDailyNormailzeEntries(
+              entries,
+              month,
+              year,
+              status,
+              setStatus
+            )}
             breakpoints={breakPoints}
             isLoading={loading}
             filter={searchProcessDaily}
