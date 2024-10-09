@@ -30,12 +30,15 @@ function ConfirmInitiated() {
     validateConfirmInitiated();
   }, []);
 
+
+
   useEffect(() => {
-    if (deleteProcess) {
-      setConfirmInitiated((prev) =>
-        prev.filter((entry) => entry.id !== deleteProcess)
-      );
-    }
+    const filterData = confirmInitiated.filter(
+      (entry) => entry.id !== deleteProcess
+    );
+
+    setConfirmInitiated(filterData);
+ 
   }, [deleteProcess]);
 
   const handleSearchConfirmInitiated = (

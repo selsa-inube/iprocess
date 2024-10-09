@@ -31,7 +31,7 @@ const DeleteProcessConfirmInitiated = (
       removalJustification: fieldEntered,
     };
     try {
-      const procesRemove = await removeProcessConfirmInitiated(dataRemove);
+      await removeProcessConfirmInitiated(dataRemove);
       setShowModal(false);
       addFlag({
         title: "Eliminación Exitosa",
@@ -39,7 +39,7 @@ const DeleteProcessConfirmInitiated = (
         appearance: ComponentAppearance.SUCCESS,
         duration: 5000,
       });
-      setDeleteProcess(procesRemove?.processControlId as string);
+      setDeleteProcess(data.id as string);
     } catch (error) {
       setShowModal(false);
       addFlag({
