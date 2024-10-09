@@ -72,9 +72,11 @@ const mapStartProcessScheduled = (entry: StartProcesses) => {
 const actions = [
   {
     id: "Details",
-    content: (process: StartProcesses) => (
-      <Details data={mapScheduled(process)} breakpoints={breakPoints} />
-    ),
+    content: (process: StartProcesses) => 
+      process.periodicity !== "Diario" && (
+        <Details data={mapScheduled(process)} breakpoints={breakPoints} />
+      )
+     
   },
   {
     id: "StartProcess",
