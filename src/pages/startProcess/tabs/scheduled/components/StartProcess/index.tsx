@@ -21,10 +21,11 @@ import { ComponentAppearance } from "@ptypes/aparences.types";
 interface IStartProcessScheduledProps {
   id: string;
   dataModal: IEntries;
+  urlParams?: string;
 }
 
 const StartProcessScheduled = (props: IStartProcessScheduledProps) => {
-  const { dataModal, id } = props;
+  const { dataModal, id, urlParams } = props;
 
   const navigate = useNavigate();
 
@@ -117,7 +118,7 @@ const StartProcessScheduled = (props: IStartProcessScheduledProps) => {
           {dataModal.url !== "" ? (
             <>
               {routesComponent.map((comp, index) => {
-                if (comp.path === dataModal.url) {
+                if (comp.path === dataModal.url || comp.path === urlParams) {
                   return (
                     <Suspense
                       key={index}

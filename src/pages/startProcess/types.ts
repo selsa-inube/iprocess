@@ -38,6 +38,12 @@ interface StartProcesses {
   url?: string;
   totalPerson?: number;
   referenceNumberRequirement?: string;
+  timeUsedToInsertPeople?: number;
+  executionParameters?: IExecutionParameters;
+  generalError?: string;
+  plannedExecutionDate?: string;
+  executionOfTheProcess?: string;
+  processControlId?: string;
 }
 
 interface StartProcessesFilter {
