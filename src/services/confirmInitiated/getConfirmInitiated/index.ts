@@ -10,7 +10,7 @@ const confirmInitiatedData = async (): Promise<StartProcesses[]> => {
   for (let attempt = 1; attempt <= maxRetries; attempt++) {
     try {
       const queryParams = new URLSearchParams({
-        processStatus: "Initiated",
+        processStatus: "in.Initiated;PartiallyStarted",
         page: "1",
         per_page: "2000"
       });

@@ -12,7 +12,8 @@ import { DeleteProcessConfirmInitiated } from "../components/Delete";
 const confirmInitiatedNormailzeEntries = (
   process: StartProcesses[],
   status: string,
-  setStatus: (status: string) => void
+  setStatus: (status: string) => void,
+  setDeleteProcess: (processControlId: string) => void
 ) =>
   process.map((entry) => ({
     ...entry,
@@ -30,39 +31,45 @@ const confirmInitiatedNormailzeEntries = (
       />
     ),
     dailyDetail: entry.dailyDetail,
-    actions: actions,
+    actions: actionsConfig(setDeleteProcess),
     dateWithoutFormat: entry.date,
   }));
 
-const actions = [
-  {
-    id: "Details",
-    content: () => (
-      <Icon
-        appearance="dark"
-        icon={<MdOutlineRemoveRedEye />}
-        size="16px"
-        cursorHover
-      />
-    ),
-  },
-  {
-    id: "verification",
-    content: () => (
-      <Icon
-        appearance="dark"
-        icon={<MdCheckCircleOutline />}
-        size="16px"
-        cursorHover
-      />
-    ),
-  },
-  {
-    id: "delete",
-    content: (entry: StartProcesses) => (
-      <DeleteProcessConfirmInitiated data={entry} />
-     ),
-  },
-];
+  const actionsConfig = (setDeleteProcess: (processControlId: string) => void) => {
+    const actions = [
+      {
+        id: "Details",
+        content: () => (
+          <Icon
+            appearance="dark"
+            icon={<MdOutlineRemoveRedEye />}
+            size="16px"
+            cursorHover
+          />
+        ),
+      },
+      {
+        id: "verification",
+        content: () => (
+          <Icon
+            appearance="dark"
+            icon={<MdCheckCircleOutline />}
+            size="16px"
+            cursorHover
+          />
+        ),
+      },
+      {
+        id: "delete",
+        content: (entry: StartProcesses) => (
+          <DeleteProcessConfirmInitiated data={entry} setDeleteProcess={setDeleteProcess} />
+         ),
+      },
+    ];
 
-export { actions, confirmInitiatedNormailzeEntries };
+    return actions;
+  }
+
+
+
+export { actionsConfig, confirmInitiatedNormailzeEntries };

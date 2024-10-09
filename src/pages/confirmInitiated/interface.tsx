@@ -18,6 +18,7 @@ interface ConfirmInitiatedUIProps {
   status: string;
   handleSearchConfirmInitiated: (e: React.ChangeEvent<HTMLInputElement>) => void;
   setStatus: (status: string) => void;
+  setDeleteProcess: (processControlId: string) => void;
 }
 
 function ConfirmInitiatedUI(props: ConfirmInitiatedUIProps) {
@@ -25,6 +26,7 @@ function ConfirmInitiatedUI(props: ConfirmInitiatedUIProps) {
     entries,
     isLoading,
     searchConfirmInitiated,
+    setDeleteProcess,
     status,
     handleSearchConfirmInitiated,
     setStatus,
@@ -69,7 +71,8 @@ function ConfirmInitiatedUI(props: ConfirmInitiatedUIProps) {
           entries={confirmInitiatedNormailzeEntries(
             entries,
             status,
-            setStatus
+            setStatus,
+            setDeleteProcess,
           )}
           filter={searchConfirmInitiated}
           attributes={["description", "statusText", "date", "totalPerson"]}

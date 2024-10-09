@@ -3,20 +3,21 @@ import { useState } from "react";
 import { Icon } from "@inubekit/icon";
 import { useFlag } from "@inubekit/flag";
 
-import { removeProcessConfirmInitiated } from "@services/confirmInitiated/getConfirmInitiated/deleteConfirmInitiated";
 import { tokens } from "@design/tokens";
 import { StartProcesses } from "@pages/startProcess/types";
 import { DecisionModal } from "@components/modals/DecisionModal";
 import { ComponentAppearance } from "@ptypes/aparences.types";
+import { removeProcessConfirmInitiated } from "@services/confirmInitiated/deleteConfirmInitiated";
 
 interface DeleteProcessConfirmInitiatedProps {
   data: StartProcesses;
+  setDeleteProcess: (processControlId: string) => void;
 }
 
 const DeleteProcessConfirmInitiated = (
   props: DeleteProcessConfirmInitiatedProps
 ) => {
-  const { data } = props;
+  const { data, setDeleteProcess } = props;
   const [fieldEntered, setFieldEntered] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -30,15 +31,15 @@ const DeleteProcessConfirmInitiated = (
       removalJustification: fieldEntered,
     };
     try {
-      await removeProcessConfirmInitiated(dataRemove);
+      const procesRemove = await removeProcessConfirmInitiated(dataRemove);
       setShowModal(false);
       addFlag({
         title: "Eliminación Exitosa",
-        description:
-          "Se elimino el proceso con éxito",
+        description: "Se elimino el proceso con éxito",
         appearance: ComponentAppearance.SUCCESS,
         duration: 5000,
       });
+      setDeleteProcess(procesRemove?.processControlId as string);
     } catch (error) {
       setShowModal(false);
       addFlag({
