@@ -37,9 +37,11 @@ const DeleteProcessConfirmInitiated = (
         title: "Eliminación Exitosa",
         description: "Se elimino el proceso con éxito",
         appearance: ComponentAppearance.SUCCESS,
-        duration: 5000,
+        duration: 3000,
       });
-      setDeleteProcess(data.id as string);
+      setTimeout(() => {
+        setDeleteProcess(data.id as string);
+      }, 3000);
     } catch (error) {
       setShowModal(false);
       addFlag({
@@ -47,7 +49,7 @@ const DeleteProcessConfirmInitiated = (
         description:
           "No fue posible eliminar el proceso, por favor intenta más tarde",
         appearance: ComponentAppearance.DANGER,
-        duration: 5000,
+        duration: 3000,
       });
       throw new Error(
         `Error al eliminar el proceso: ${(error as Error).message} `
@@ -60,6 +62,7 @@ const DeleteProcessConfirmInitiated = (
   const handleToggleModal = () => {
     setShowModal(!showModal);
   };
+
   return (
     <>
       <Icon
@@ -74,7 +77,7 @@ const DeleteProcessConfirmInitiated = (
         <DecisionModal
           actionText="Eliminar"
           portalId="portal"
-          appearance= {ComponentAppearance.PRIMARY}
+          appearance={ComponentAppearance.PRIMARY}
           description="¿Confirma que desea Eliminar el Proceso?"
           isLoading={loading}
           justificationOfDecision
