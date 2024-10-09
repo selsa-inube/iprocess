@@ -3,7 +3,13 @@ import * as Yup from "yup";
 import { useEffect, useState } from "react";
 
 import { EnumProcessCoverageData } from "@services/enumerators/getEnumeratorsProcessCoverage";
-import { IStartProcessEntry, IEntries, IFieldsEntered, IEnumeratorsProcessCoverage } from "@forms/types";
+import {
+  IStartProcessEntry,
+  IEntries,
+  IFieldsEntered,
+  IEnumeratorsProcessCoverage,
+} from "@forms/types";
+import { comparisonDataForms, validateExecutionWay } from "@forms/utils";
 import { RefreshSavingProductCardUI } from "./interface";
 
 const validationSchema = Yup.object({
@@ -30,21 +36,23 @@ const RefreshSavingProductCard = (props: RefreshSavingProductCardProps) => {
   const [dynamicValidationSchema, setDynamicValidationSchema] =
     useState(validationSchema);
 
-    const [optionsTypeRefresh, setOptionsTypeRefresh] = useState<IEnumeratorsProcessCoverage[]>([]);
+  const [optionsTypeRefresh, setOptionsTypeRefresh] = useState<
+    IEnumeratorsProcessCoverage[]
+  >([]);
 
-    const validateOptionsTypeRefresh = async () => {
-      try {
-        const newOptions = await EnumProcessCoverageData();
-  
-        setOptionsTypeRefresh(newOptions);
-      } catch (error) {
-        console.info(error);
-      } 
-    };
+  const validateOptionsTypeRefresh = async () => {
+    try {
+      const newOptions = await EnumProcessCoverageData();
 
-    useEffect(() => {
-      validateOptionsTypeRefresh();
-    }, []);
+      setOptionsTypeRefresh(newOptions);
+    } catch (error) {
+      console.info(error);
+    }
+  };
+
+  useEffect(() => {
+    validateOptionsTypeRefresh();
+  }, []);
 
   const formik = useFormik({
     initialValues,
@@ -54,7 +62,7 @@ const RefreshSavingProductCard = (props: RefreshSavingProductCardProps) => {
   });
 
   const handleChange = (name: string, value: string) => {
-    formik.setFieldValue(name, value).then(()=> {
+    formik.setFieldValue(name, value).then(() => {
       formik.validateForm().then((errors) => {
         formik.setErrors(errors);
       });
@@ -64,7 +72,7 @@ const RefreshSavingProductCard = (props: RefreshSavingProductCardProps) => {
   useEffect(() => {
     if (
       data?.executionWay &&
-      data?.executionWay === "PlannedAutomaticExecution"
+      validateExecutionWay(data?.executionWay as string)
     ) {
       setDynamicValidationSchema(
         validationSchema.shape({
@@ -89,13 +97,7 @@ const RefreshSavingProductCard = (props: RefreshSavingProductCardProps) => {
     }
   }, [formik.values, setFieldsEntered]);
 
-  const comparisonData = Boolean(
-    (data?.executionWay === "PlannedAutomaticExecution" &&
-      formik.values.typeRefresh !== initialValues.typeRefresh &&
-      formik.values.plannedExecutionDate !==
-        initialValues.plannedExecutionDate) ||
-      formik.values.typeRefresh !== initialValues.typeRefresh
-  );
+  const comparisonData = comparisonDataForms(data?.executionWay as string ,formik.values ,initialValues)
 
   return (
     <RefreshSavingProductCardUI
