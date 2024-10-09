@@ -13,15 +13,15 @@ import { Label } from "@inubekit/label";
 import { Table } from "@components/data/Table";
 import { IBreakpoint, ITitle } from "@components/data/Table/props";
 import { mediaQueryMobile } from "@config/environment";
+import { tokens } from "@design/tokens";
+import { StartProcesses } from "@pages/startProcess/types";
 import { StyledContainer, StyledModal, StyledModalFields } from "./styles";
 import { IEntries, ILabel } from "../MoreDetailsModal/types";
-import { tokens } from "@design/tokens";
-
 
 interface ExecutionParametersModalProps {
   isVisible: boolean;
   portalId: string;
-  data: IEntries;
+  data: StartProcesses;
   labels: ILabel[];
   titlesParametersTable: ITitle[];
   entriesParametersTable: IEntries[];
@@ -62,47 +62,55 @@ const ExecutionParametersModal = (props: ExecutionParametersModalProps) => {
                   <Text type="title" size="medium" appearance="dark">
                     Parámetros de Ejecución
                   </Text>
-                  <MdClear size={tokens.spacing.s300} cursor="pointer" onClick={onCloseModal} />
+                  <MdClear
+                    size={tokens.spacing.s300}
+                    cursor="pointer"
+                    onClick={onCloseModal}
+                  />
                 </Stack>
               </Stack>
 
               <Divider dashed />
 
-              {labels.map(
-                (field, id) =>
-                  data[field.id] && (
-                    <StyledModalFields key={id} $smallScreen={isMobile}>
-                      <Label
-                        htmlFor={field.id}
-                        size="large"
-                        margin={`${tokens.spacing.s0} ${tokens.spacing.s0} ${tokens.spacing.s0} ${tokens.spacing.s200}`}
-                      >
-                        {field.titleName}
-                      </Label>
-                      <Fieldset legend="" spacing="compact" type="title" size="medium">
-                        <Text type="body" size="medium">
-                          {String(data[field.id])}
-                        </Text>
-                      </Fieldset>
-                    </StyledModalFields>
-                  )
+              {labels.map((field, id) => {
+                const value = data[field.id as keyof StartProcesses];
+                return value && value !== "undefined" ? (
+                  <StyledModalFields key={id} $smallScreen={isMobile}>
+                    <Label
+                      htmlFor={field.id}
+                      size="large"
+                      margin={`${tokens.spacing.s0} ${tokens.spacing.s0} ${tokens.spacing.s0} ${tokens.spacing.s200}`}
+                    >
+                      {field.titleName}
+                    </Label>
+                    <Fieldset legend="" spacing="compact" type="title" size="medium">
+                      <Text type="body" size="medium">
+                        {String(value)}
+                      </Text>
+                    </Fieldset>
+                  </StyledModalFields>
+                ) : null;
+              })}
+
+              {entriesParametersTable.length > 0 && (
+                <>
+                  <Divider dashed />
+                  <Table
+                    id="modals"
+                    titles={titlesParametersTable}
+                    entries={entriesParametersTable}
+                    breakpoints={breakPointsParametersTable}
+                    isLoading={isVisible}
+                    widthFirstColumn="65%"
+                  />
+                </>
               )}
-              <Divider dashed />
-              <Table
-                id="modals"
-                titles={titlesParametersTable}
-                entries={entriesParametersTable}
-                breakpoints={breakPointsParametersTable}
-                isLoading={isVisible}
-                widthFirstColumn="65%"
-              />
             </Stack>
             <Stack gap={tokens.spacing.s100} justifyContent="flex-end">
               <Button
                 spacing="wide"
                 appearance="primary"
                 variant="filled"
-                loading={isVisible}
                 onClick={onCloseModal}
               >
                 Cerrar
