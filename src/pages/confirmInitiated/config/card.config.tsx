@@ -1,12 +1,8 @@
-import {
-  MdCheckCircleOutline,
-} from "react-icons/md";
-import { Icon } from "@inubekit/icon";
-
 import { StartProcesses } from "@pages/startProcess/types";
 import { formatDate } from "@utils/dates";
 import { DetailsConfirmInitiated } from "../components/DetailsConfirmInitiated";
 import { Requirements } from "../components/Requeriments";
+import { ConfirmProcess } from "../components/Confirm";
 import { DeleteProcessConfirmInitiated } from "../components/Delete";
 
 const confirmInitiatedNormailzeEntries = (
@@ -36,36 +32,28 @@ const confirmInitiatedNormailzeEntries = (
   }));
 
   const actionsConfig = (setDeleteProcess: (processControlId: string) => void) => {
-    
-    const actions = [
-      {
-        id: "Details",
-        content: (process: StartProcesses) => (
-          <DetailsConfirmInitiated data={process} />
-        ),
-      },
-      {
-        id: "verification",
-        content: () => (
-          <Icon
-            appearance="dark"
-            icon={<MdCheckCircleOutline />}
-            size="16px"
-            cursorHover
-          />
-        ),
-      },
-      {
-        id: "delete",
-        content: (entry: StartProcesses) => (
-          <DeleteProcessConfirmInitiated data={entry} setDeleteProcess={setDeleteProcess} />
-         ),
-      },
-    ];
-
-    return actions
+const actions = [
+  {
+    id: "Details",
+    content: (process: StartProcesses) => (
+      <DetailsConfirmInitiated data={process} />
+    ),
+  },
+  {
+    id: "verification",
+    content: (entry: StartProcesses) => (
+      <ConfirmProcess data={entry} />
+    ),
+  },
+  {
+    id: "delete",
+    content: (entry: StartProcesses) => (
+      <DeleteProcessConfirmInitiated data={entry} setDeleteProcess={setDeleteProcess} />
+     ),
+  },
+];
+return actions
   }
-
 
 const labelsDetails = [
   {
