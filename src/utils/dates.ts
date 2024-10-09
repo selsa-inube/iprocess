@@ -11,7 +11,7 @@ const monthNormalize: Record<string, string> = {
   April: "Abril",
   May: "Mayo",
   June: "Junio",
-  july: "julio",
+  July: "Julio",
   August: "Agosto",
   September: "Septiembre",
   October: "Octubre",
