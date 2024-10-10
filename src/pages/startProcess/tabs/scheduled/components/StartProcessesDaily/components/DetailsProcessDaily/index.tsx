@@ -17,19 +17,20 @@ import { dataTablesDetailsDailyConfig} from "./config/tablesDetailsDaily.config"
 interface IDetailsProcessDailyProps {
   data: IEntries;
   breakpoints: IBreakpoint[];
+  nameAplication: string;
 }
 
 const DetailsProcessDaily = (props: IDetailsProcessDailyProps) => {
   const {
     data,
-    breakpoints
+    breakpoints,
+    nameAplication
   } = props;
 
   const [showModal, setShowModal] = useState(false);
-
   const [loadingRequirements, setLoadingRequirements] = useState<boolean>(false);
   const [processRequirementData, setProcessRequirementData] = useState<IProcessRequirementResponse[]>([]);
-
+  
   const dataFormatted = formatDateEndpoint(new Date(data.date as Date));
   const requirementsData = async () => {
     const processData = {
@@ -52,16 +53,17 @@ const DetailsProcessDaily = (props: IDetailsProcessDailyProps) => {
       setLoadingRequirements(false);
     }
   };
-
+  
   useEffect(() => {
     requirementsData();
   }, []);
-
-
+  
+  
   const handleToggleModal = () => {
     setShowModal(!showModal);
   };
-
+  
+  const totalData = {...data, aplication: nameAplication};
 
   return (
     <>
@@ -77,7 +79,7 @@ const DetailsProcessDaily = (props: IDetailsProcessDailyProps) => {
         <DetailModal
           portalId="portal"
           title="Detalle"
-          data={data}
+          data={totalData}
           labels={labelsDetails}
           requirement={dataTablesDetailsDailyConfig(processRequirementData) as IData[]}
           breakpoints={breakpoints}

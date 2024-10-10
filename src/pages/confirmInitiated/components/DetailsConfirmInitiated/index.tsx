@@ -17,19 +17,18 @@ interface DetailsConfirmInitiatedProps {
 const DetailsConfirmInitiated = (props: DetailsConfirmInitiatedProps) => {
   const { data } = props;
   const [showModal, setShowModal] = useState(false);
-
-
   const executionParameters = data.executionParameters
-    ? Object.entries(data.executionParameters).map(([key, value], index) => ({
-        id: (index + 1).toString(),
-        parameter: key,
-        value: value
-      }))
-    : [];
-
+  ? Object.entries(data.executionParameters).map(([key, value], index) => ({
+    id: (index + 1).toString(),
+    parameter: key,
+    value: value
+  }))
+  : [];
+  
   const handleToggleModal = () => {
     setShowModal(!showModal);
   };
+
   return (
     <>
       <Icon
@@ -39,17 +38,17 @@ const DetailsConfirmInitiated = (props: DetailsConfirmInitiatedProps) => {
         onClick={handleToggleModal}
         cursorHover
         spacing="narrow"
-      />
+        />
       {showModal && data && (
         <ExecutionParametersModal
-          isVisible={false}
-          portalId="portal"
-          data={data}
-          labels={labelsDetails}
-          titlesParametersTable={titlesParameters}
-          entriesParametersTable={executionParameters}
-          breakPointsParametersTable={breakPointsParameters}
-          onCloseModal={handleToggleModal}
+        isVisible={false}
+        portalId="portal"
+        data={data}
+        labels={labelsDetails}
+        titlesParametersTable={titlesParameters}
+        entriesParametersTable={executionParameters}
+        breakPointsParametersTable={breakPointsParameters}
+        onCloseModal={handleToggleModal}
         />
       )}
     </>
