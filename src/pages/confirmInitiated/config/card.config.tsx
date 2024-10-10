@@ -37,7 +37,7 @@ const confirmInitiatedNormailzeEntries = (
       description: entry.description,
       executionOfTheProcess: entry.executionOfTheProcess, 
       generalError: entry.generalError,
-      plannedExecution: entry.plannedExecutionDate && formatDate(new Date(entry.plannedExecutionDate), true),
+      plannedExecution: entry.date && formatDate(new Date(entry.date), true),
       timeUsedToInsertPeople: entry.timeUsedToInsertPeople,
       Aplication: entry.aplication?.abbreviatedName,
       executionParameters: entry.executionParameters,
