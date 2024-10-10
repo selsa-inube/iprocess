@@ -3,6 +3,7 @@ import * as Yup from "yup";
 import { useEffect, useState } from "react";
 
 import { EnumProcessCoverageData } from "@services/enumerators/getEnumeratorsProcessCoverage";
+import { comparisonDataForms, validateExecutionWay } from "@forms/utils";
 import {
   IStartProcessEntry,
   IEntries,
@@ -70,8 +71,8 @@ const RefreshSavingCommitment = (props: RefreshSavingCommitmentProps) => {
 
   useEffect(() => {
     if (
-      data?.executionWay &&
-      data?.executionWay === "PlannedAutomaticExecution"
+        data?.executionWay &&
+            validateExecutionWay(data?.executionWay as string)
     ) {
       setDynamicValidationSchema(
         validationSchema.shape({
@@ -96,14 +97,9 @@ const RefreshSavingCommitment = (props: RefreshSavingCommitmentProps) => {
     }
   }, [formik.values, setFieldsEntered]);
 
-  const comparisonData = Boolean(
-    (data?.executionWay === "PlannedAutomaticExecution" &&
-      formik.values.typeRefresh !== initialValues.typeRefresh &&
-      formik.values.plannedExecutionDate !==
-        initialValues.plannedExecutionDate) ||
-      formik.values.typeRefresh !== initialValues.typeRefresh
-  );
+  const comparisonData = comparisonDataForms(data?.executionWay as string ,formik.values ,initialValues)
 
+  
   return (
     <RefreshSavingCommitmentUI
       formik={formik}
@@ -115,6 +111,7 @@ const RefreshSavingCommitment = (props: RefreshSavingCommitmentProps) => {
     />
   );
 };
+
 
 export type { RefreshSavingCommitmentProps };
 export { RefreshSavingCommitment };

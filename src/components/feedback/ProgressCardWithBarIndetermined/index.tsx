@@ -6,10 +6,11 @@ import { Stack } from "@inubekit/stack";
 import { Text } from "@inubekit/text";
 import { Blanket } from "@inubekit/blanket";
 import { Spinner } from "@inubekit/spinner";
+import { tokens } from "@design/tokens";
+import { ComponentAppearance } from "@ptypes/aparences.types";
 
 import { StyledContainer, StyledModal } from "./styles";
 import { ProgressCardWithBarType } from "../ProgressCardWithBarDetermined/types";
-import { tokens } from "@design/tokens";
 
 interface ProgressCardWithBarIndeterminedProps {
   portalId: string;
@@ -24,7 +25,7 @@ const ProgressCardWithBarIndetermined = (
 ) => {
   const {
     portalId,
-    appearance = "primary",
+    appearance = ComponentAppearance.PRIMARY,
     withButtonClose,
     isProcessCompleted,
     onCancel,
@@ -63,7 +64,7 @@ const ProgressCardWithBarIndetermined = (
               <Stack gap={tokens.spacing.s100} justifyContent="flex-end">
                 <Button
                   spacing="wide"
-                  appearance="primary"
+                  appearance={ComponentAppearance.PRIMARY}
                   variant="filled"
                   onClick={onCancel}
                   disabled={!isProcessCompleted}

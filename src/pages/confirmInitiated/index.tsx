@@ -4,11 +4,14 @@ import { ConfirmInitiatedUI } from "./interface";
 import { StartProcesses } from "../startProcess/types";
 
 function ConfirmInitiated() {
-  const [searchConfirmInitiated, setSearchConfirmInitiated] = useState<string>("");
+  const [searchConfirmInitiated, setSearchConfirmInitiated] =
+    useState<string>("");
   const [loading, setLoading] = useState<boolean>(true);
   const [status, setStatus] = useState<string>("");
-  const [confirmInitiated, setConfirmInitiated] = useState<StartProcesses[]>([]);
-
+  const [deleteProcess, setDeleteProcess] = useState<string>("");
+  const [confirmInitiated, setConfirmInitiated] = useState<StartProcesses[]>(
+    []
+  );
 
   const validateConfirmInitiated = async () => {
     setLoading(true);
@@ -27,7 +30,20 @@ function ConfirmInitiated() {
     validateConfirmInitiated();
   }, []);
 
-  const handleSearchConfirmInitiated = (e: React.ChangeEvent<HTMLInputElement>) => {
+
+
+  useEffect(() => {
+    const filterData = confirmInitiated.filter(
+      (entry) => entry.id !== deleteProcess
+    );
+
+    setConfirmInitiated(filterData);
+ 
+  }, [deleteProcess]);
+
+  const handleSearchConfirmInitiated = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
     setSearchConfirmInitiated(e.target.value);
   };
 
@@ -37,9 +53,9 @@ function ConfirmInitiated() {
       isLoading={loading}
       status={status}
       setStatus={setStatus}
+      setDeleteProcess={setDeleteProcess}
       handleSearchConfirmInitiated={handleSearchConfirmInitiated}
       searchConfirmInitiated={searchConfirmInitiated}
-
     />
   );
 }

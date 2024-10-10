@@ -2,6 +2,12 @@ import { Button } from "@inubekit/button";
 
 import { StyledContainerButton } from "./styles";
 
+const redirectToValidateProgress = ["StartedImmediately", "Programmed", "InAction"]
+
+const redirectToFinished = ["Finished"]
+
+const rediectToConfirmInitiated = ["Initiated", "PartiallyStarted"]
+
 const stringToTime = (secondsProcess: number): Date => {
   
   const hours = Math.floor(secondsProcess / 3600);
@@ -59,6 +65,9 @@ const requirementsButton = () => {
 };
 
 export {
+  redirectToValidateProgress,
+  redirectToFinished,
+  rediectToConfirmInitiated,
   stringToTime,
   calculateSeconds,
   requirementsData,
