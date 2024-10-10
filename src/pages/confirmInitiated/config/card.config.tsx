@@ -34,18 +34,30 @@ const confirmInitiatedNormailzeEntries = (
     plannedExecution: entry.plannedExecutionDate,
   }));
 
+const mapConfirmInitiated = (entry: StartProcesses) => {
+  return {
+    id: entry.id,
+    description: entry.description,
+    executionOfTheProcess: entry.executionOfTheProcess, 
+    generalError: entry.generalError,
+    plannedExecution: entry.plannedExecutionDate && formatDate(new Date(entry.plannedExecutionDate), true),
+    timeUsedToInsertPeople: entry.timeUsedToInsertPeople,
+    Aplication: entry.aplication?.abbreviatedName,
+    executionParameters: entry.executionParameters,
+  }
+}
 
 const actions = [
   {
     id: "Details",
     content: (process: StartProcesses) => (
-      <DetailsConfirmInitiated data={process} />
+      <DetailsConfirmInitiated data={mapConfirmInitiated(process)} />
     ),
   },
   {
     id: "verification",
-    content: (entry: StartProcesses) => (
-      <ConfirmProcess data={entry} />
+    content: (process: StartProcesses) => (
+      <ConfirmProcess data={process} />
     ),
   },
   {
@@ -63,7 +75,7 @@ const actions = [
 
 const labelsDetails = [
   {
-    id: "processControlId",
+    id: "Aplication",
     titleName: "Aplicación",
   },
   {
