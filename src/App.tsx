@@ -1,17 +1,15 @@
-import { useEffect } from "react";
 import {
   Route,
   RouterProvider,
   createBrowserRouter,
   createRoutesFromElements,
 } from "react-router-dom";
+import { useContext } from "react";
 import { ThemeProvider } from "styled-components";
 import { FlagProvider } from "@inubekit/flag";
 
 import { useAuth0 } from "@auth0/auth0-react";
 import { ErrorPage } from "@components/layout/ErrorPage";
-import AppContextProvider from "@context/AppContext";
-
 import { AppPage } from "./components/layout/AppPage";
 import { enviroment } from "./config/environment";
 import { GlobalStyles } from "./styles/global";
@@ -20,7 +18,12 @@ import { FinishedRoutes } from "./routes/finished";
 import { StartProcessRoutes } from "./routes/startProcess";
 import { ValidateProgressRoutes } from "./routes/validateProgress";
 import { theme } from "./config/theme";
-
+import { AppContext, AppContextProvider } from "./context/AppContext";
+import { usePortalData } from "./hooks/usePortalData";
+import { useBusinessManagers } from "./hooks/useBusinessManagers";
+import { useAuthRedirect } from "./hooks/useAuthRedirect";
+import { SelectBusinessUnits } from "./pages/selectBusinessUnits";
+import { SelectBusinessUnitsRoutes } from "./routes/selectBusinessunits";
 
 function LogOut() {
   localStorage.clear();
@@ -29,12 +32,20 @@ function LogOut() {
   return <AppPage />;
 }
 
+function FirstPage() {
+  const { businessUnitSigla } = useContext(AppContext);
+
+  return businessUnitSigla.length === 0 ? <SelectBusinessUnits /> : <AppPage />;
+}
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
-      <Route errorElement={<ErrorPage />} />
-      <Route path="/*" element={<AppPage />}>
+      <Route
+        path="selectBusinessUnit/*"
+        element={<SelectBusinessUnitsRoutes />}
+      />
+      <Route path="/*" element={<FirstPage />} errorElement={<ErrorPage />}>
         <Route path="/*" element={<StartProcessRoutes />} />
         <Route path="start-process/*" element={<StartProcessRoutes />} />
         <Route
@@ -47,20 +58,36 @@ const router = createBrowserRouter(
         />
         <Route path="finished/*" element={<FinishedRoutes />} />
       </Route>
-
       <Route path="logout" element={<LogOut />} />
     </>
   )
 );
 
-function App() {
-  const { loginWithRedirect, isAuthenticated, isLoading } = useAuth0();
+const url = new URL(window.location.href);
+const params = new URLSearchParams(url.search);
+const portalCode = params.get("portal");
 
-  useEffect(() => {
-    if (!isLoading && !isAuthenticated) {
-      loginWithRedirect();
-    }
-  }, [isLoading, isAuthenticated, loginWithRedirect]);
+function App() {
+  const { portalData, hasError: portalError } = usePortalData();
+  const { businessManagersData, hasError: businessError } = useBusinessManagers(
+    portalData,
+    portalCode
+  );
+  const {
+    hasError: authError,
+    isLoading,
+    isAuthenticated,
+  } = useAuthRedirect(portalData, businessManagersData, portalCode);
+
+  const hasError = portalError || businessError || authError;
+
+  if (isLoading) {
+    return null;
+  }
+
+  if (hasError && !isAuthenticated) {
+    return <ErrorPage />;
+  }
 
   if (!isAuthenticated) {
     return null;
@@ -68,14 +95,14 @@ function App() {
 
   return (
     <>
-    <GlobalStyles />
-    <ThemeProvider theme={theme}> 
-    <FlagProvider>
-    <AppContextProvider>
-      <RouterProvider router={router} />
-    </AppContextProvider>
-    </FlagProvider>
-    </ThemeProvider>
+      <GlobalStyles />
+      <ThemeProvider theme={theme}>
+        <FlagProvider>
+          <AppContextProvider>
+            <RouterProvider router={router} />
+          </AppContextProvider>
+        </FlagProvider>
+      </ThemeProvider>
     </>
   );
 }
