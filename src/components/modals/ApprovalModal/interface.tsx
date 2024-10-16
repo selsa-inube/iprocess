@@ -11,7 +11,12 @@ import { Blanket } from "@inubekit/blanket";
 import { Textarea } from "@inubekit/textarea";
 import { Toggle } from "@inubekit/toggle";
 
-import { StyledContainer, StyledModal, StyledTextarea } from "./styles";
+import {
+  StyledContainer,
+  StyledModal,
+  StyledTextarea,
+  StyledToggle,
+} from "./styles";
 import { Label } from "@inubekit/label";
 
 interface ApprovalModalUIProps {
@@ -44,6 +49,7 @@ const ApprovalModalUI = (props: ApprovalModalUIProps) => {
   const isMobile = useMediaQuery("(max-width: 500px)");
 
   const node = document.getElementById(portalId);
+  dataComparison;
 
   if (!node) {
     throw new Error(
@@ -68,19 +74,21 @@ const ApprovalModalUI = (props: ApprovalModalUIProps) => {
 
               <Divider dashed />
 
-              <Label htmlFor="approval" size="medium" />
-
-              <Toggle
-                checked={approvalChecked}
-                id="approval"
-                margin="0px"
-                name="approval"
-                onChange={handleChange}
-                padding="0px"
-                size="large"
-                value={formik.values.approval}
-              />
-
+              <StyledToggle>
+                <Toggle
+                  checked={approvalChecked}
+                  id="approval"
+                  margin="0px"
+                  name="approval"
+                  onChange={handleChange}
+                  padding="0px"
+                  size="large"
+                  value={formik.values.approval}
+                />
+                <Label htmlFor="approval" size="large">
+                  Aprobar
+                </Label>
+              </StyledToggle>
               <StyledTextarea $smallScreen={isMobile}>
                 <Textarea
                   label="Observaciones de aprobación o rechazo"
@@ -103,7 +111,7 @@ const ApprovalModalUI = (props: ApprovalModalUIProps) => {
                 appearance="primary"
                 variant="filled"
                 loading={loading}
-                disabled={!dataComparison || !formik.isValid}
+                disabled={true} //cambiar en una tarea posterior
                 onClick={handleConfirm}
               >
                 Confirmar

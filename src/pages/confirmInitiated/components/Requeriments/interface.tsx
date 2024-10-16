@@ -4,14 +4,16 @@ import { Tag } from "@inubekit/tag";
 import { Text } from "@inubekit/text";
 import { Stack } from "@inubekit/stack";
 
-import { appearances} from "@pages/startProcess/types";
+import { appearances } from "@pages/startProcess/types";
 import { RequirementsModal } from "@components/modals/requirementsModal";
 import { Tooltip } from "@design/feedback/Tooltip";
 import { tokens } from "@design/tokens";
 import { IRefNumPackageRequirement } from "@ptypes/packageRequeriment.types";
-import { breakPoints, dataTablesConfig } from "./config/tablesRequirements.config";
+import {
+  breakPoints,
+  dataTablesConfig,
+} from "./config/tablesRequirements.config";
 import { StyledContainer } from "./styles";
-
 
 interface RequirementsUIProps {
   isVisibleStatusReq: boolean;
@@ -39,9 +41,7 @@ const RequirementsUI = (props: RequirementsUIProps) => {
   const validateStatus =
     normalizeStatusRequirement?.name === "Sin Evaluar" ||
     normalizeStatusRequirement?.name === "No Cumple";
-
-    const requirements = statusRequirement?.listOfRequirements ?? [];
-
+    
   return (
     <>
       {isVisibleStatusReq ? (
@@ -51,7 +51,8 @@ const RequirementsUI = (props: RequirementsUIProps) => {
           onClick={handleToggleModal}
           $withCursor={validateStatus}
         >
-          {statusRequirement && statusRequirement?.generalStatusRequirement?.length > 0 ? (
+          {statusRequirement &&
+          statusRequirement?.generalStatusRequirement?.length? (
             <Stack gap={tokens.spacing.s050} direction="row">
               <Stack height="80%">
                 <Tag
@@ -87,7 +88,7 @@ const RequirementsUI = (props: RequirementsUIProps) => {
           breakpoints={breakPoints}
           isLoading={isVisibleStatusReq}
           portalId="portal"
-          requirements={dataTablesConfig(requirements)}
+          requirements={dataTablesConfig(statusRequirement || {} as IRefNumPackageRequirement)}
           title="Pre-validar Requisitos"
           onCloseModal={handleToggleModal}
         />

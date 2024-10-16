@@ -1,4 +1,4 @@
-import { IRefNumPackageRequirement } from "@src/types/packageRequeriment.types";
+import { IRefNumPackageRequirement } from "@ptypes/packageRequeriment.types";
 
 const mapRefNumPackRequirementApiToEntity = (
   requirement: Record<string, string | number | object>
@@ -6,10 +6,10 @@ const mapRefNumPackRequirementApiToEntity = (
   const packageRequirement: IRefNumPackageRequirement = {
     id: String(requirement.packageId),
     generalStatusRequirement: String(requirement.generalStatusPackageRequirement),
-    listOfRequirements: Object(requirement.listOfRequirements),
     date: new Date(String(requirement.packageDate)),
     description: String(requirement.packageDescription),
     uniqueReferenceNumber: String(requirement.uniqueReferenceNumber),
+    listOfRequirements: Object(requirement.listOfRequirements),
   };
   return packageRequirement;
 };
