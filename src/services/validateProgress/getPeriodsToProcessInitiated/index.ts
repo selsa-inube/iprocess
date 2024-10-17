@@ -4,10 +4,10 @@ import {
   maxRetriesServices,
 } from "@config/environment";
 import { IListPeriods } from "@pages/startProcess/types";
-import { mapListPeriodStartProcessApiToEntities } from "./mappers";
+import { mapListPeriodToProcessInitiatedApiToEntities } from "./mappers";
 
 
-const listPeriodsStartProcess = async (
+const listPeriodsToProcessInitiated = async (
   cutOffDate: string
 ): Promise<IListPeriods[]> => {
   const maxRetries = maxRetriesServices;
@@ -25,7 +25,7 @@ const listPeriodsStartProcess = async (
       const options: RequestInit = {
         method: "GET",
         headers: {
-          "X-Action": "PeriodToStartProcess",
+          "X-Action": "PeriodToProcessInitiated",
           "X-Business-Unit": enviroment.TEMP_BUSINESS_UNIT,
           "Content-type": "application/json; charset=UTF-8",
         },
@@ -53,11 +53,11 @@ const listPeriodsStartProcess = async (
         };
       }
 
-      const normalizedListPeriodStartProcess = Array.isArray(data)
-        ? mapListPeriodStartProcessApiToEntities(data)
+      const normalizedListPeriodToProcessInitiated = Array.isArray(data)
+        ? mapListPeriodToProcessInitiatedApiToEntities(data)
         : [];
 
-      return normalizedListPeriodStartProcess;
+      return normalizedListPeriodToProcessInitiated;
     } catch (error) {
       if (attempt === maxRetries) {
         throw new Error(
@@ -70,4 +70,4 @@ const listPeriodsStartProcess = async (
   return [];
 };
 
-export { listPeriodsStartProcess };
+export { listPeriodsToProcessInitiated };
