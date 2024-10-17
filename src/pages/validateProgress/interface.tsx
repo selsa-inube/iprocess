@@ -2,6 +2,7 @@ import { MdSearch } from "react-icons/md";
 import { Stack } from "@inubekit/stack";
 import { Text } from "@inubekit/text";
 import { useMediaQuery } from "@inubekit/hooks";
+import { Input } from "@inubekit/input";
 
 import { ChangePeriod } from "@components/feedback/ChangePeriod";
 import { tokens } from "@design/tokens";
@@ -12,7 +13,6 @@ import { CardProcessGroup } from "@components/feedback/CardProcessGroup";
 import { CardProcess } from "@components/feedback/CardProcess";
 import { IChangePeriodEntry, IListPeriods } from "../startProcess/types";
 import { validateprogressNormailzeEntries } from "./config/card.config";
-import { Input } from "@inubekit/input";
 
 interface ValidateProgressUIProps {
   entries: IProcess[];
