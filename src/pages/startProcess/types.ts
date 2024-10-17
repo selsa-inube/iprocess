@@ -44,6 +44,7 @@ interface StartProcesses {
   plannedExecutionDate?: string;
   executionOfTheProcess?: string;
   processControlId?: string;
+  totalPersonsProsecuted?: number;
 }
 
 interface StartProcessesFilter {

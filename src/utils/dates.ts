@@ -1,5 +1,7 @@
-
-import { FilterProcessesForDate, IChangePeriodEntry } from "@pages/startProcess/types";
+import {
+  FilterProcessesForDate,
+  IChangePeriodEntry,
+} from "@pages/startProcess/types";
 import { monthsData } from "@mocks/domains/months";
 
 import { capitalizeText } from "./texts";
@@ -11,13 +13,13 @@ const monthNormalize: Record<string, string> = {
   April: "Abril",
   May: "Mayo",
   June: "Junio",
-  july: "julio",
+  July: "Julio",
   August: "Agosto",
   September: "Septiembre",
   October: "Octubre",
   November: "Noviembre",
   December: "Diciembre",
-}
+};
 
 const formatDate = (date: Date, withTime?: boolean) => {
   const options: Intl.DateTimeFormatOptions = {
@@ -58,7 +60,7 @@ const formatDateEndpoint = (date: Date) => {
   const [day, month, year] = dateString.split("/");
 
   return `${year}-${month}-${day}`;
-}
+};
 
 const today = new Date();
 
@@ -96,6 +98,19 @@ const filterDateChange = (
   };
 };
 
+const filterDateForMonthAndYear = (month: number, year: number) => {
+  const monthNormalize = month ? month : formatMonth();
+  const yearNormalize = year ? year : today.getFullYear();
+  const startDate = formatDateEndpoint(
+    new Date(yearNormalize, (monthNormalize as number) - 1, 1)
+  );
+  const endDate = formatDateEndpoint(
+    new Date(yearNormalize, monthNormalize as number, 0)
+  );
+
+  return { startDate, endDate };
+};
+
 export {
   currentMonthLetters,
   currentYear,
@@ -104,5 +119,6 @@ export {
   formatDate,
   filterDateChange,
   formatMonth,
-  formatDateEndpoint
+  formatDateEndpoint,
+  filterDateForMonthAndYear,
 };
