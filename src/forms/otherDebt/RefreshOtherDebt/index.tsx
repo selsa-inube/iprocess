@@ -9,6 +9,7 @@ import {
   IFieldsEntered,
   IEnumeratorsProcessCoverage,
 } from "@forms/types";
+import { comparisonDataForms, validateExecutionWay } from "@forms/utils";
 import { RefreshOtherDebtUI } from "./interface";
 
 const validationSchema = Yup.object({
@@ -71,7 +72,7 @@ const RefreshOtherDebt = (props: RefreshOtherDebtProps) => {
   useEffect(() => {
     if (
       data?.executionWay &&
-      data?.executionWay === "PlannedAutomaticExecution"
+      validateExecutionWay(data?.executionWay as string)
     ) {
       setDynamicValidationSchema(
         validationSchema.shape({
@@ -96,13 +97,7 @@ const RefreshOtherDebt = (props: RefreshOtherDebtProps) => {
     }
   }, [formik.values, setFieldsEntered]);
 
-  const comparisonData = Boolean(
-    (data?.executionWay === "PlannedAutomaticExecution" &&
-      formik.values.typeRefresh !== initialValues.typeRefresh &&
-      formik.values.plannedExecutionDate !==
-        initialValues.plannedExecutionDate) ||
-      formik.values.typeRefresh !== initialValues.typeRefresh
-  );
+  const comparisonData = comparisonDataForms(data?.executionWay as string ,formik.values ,initialValues)
 
   return (
     <RefreshOtherDebtUI

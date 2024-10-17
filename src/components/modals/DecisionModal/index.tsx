@@ -57,9 +57,9 @@ const DecisionModal = (props: DecisionModalProps) => {
       setDynamicValidationSchema(
         validationSchema.shape({
           justification: Yup.string()
-            .required("Este campo es requerido")
-            .min(5, "Este campo debe tener al menos 5 caracteres")
-            .max(130, "Este campo debe tener maximo 130 caracteres"),
+            .required("El dato es requerido")
+            .min(5, "Debe registrar como mínimo 5 caracteres.")
+            .max(130, "No puede superar de 130 caracteres."),
         })
       );
     }

@@ -3,6 +3,7 @@ import * as Yup from "yup";
 import { useEffect, useState } from "react";
 
 import { EnumProcessCoverageData } from "@services/enumerators/getEnumeratorsProcessCoverage";
+import { comparisonDataForms, validateExecutionWay } from "@forms/utils";
 import {
   IStartProcessEntry,
   IEntries,
@@ -71,7 +72,7 @@ const RefreshCustomerAttributes = (props: RefreshCustomerAttributesProps) => {
   useEffect(() => {
     if (
       data?.executionWay &&
-      data?.executionWay === "PlannedAutomaticExecution"
+      validateExecutionWay(data?.executionWay as string)
     ) {
       setDynamicValidationSchema(
         validationSchema.shape({
@@ -96,13 +97,7 @@ const RefreshCustomerAttributes = (props: RefreshCustomerAttributesProps) => {
     }
   }, [formik.values, setFieldsEntered]);
 
-  const comparisonData = Boolean(
-    (data?.executionWay === "PlannedAutomaticExecution" &&
-      formik.values.typeRefresh !== initialValues.typeRefresh &&
-      formik.values.plannedExecutionDate !==
-        initialValues.plannedExecutionDate) ||
-      formik.values.typeRefresh !== initialValues.typeRefresh
-  );
+  const comparisonData = comparisonDataForms(data?.executionWay as string ,formik.values ,initialValues)
 
   return (
     <RefreshCustomerAttributesUI
