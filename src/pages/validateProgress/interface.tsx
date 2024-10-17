@@ -2,6 +2,7 @@ import { MdSearch } from "react-icons/md";
 import { Stack } from "@inubekit/stack";
 import { Text } from "@inubekit/text";
 import { useMediaQuery } from "@inubekit/hooks";
+import { Input } from "@inubekit/input";
 
 import { ChangePeriod } from "@components/feedback/ChangePeriod";
 import { tokens } from "@design/tokens";
@@ -9,7 +10,6 @@ import { monthNormalize } from "@utils/dates";
 import { mediaQueryMobile } from "@config/environment";
 import { IProcess } from "@components/feedback/CardProcess/types";
 import { IChangePeriodEntry, IListPeriods } from "../startProcess/types";
-import { Input } from "@inubekit/input";
 
 interface ValidateProgressUIProps {
   entries: IProcess[];
