@@ -10,8 +10,10 @@ import { Divider } from "@inubekit/divider";
 
 import { IEntries, IEnumeratorsProcessCoverage } from "@forms/types";
 import { Datetimefield } from "@design/inputs/Datetimefield";
+import { getFieldState, validateExecutionWay } from "@forms/utils";
 import { tokens } from "@design/tokens";
 import { mediaQueryMobile } from "@config/environment";
+import { ComponentAppearance } from "@ptypes/aparences.types";
 import { StyledField, StyledTextarea } from "./styles";
 
 
@@ -34,10 +36,6 @@ const RefreshCardCreditProductUI = (props: RefreshCardCreditProductUIProps) => {
     onStartProcess,
   } = props;
 
-  const getFieldState = (formik: FormikValues, fieldName: string) => {
-    if (formik.errors[fieldName]) return "invalid";
-  };
-
   const isMobile = useMediaQuery(mediaQueryMobile);
 
   return (
@@ -56,7 +54,7 @@ const RefreshCardCreditProductUI = (props: RefreshCardCreditProductUIProps) => {
             <Text type="label" size="large" weight="bold">
               Descripción sugerida
             </Text>
-            <Fieldset legend="" spacing="compact">
+            <Fieldset legend="" spacing="compact" type="title" size="medium">
               <Text>{String(data?.descriptionSuggested)}</Text>
             </Fieldset>
           </StyledField>
@@ -101,14 +99,13 @@ const RefreshCardCreditProductUI = (props: RefreshCardCreditProductUIProps) => {
             <Text type="label" size="large" weight="bold">
               Fecha y hora de ejecución
             </Text>
-            <Fieldset legend="" spacing="compact">
+            <Fieldset legend="" spacing="compact" type="title" size="medium">
               <Text>{String(data.date)}</Text>
             </Fieldset>
           </StyledField>
 
           {data?.executionWay &&
-            data?.executionWay ===
-              "PlannedAutomaticExecution" && (
+            validateExecutionWay(data?.executionWay as string) && (
               <Datetimefield
                 withFullwidth={true}
                 id="plannedExecutionDate"
@@ -131,7 +128,7 @@ const RefreshCardCreditProductUI = (props: RefreshCardCreditProductUIProps) => {
           <Stack gap={tokens.spacing.s100} justifyContent="flex-end">
             <Button
               spacing="wide"
-              appearance="primary"
+              appearance={ComponentAppearance.PRIMARY}
               variant="filled"
               type="submit"
               onClick={onStartProcess}

@@ -11,7 +11,8 @@ import { IEntries } from "@forms/types";
 import { Datetimefield } from "@design/inputs/Datetimefield";
 import { tokens } from "@design/tokens";
 import { mediaQueryMobile } from "@config/environment";
-
+import { getFieldState, validateExecutionWay } from "@forms/utils";
+import { ComponentAppearance } from "@ptypes/aparences.types";
 import { StyledField, StyledTextarea } from "./styles";
 
 
@@ -24,10 +25,6 @@ interface RefreshInterestStatusUpdateUIProps {
 
 const RefreshInterestStatusUpdateUI = (props: RefreshInterestStatusUpdateUIProps) => {
   const { data, formik, comparisonData, onStartProcess } = props;
-
-  const getFieldState = (formik: FormikValues, fieldName: string) => {
-    if (formik.errors[fieldName]) return "invalid";
-  };
 
   const isMobile = useMediaQuery(mediaQueryMobile);
 
@@ -47,7 +44,7 @@ const RefreshInterestStatusUpdateUI = (props: RefreshInterestStatusUpdateUIProps
           <Text type="label" size="large" weight="bold">
             Descripción sugerida
           </Text>
-          <Fieldset legend="" spacing="compact">
+          <Fieldset legend="" spacing="compact" type="title" size="medium">
             <Text>{String(data?.descriptionSuggested)}</Text>
           </Fieldset>
         </StyledField>
@@ -69,13 +66,13 @@ const RefreshInterestStatusUpdateUI = (props: RefreshInterestStatusUpdateUIProps
           <Text type="label" size="large" weight="bold">
             Fecha y hora de ejecución
           </Text>
-          <Fieldset legend="" spacing="compact">
+          <Fieldset legend="" spacing="compact" type="title" size="medium">
             <Text>{String(data.date)}</Text>
           </Fieldset>
         </StyledField>
 
         {data?.executionWay &&
-          data?.executionWay === "PlannedAutomaticExecution" && (
+            validateExecutionWay(data?.executionWay as string) && (
             <Datetimefield
               withFullwidth={true}
               id="plannedExecutionDate"
@@ -98,7 +95,7 @@ const RefreshInterestStatusUpdateUI = (props: RefreshInterestStatusUpdateUIProps
         <Stack gap={tokens.spacing.s100} justifyContent="flex-end">
           <Button
             spacing="wide"
-            appearance="primary"
+            appearance={ComponentAppearance.PRIMARY}
             variant="filled"
             type="submit"
             onClick={onStartProcess}

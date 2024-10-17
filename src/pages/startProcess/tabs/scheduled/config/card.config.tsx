@@ -22,7 +22,7 @@ const scheduledNormailzeEntries = (
       <ScheduledRequirements
         id={entry.id}
         month={month}
-        publicCode={entry.publicCode}
+        publicCode={entry.publicCode || ""}
         plannedExecution={entry.date ? new Date(entry.date) : undefined}
         year={year}
         setStatus={setStatus}
@@ -72,9 +72,11 @@ const mapStartProcessScheduled = (entry: StartProcesses) => {
 const actions = [
   {
     id: "Details",
-    content: (process: StartProcesses) => (
-      <Details data={mapScheduled(process)} breakpoints={breakPoints} />
-    ),
+    content: (process: StartProcesses) => 
+      process.periodicity !== "Diario" && (
+        <Details data={mapScheduled(process)} breakpoints={breakPoints} />
+      )
+     
   },
   {
     id: "StartProcess",
