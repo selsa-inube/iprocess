@@ -39,6 +39,20 @@ const StyledModalFields = styled.div<IStyledModal>`
   flex-direction: column;
   hyphens: auto;
 
+  & > fieldset {
+    padding: ${tokens.spacing.s150};
+  }
+
+  & > fieldset div:nth-child(1) {
+    padding: ${tokens.spacing.s100} ${tokens.spacing.s0};
+    background-color: red;
+  }
+ 
+  & > div {
+    min-height:${tokens.spacing.s0} !important;
+    margin-bottom: -8px !important;
+  }
+
   div {
     min-height: ${tokens.spacing.s0}!important ;
     margin-bottom: -8px !important;

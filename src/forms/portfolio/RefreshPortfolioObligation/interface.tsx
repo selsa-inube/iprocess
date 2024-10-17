@@ -12,6 +12,8 @@ import { IEntries, IEnumeratorsProcessCoverage } from "@forms/types";
 import { Datetimefield } from "@design/inputs/Datetimefield";
 import { tokens } from "@design/tokens";
 import { mediaQueryMobile } from "@config/environment";
+import { getFieldState, validateExecutionWay } from "@forms/utils";
+import { ComponentAppearance } from "@ptypes/aparences.types";
 import { StyledField, StyledTextarea } from "./styles";
 
 
@@ -36,11 +38,7 @@ const RefreshPortfolioObligationUI = (
     onStartProcess,
   } = props;
 
-  const getFieldState = (formik: FormikValues, fieldName: string) => {
-    if (formik.errors[fieldName]) return "invalid";
-  };
-
-  const isMobile = useMediaQuery(mediaQueryMobile);
+    const isMobile = useMediaQuery(mediaQueryMobile);
 
   return (
     <Stack direction="column" gap={tokens.spacing.s250}>
@@ -109,8 +107,7 @@ const RefreshPortfolioObligationUI = (
           </StyledField>
 
           {data?.executionWay &&
-            data?.executionWay ===
-              "PlannedAutomaticExecution" && (
+            validateExecutionWay(data?.executionWay as string) && (
               <Datetimefield
                 withFullwidth={true}
                 id="plannedExecutionDate"
@@ -133,7 +130,7 @@ const RefreshPortfolioObligationUI = (
           <Stack gap={tokens.spacing.s100} justifyContent="flex-end">
             <Button
               spacing="wide"
-              appearance="primary"
+              appearance={ComponentAppearance.PRIMARY}
               variant="filled"
               type="submit"
               onClick={onStartProcess}
