@@ -1,6 +1,5 @@
 import { MdSearch } from "react-icons/md";
 import { Stack } from "@inubekit/stack";
-import { Textfield } from "@inubekit/textfield";
 import { Text } from "@inubekit/text";
 import { useMediaQuery } from "@inubekit/hooks";
 
@@ -13,6 +12,7 @@ import { CardProcessGroup } from "@components/feedback/CardProcessGroup";
 import { CardProcess } from "@components/feedback/CardProcess";
 import { IChangePeriodEntry, IListPeriods } from "../startProcess/types";
 import { validateprogressNormailzeEntries } from "./config/card.config";
+import { Input } from "@inubekit/input";
 
 interface ValidateProgressUIProps {
   entries: IProcess[];
@@ -70,7 +70,7 @@ function ValidateProgressUI(props: ValidateProgressUIProps) {
               setSelectedPeriod={setSelectedPeriod}
             />
 
-            <Textfield
+            <Input
               name="searchValidateProgress"
               id="searchValidateProgress"
               placeholder="Búsqueda..."
