@@ -2,8 +2,7 @@ import { BrowserRouter } from "react-router-dom";
 import { Meta, StoryFn } from "@storybook/react";
 
 import { AppContext } from "@context/AppContext";
-import linparLogo from "@assets/images/linpar.png";
-
+import selsaLogo from "@assets/images/selsa.png"
 import { AppPage } from ".";
 
 const usersMock = {
@@ -32,12 +31,12 @@ const useContext = {
       userName: "abc123",
     },
     businessUnit:{
-      publicCode: "LINPAR",
-      abbreviatedName: "LINPAR",
-      businessUnit: "LINPAR",
-      urlLogo: linparLogo,
+      publicCode: "IProcess",
+      abbreviatedName: "IProcess",
+      businessUnit: "IProcess",
+      urlLogo: selsaLogo,
     },} ,
-  businessUnitSigla: "LINPAR", 
+  businessUnitSigla: "IProcess", 
   setAppData: () => {}, 
   setBusinessUnitSigla: () => {}, 
 };
