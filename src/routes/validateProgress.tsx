@@ -1,5 +1,5 @@
 import { Route, Routes } from "react-router-dom";
-import { ValidateProgress } from "@src/pages/validateProgress";
+import { ValidateProgress } from "@pages/validateProgress";
 
 function ValidateProgressRoutes() {
   return (

@@ -8,7 +8,7 @@ interface IStyledOptionlist {
 const StyledOptionlist = styled.div<IStyledOptionlist>`
   cursor: pointer;
   position: relative;
-  bottom: ${({ $numberOptions }) => ($numberOptions === 5 ? "120px" : "80px")};
+  bottom: ${({ $numberOptions }) => ($numberOptions > 5 ? "160px" : "80px")}; 
   right: 40px;
 `;
 
