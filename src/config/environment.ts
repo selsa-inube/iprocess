@@ -18,8 +18,10 @@ const enviroment = {
   IPROCESS_API_URL_QUERY_ENUM: import.meta.env.VITE_IPROCESS_API_URL_QUERY_ENUM,
   IPROCESS_API_URL_PERSISTENCE: import.meta.env
     .VITE_IPROCESS_API_URL_PERSISTENCE,
-    IREQUER_API_URL_QUERY: import.meta.env.VITE_IREQUER_API_URL_QUERY,  
+  IREQUER_API_URL_QUERY: import.meta.env.VITE_IREQUER_API_URL_QUERY,
   TEMP_BUSINESS_UNIT: "test",
+  IVITE_ISAAS_QUERY_PROCESS_SERVICE: import.meta.env
+    .VITE_ISAAS_QUERY_PROCESS_SERVICE,
 };
 
 export {
@@ -30,6 +32,3 @@ export {
   maxRetriesServices,
   fetchTimeoutServices,
 };
-
-
-
