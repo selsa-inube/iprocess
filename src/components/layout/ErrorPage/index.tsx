@@ -1,4 +1,3 @@
-
 import { MdChevronLeft } from "react-icons/md";
 import { Grid } from "@inubekit/grid";
 import { Stack } from "@inubekit/stack";
@@ -8,6 +7,7 @@ import { useMediaQueries } from "@inubekit/hooks";
 
 import selsaLogo from "@assets/images/selsa.png";
 import errorImage from "@assets/images/timeout.png";
+import { tokens } from "@design/tokens";
 
 import { StyledCompanyLogo, StyledErrorImage } from "./styles";
 
@@ -39,8 +39,16 @@ function ErrorPage(props: ErrorPageProps) {
 
   return (
     <Stack
-      padding={matches["(max-width: 600px)"] ? "s400" : "s1000"}
-      gap={matches["(max-width: 1000px)"] ? "64px" : "120px"}
+      padding={
+        matches["(max-width: 600px)"]
+          ? `${tokens.spacing.s400}`
+          : `${tokens.spacing.s1000}`
+      }
+      gap={
+        matches["(max-width: 1000px)"]
+          ? `${tokens.spacing.s600}`
+          : `${tokens.spacing.s800}`
+      }
       direction="column"
     >
       <StyledCompanyLogo src={logo} alt={logoAlt} />
@@ -50,7 +58,11 @@ function ErrorPage(props: ErrorPageProps) {
           matches["(max-width: 600px)"] ? "auto" : "repeat(2, 1fr)"
         }
         alignItems="center"
-        gap={matches["(max-width: 600px)"] ? "s800" : "120px"}
+        gap={
+          matches["(max-width: 600px)"]
+            ? `${tokens.spacing.s800}`
+            : `${tokens.spacing.s1000}`
+        }
       >
         <Stack gap="24px" direction="column">
           <Stack gap="16px" direction="column">
@@ -59,7 +71,9 @@ function ErrorPage(props: ErrorPageProps) {
               {description}
             </Text>
           </Stack>
-          <Button iconBefore={<MdChevronLeft size={18} />} onClick={onClick}>{nameButton}</Button>
+          <Button iconBefore={<MdChevronLeft size={18} />} onClick={onClick}>
+            {nameButton}
+          </Button>
         </Stack>
         <StyledErrorImage src={image} alt={imageAlt} />
       </Grid>
