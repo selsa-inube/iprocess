@@ -16,6 +16,7 @@ const mapConfirmInitiatedApiToEntity = (
     plannedExecutionDate: String(process.plannedExecutionDate),
     executionOfTheProcess: String(process.confirmationForExecutionOfTheProcess),
     processControlId: String(process.processControlId),
+    aplication: Object(process.application),
   };
   return processes;
 };

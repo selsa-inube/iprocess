@@ -42,7 +42,7 @@ const mapScheduled = (entry: StartProcesses) => {
   return {
     id: entry.id,
     publicCode: entry.publicCode,
-    aplication: entry.aplication,
+    aplication: entry.aplication?.abbreviatedName,
     date: entry.dateWithoutFormat
       ? new Date(entry.dateWithoutFormat)
       : new Date(),
