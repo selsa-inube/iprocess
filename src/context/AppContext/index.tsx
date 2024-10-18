@@ -35,6 +35,7 @@ function AppContextProvider(props: AppProviderProps) {
       abbreviatedName: "",
       staffPortalCatalogId: "",
       businessManagerId: "",
+      publicCode: "",
     },
     businessManager: {
       publicCode: "",
