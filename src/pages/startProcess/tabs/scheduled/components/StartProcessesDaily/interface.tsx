@@ -20,6 +20,7 @@ import { crumbsStartProcessesDaily } from "./config/navigation";
 
 interface StartProcessesDailyUIProps {
   descriptionProcess: string;
+  nameAplication: string;
   entries: IDailyDetail[];
   loading: boolean;
   month: number;
@@ -35,6 +36,7 @@ interface StartProcessesDailyUIProps {
 function StartProcessesDailyUI(props: StartProcessesDailyUIProps) {
   const {
     descriptionProcess,
+    nameAplication,
     entries,
     loading,
     month,
@@ -81,8 +83,14 @@ function StartProcessesDailyUI(props: StartProcessesDailyUIProps) {
           <Table
             id="portal"
             titles={titlesConfig(handleOrderData)}
-            actions={actionsConfig(urlParams) as IAction[]}
-            entries={processesDailyNormailzeEntries(entries, month, year, status, setStatus)}
+            actions={actionsConfig(urlParams, nameAplication) as IAction[]}
+            entries={processesDailyNormailzeEntries(
+              entries,
+              month,
+              year,
+              status,
+              setStatus
+            )}
             breakpoints={breakPoints}
             isLoading={loading}
             filter={searchProcessDaily}
