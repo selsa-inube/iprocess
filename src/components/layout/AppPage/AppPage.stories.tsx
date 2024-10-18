@@ -2,8 +2,7 @@ import { BrowserRouter } from "react-router-dom";
 import { Meta, StoryFn } from "@storybook/react";
 
 import { AppContext } from "@context/AppContext";
-import linparLogo from "@assets/images/linpar.png";
-
+import selsaLogo from "@assets/images/selsa.png"
 import { AppPage } from ".";
 
 const usersMock = {
@@ -13,17 +12,33 @@ const usersMock = {
 
 const { firstName, firstLastName } = usersMock;
 
-const userContext = {
-  user: {
-    username: `${firstName + " " + firstLastName}`,
-    id: "abc123",
-    company: "Linpar",
-    operator: {
-      name: "Linpar",
-      logo: linparLogo,
+const useContext = {
+  appData: {
+
+    portal: {
+      abbreviatedName: "",
+      staffPortalCatalogId: "",
+      businessManagerId: "",
     },
-  },
-  handleClientChange: () => {},
+    businessManager: {
+      publicCode: "",
+      abbreviatedName: "",
+      urlBrand: "",
+      urlLogo: "",
+    },
+      user: {
+      userAccount: `${firstName + " " + firstLastName}`,
+      userName: "abc123",
+    },
+    businessUnit:{
+      publicCode: "IProcess",
+      abbreviatedName: "IProcess",
+      businessUnit: "IProcess",
+      urlLogo: selsaLogo,
+    },} ,
+  businessUnitSigla: "IProcess", 
+  setAppData: () => {}, 
+  setBusinessUnitSigla: () => {}, 
 };
 
 const meta: Meta<typeof AppPage> = {
@@ -32,7 +47,7 @@ const meta: Meta<typeof AppPage> = {
   decorators: [
     (Story: StoryFn) => (
       <BrowserRouter>
-        <AppContext.Provider value={userContext}>
+        <AppContext.Provider value={useContext}>
           <Story />
         </AppContext.Provider>
       </BrowserRouter>
