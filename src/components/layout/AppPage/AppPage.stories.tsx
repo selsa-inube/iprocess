@@ -13,17 +13,33 @@ const usersMock = {
 
 const { firstName, firstLastName } = usersMock;
 
-const userContext = {
-  user: {
-    username: `${firstName + " " + firstLastName}`,
-    id: "abc123",
-    company: "Linpar",
-    operator: {
-      name: "Linpar",
-      logo: linparLogo,
+const useContext = {
+  appData: {
+
+    portal: {
+      abbreviatedName: "",
+      staffPortalCatalogId: "",
+      businessManagerId: "",
     },
-  },
-  handleClientChange: () => {},
+    businessManager: {
+      publicCode: "",
+      abbreviatedName: "",
+      urlBrand: "",
+      urlLogo: "",
+    },
+      user: {
+      userAccount: `${firstName + " " + firstLastName}`,
+      userName: "abc123",
+    },
+    businessUnit:{
+      publicCode: "LINPAR",
+      abbreviatedName: "LINPAR",
+      businessUnit: "LINPAR",
+      urlLogo: linparLogo,
+    },} ,
+  businessUnitSigla: "LINPAR", 
+  setAppData: () => {}, 
+  setBusinessUnitSigla: () => {}, 
 };
 
 const meta: Meta<typeof AppPage> = {
@@ -32,7 +48,7 @@ const meta: Meta<typeof AppPage> = {
   decorators: [
     (Story: StoryFn) => (
       <BrowserRouter>
-        <AppContext.Provider value={userContext}>
+        <AppContext.Provider value={useContext}>
           <Story />
         </AppContext.Provider>
       </BrowserRouter>
