@@ -7,7 +7,7 @@ import { enviroment } from "@config/environment";
 function ErrorNotBusinessUnit() {
   const { logout } = useAuth0();
   useEffect(() => {
-    // localStorage.clear();
+    localStorage.clear();
   }, []);
 
   return (
