@@ -9,7 +9,10 @@ import { tokens } from "@design/tokens";
 import { monthNormalize } from "@utils/dates";
 import { mediaQueryMobile } from "@config/environment";
 import { IProcess } from "@components/feedback/CardProcess/types";
+import { CardProcessGroup } from "@components/feedback/CardProcessGroup";
+import { CardProcess } from "@components/feedback/CardProcess";
 import { IChangePeriodEntry, IListPeriods } from "../startProcess/types";
+import { normailzeValidateProgress } from "./config/card.config";
 
 interface ValidateProgressUIProps {
   entries: IProcess[];
@@ -26,8 +29,10 @@ interface ValidateProgressUIProps {
 
 function ValidateProgressUI(props: ValidateProgressUIProps) {
   const {
-    month,
+    entries,
+    isLoading,
     listOfPeriods,
+    month,
     searchValidateProgress,
     year,
     setSelectedPeriod,
@@ -45,7 +50,11 @@ function ValidateProgressUI(props: ValidateProgressUIProps) {
     <Stack
       direction="column"
       width="-webkit-fill-available"
-      padding={smallScreen ? "24px" : "32px 64px"}
+      padding={
+        smallScreen
+          ? `${tokens.spacing.s300}`
+          : `${tokens.spacing.s400} ${tokens.spacing.s800}`
+      }
     >
       <Stack gap={tokens.spacing.s600} direction="column">
         <Stack gap={tokens.spacing.s300} direction="column">
@@ -74,6 +83,25 @@ function ValidateProgressUI(props: ValidateProgressUIProps) {
               }
             />
           </Stack>
+          {isLoading ? (
+            <Stack gap={tokens.spacing.s200} width="100%" wrap="wrap">
+              <CardProcess isLoading={isLoading} />
+              <CardProcess isLoading={isLoading} />
+            </Stack>
+          ) : (
+            <CardProcessGroup
+              entries={normailzeValidateProgress(entries)}
+              filter={searchValidateProgress}
+              attributes={[
+                "description",
+                "date",
+                "totalPerson",
+                "totalPersonsProsecuted",
+              ]}
+              optionCurrent="validate process"
+              pathDetailByDay="/"
+            />
+          )}
         </Stack>
       </Stack>
     </Stack>
