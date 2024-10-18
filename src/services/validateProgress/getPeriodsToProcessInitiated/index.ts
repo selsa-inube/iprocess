@@ -61,7 +61,7 @@ const listPeriodsToProcessInitiated = async (
     } catch (error) {
       if (attempt === maxRetries) {
         throw new Error(
-          "Todos los intentos fallaron. No se pudieron obtener la lista de los periodos de iniciar procesos."
+          "Todos los intentos fallaron. No se pudieron obtener la lista de los periodos de validar procesos."
         );
       }
     }

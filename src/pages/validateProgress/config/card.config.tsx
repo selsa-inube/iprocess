@@ -8,7 +8,7 @@ import { StartProcesses } from "@pages/startProcess/types";
 import { formatDate } from "@utils/dates";
 
 
-const validateprogressNormailzeEntries = (
+const normailzeValidateProgress = (
   process: StartProcesses[],
 ) =>
   process.map((entry) => ({
@@ -50,4 +50,4 @@ const actions = [
   },
 ];
 
-export { actions, validateprogressNormailzeEntries };
+export { actions, normailzeValidateProgress };

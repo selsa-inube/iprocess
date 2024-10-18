@@ -12,7 +12,7 @@ import { IProcess } from "@components/feedback/CardProcess/types";
 import { CardProcessGroup } from "@components/feedback/CardProcessGroup";
 import { CardProcess } from "@components/feedback/CardProcess";
 import { IChangePeriodEntry, IListPeriods } from "../startProcess/types";
-import { validateprogressNormailzeEntries } from "./config/card.config";
+import { normailzeValidateProgress } from "./config/card.config";
 
 interface ValidateProgressUIProps {
   entries: IProcess[];
@@ -90,7 +90,7 @@ function ValidateProgressUI(props: ValidateProgressUIProps) {
             </Stack>
           ) : (
             <CardProcessGroup
-              entries={validateprogressNormailzeEntries(entries)}
+              entries={normailzeValidateProgress(entries)}
               filter={searchValidateProgress}
               attributes={[
                 "description",
