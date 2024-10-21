@@ -4,18 +4,27 @@ import {
   currentMonthLetters,
   currentYear,
   formatDateEndpoint,
+  filterDateForMonthAndYear,
+  formatMonthEndpoint,
 } from "@utils/dates";
 import { listPeriodsToProcessInitiated } from "@services/validateProgress/getPeriodsToProcessInitiated";
+import { validateProgressData } from "@services/validateProgress/getValidateProgress";
 import { ValidateProgressUI } from "./interface";
-import { IChangePeriodEntry, IListPeriods, StartProcesses } from "../startProcess/types";
-
-
+import {
+  IChangePeriodEntry,
+  IListPeriods,
+  StartProcesses,
+} from "../startProcess/types";
+import { IFilterDateForMonthAndYear } from "./types";
 
 function ValidateProgress() {
-  const [searchValidateProgress, setSearchValidateProgress] = useState<string>("");
-  const [loading ] = useState<boolean>(true);
+  const [searchValidateProgress, setSearchValidateProgress] =
+    useState<string>("");
+  const [loading, setLoading] = useState<boolean>(true);
 
-  const [validateProgress,] = useState<StartProcesses[]>([]);
+  const [validateProgress, setValidateProgress] = useState<StartProcesses[]>(
+    []
+  );
   const [selectedPeriod, setSelectedPeriod] = useState<IChangePeriodEntry>({
     month: "",
     year: "",
@@ -25,19 +34,52 @@ function ValidateProgress() {
 
   const validatePeriod = async () => {
     try {
-      const newPeriod = await listPeriodsToProcessInitiated(formatDateEndpoint(new Date()));
+      const newPeriod = await listPeriodsToProcessInitiated(
+        formatDateEndpoint(new Date())
+      );
       setListPeriod(newPeriod);
     } catch (error) {
       console.info(error);
-  }}
+    }
+  };
+
+  const validateProgressProcess = async (date: IFilterDateForMonthAndYear) => {
+    setLoading(true);
+    try {
+      const newValidateProcess = await validateProgressData(date);
+
+      setValidateProgress(newValidateProcess);
+    } catch (error) {
+      console.info(error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
-    validatePeriod()
-   
+    validateProgressProcess(
+      filterDateForMonthAndYear(
+        formatMonthEndpoint(selectedPeriod.month),
+        Number(selectedPeriod.year)
+      )
+    );
+    validatePeriod();
   }, []);
 
+  useEffect(() => {
+    if (selectedPeriod.change === true) {
+      validateProgressProcess(
+        filterDateForMonthAndYear(
+          formatMonthEndpoint(selectedPeriod.month),
+          Number(selectedPeriod.year)
+        )
+      );
+    }
+  }, [selectedPeriod]);
 
-  const handleSearchValidateProgress = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleSearchValidateProgress = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
     setSearchValidateProgress(e.target.value);
   };
 

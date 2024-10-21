@@ -3,20 +3,24 @@ import {
   fetchTimeoutServices,
   maxRetriesServices,
 } from "@config/environment";
-import { IListPeriods } from "@pages/startProcess/types";
-import { mapListPeriodToProcessInitiatedApiToEntities } from "./mappers";
+import { StartProcesses } from "@pages/startProcess/types";
+import { IFilterDateForMonthAndYear } from "@pages/validateProgress/types";
 
+import { mapValidateProgressApiToEntities } from "./mappers";
 
-const listPeriodsToProcessInitiated = async (
-  cutOffDate: string
-): Promise<IListPeriods[]> => {
+const validateProgressData = async (
+  date: IFilterDateForMonthAndYear
+): Promise<StartProcesses[]> => {
   const maxRetries = maxRetriesServices;
   const fetchTimeout = fetchTimeoutServices;
 
   for (let attempt = 1; attempt <= maxRetries; attempt++) {
     try {
       const queryParams = new URLSearchParams({
-        cutOffDate,
+        processStatus: "StartedImmediately",
+        page: "1",
+        per_page: "50",
+        executionDate:`bt.${date.startDate};${date.endDate}`,
       });
 
       const controller = new AbortController();
@@ -25,7 +29,7 @@ const listPeriodsToProcessInitiated = async (
       const options: RequestInit = {
         method: "GET",
         headers: {
-          "X-Action": "PeriodToProcessInitiated",
+          "X-Action": "SearchAllProcessControlCatalogs",
           "X-Business-Unit": enviroment.TEMP_BUSINESS_UNIT,
           "Content-type": "application/json; charset=UTF-8",
         },
@@ -47,21 +51,21 @@ const listPeriodsToProcessInitiated = async (
 
       if (!res.ok) {
         throw {
-          message: "Error al obtener los periodos de iniciar procesos",
+          message: "Error al obtener los procesos",
           status: res.status,
           data,
         };
       }
 
-      const normalizedListPeriodToProcessInitiated = Array.isArray(data)
-        ? mapListPeriodToProcessInitiatedApiToEntities(data)
+      const normalizedStartProcess = Array.isArray(data)
+        ? mapValidateProgressApiToEntities(data)
         : [];
 
-      return normalizedListPeriodToProcessInitiated;
+      return normalizedStartProcess;
     } catch (error) {
       if (attempt === maxRetries) {
         throw new Error(
-          "Todos los intentos fallaron. No se pudieron obtener la lista de los periodos de validar procesos."
+          "Todos los intentos fallaron. No se pudieron obtener los procesos de confirmar iniciados."
         );
       }
     }
@@ -70,4 +74,4 @@ const listPeriodsToProcessInitiated = async (
   return [];
 };
 
-export { listPeriodsToProcessInitiated };
+export { validateProgressData };

@@ -44,7 +44,7 @@ function RadioBusinessUnit(props: RadioBusinessUnitProps) {
           onChange={handleChange}
         />
         <Text size="medium">{label}</Text>
-        <StyledImage src={logo} alt="Logo empresa" />
+        <StyledImage src={logo} alt="Logo de empresa" />
       </Grid>
     </StyledRadioBusinessUnit>
   );
