@@ -19,6 +19,7 @@ const useContext = {
       abbreviatedName: "",
       staffPortalCatalogId: "",
       businessManagerId: "",
+      publicCode: "",
     },
     businessManager: {
       publicCode: "",
@@ -34,6 +35,7 @@ const useContext = {
       publicCode: "IProcess",
       abbreviatedName: "IProcess",
       businessUnit: "IProcess",
+      languageId: "es",
       urlLogo: selsaLogo,
     },} ,
   businessUnitSigla: "IProcess", 

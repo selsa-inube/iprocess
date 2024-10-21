@@ -35,6 +35,7 @@ function AppContextProvider(props: AppProviderProps) {
       abbreviatedName: "",
       staffPortalCatalogId: "",
       businessManagerId: "",
+      publicCode: "",
     },
     businessManager: {
       publicCode: "",
@@ -78,6 +79,25 @@ function AppContextProvider(props: AppProviderProps) {
       },
     }));
   }, [businessManagersData]);
+
+  useEffect(() => {
+    localStorage.setItem("businessUnitSigla", businessUnitSigla);
+
+    if (businessUnitSigla) {
+      const businessUnit = JSON.parse(businessUnitSigla);
+
+      setAppData((prev) => ({
+        ...prev,
+        businessUnit: {
+          ...prev.businessUnit,
+          publicCode: businessUnit.id,
+          abbreviatedName: businessUnit.sigla,
+          businessUnit: businessUnit.sigla,
+          urlLogo: businessUnit.logo,
+        },
+      }));
+    }
+  }, [businessUnitSigla]);
 
   const appContext = useMemo(
     () => ({

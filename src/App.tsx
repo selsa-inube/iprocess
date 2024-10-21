@@ -4,6 +4,7 @@ import {
   createBrowserRouter,
   createRoutesFromElements,
 } from "react-router-dom";
+import { useContext } from "react";
 import { ThemeProvider } from "styled-components";
 import { FlagProvider } from "@inubekit/flag";
 
@@ -17,10 +18,12 @@ import { FinishedRoutes } from "./routes/finished";
 import { StartProcessRoutes } from "./routes/startProcess";
 import { ValidateProgressRoutes } from "./routes/validateProgress";
 import { theme } from "./config/theme";
-import { AppContextProvider } from "./context/AppContext";
+import { AppContext, AppContextProvider } from "./context/AppContext";
 import { usePortalData } from "./hooks/usePortalData";
 import { useBusinessManagers } from "./hooks/useBusinessManagers";
 import { useAuthRedirect } from "./hooks/useAuthRedirect";
+import { SelectBusinessUnits } from "./pages/selectBusinessUnits";
+import { SelectBusinessUnitsRoutes } from "./routes/selectBusinessunits";
 
 function LogOut() {
   localStorage.clear();
@@ -29,11 +32,20 @@ function LogOut() {
   return <AppPage />;
 }
 
+function FirstPage() {
+  const { businessUnitSigla } = useContext(AppContext);
+
+  return businessUnitSigla.length === 0 ? <SelectBusinessUnits /> : <AppPage />;
+}
+
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
-      <Route errorElement={<ErrorPage />} />
-      <Route path="/*" element={<AppPage />}>
+      <Route
+        path="selectBusinessUnit/*"
+        element={<SelectBusinessUnitsRoutes />}
+      />
+      <Route path="/*" element={<FirstPage />} errorElement={<ErrorPage />}>
         <Route path="/*" element={<StartProcessRoutes />} />
         <Route path="start-process/*" element={<StartProcessRoutes />} />
         <Route
@@ -46,7 +58,6 @@ const router = createBrowserRouter(
         />
         <Route path="finished/*" element={<FinishedRoutes />} />
       </Route>
-
       <Route path="logout" element={<LogOut />} />
     </>
   )
@@ -58,8 +69,15 @@ const portalCode = params.get("portal");
 
 function App() {
   const { portalData, hasError: portalError } = usePortalData();
-  const { businessManagersData, hasError: businessError } = useBusinessManagers(portalData, portalCode);
-  const { hasError: authError, isLoading, isAuthenticated } = useAuthRedirect(portalData, businessManagersData, portalCode);
+  const { businessManagersData, hasError: businessError } = useBusinessManagers(
+    portalData,
+    portalCode
+  );
+  const {
+    hasError: authError,
+    isLoading,
+    isAuthenticated,
+  } = useAuthRedirect(portalData, businessManagersData, portalCode);
 
   const hasError = portalError || businessError || authError;
 
