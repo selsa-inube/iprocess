@@ -27,7 +27,6 @@ interface ApprovalModalUIProps {
   approvalChecked: boolean;
   onCloseModal: () => void;
   handleConfirm: () => void;
-  handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 const ApprovalModalUI = (props: ApprovalModalUIProps) => {
@@ -38,7 +37,6 @@ const ApprovalModalUI = (props: ApprovalModalUIProps) => {
     loading,
     portalId,
     handleConfirm,
-    handleChange,
     onCloseModal,
   } = props;
 
@@ -49,7 +47,7 @@ const ApprovalModalUI = (props: ApprovalModalUIProps) => {
   const isMobile = useMediaQuery("(max-width: 500px)");
 
   const node = document.getElementById(portalId);
-  dataComparison;
+ 
 
   if (!node) {
     throw new Error(
@@ -80,21 +78,21 @@ const ApprovalModalUI = (props: ApprovalModalUIProps) => {
                   id="approval"
                   margin="0px"
                   name="approval"
-                  onChange={handleChange}
+                  onChange={()=>{}}
                   padding="0px"
                   size="large"
-                  value={formik.values.approval}
+                  value={"approval"}
                 />
                 <Label htmlFor="approval" size="large">
-                  Aprobar
+                  Aprobado
                 </Label>
               </StyledToggle>
               <StyledTextarea $smallScreen={isMobile}>
                 <Textarea
-                  label="Observaciones de aprobación o rechazo"
+                  label="Observaciones de aprobación"
                   name="observation"
                   id="observation"
-                  placeholder="Indique la razón por la que cumple o no"
+                  placeholder="Indique la razón por la que el requisito cumple"
                   value={formik.values.observation}
                   message={formik.errors.observation}
                   fullwidth
@@ -111,7 +109,7 @@ const ApprovalModalUI = (props: ApprovalModalUIProps) => {
                 appearance="primary"
                 variant="filled"
                 loading={loading}
-                disabled={true} //cambiar en una tarea posterior
+                disabled={!dataComparison} 
                 onClick={handleConfirm}
               >
                 Confirmar

@@ -9,16 +9,21 @@ import {
   normalizeEvalStatusRequirementByStatus,
   RequirementTypeNormalize,
 } from "@utils/requirements";
-import { appearances } from "@pages/confirmInitiated/types";
-import { MoreDetails } from "../MoreDetails";
-import { Approval } from "../Approval";
-import {
-  IApprovalRequest,
-} from "../Approval/types";
 import {
   IlistOfRequirements,
   IRefNumPackageRequirement,
-} from "@src/types/packageRequeriment.types";
+} from "@ptypes/packageRequeriment.types";
+import { appearances } from "@pages/confirmInitiated/types";
+import { MoreDetails } from "../MoreDetails";
+import { Approval } from "../Approval";
+
+const requirementsNotMet = [
+  "ERROR_IN_EVALUATION",
+  "UNVALIDATED",
+  "FAILED_SYSTEM_VALIDATION",
+  "DOCUMENT_NOT_LOADED",
+  "DOCUMENT_STORED_WITHOUT_VALIDATION",
+];
 
 const requirementsNormailzeEntries = (entry: IlistOfRequirements[]) =>
   entry.map((entry) => ({
@@ -31,12 +36,12 @@ const requirementsNormailzeEntries = (entry: IlistOfRequirements[]) =>
         label={
           normalizeEvalStatusRequirementByStatus(
             String(entry.requirementStatus)
-          )?.name || ""
+          )?.name || "Estado no definido"
         }
         appearance={
           normalizeEvalStatusRequirementByStatus(
             String(entry.requirementStatus)
-          )?.appearance as appearances
+          )?.appearance as appearances || "gray"
         }
         weight="strong"
       />
@@ -61,7 +66,7 @@ const approvalsListOfReqNormailzeEntries = (
    return {
     packageId: requirement.id,
     requirementId: requirement.requirementId,
-    requirementPackageId: requirement.requirementId,
+    requirementPackageId: requirement.requirementPackageId,
     requirementDate: requirement.requirementDate,
     descriptionUse: requirement.descriptionUse,
     descriptionUseForCustomer: requirement.descriptionUseForCustomer,
@@ -73,16 +78,7 @@ const approvalsListOfReqNormailzeEntries = (
   }};
 
 
-const approvalsNormailzeEntries = (requirement: IApprovalRequest) => {
-  return {
-    id: requirement.id,
-    date: requirement.date,
-    description: requirement.description,
-    uniqueReferenceNumber: requirement.uniqueReferenceNumber,
-  };
-};
-
-const dataTablesConfig = (data: IRefNumPackageRequirement) => {
+const dataTablesConfig = (data: IRefNumPackageRequirement, setLoadDataTable:(show: boolean)=> void) => {
   const dataTables: IData[] = [];
   const requirements = data?.listOfRequirements ?? [];
 
@@ -126,7 +122,8 @@ const dataTablesConfig = (data: IRefNumPackageRequirement) => {
                 dataListOfRequirements={
                   approvalsListOfReqNormailzeEntries(entry as IlistOfRequirements)
                 }
-                  dataPackage={approvalsNormailzeEntries(data as unknown as IApprovalRequest) }
+                  packageId={data.id}
+                  setLoadDataTable={setLoadDataTable}
                 />
               ),
             },
@@ -151,7 +148,8 @@ const dataTablesConfig = (data: IRefNumPackageRequirement) => {
                 dataListOfRequirements={
                   approvalsListOfReqNormailzeEntries(entry as IlistOfRequirements)
                 }
-                  dataPackage={approvalsNormailzeEntries(data as unknown as IApprovalRequest)}
+                packageId={data.id}
+                setLoadDataTable={setLoadDataTable}
                 />
               ),
             },
@@ -195,6 +193,7 @@ export {
   dataTablesConfig,
   breakPoints,
   labelsMoreDetails,
+  requirementsNotMet,
   requirementsNormailzeEntries,
   moreDetailsNormailzeEntries,
 };

@@ -8,16 +8,19 @@ import { ApprovalModal } from "@components/modals/ApprovalModal";
 import { IApprovalEntry } from "@components/modals/ApprovalModal/types";
 import { ProgressCardWithBarIndetermined } from "@components/feedback/ProgressCardWithBarIndetermined";
 import { AppContext } from "@context/AppContext";
-import { IApprovalRequest, IApprovalResponse, IListOfRequirementsByPackage} from "./types";
-
+import { ComponentAppearance } from "@ptypes/aparences.types";
+import { formatDateEndpoint } from "@utils/dates";
+import { IApprovalResponse, IListOfRequirementsByPackage } from "./types";
+import { requirementsNotMet } from "../config/tablesRequirements.config";
 
 interface ApprovalProps {
   dataListOfRequirements: IListOfRequirementsByPackage;
-  dataPackage: IApprovalRequest;
+  packageId: string;
+  setLoadDataTable:(show:boolean) => void;
 }
 
 const Approval = (props: ApprovalProps) => {
-  const { dataListOfRequirements, dataPackage } = props;
+  const { dataListOfRequirements, packageId, setLoadDataTable } = props;
   const [showModal, setShowModal] = useState(false);
   const [showProgressModal, setShowProgressModal] = useState(false);
   const [responseApproval, setResponseApproval] = useState<IApprovalResponse>();
@@ -26,37 +29,26 @@ const Approval = (props: ApprovalProps) => {
   const { addFlag } = useFlag();
 
   const handleApproval = async () => {
-    const justification = `Actualizado por el usuario ${user.username} del gestor de procesos INUBE`;
+    const justification = `Actualizado por el usuario ${user.username} del gestor de procesos INUBE - ${fieldsEntered?.observation}`;
 
     const dataApproval = {
-      id: dataPackage?.id,
-      justification,
-      date: dataPackage?.date ? new Date(dataPackage.date).toISOString() : "",
-      description: dataPackage?.description,
-      uniqueReferenceNumber: dataPackage?.uniqueReferenceNumber,
-      listOfRequirementsByPackage: [dataListOfRequirements],
-      traceabilityInRequirements: [
-        {
-          assignedStatus: "", //cambiar en una tarea posterior
-          justificationForChangeOfStatus: fieldsEntered?.observation || "",
-          traceabilityDate: new Date().toISOString(),
-          packageId: dataPackage?.id,
-          transactionOperation: "Insert"
-        }
-      ],
+      packageId: packageId,
+      modifyJustification: justification,
+      requirementModifyDate: formatDateEndpoint(new Date(dataListOfRequirements.requirementDate)),
+      requirementPackageId: dataListOfRequirements.requirementPackageId,
     };
     try {
       setShowModal(!showModal);
       setShowProgressModal(true);
       const newApproval = await approvalRequirement(dataApproval);
-      setResponseApproval(newApproval);
+      setResponseApproval(newApproval);  
     } catch (error) {
       setShowProgressModal(false);
       addFlag({
         title: "Error al aprobar o rechazar el requerimiento",
         description:
           "No fue posible aprobar o rechazar el requerimiento, por favor intenta más tarde",
-        appearance: "danger",
+        appearance: ComponentAppearance.DANGER,
         duration: 5000,
       });
       throw new Error(
@@ -66,14 +58,19 @@ const Approval = (props: ApprovalProps) => {
   };
 
   useEffect(() => {
-    if(responseApproval){
+    if (responseApproval) {
       setShowProgressModal(false);
+      setLoadDataTable(true);
     }
   }, [responseApproval]);
 
   const handleToggleModal = () => {
     setShowModal(!showModal);
   };
+
+  const isApprovalRequirement = !requirementsNotMet.includes(
+    dataListOfRequirements.requirementStatus
+  );
 
   return (
     <>
@@ -88,9 +85,10 @@ const Approval = (props: ApprovalProps) => {
       {showModal && (
         <ApprovalModal
           portalId="portal"
+          approvalChecked={isApprovalRequirement}
           onCloseModal={handleToggleModal}
           onConfirm={handleApproval}
-          setFieldsEntered={setFieldsEntered}
+          setFieldEntered={setFieldsEntered}
         />
       )}
       {showProgressModal && (

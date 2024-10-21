@@ -25,6 +25,7 @@ interface RequirementsUIProps {
     appearance: string;
   };
   statusRequirement?: IRefNumPackageRequirement;
+  setLoadDataTable: (show: boolean) => void;
   withTooltip: boolean;
 }
 
@@ -35,6 +36,7 @@ const RequirementsUI = (props: RequirementsUIProps) => {
     normalizeStatusRequirement,
     statusRequirement,
     handleToggleModal,
+    setLoadDataTable,
     withTooltip,
   } = props;
 
@@ -88,7 +90,7 @@ const RequirementsUI = (props: RequirementsUIProps) => {
           breakpoints={breakPoints}
           isLoading={isVisibleStatusReq}
           portalId="portal"
-          requirements={dataTablesConfig(statusRequirement || {} as IRefNumPackageRequirement)}
+          requirements={dataTablesConfig(statusRequirement || {} as IRefNumPackageRequirement, setLoadDataTable)}
           title="Pre-validar Requisitos"
           onCloseModal={handleToggleModal}
         />

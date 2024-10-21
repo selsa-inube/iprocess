@@ -13,7 +13,7 @@ const approvalRequirement = async (
     const options: RequestInit = {
       method: "PATCH",
       headers: {
-        "X-Action": "ModifyPackageRequirementManagement",
+        "X-Action": "ApproveRequirement",
         "X-Business-Unit": enviroment.TEMP_BUSINESS_UNIT,
         "Content-type": "application/json; charset=UTF-8",
       },

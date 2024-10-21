@@ -25,10 +25,13 @@ const Requirements = (props: RequirementsProps) => {
   const [statusRequirementData, setStatusRequirementData] =
     useState<IRefNumPackageRequirement>();
 
+    const [loadDataTable, setLoadDataTable] = useState(false);
+
   const generalStatusRequirement = async () => {
     setLoading(true);
     try {
       const newStatusRequirement = await refNumPackageRequirement(uniqueReferenceNumber);
+
       const statusRequirementData = newStatusRequirement.find((item) => item.id);
 
       setStatusRequirementData(statusRequirementData);
@@ -42,6 +45,13 @@ const Requirements = (props: RequirementsProps) => {
   useEffect(() => {
     generalStatusRequirement();
   }, []);
+
+  useEffect(() => {
+    if (loadDataTable) {
+      generalStatusRequirement();
+      setLoadDataTable(false);
+    }
+  }, [loadDataTable]);
 
   const normalizeStatusRequirement = normalizeStatusRequirementByStatus(
     statusRequirementData?.generalStatusRequirement || ""
@@ -63,6 +73,7 @@ const Requirements = (props: RequirementsProps) => {
       normalizeStatusRequirement={normalizeStatusRequirement}
       showModal={showModal}
       statusRequirement={statusRequirementData}
+      setLoadDataTable={setLoadDataTable}
       withTooltip={withTooltip}
     />
   );
