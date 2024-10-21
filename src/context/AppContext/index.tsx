@@ -1,48 +1,98 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useEffect, useMemo, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 
-import linparLogo from "@assets/images/linpar.png";
+import { decrypt } from "@utils/encrypt";
+import { usePortalData } from "@hooks/usePortalData";
+import { useBusinessManagers } from "@hooks/useBusinessManagers";
+import { IAppContext, IAppData } from "./types";
 
-import { AppContextProviderProps, IAppContext, IClient } from "./types";
+const AppContext = createContext<IAppContext>({} as IAppContext);
 
+interface AppProviderProps {
+  children: React.ReactNode;
+}
 
-export const AppContext = createContext<IAppContext>({
-  user: { username: "", id: "", company: "", operator: { name: "", logo: "" } },
-  handleClientChange: () => {},
-});
-
-export default function AppContextProvider(props: AppContextProviderProps) {
+function AppContextProvider(props: AppProviderProps) {
   const { children } = props;
   const { user } = useAuth0();
-  const [clientSigla, setClientSigla] = useState(
-    localStorage.getItem("clientSigla") || ""
+
+  const { portalData } = usePortalData();
+
+  const [businessUnitSigla, setBusinessUnitSigla] = useState(
+    localStorage.getItem("businessUnitSigla") || ""
   );
-  
-  function handleClientChange(client: IClient) {
-    const { sigla } = client;
-    setClientSigla(sigla);
+
+  const portalId = localStorage.getItem("portalCode");
+  let portalCode = "";
+  if (portalId) {
+    portalCode = decrypt(portalId || "");
   }
 
-  useEffect(() => {
-    localStorage.setItem("clientSigla", clientSigla);
-  }, [clientSigla]);
+  const { businessManagersData } = useBusinessManagers(portalData, portalCode);
 
-  
-  const company = clientSigla;
-
-   const userContext: IAppContext = {
-    user: {
-      username: `${user?.name}`,
-      id: "abc123",
-      company: company,
-      operator: {
-        name: "Linpar",
-        logo: linparLogo,
-      },
+  const [appData, setAppData] = useState<IAppData>({
+    portal: {
+      abbreviatedName: "",
+      staffPortalCatalogId: "",
+      businessManagerId: "",
     },
-    handleClientChange,
-  };
+    businessManager: {
+      publicCode: "",
+      abbreviatedName: "",
+      urlBrand: "",
+      urlLogo: "",
+    },
+    businessUnit: {
+      publicCode: "",
+      abbreviatedName: "",
+      businessUnit: "",
+      urlLogo: "",
+    },
+    user: {
+      userAccount: user?.name || "",
+      userName: user?.name || "",
+    },
+  });
+
+  useEffect(() => {
+    if (!businessManagersData) return;
+
+    const portalDataFiltered = portalData.find(
+      (data) => data.staffPortalId === portalCode
+    );
+
+    setAppData((prev) => ({
+      ...prev,
+      portal: {
+        ...prev.portal,
+        abbreviatedName: portalDataFiltered?.abbreviatedName || "",
+        staffPortalCatalogId: portalDataFiltered?.staffPortalId || "",
+        businessManagerId: portalDataFiltered?.businessManagerId || "",
+      },
+      businessManager: {
+        ...prev.businessManager,
+        publicCode: businessManagersData.publicCode || "",
+        abbreviatedName: businessManagersData.abbreviatedName || "",
+        urlBrand: businessManagersData.urlBrand || "",
+        urlLogo: businessManagersData.urlLogo || "",
+      },
+    }));
+  }, [businessManagersData]);
+
+  const appContext = useMemo(
+    () => ({
+      appData,
+      businessUnitSigla,
+      setAppData,
+      setBusinessUnitSigla,
+    }),
+    [appData, businessUnitSigla, setAppData, setBusinessUnitSigla]
+  );
+
   return (
-    <AppContext.Provider value={userContext}>{children}</AppContext.Provider>
+    <AppContext.Provider value={appContext}>{children}</AppContext.Provider>
   );
 }
+
+export { AppContext, AppContextProvider };
+export type { AppProviderProps };
