@@ -4,19 +4,20 @@ import { Text } from "@inubekit/text";
 import { Stack } from "@inubekit/stack";
 import { tokens } from "@design/tokens";
 import { Button } from "@inubekit/button";
-import { Textfield } from "@inubekit/textfield";
 
 import { RadioBusinessUnit } from "@components/feedback/RadioBusinessUnit";
+import { IBusinessUnitsPortalStaff } from "@ptypes/staffPortalBusiness.types";
 import {
   StyledBusinessUnits,
   StyledBusinessUnitsList,
   StyledNoResults,
   StyledBusinessUnitsItem,
 } from "./styles";
-import { IBusinessUnit, IBusinessUnitstate } from "./types";
+import {  IBusinessUnitstate } from "./types";
+import { Input } from "@inubekit/input";
 
 interface BusinessUnitsUIProps {
-  businessUnits: IBusinessUnit[];
+  businessUnits: IBusinessUnitsPortalStaff[];
   search: string;
   businessUnit: IBusinessUnitstate;
   handleSearchChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
@@ -24,9 +25,9 @@ interface BusinessUnitsUIProps {
     event: React.ChangeEvent<HTMLInputElement>
   ) => void;
   filterBusinessUnits: (
-    businessUnits: IBusinessUnit[],
+    businessUnits: IBusinessUnitsPortalStaff[],
     search: string
-  ) => IBusinessUnit[];
+  ) => IBusinessUnitsPortalStaff[];
   handleSubmit: () => void;
 }
 
@@ -61,9 +62,9 @@ function BusinessUnitsUI({
         Seleccione la Unidad de Negocio
       </Text>
       <form>
-        <Stack direction="column" alignItems="center">
-          {businessUnits.length > 10 && (
-            <Textfield
+        <Stack direction="column" alignItems="center" gap={tokens.spacing.s300}>
+          {businessUnits.length > 5 && (
+            <Input
               placeholder="Buscar..."
               type="search"
               name="searchBusinessUnits"
@@ -85,13 +86,13 @@ function BusinessUnitsUI({
               gap={tokens.spacing.s100}
             >
               {filteredBusinessUnits.map((businessUnit) => (
-                <StyledBusinessUnitsItem key={businessUnit.id}>
+                <StyledBusinessUnitsItem key={businessUnit.publicCode}>
                   <RadioBusinessUnit
                     name="businessUnit"
-                    label={businessUnit.name}
-                    id={businessUnit.id}
-                    value={businessUnit.name}
-                    logo={businessUnit.logo}
+                    label={businessUnit.abbreviatedName}
+                      id={businessUnit.publicCode}
+                      value={businessUnit.abbreviatedName}
+                      logo={businessUnit.urlLogo}
                     handleChange={handleBussinessUnitChange}
                   />
                 </StyledBusinessUnitsItem>

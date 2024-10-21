@@ -4,7 +4,7 @@ import { inube } from "@inubekit/foundations";
 const StyledRadioBusinessUnit = styled.label`
   & div {
     box-sizing: border-box;
-    min-height: 58px;
+    max-height: 58px;
     box-shadow: 1px 2px 2px 1px
       ${({ theme }) =>
         theme?.color?.surface?.gray?.regular || inube.palette.neutral.N30};
@@ -18,14 +18,14 @@ const StyledRadioBusinessUnit = styled.label`
 const StyledRadio = styled.input`
   width: 16px;
   height: 16px;
-
   &:checked ~ img {
     filter: grayscale(0%);
   }
 `;
 
 const StyledImage = styled.img`
-  width: 100%;
+  width: 100px;
+  height: auto;
   transition: filter 500ms ease-out;
   filter: grayscale(100%);
 

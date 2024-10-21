@@ -8,7 +8,7 @@ interface StyledBusinessUnitsListProps {
 const StyledBusinessUnits = styled.div`
   & form {
     & > div {
-      margin: ${tokens.spacing.s600} auto ${tokens.spacing.s0};
+      margin: ${tokens.spacing.s500} auto ${tokens.spacing.s0};
       width: 500px;
       @media screen and (max-width: 532px) {
         width: auto;
@@ -24,10 +24,9 @@ const StyledBusinessUnits = styled.div`
 const StyledBusinessUnitsList = styled.div<StyledBusinessUnitsListProps>`
   & > div {
     list-style: none;
-    min-height: 300px;
-    max-height: 430px;
-    width: inherit;
-    overflow-y: ${({ $scroll }) => ($scroll ? "scroll" : "visible")};
+    max-height: 330px;
+    width: 560px;
+    overflow-y: auto;
     @media screen and (max-height: 1000px) {
       min-height: 200px;
     }

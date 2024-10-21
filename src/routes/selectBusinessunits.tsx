@@ -1,19 +1,22 @@
 import { Route, Routes } from "react-router-dom";
+import { useContext } from "react";
 
-import clientNotFound from "@assets/images/Expired.png";
 import { ErrorPage } from "@components/layout/ErrorPage";
-import { businessUnitDataMock } from "@mocks/businessUnits/businessUnits.mock";
 import { IBusinessUnit } from "@pages/selectBusinessUnits/outlets/BusinessUnit/types";
 import { SelectBusinessUnits } from "@pages/selectBusinessUnits";
 import { BusinessUnits } from "@pages/selectBusinessUnits/outlets/BusinessUnit";
 import { CheckingCredentials } from "@pages/selectBusinessUnits/outlets/CheckingCredentials";
+import { AppContext } from "@context/AppContext";
 import { LoadingApp } from "@components/feedback/LoadingApp";
+import { ErrorNotBusinessUnit } from "@pages/selectBusinessUnits/errors/ErrorNotBusinessUnit";
 
 export interface IBusinessUnits {
   businessUnits: IBusinessUnit[];
 }
 function SelectBusinessUnitsRoutes() {
-  const businessUnits = businessUnitDataMock;
+  const { businessUnitSigla } = useContext(AppContext);
+  const businessUnits = businessUnitSigla && JSON.parse(businessUnitSigla);
+
   return (
     <Routes>
       <Route path="/" element={<SelectBusinessUnits />}>
@@ -30,14 +33,7 @@ function SelectBusinessUnitsRoutes() {
       <Route path="error/not-available" element={<ErrorPage />} />
       <Route
         path="error/not-related-businessUnits"
-        element={
-          <ErrorPage
-            image={clientNotFound}
-            imageAlt="Unidad de negocio no encontrada"
-            heading="No hay resultados..."
-            description="Su usuario no tiene unidades de negocio relacionados, consulte con su administrador."
-          />
-        }
+        element={<ErrorNotBusinessUnit />}
       />
       <Route path="/*" element={<ErrorPage />} />
     </Routes>

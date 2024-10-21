@@ -15,7 +15,6 @@ import {
   IListPeriods,
 } from "../../types";
 
-
 function ScheduledTab() {
   const [searchScheduled, setSearchScheduled] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(true);

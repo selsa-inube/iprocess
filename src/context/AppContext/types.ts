@@ -19,7 +19,7 @@ interface IUser {
 interface IBusinessUnit {
   publicCode: string;
   abbreviatedName: string;
-  businessUnit: string;
+  languageId: string;
   urlLogo: string;
 }
 

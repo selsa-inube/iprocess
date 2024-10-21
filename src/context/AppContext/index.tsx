@@ -46,7 +46,7 @@ function AppContextProvider(props: AppProviderProps) {
     businessUnit: {
       publicCode: "",
       abbreviatedName: "",
-      businessUnit: "",
+      languageId: "",
       urlLogo: "",
     },
     user: {
@@ -69,6 +69,7 @@ function AppContextProvider(props: AppProviderProps) {
         abbreviatedName: portalDataFiltered?.abbreviatedName || "",
         staffPortalCatalogId: portalDataFiltered?.staffPortalId || "",
         businessManagerId: portalDataFiltered?.businessManagerId || "",
+        publicCode: portalDataFiltered?.publicCode || "",
       },
       businessManager: {
         ...prev.businessManager,
@@ -88,13 +89,12 @@ function AppContextProvider(props: AppProviderProps) {
 
       setAppData((prev) => ({
         ...prev,
-        businessUnit: {
+        businessUnit:{
           ...prev.businessUnit,
-          publicCode: businessUnit.id,
-          abbreviatedName: businessUnit.sigla,
-          businessUnit: businessUnit.sigla,
-          urlLogo: businessUnit.logo,
-        },
+          abbreviatedName: businessUnit?.abbreviatedName ,
+          publicCode: businessUnit?.publicCode ,
+          languageId: businessUnit?.languageId ,
+          urlLogo: businessUnit?.urlLogo }
       }));
     }
   }, [businessUnitSigla]);

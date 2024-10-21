@@ -5,14 +5,19 @@ import { AppContext } from "@context/AppContext";
 import { CheckingCredentialsUI } from "./interface";
 import { IBusinessUnit } from "../BusinessUnit/types";
 
-
 function CheckingCredentials({
   businessUnits,
 }: {
   businessUnits: IBusinessUnit[];
 }) {
   const navigate = useNavigate();
-  const { appData } = useContext(AppContext);
+  const { appData, setBusinessUnitSigla } = useContext(AppContext);
+
+  const selectedBusinessUnit = () => {
+    const selected = businessUnits;
+    setBusinessUnitSigla(JSON.stringify(selected));
+    navigate("/selectBusinessUnit/loading-app");
+  };
 
   const checkCredentials = useCallback(async () => {
     try {
@@ -24,9 +29,11 @@ function CheckingCredentials({
         if (!businessUnits || businessUnits.length === 0) {
           navigate("/selectBusinessUnit/error/not-related-businessUnits");
         } else if (businessUnits.length === 1) {
-          navigate("/selectBusinessUnit/loading-app");
+          selectedBusinessUnit();
         } else {
-          navigate(`/selectBusinessUnit/${appData.user.userAccount}/businessUnits`);
+          navigate(
+            `/selectBusinessUnit/${appData.user.userAccount}/businessUnits`
+          );
         }
       } else {
         navigate("/selectBusinessUnit/error/not-available");
