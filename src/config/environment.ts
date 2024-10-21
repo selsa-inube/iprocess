@@ -9,6 +9,8 @@ const mediaQueryMobile = "(max-width: 580px)";
 const maxRetriesServices = 5;
 const fetchTimeoutServices = 3000;
 
+const secretKeyPortalId = "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+
 const enviroment = {
   CLIENT_ID: import.meta.env.VITE_AUTH0_CLIENT_ID,
   CLIENT_SECRET: import.meta.env.VITE_AUTH0_CLIENT_SECRET,
@@ -22,6 +24,8 @@ const enviroment = {
   TEMP_BUSINESS_UNIT: "test",
   IVITE_ISAAS_QUERY_PROCESS_SERVICE: import.meta.env
     .VITE_ISAAS_QUERY_PROCESS_SERVICE,
+  IPORTAL_STAFF_QUERY_PROCESS_SERVICE: import.meta.env
+    .VITE_IPORTAL_STAFF_QUERY_PROCESS_SERVICE,
 };
 
 export {
@@ -31,4 +35,5 @@ export {
   mediaQueryMobile,
   maxRetriesServices,
   fetchTimeoutServices,
+  secretKeyPortalId,
 };
