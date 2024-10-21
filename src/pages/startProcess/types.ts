@@ -18,13 +18,20 @@ interface FilterProcessesForDate {
   executionDate?: string;
 }
 
+interface IAplication {
+  appId: string;
+  abbreviatedName: string;
+  publicCode: string;
+
+}
+
 interface StartProcesses {
   id: string;
   description: string;
   publicCode?: string;
   date?: Date | string | undefined;
   dateAndHour?: Date;
-  aplication?: string;
+  aplication?: IAplication;
   periodicity?: string;
   statusText?: string;
   status?: React.ReactNode;
@@ -44,6 +51,7 @@ interface StartProcesses {
   plannedExecutionDate?: string;
   executionOfTheProcess?: string;
   processControlId?: string;
+  totalPersonsProsecuted?: number;
 }
 
 interface StartProcessesFilter {
