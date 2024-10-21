@@ -25,11 +25,11 @@ const Approval = (props: ApprovalProps) => {
   const [showProgressModal, setShowProgressModal] = useState(false);
   const [responseApproval, setResponseApproval] = useState<IApprovalResponse>();
   const [fieldsEntered, setFieldsEntered] = useState<IApprovalEntry>();
-  const { user } = useContext(AppContext);
+const {appData} = useContext(AppContext);
   const { addFlag } = useFlag();
 
   const handleApproval = async () => {
-    const justification = `Actualizado por el usuario ${user.username} del gestor de procesos INUBE - ${fieldsEntered?.observation}`;
+    const justification = `Actualizado por el usuario ${appData.user.userName} del gestor de procesos INUBE - ${fieldsEntered?.observation}`;
 
     const dataApproval = {
       packageId: packageId,
