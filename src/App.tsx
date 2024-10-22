@@ -45,8 +45,8 @@ const router = createBrowserRouter(
         path="selectBusinessUnit/*"
         element={<SelectBusinessUnitsRoutes />}
       />
-      <Route path="/*" element={<FirstPage />} errorElement={<ErrorPage />}>
-        <Route path="/*" element={<StartProcessRoutes />} />
+      <Route path="/" element={<FirstPage />} errorElement={<ErrorPage />}>
+        <Route path="/" element={<StartProcessRoutes />} />
         <Route path="start-process/*" element={<StartProcessRoutes />} />
         <Route
           path="confirm-initiated/*"
@@ -59,6 +59,7 @@ const router = createBrowserRouter(
         <Route path="finished/*" element={<FinishedRoutes />} />
       </Route>
       <Route path="logout" element={<LogOut />} />
+      <Route path="*" element={<ErrorPage />} />
     </>
   )
 );

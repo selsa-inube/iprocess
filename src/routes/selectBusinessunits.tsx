@@ -14,8 +14,8 @@ export interface IBusinessUnits {
   businessUnits: IBusinessUnit[];
 }
 function SelectBusinessUnitsRoutes() {
-  const { businessUnitSigla } = useContext(AppContext);
-  const businessUnits = businessUnitSigla && JSON.parse(businessUnitSigla);
+  const { businessUnitsToTheStaff } = useContext(AppContext);
+  const businessUnits = businessUnitsToTheStaff;
 
   return (
     <Routes>
@@ -35,6 +35,7 @@ function SelectBusinessUnitsRoutes() {
         path="error/not-related-businessUnits"
         element={<ErrorNotBusinessUnit />}
       />
+      <Route path="*" element={<ErrorPage />} />
       <Route path="/*" element={<ErrorPage />} />
     </Routes>
   );

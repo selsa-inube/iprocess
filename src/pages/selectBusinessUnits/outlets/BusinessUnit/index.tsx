@@ -1,6 +1,5 @@
 import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-
 import { AppContext } from "@context/AppContext";
 import { IBusinessUnitsPortalStaff } from "@ptypes/staffPortalBusiness.types";
 import { BusinessUnitsUI } from "./interface";
@@ -12,18 +11,16 @@ interface BusinessUnitsProps {
 
 function BusinessUnits(props: BusinessUnitsProps) {
   const { businessUnits } = props;
-  localStorage.clear();
+  const { setBusinessUnitSigla } = useContext(AppContext);
   const [search, setSearch] = useState("");
   const [selectedBusinessUnit, setSelectedBusinessUnit] =
-    useState<IBusinessUnitsPortalStaff | null>(null);
+  useState<IBusinessUnitsPortalStaff | null>(null);
   const [businessUnitLocal, setBusinessUnitLocal] =
-    useState<IBusinessUnitstate>({
-      ref: null,
-      value: true,
-    });
-
+  useState<IBusinessUnitstate>({
+    ref: null,
+    value: true,
+  });
   const navigate = useNavigate();
-  const { setBusinessUnitSigla } = useContext(AppContext);
 
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (businessUnitLocal.ref) {
