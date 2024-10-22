@@ -50,7 +50,7 @@ function AppContextProvider(props: AppProviderProps) {
       urlLogo: "",
     },
     user: {
-      userAccount: user?.name || "",
+      userAccount: user?.email || "",
       userName: user?.name || "",
     },
   });
