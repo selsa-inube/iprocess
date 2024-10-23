@@ -32,7 +32,7 @@ function CheckingCredentials({
           selectedBusinessUnit();
         } else {
           navigate(
-            `/selectBusinessUnit/${appData.user.userAccount}/businessUnits`
+            `/selectBusinessUnit/businessUnits`
           );
         }
       } else {

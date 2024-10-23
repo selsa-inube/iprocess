@@ -21,11 +21,11 @@ function SelectBusinessUnitsRoutes() {
     <Routes>
       <Route path="/" element={<SelectBusinessUnits />}>
         <Route
-          path="/:user_id/checking-credentials"
+          path="/checking-credentials"
           element={<CheckingCredentials businessUnits={businessUnits} />}
         />
         <Route
-          path="/:user_id/businessUnits"
+          path="/businessUnits"
           element={<BusinessUnits businessUnits={businessUnits} />}
         />
         <Route path="loading-app" element={<LoadingApp />} />

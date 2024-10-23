@@ -26,7 +26,7 @@ function SelectBusinessUnits() {
       location.pathname === "/selectBusinessUnit/" ||
       location.pathname === "/"
     ) {
-      navigate(`/selectBusinessUnit/${appData.user.userAccount}/checking-credentials/`);
+      navigate(`/selectBusinessUnit/checking-credentials/`);
     }
   }, [location, navigate, appData]);
 
