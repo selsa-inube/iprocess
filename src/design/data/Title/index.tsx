@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useMediaQuery } from "@inubekit/hooks";
 import { Icon } from "@inubekit/icon";
 import { Stack } from "@inubekit/stack";
-import { Text } from "@inubekit/text";
+import { ITextSize, Text } from "@inubekit/text";
 
 import { mediaQueryMobile } from "@config/environment";
 import { tokens } from "@design/tokens";
@@ -11,12 +11,14 @@ import { StyledContainerText } from "./styles";
 
 interface TitleProps {
   title: string;
+  description?: string;
   icon?: JSX.Element;
   navigatePage?: string;
+  sizeTitle?: ITextSize;
 }
 
 function Title(props: TitleProps) {
-  const { title, icon, navigatePage } = props;
+  const { title, sizeTitle = "medium", description, icon, navigatePage } = props;
 
   const smallScreen = useMediaQuery(mediaQueryMobile);
 
@@ -49,13 +51,16 @@ function Title(props: TitleProps) {
           <StyledContainerText>
             <Text
               type="title"
-              size={smallScreen ? "small" : "medium"}
+              size={smallScreen ? "small" : `${sizeTitle}`}
               weight="bold"
             >
               {title}
             </Text>
           </StyledContainerText>
         </Stack>
+        <Text appearance="gray" size={smallScreen ? "small" : "medium"}>
+          {description}
+        </Text>
       </Stack>
     </>
   );

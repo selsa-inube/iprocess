@@ -24,6 +24,7 @@ import { useBusinessManagers } from "./hooks/useBusinessManagers";
 import { useAuthRedirect } from "./hooks/useAuthRedirect";
 import { SelectBusinessUnits } from "./pages/selectBusinessUnits";
 import { SelectBusinessUnitsRoutes } from "./routes/selectBusinessunits";
+import { Home } from "./pages/home";
 
 function LogOut() {
   localStorage.clear();
@@ -35,7 +36,7 @@ function LogOut() {
 function FirstPage() {
   const { businessUnitSigla } = useContext(AppContext);
 
-  return businessUnitSigla.length === 0 ? <SelectBusinessUnits /> : <AppPage />;
+  return businessUnitSigla.length === 0 ? <SelectBusinessUnits /> : <Home />;
 }
 
 const router = createBrowserRouter(
