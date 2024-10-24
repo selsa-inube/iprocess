@@ -4,7 +4,9 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { decrypt } from "@utils/encrypt";
 import { usePortalData } from "@hooks/usePortalData";
 import { useBusinessManagers } from "@hooks/useBusinessManagers";
-import { IAppContext, IAppData } from "./types";
+import { IAppContext, IAppData} from "./types";
+import { IBusinessUnitsPortalStaff } from "@src/types/staffPortalBusiness.types";
+
 
 const AppContext = createContext<IAppContext>({} as IAppContext);
 
@@ -21,6 +23,8 @@ function AppContextProvider(props: AppProviderProps) {
   const [businessUnitSigla, setBusinessUnitSigla] = useState(
     localStorage.getItem("businessUnitSigla") || ""
   );
+
+  const [businessUnitsToTheStaff, setBusinessUnitsToTheStaff] = useState<IBusinessUnitsPortalStaff[]>([]);
 
   const portalId = localStorage.getItem("portalCode");
   let portalCode = "";
@@ -50,7 +54,7 @@ function AppContextProvider(props: AppProviderProps) {
       urlLogo: "",
     },
     user: {
-      userAccount: user?.name || "",
+      userAccount: user?.email || "",
       userName: user?.name || "",
     },
   });
@@ -84,7 +88,7 @@ function AppContextProvider(props: AppProviderProps) {
   useEffect(() => {
     localStorage.setItem("businessUnitSigla", businessUnitSigla);
 
-    if (businessUnitSigla) {
+    if (businessUnitsToTheStaff && businessUnitSigla) {
       const businessUnit = JSON.parse(businessUnitSigla);
 
       setAppData((prev) => ({
@@ -103,10 +107,12 @@ function AppContextProvider(props: AppProviderProps) {
     () => ({
       appData,
       businessUnitSigla,
+      businessUnitsToTheStaff, 
       setAppData,
       setBusinessUnitSigla,
+      setBusinessUnitsToTheStaff
     }),
-    [appData, businessUnitSigla, setAppData, setBusinessUnitSigla]
+    [appData, businessUnitSigla, businessUnitsToTheStaff, setAppData, setBusinessUnitSigla, setBusinessUnitsToTheStaff]
   );
 
   return (
