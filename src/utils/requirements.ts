@@ -4,6 +4,9 @@ const statusRequirement = [
   { status: "NoMeets", name: "No Cumple", appearance: "danger" },
   { status: "NoEvaluated", name: "Sin Evaluar", appearance: "warning" },
   { status: "Undefined", name: "No Definido", appearance: "gray" },
+  { status: "Error", name: "Error", appearance: "danger" },
+  { status: "Raw", name: "Sin procesar", appearance: "warning" },
+
 ];
 
 const evaluationStatusRequirement = [

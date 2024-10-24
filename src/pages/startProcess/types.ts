@@ -27,7 +27,7 @@ interface IAplication {
 
 interface StartProcesses {
   id: string;
-  description: string;
+  description?: string;
   publicCode?: string;
   date?: Date | string | undefined;
   dateAndHour?: Date;
