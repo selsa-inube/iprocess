@@ -36,7 +36,7 @@ const actionsMock = [
 const data = {
   id: "01",
   code: "01515464655121",
-  status: "Raw",
+  status: "WithoutProcessing",
   namePerson: "Alberto de Jesús Morales Gonzales",
   dateStart: "12/31/2023 - 19:05:00",
   dateEnd: "12/31/2023 - 20:15:30",

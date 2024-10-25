@@ -69,7 +69,7 @@ const dataPerson = [
   {
     id: "01",
     code: "01515464655121",
-    status: "Raw",
+    status: "WithoutProcessing",
     namePerson: "Alberto de Jesús Morales Gonzales",
     dateStart: "12/31/2023 - 19:05:00",
     dateEnd: "12/31/2023 - 20:15:30",
@@ -87,7 +87,7 @@ const dataPerson = [
   {
     id: "03",
     code: "0177777755121",
-    status: "Raw",
+    status: "WithoutProcessing",
     namePerson: "Martha Liliana Florez Quiroga",
     dateStart: "12/31/2023 - 19:05:00",
     dateEnd: "12/31/2023 - 20:15:30",
@@ -105,7 +105,7 @@ const dataPerson = [
   {
     id: "05",
     code: "546547855121",
-    status: "Raw",
+    status: "WithoutProcessing",
     namePerson: "Daniel Felipe Fernadez Quintero",
     dateStart: "12/31/2023 - 19:05:00",
     dateEnd: "12/31/2023 - 20:15:30",
@@ -132,7 +132,7 @@ const dataPerson = [
   {
     id: "08",
     code: "8723230044",
-    status: "Raw",
+    status: "WithoutProcessing",
     namePerson: "Esteban Jose Quiñonez Fernandez",
     dateStart: "12/31/2023 - 19:05:00",
     dateEnd: "12/31/2023 - 20:15:30",

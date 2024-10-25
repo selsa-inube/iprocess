@@ -3,11 +3,10 @@ import { Stack } from "@inubekit/stack";
 import { Text } from "@inubekit/text";
 import { SkeletonIcon, SkeletonLine } from "@inubekit/skeleton";
 import { Label } from "@inubekit/label";
-import { Tag } from "@inubekit/tag";
+import { ITagAppearance, Tag } from "@inubekit/tag";
 
 import { tokens } from "@design/tokens";
-import { normalizeStatusRequirementByStatus } from "@utils/requirements";
-import { appearances } from "@pages/startProcess/types";
+import { filteredExecutionStatusByPerson, normalizeexecutionStatusByPerson } from "@utils/requirements";
 import { IActions, IPersonProcess } from "./types";
 import { StyledAction, StyledContainer } from "./styles";
 
@@ -40,7 +39,7 @@ const CardStatusExecution = (props: CardStatusExecutionProps) => {
   return (
     <StyledContainer>
       <Stack direction="row" justifyContent="space-between">
-        {entries?.status === "Error" &&
+        {filteredExecutionStatusByPerson.includes(entries?.status || "") &&
           (isLoading ? (
             <Stack width="70px" gap={tokens.spacing.s025} justifyContent="center" alignItems="center">
               <SkeletonIcon animated />
@@ -74,13 +73,13 @@ const CardStatusExecution = (props: CardStatusExecutionProps) => {
               </Text>
               <Tag
                 label={
-                  normalizeStatusRequirementByStatus(entries?.status || "")
+                  normalizeexecutionStatusByPerson(entries?.status || "")
                     ?.name || ""
                 }
                 appearance={
-                  (normalizeStatusRequirementByStatus(
+                  (normalizeexecutionStatusByPerson(
                     entries?.status || "light"
-                  )?.appearance as appearances) || "light"
+                  )?.appearance as ITagAppearance) || "light"
                 }
                 weight="strong"
               />

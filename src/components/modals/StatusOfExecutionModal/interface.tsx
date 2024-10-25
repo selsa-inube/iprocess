@@ -19,11 +19,7 @@ import { CardStatusExecution } from "@components/feedback/CardStatusExecution";
 import { CardStatusExecutionGroup } from "@components/feedback/CardStatusExecutionGroup";
 import { IPersonProcess } from "@components/feedback/CardStatusExecution/types";
 import { ComponentAppearance } from "@ptypes/aparences.types";
-import {
-  StyledContainer,
-  StyledFields,
-  StyledModal,
-} from "./styles";
+import { StyledContainer, StyledFields, StyledModal } from "./styles";
 import { ILabel } from "./types";
 
 interface StatusOfExecutionModalUIProps {
@@ -95,7 +91,9 @@ const StatusOfExecutionModalUI = (props: StatusOfExecutionModalUIProps) => {
               {labels.map((field, id) => {
                 const value =
                   dataInformationProcess[field.id as keyof StartProcesses];
-                return value && value !== "undefined" ? (
+                return value !== null &&
+                  value !== undefined &&
+                  (typeof value === "string" || typeof value === "number") ? (
                   <StyledFields key={id} $smallScreen={isMobile}>
                     <Label
                       htmlFor={field.id}
@@ -111,7 +109,7 @@ const StatusOfExecutionModalUI = (props: StatusOfExecutionModalUIProps) => {
                       size="medium"
                     >
                       <Text type="body" size="medium">
-                        {String(value)}
+                        {value}
                       </Text>
                     </Fieldset>
                   </StyledFields>
@@ -172,6 +170,7 @@ const StatusOfExecutionModalUI = (props: StatusOfExecutionModalUIProps) => {
                 attributes={attributes}
                 entries={dataPerson}
                 filter={search}
+                filteredWithErrors={seeErrorsChecked}
               />
             )}
           </Stack>

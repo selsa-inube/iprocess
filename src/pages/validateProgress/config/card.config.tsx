@@ -1,16 +1,11 @@
-import {
-  MdOutlineRemoveRedEye,
-  MdOutlineSubtitles,
-} from "react-icons/md";
+import { MdOutlineRemoveRedEye } from "react-icons/md";
 import { Icon } from "@inubekit/icon";
 
 import { StartProcesses } from "@pages/startProcess/types";
 import { formatDate } from "@utils/dates";
+import { ExecutionStatus } from "../components/ExecutionStatus";
 
-
-const normailzeValidateProgress = (
-  process: StartProcesses[],
-) =>
+const normailzeValidateProgress = (process: StartProcesses[]) =>
   process.map((entry) => ({
     ...entry,
     id: entry.id,
@@ -18,11 +13,12 @@ const normailzeValidateProgress = (
     date: entry.dateAndHour && formatDate(new Date(entry.dateAndHour)),
     dateAndHour:
       entry.dateAndHour && formatDate(new Date(entry.dateAndHour), true),
-      totalPersonsCoversProcess: entry.totalPerson,
+    totalPersonsCoversProcess: entry.totalPerson,
     totalPersonsProsecuted: entry.totalPersonsProsecuted,
     dailyDetail: entry.dailyDetail,
     actions: actions,
     dateWithoutFormat: entry.date,
+    timeUsedToInsertPeople: entry.timeUsedToInsertPeople,
   }));
 
 const actions = [
@@ -39,14 +35,7 @@ const actions = [
   },
   {
     id: "statusExecute",
-    content: () => (
-      <Icon
-        appearance="dark"
-        icon={<MdOutlineSubtitles />}
-        size="16px"
-        cursorHover
-      />
-    ),
+    content: (entries: StartProcesses) => <ExecutionStatus data={entries} />,
   },
 ];
 

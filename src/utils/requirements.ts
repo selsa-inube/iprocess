@@ -4,9 +4,6 @@ const statusRequirement = [
   { status: "NoMeets", name: "No Cumple", appearance: "danger" },
   { status: "NoEvaluated", name: "Sin Evaluar", appearance: "warning" },
   { status: "Undefined", name: "No Definido", appearance: "gray" },
-  { status: "Error", name: "Error", appearance: "danger" },
-  { status: "Raw", name: "Sin procesar", appearance: "warning" },
-
 ];
 
 const evaluationStatusRequirement = [
@@ -43,6 +40,13 @@ const evaluationStatusRequirement = [
   },
 ];
 
+const executionStatusByPerson =[
+  { status: "WithoutProcessing", name: "Sin procesar", appearance: "warning" },
+  { status: "Error", name: "Error", appearance: "danger" },
+]
+
+const filteredExecutionStatusByPerson = ["Error"];
+
 enum RequirementTypeNormalize  {
   SYSTEM_VALIDATION= "Validación del sistema",
   DOCUMENT= "Documento",
@@ -61,11 +65,17 @@ const normalizeEvalStatusRequirementByStatus = (requirement: string) =>
 const normalizeEvalStatusRequirementByName = (requirement: string) =>
   evaluationStatusRequirement.find((element) => element.name === requirement);
 
+const normalizeexecutionStatusByPerson = (requirement: string) =>
+  executionStatusByPerson.find((element) => element.status === requirement);
+
+
 export {
   statusRequirement,
+  filteredExecutionStatusByPerson, 
   RequirementTypeNormalize,
   normalizeStatusRequirementByStatus,
   normalizeStatusRequirementByName,
   normalizeEvalStatusRequirementByStatus,
   normalizeEvalStatusRequirementByName,
+  normalizeexecutionStatusByPerson,
 };

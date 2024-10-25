@@ -6,7 +6,7 @@ const StyledContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 304px;
-  min-height: 176px;
+  height: 176px;
   padding: ${tokens.spacing.s150};
   gap: ${tokens.spacing.s150};
   border-radius: ${tokens.spacing.s100};
