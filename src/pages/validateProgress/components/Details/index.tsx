@@ -40,8 +40,9 @@ const Details = (props: DetailsProps) => {
   }, [showModal]);
 
   useEffect(() => {
+    console.log(normalizeStatusRequirementByStatus(processRequirementData?.generalStatusRequirement||"")?.name);
     if (processRequirementData) {
-      data.status = normalizeStatusRequirementByStatus(processRequirementData?.generalStatusRequirement||"")?.name;
+      data.statusText = normalizeStatusRequirementByStatus(processRequirementData?.generalStatusRequirement||"")?.name;
     }
   }, [processRequirementData?.listOfRequirements]);
     
