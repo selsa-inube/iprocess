@@ -11,7 +11,6 @@ const refNumPackageRequirement = async (
 ): Promise<IRefNumPackageRequirement> => {
   const maxRetries = maxRetriesServices;
   const fetchTimeout = fetchTimeoutServices;
-  console.log(uniqueRefNumber);
 
   for (let attempt = 1; attempt <= maxRetries; attempt++) {
     try {

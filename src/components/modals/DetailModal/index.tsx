@@ -59,8 +59,6 @@ const DetailModal = (props: DetailModalProps) => {
     );
   }
 
-  console.log(data);
-
   return createPortal(
     <StyledContainer>
       <Blanket>

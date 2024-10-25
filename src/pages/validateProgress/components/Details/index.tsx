@@ -8,9 +8,9 @@ import { refNumPackageRequirement } from "@services/processRequirements/getByRef
 import { IRefNumPackageRequirement } from "@ptypes/packageRequeriment.types";
 import { DetailModal } from "@components/modals/DetailModal";
 import { IData } from "@components/modals/requirementsModal/types";
+import { normalizeStatusRequirementByStatus } from "@utils/requirements";
 import { labelsDetails } from "../../config/card.config";
 import { breakPoints, dataTablesDetailsConfig } from "./config/tablesDetails.config";
-import { normalizeStatusRequirementByStatus } from "@src/utils/requirements";
 
 interface DetailsProps {
   data: IEntries;
@@ -41,17 +41,13 @@ const Details = (props: DetailsProps) => {
 
   useEffect(() => {
     if (processRequirementData) {
-      // data.status = normalizeStatusRequirementByStatus(processRequirementData?.generalStatusRequirement||"")?.name;
-      data.statusText = "Cumple";
-
+      data.status = normalizeStatusRequirementByStatus(processRequirementData?.generalStatusRequirement||"")?.name;
     }
   }, [processRequirementData?.listOfRequirements]);
     
   const handleToggleModal = () => {
     setShowModal(!showModal);
   };
-
-  console.log("processRequirementData", normalizeStatusRequirementByStatus(processRequirementData?.generalStatusRequirement||"")?.name);
 
   return (
     <>

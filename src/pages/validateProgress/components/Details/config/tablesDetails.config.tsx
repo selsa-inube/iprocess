@@ -1,5 +1,5 @@
 import { IData, ITitlesRequirements } from "@pages/startProcess/types";
-import { IlistOfRequirements } from "@src/types/packageRequeriment.types";
+import { IlistOfRequirements } from "@ptypes/packageRequeriment.types";
 import { RequirementTypeNormalize } from "@utils/requirements";
 
 const requirementsDetailsNormailze = (process: IlistOfRequirements[]) =>
@@ -11,7 +11,6 @@ const requirementsDetailsNormailze = (process: IlistOfRequirements[]) =>
 
 const dataTablesDetailsConfig = (entry: IlistOfRequirements[]) => {
   const dataTables: IData[] = [];
-  console.log("dddddd", entry);
   requirementsDetailsNormailze(entry).forEach((entry, _, requirements) => {
     if (!dataTables.some((e) => e.id === entry.requirementType)) {
       const titleRequirements: ITitlesRequirements[] = [
