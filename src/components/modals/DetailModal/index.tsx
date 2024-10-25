@@ -8,12 +8,13 @@ import { useMediaQuery } from "@inubekit/hooks";
 import { Stack } from "@inubekit/stack";
 import { Text } from "@inubekit/text";
 import { Blanket } from "@inubekit/blanket";
-import { Tag } from "@inubekit/tag";
+import { ITagAppearance, Tag } from "@inubekit/tag";
 
 import { Table } from "@components/data/Table";
 import { IBreakpoint } from "@components/data/Table/props";
-import { appearances } from "@pages/startProcess/types";
 import { normalizeStatusRequirementByName } from "@utils/requirements";
+import { mediaQueryMobile } from "@config/environment";
+import { tokens } from "@design/tokens";
 import {
   StyledContainer,
   StyledContainerTables,
@@ -22,7 +23,6 @@ import {
 } from "./styles";
 import { IEntries, ILabel } from "./types";
 import { IData } from "../requirementsModal/types";
-
 
 interface DetailModalProps {
   portalId: string;
@@ -47,7 +47,7 @@ const DetailModal = (props: DetailModalProps) => {
     onCloseModal,
   } = props;
 
-  const isMobile = useMediaQuery("(max-width: 500px)");
+  const isMobile = useMediaQuery(mediaQueryMobile);
 
   const node = document.getElementById(portalId);
 
@@ -58,6 +58,8 @@ const DetailModal = (props: DetailModalProps) => {
       "The portal node is not defined. This can occur when the specific node used to render the portal has not been defined correctly."
     );
   }
+
+  console.log(data);
 
   return createPortal(
     <StyledContainer>
@@ -83,12 +85,12 @@ const DetailModal = (props: DetailModalProps) => {
                       <Label
                         htmlFor={field.id}
                         size="large"
-                        margin="0px 0px 0px 16px"
+                        margin={`${tokens.spacing.s0} ${tokens.spacing.s0} ${tokens.spacing.s0} ${tokens.spacing.s200}`}
                       >
                         {field.titleName}
                       </Label>
                       <Fieldset legend="" spacing="compact" type="title" size="large">
-                        <Text>{data[field.id]}</Text>
+                        <Text type="body" size="medium">{data[field.id]}</Text>
                       </Fieldset>
                     </StyledModalFields>
                   )
@@ -96,18 +98,18 @@ const DetailModal = (props: DetailModalProps) => {
               {labels.slice(partOfLabels).map(
                 (field, id) =>
                   data[field.id] && (
-                    <Stack key={id} gap="16px">
+                    <Stack key={id} gap={tokens.spacing.s200}>
                       <Label
                         htmlFor={field.id}
                         size="small"
-                        margin="0px 0px 0px 16px"
+                        margin={`${tokens.spacing.s0} ${tokens.spacing.s0} ${tokens.spacing.s0} ${tokens.spacing.s200}`}
                       >
                         {field.titleName}
                       </Label>
                       <Tag
                         appearance={
                           normalizeStatusRequirementByName(data[field.id])
-                            ?.appearance as appearances
+                            ?.appearance as ITagAppearance || "gray"
                         }
                         label={
                           normalizeStatusRequirementByName(data[field.id])
@@ -120,7 +122,7 @@ const DetailModal = (props: DetailModalProps) => {
               )}
             </Stack>
 
-            {data.statusText === "Cumple" && (
+            {requirement &&  data.statusText === "Cumple" && (
               <StyledContainerTables>
                 {requirement.length === 0
                   ? "No se han encontrado resultados"
@@ -141,7 +143,7 @@ const DetailModal = (props: DetailModalProps) => {
               </StyledContainerTables>
             )}
 
-            <Stack gap="8px" justifyContent="flex-end">
+            <Stack gap={tokens.spacing.s100} justifyContent="flex-end">
               <Button
                 spacing="wide"
                 appearance="primary"
