@@ -8,11 +8,10 @@ import { useMediaQuery } from "@inubekit/hooks";
 import { Stack } from "@inubekit/stack";
 import { Text } from "@inubekit/text";
 import { Blanket } from "@inubekit/blanket";
-import { Tag } from "@inubekit/tag";
+import { ITagAppearance, Tag } from "@inubekit/tag";
 
 import { Table } from "@components/data/Table";
 import { IBreakpoint } from "@components/data/Table/props";
-import { appearances } from "@pages/startProcess/types";
 import { normalizeStatusRequirementByName } from "@utils/requirements";
 import { mediaQueryMobile } from "@config/environment";
 import { tokens } from "@design/tokens";
@@ -110,7 +109,7 @@ const DetailModal = (props: DetailModalProps) => {
                       <Tag
                         appearance={
                           normalizeStatusRequirementByName(data[field.id])
-                            ?.appearance as appearances || "gray"
+                            ?.appearance as ITagAppearance || "gray"
                         }
                         label={
                           normalizeStatusRequirementByName(data[field.id])

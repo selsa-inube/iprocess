@@ -1,7 +1,7 @@
 import { MdOutlineSubtitles } from "react-icons/md";
 import { Icon } from "@inubekit/icon";
 
-import { IAplication, StartProcesses } from "@pages/startProcess/types";
+import { StartProcesses } from "@pages/startProcess/types";
 import { formatDate } from "@utils/dates";
 import { Details } from "../components/Details";
 
@@ -24,7 +24,7 @@ const normailzeValidateProgress = (process: StartProcesses[]) =>
 const mapValidateProgress = (entry: StartProcesses) => {
   return {
     id: entry.id,
-    aplication: entry.aplication?.abbreviatedName as unknown as IAplication,
+    aplication: entry.aplication?.abbreviatedName || "",
     process: entry.description,
   };
 };
