@@ -7,7 +7,7 @@ import {
 import { mapBusinessUnitsPortalStaffToEntities } from "./mappers";
 
 const businessUnitsPortalStaff = async (
-  publicCode: string,
+  portalPublicCode: string,
   userAccount: string
 ): Promise<IBusinessUnitsPortalStaff[]> => {
   const maxRetries = maxRetriesServices;
@@ -28,7 +28,7 @@ const businessUnitsPortalStaff = async (
       };
 
       const res = await fetch(
-        `${enviroment.IPORTAL_STAFF_QUERY_PROCESS_SERVICE}/business-units-portal-staff/${userAccount}/${publicCode}`,
+        `${enviroment.IPORTAL_STAFF_QUERY_PROCESS_SERVICE}/business-units-portal-staff/${userAccount}/${portalPublicCode}`,
         options
       );
 

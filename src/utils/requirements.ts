@@ -9,7 +9,7 @@ const statusRequirement = [
 const evaluationStatusRequirement = [
   {
     status: "ERROR_IN_EVALUATION",
-    name: "Error En Evaluación",
+    name: "Error en evaluación",
     appearance: "danger",
   },
   { status: "UNVALIDATED", name: "No Valido", appearance: "danger" },
@@ -19,13 +19,18 @@ const evaluationStatusRequirement = [
     appearance: "success",
   },
   {
+    status: "PASSED_WITH_HUMAN_VALIDATION",
+    name: "Validación humana cumplida",
+    appearance: "success",
+  },
+  {
     status: "FAILED_SYSTEM_VALIDATION",
     name: "Validacion del sistema NO cumplida",
     appearance: "warning",
   },
   {
     status: "DOCUMENT_NOT_LOADED",
-    name: "Documento no cargado",
+    name: "Documento NO cargado",
     appearance: "danger",
   },
   {

@@ -7,7 +7,7 @@ import { validateBusinessUnities } from "./utils";
 function SelectBusinessUnits() {
   const navigate = useNavigate();
   const location = useLocation();
-  const { appData, setBusinessUnitSigla } = useContext(AppContext);
+  const { appData, setBusinessUnitsToTheStaff } = useContext(AppContext);
 
   useEffect(() => {
     if (appData.portal.publicCode) {
@@ -15,7 +15,7 @@ function SelectBusinessUnits() {
         appData.portal.publicCode,
         appData.user.userAccount
       ).then((data) => {
-        setBusinessUnitSigla(JSON.stringify(data));
+        setBusinessUnitsToTheStaff(data);
       });
     }
   }, [appData.portal.publicCode]);
@@ -26,7 +26,7 @@ function SelectBusinessUnits() {
       location.pathname === "/selectBusinessUnit/" ||
       location.pathname === "/"
     ) {
-      navigate(`/selectBusinessUnit/${appData.user.userAccount}/checking-credentials/`);
+      navigate(`/selectBusinessUnit/checking-credentials/`);
     }
   }, [location, navigate, appData]);
 

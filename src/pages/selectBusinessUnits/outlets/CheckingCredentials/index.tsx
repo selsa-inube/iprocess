@@ -2,13 +2,13 @@ import { useNavigate } from "react-router-dom";
 import { useCallback, useContext, useEffect } from "react";
 
 import { AppContext } from "@context/AppContext";
+import { IBusinessUnitsPortalStaff } from "@ptypes/staffPortalBusiness.types";
 import { CheckingCredentialsUI } from "./interface";
-import { IBusinessUnit } from "../BusinessUnit/types";
 
 function CheckingCredentials({
   businessUnits,
 }: {
-  businessUnits: IBusinessUnit[];
+  businessUnits: IBusinessUnitsPortalStaff[];
 }) {
   const navigate = useNavigate();
   const { appData, setBusinessUnitSigla } = useContext(AppContext);
@@ -32,7 +32,7 @@ function CheckingCredentials({
           selectedBusinessUnit();
         } else {
           navigate(
-            `/selectBusinessUnit/${appData.user.userAccount}/businessUnits`
+            `/selectBusinessUnit/businessUnits`
           );
         }
       } else {

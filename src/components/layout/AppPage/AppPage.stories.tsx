@@ -41,6 +41,8 @@ const useContext = {
   businessUnitSigla: "IProcess", 
   setAppData: () => {}, 
   setBusinessUnitSigla: () => {}, 
+  businessUnitsToTheStaff: [],
+  setBusinessUnitsToTheStaff: () => {},
 };
 
 const meta: Meta<typeof AppPage> = {
