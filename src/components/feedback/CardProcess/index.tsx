@@ -45,8 +45,8 @@ const CardProcess = (props: CardProcessProps) => {
           </Stack>
         ) : (
           <Text type="body" size="small">
-            {entries && entries.description.length > 100
-              ? entries?.description.slice(0, 100) + "..."
+            {entries && entries.description && entries.description?.length > 100
+              ? entries?.description?.slice(0, 100) + "..."
               : entries?.description}
           </Text>
         )}

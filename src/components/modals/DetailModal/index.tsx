@@ -107,7 +107,7 @@ const DetailModal = (props: DetailModalProps) => {
                       <Tag
                         appearance={
                           normalizeStatusRequirementByName(data[field.id])
-                            ?.appearance as appearances
+                            ?.appearance as appearances || "gray"
                         }
                         label={
                           normalizeStatusRequirementByName(data[field.id])
