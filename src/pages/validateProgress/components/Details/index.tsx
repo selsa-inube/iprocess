@@ -28,6 +28,7 @@ const Details = (props: DetailsProps) => {
     try {
       const newRequirement = await refNumPackageRequirement(String(data?.referenceNumberRequirement));
       setProcessRequirementData(newRequirement); 
+      data.statusText = normalizeStatusRequirementByStatus(newRequirement?.generalStatusRequirement||"")?.name;
     } catch (error) {
       throw new Error(`Error al obtener los datos: ${(error as Error).message} `);
     } finally {
@@ -38,14 +39,7 @@ const Details = (props: DetailsProps) => {
   useEffect(() => {
     if(showModal)requirementsData();
   }, [showModal]);
-
-  useEffect(() => {
-    console.log(normalizeStatusRequirementByStatus(processRequirementData?.generalStatusRequirement||"")?.name);
-    if (processRequirementData) {
-      data.statusText = normalizeStatusRequirementByStatus(processRequirementData?.generalStatusRequirement||"")?.name;
-    }
-  }, [processRequirementData?.listOfRequirements]);
-    
+   
   const handleToggleModal = () => {
     setShowModal(!showModal);
   };
