@@ -5,7 +5,7 @@ import { Header } from "@inubekit/header";
 import { Nav } from "@inubekit/nav";
 import { useMediaQuery } from "@inubekit/hooks";
 
-import { nav } from "@config/nav";
+import { nav, userMenu } from "@config/nav";
 import { AppContext } from "@context/AppContext";
 import {
   StyledAppPage,
@@ -14,8 +14,6 @@ import {
   StyledLogo,
   StyledMain,
 } from "./styles";
-
-
 
 const renderLogo = (imgUrl: string) => {
   return (
@@ -37,7 +35,7 @@ function AppPage() {
           navigation={nav}
           logoURL={renderLogo(appData.businessUnit.urlLogo)}
           userName={appData.user.userName}
-          
+          userMenu={userMenu}
         />
         <StyledContainer>
           <Grid

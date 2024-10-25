@@ -1,9 +1,11 @@
 import { INav } from "@components/layout/AppPage/types";
 import {
+  MdLogout,
   MdOutlineCheck,
   MdOutlineMoving,
   MdOutlineStart,
   MdOutlineThumbUp,
+
 } from "react-icons/md";
 
 const nav: INav = {
@@ -41,4 +43,20 @@ const nav: INav = {
   },
 };
 
-export { nav };
+const userMenu = [
+   {
+    id: "section",
+    title: "",
+    links: [
+      {
+        id: "logout",
+        title: "Cerrar sesión",
+        path: "/logout",
+        iconBefore: <MdLogout />,
+      },
+    ],
+    divider: true,
+  },
+];
+
+export { nav,userMenu };
