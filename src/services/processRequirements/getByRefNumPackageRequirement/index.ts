@@ -4,27 +4,23 @@ import {
   maxRetriesServices,
 } from "@config/environment";
 import { IRefNumPackageRequirement } from "@ptypes/packageRequeriment.types";
-import { mapListPeriodStartProcessApiToEntities } from "./mapper";
+import { mapRefNumPackRequirementApiToEntity } from "./mapper";
 
 const refNumPackageRequirement = async (
   uniqueRefNumber: string
-): Promise<IRefNumPackageRequirement[]> => {
+): Promise<IRefNumPackageRequirement> => {
   const maxRetries = maxRetriesServices;
   const fetchTimeout = fetchTimeoutServices;
 
   for (let attempt = 1; attempt <= maxRetries; attempt++) {
     try {
-      const queryParams = new URLSearchParams({
-        uniqueReferenceNumber: uniqueRefNumber,
-      });
-
       const controller = new AbortController();
       const timeoutId = setTimeout(() => controller.abort(), fetchTimeout);
 
       const options: RequestInit = {
         method: "GET",
         headers: {
-          "X-Action": "SearchByReferenceNumberPakageRequirement",
+          "X-Action": "SearchByIdPakageRequirementWhitGeneralStatus",
           "X-Business-Unit": enviroment.TEMP_BUSINESS_UNIT,
           "Content-type": "application/json; charset=UTF-8",
         },
@@ -32,14 +28,14 @@ const refNumPackageRequirement = async (
       };
 
       const res = await fetch(
-        `${enviroment.IREQUER_API_URL_QUERY}/package-requirements-management?${queryParams.toString()}`,
+        `${enviroment.IREQUER_API_URL_QUERY}/package-requirements-management/${uniqueRefNumber}`,
         options
       );
 
       clearTimeout(timeoutId);
 
       if (res.status === 204) {
-        return [];
+        return {} as IRefNumPackageRequirement;
       }
 
       const data = await res.json();
@@ -52,11 +48,8 @@ const refNumPackageRequirement = async (
         };
       }
 
-      const normalizedrefNumPackageRequirement = Array.isArray(data)
-        ? mapListPeriodStartProcessApiToEntities(data)
-        : [];
-
-      return normalizedrefNumPackageRequirement;
+   
+      return mapRefNumPackRequirementApiToEntity(data);
     } catch (error) {
       if (attempt === maxRetries) {
         throw new Error(
@@ -66,7 +59,7 @@ const refNumPackageRequirement = async (
     }
   }
 
-  return [];
+  return {} as IRefNumPackageRequirement;
 };
 
 export { refNumPackageRequirement };

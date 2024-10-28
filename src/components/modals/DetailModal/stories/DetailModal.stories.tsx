@@ -3,7 +3,6 @@ import { BrowserRouter } from "react-router-dom";
 import { Meta, StoryFn } from "@storybook/react";
 
 import { Button } from "@inubekit/button";
-import { Tag } from "@inubekit/tag";
 import { DetailModal, DetailModalProps } from "..";
 
 const meta: Meta<typeof DetailModal> = {
@@ -27,7 +26,7 @@ const data = {
     "Los NFTs son tokens no fungibles únicos en la cadena de bloques. A diferencia de las criptomonedas, cada NFT es único. Se utilizan para certificar la propiedad de activos digitales y físicos.",
   periodicity: "Diario",
   executionDate: "31/DIC/2024 - 01:00:40",
-  requirements: <Tag label="Cumple" appearance="success" weight="strong" />,
+  requirements: "Cumple",
 };
 
 const labels = [

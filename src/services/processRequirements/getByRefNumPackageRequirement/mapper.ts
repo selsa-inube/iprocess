@@ -14,13 +14,8 @@ const mapRefNumPackRequirementApiToEntity = (
   return packageRequirement;
 };
 
-const mapListPeriodStartProcessApiToEntities = (
-  periods: Record<string, string | number | object>[]
-): IRefNumPackageRequirement[] => {
-  return periods.map((period) => mapRefNumPackRequirementApiToEntity(period));
-};
+
 
 export {
   mapRefNumPackRequirementApiToEntity,
-  mapListPeriodStartProcessApiToEntities,
 };

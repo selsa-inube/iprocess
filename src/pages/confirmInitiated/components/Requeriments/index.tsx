@@ -31,10 +31,7 @@ const Requirements = (props: RequirementsProps) => {
     setLoading(true);
     try {
       const newStatusRequirement = await refNumPackageRequirement(uniqueReferenceNumber);
-
-      const statusRequirementData = newStatusRequirement.find((item) => item.id);
-
-      setStatusRequirementData(statusRequirementData);
+      setStatusRequirementData(newStatusRequirement);
     } catch (error) {
       console.info(error);
     } finally {
@@ -43,7 +40,7 @@ const Requirements = (props: RequirementsProps) => {
   };
 
   useEffect(() => {
-    generalStatusRequirement();
+    if(uniqueReferenceNumber) generalStatusRequirement();
   }, []);
 
   useEffect(() => {

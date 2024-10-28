@@ -36,7 +36,7 @@ function LogOut() {
 function FirstPage() {
   const { businessUnitSigla } = useContext(AppContext);
 
-  return businessUnitSigla.length === 0 ? <SelectBusinessUnits /> : <Home />;
+  return businessUnitSigla.length === 0 ? <SelectBusinessUnits /> : <AppPage />;
 }
 
 const router = createBrowserRouter(
@@ -60,7 +60,6 @@ const router = createBrowserRouter(
         <Route path="finished/*" element={<FinishedRoutes />} />
       </Route>
       <Route path="logout" element={<LogOut />} />
-      <Route path="*" element={<ErrorPage />} />
     </>
   )
 );
