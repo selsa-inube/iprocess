@@ -36,7 +36,7 @@ function LogOut() {
 function FirstPage() {
   const { businessUnitSigla } = useContext(AppContext);
 
-  return businessUnitSigla.length === 0 ? <SelectBusinessUnits /> : <AppPage />;
+  return businessUnitSigla.length === 0 ? <SelectBusinessUnits /> : <Home />;
 }
 
 const router = createBrowserRouter(

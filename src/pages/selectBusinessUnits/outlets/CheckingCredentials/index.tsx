@@ -14,7 +14,7 @@ function CheckingCredentials({
   const { appData, setBusinessUnitSigla } = useContext(AppContext);
 
   const selectedBusinessUnit = () => {
-    const selected = businessUnits;
+    const selected = businessUnits[0];
     setBusinessUnitSigla(JSON.stringify(selected));
     navigate("/selectBusinessUnit/loading-app");
   };
