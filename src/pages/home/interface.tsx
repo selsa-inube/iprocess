@@ -3,7 +3,7 @@ import { MdOutlineDoorFront } from "react-icons/md";
 import { Header } from "@inubekit/header";
 
 import { AppCard } from "@components/feedback/AppCard";
-import { nav } from "@config/nav";
+import { nav, userMenu } from "@config/nav";
 import { Title } from "@design/data/Title";
 import { AppContext } from "@context/AppContext";
 import { ICardData } from "./types";
@@ -47,7 +47,7 @@ function HomeUI(props: HomeProps) {
             navigation={nav}
             logoURL={renderLogo(appData.businessUnit.urlLogo)}
             userName={appData.user.userName}
-        
+            userMenu={userMenu}
           />
         </StyledHeaderContainer>
         <StyledContainerSection>

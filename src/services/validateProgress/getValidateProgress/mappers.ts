@@ -5,6 +5,7 @@ const mapValidateProgressApiToEntity = (
 ): StartProcesses => {
   const processes: StartProcesses = {
     id: String(process.processControlId),
+    aplication: Object(process.application),
     description: String(process.processDescription),
     dateAndHour: new Date(String(process.executionDate)),
     plannedExecution: String(process.plannedExecution),

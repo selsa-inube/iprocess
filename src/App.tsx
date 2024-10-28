@@ -60,7 +60,6 @@ const router = createBrowserRouter(
         <Route path="finished/*" element={<FinishedRoutes />} />
       </Route>
       <Route path="logout" element={<LogOut />} />
-      <Route path="*" element={<ErrorPage />} />
     </>
   )
 );
