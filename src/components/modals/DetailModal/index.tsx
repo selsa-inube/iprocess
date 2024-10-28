@@ -24,7 +24,6 @@ import {
 import { IEntries, ILabel } from "./types";
 import { IData } from "../requirementsModal/types";
 
-
 interface DetailModalProps {
   portalId: string;
   title: string;

@@ -26,6 +26,7 @@ const mapValidateProgress = (entry: StartProcesses) => {
     id: entry.id,
     aplication: entry.aplication?.abbreviatedName || "",
     process: entry.description,
+    referenceNumberRequirement: entry.referenceNumberRequirement
   };
 };
 

@@ -24,7 +24,6 @@ import { useBusinessManagers } from "./hooks/useBusinessManagers";
 import { useAuthRedirect } from "./hooks/useAuthRedirect";
 import { SelectBusinessUnits } from "./pages/selectBusinessUnits";
 import { SelectBusinessUnitsRoutes } from "./routes/selectBusinessunits";
-import { Home } from "./pages/home";
 
 function LogOut() {
   localStorage.clear();
@@ -36,7 +35,7 @@ function LogOut() {
 function FirstPage() {
   const { businessUnitSigla } = useContext(AppContext);
 
-  return businessUnitSigla.length === 0 ? <SelectBusinessUnits /> : <Home />;
+  return businessUnitSigla.length === 0 ? <SelectBusinessUnits /> : <AppPage />;
 }
 
 const router = createBrowserRouter(
@@ -46,8 +45,8 @@ const router = createBrowserRouter(
         path="selectBusinessUnit/*"
         element={<SelectBusinessUnitsRoutes />}
       />
-      <Route path="/" element={<FirstPage />} errorElement={<ErrorPage />}>
-        <Route path="/" element={<StartProcessRoutes />} />
+      <Route path="/*" element={<FirstPage />} errorElement={<ErrorPage />}>
+        <Route path="/*" element={<StartProcessRoutes />} />
         <Route path="start-process/*" element={<StartProcessRoutes />} />
         <Route
           path="confirm-initiated/*"
@@ -60,7 +59,6 @@ const router = createBrowserRouter(
         <Route path="finished/*" element={<FinishedRoutes />} />
       </Route>
       <Route path="logout" element={<LogOut />} />
-      <Route path="*" element={<ErrorPage />} />
     </>
   )
 );
