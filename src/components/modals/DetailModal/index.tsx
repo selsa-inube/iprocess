@@ -29,10 +29,10 @@ interface DetailModalProps {
   title: string;
   data: IEntries;
   labels: ILabel[];
-  requirement: IData[];
-  breakpoints: IBreakpoint[];
-  isVisible: boolean;
   onCloseModal: () => void;
+  requirement?: IData[];
+  breakpoints?: IBreakpoint[];
+  isVisible?: boolean;
 }
 
 const DetailModal = (props: DetailModalProps) => {
@@ -93,6 +93,7 @@ const DetailModal = (props: DetailModalProps) => {
                     </StyledModalFields>
                   )
               )}
+
               {labels.slice(partOfLabels).map(
                 (field, id) =>
                   data[field.id] && (
@@ -120,7 +121,7 @@ const DetailModal = (props: DetailModalProps) => {
               )}
             </Stack>
 
-            {requirement &&  data.statusText === "Cumple" && (
+            {requirement && data.statusText === "Cumple" && (
               <StyledContainerTables>
                 {requirement.length === 0
                   ? "No se han encontrado resultados"
@@ -131,7 +132,7 @@ const DetailModal = (props: DetailModalProps) => {
                           titles={requirement.titlesRequirements}
                           entries={requirement.entriesRequirements}
                           breakpoints={breakpoints}
-                          isLoading={isVisible}
+                          isLoading={isVisible || false}
                           widthFirstColumn="100%"
                           multipleTables={true}
                           typeTitle={"label"}

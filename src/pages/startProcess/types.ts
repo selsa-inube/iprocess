@@ -153,5 +153,6 @@ export type {
   IData,
   IDailyDetail,
   IListPeriods,
-  ITimeEstimedCompleteProcess
+  ITimeEstimedCompleteProcess,
+  IAplication
 };
