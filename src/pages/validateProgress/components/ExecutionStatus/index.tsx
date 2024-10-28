@@ -5,15 +5,16 @@ import { tokens } from "@design/tokens";
 import { StatusOfExecutionModal } from "@components/modals/StatusOfExecutionModal";
 import { peopleIncludedInProcess } from "@services/validateProgress/getPeopleIncludedInProcess";
 import { StartProcesses } from "@pages/startProcess/types";
-import { estimatedTimeToCompleteProcess } from "@services/validateProgress/getEstimatedTimeToProcess";
+import { personProcess } from "@services/validateProgress/getEstimatedTimeToProcess";
 import {
   labels,
   normalizeDataInformationProcess,
   normalizeDataPerson,
 } from "./config/cardPerson.config";
 import {
-  IEstimatedTimeToCompleteProcess,
+
   IpeopleIncludedInTheProcess,
+  IPersonProcessTime,
 } from "../../types";
 
 interface IExecutionStatusProps {
@@ -28,8 +29,8 @@ export const ExecutionStatus = (props: IExecutionStatusProps) => {
   const [loading, setLoading] = useState<boolean>(false);
   const [peopleIncludedData, setPeopleIncludedData] =
     useState<IpeopleIncludedInTheProcess>();
-  const [timeProcess, setTimeProcess] =
-    useState<IEstimatedTimeToCompleteProcess>();
+  const [personProcessData, setPersonProcessData] =
+    useState<IPersonProcessTime>();
 
   const peopleIncludedInProcessData = async () => {
     setLoading(true);
@@ -47,10 +48,8 @@ export const ExecutionStatus = (props: IExecutionStatusProps) => {
 
   const estimatedTimeProcessData = async () => {
     try {
-      const newEstimatedTimeProcess = await estimatedTimeToCompleteProcess(
-        data.id
-      );
-      setTimeProcess(newEstimatedTimeProcess);
+      const newEstimatedTimeProcess = await personProcess(data.id);
+      setPersonProcessData(newEstimatedTimeProcess);
     } catch (error) {
       throw new Error(
         `Error al obtener los datos: ${(error as Error).message} `
@@ -59,7 +58,7 @@ export const ExecutionStatus = (props: IExecutionStatusProps) => {
   };
 
   useEffect(() => {
-    if(showModal){
+    if (showModal) {
       estimatedTimeProcessData();
       peopleIncludedInProcessData();
     }
@@ -81,11 +80,16 @@ export const ExecutionStatus = (props: IExecutionStatusProps) => {
       />
       {showModal && (
         <StatusOfExecutionModal
-          attributes={["code", "status", "namePerson", "dateStart", "dateEnd"]}
+          attributes={[
+            "personPublicCode",
+            "executionStatusByPerson",
+            "personName",
+            "startDate",
+            "finishDate",
+          ]}
           portalId="portal"
-          dataInformationProcess={normalizeDataInformationProcess(
-            data,
-            timeProcess?.duration || ""
+          dataInformationProcess={normalizeDataInformationProcess(data.id,
+            personProcessData || {} as IPersonProcessTime
           )}
           isLoading={loading}
           dataPerson={normalizeDataPerson(

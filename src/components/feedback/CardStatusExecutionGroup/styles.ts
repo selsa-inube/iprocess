@@ -8,7 +8,7 @@ const StyledCardStatusGroup = styled.div`
   gap: ${tokens.spacing.s150};
   margin: ${tokens.spacing.s0};
   padding: ${tokens.spacing.s0};
-  height:370px;
+  height:372px;
   overflow-y: auto;
   scrollbar-width: thin;
 `;

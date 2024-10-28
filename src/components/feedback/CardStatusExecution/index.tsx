@@ -2,11 +2,14 @@ import { useState } from "react";
 import { Stack } from "@inubekit/stack";
 import { Text } from "@inubekit/text";
 import { SkeletonIcon, SkeletonLine } from "@inubekit/skeleton";
-import { Label } from "@inubekit/label";
 import { ITagAppearance, Tag } from "@inubekit/tag";
+import { Checkbox } from "@inubekit/checkbox";
 
 import { tokens } from "@design/tokens";
-import { filteredExecutionStatusByPerson, normalizeexecutionStatusByPerson } from "@utils/requirements";
+import {
+  filteredExecutionStatusByPerson,
+  normalizeexecutionStatusByPerson,
+} from "@utils/requirements";
 import { IActions, IPersonProcess } from "./types";
 import { StyledAction, StyledContainer } from "./styles";
 
@@ -19,7 +22,7 @@ function ShowAction(actionContent: IActions[], entry: IPersonProcess) {
   return (
     <>
       {actionContent.map((action) => (
-        <StyledAction key={`${entry.id}-${action.id}`}>
+        <StyledAction key={`${entry.processPersonId}-${action.id}`}>
           {action.content(entry)}
         </StyledAction>
       ))}
@@ -29,8 +32,7 @@ function ShowAction(actionContent: IActions[], entry: IPersonProcess) {
 
 const CardStatusExecution = (props: CardStatusExecutionProps) => {
   const { entries, isLoading } = props;
-  const [checkedCard, setCheckedCard] =useState<boolean>(false);
-
+  const [checkedCard, setCheckedCard] = useState<boolean>(false);
 
   const handleChangeManage = (e: React.ChangeEvent<HTMLInputElement>) => {
     setCheckedCard(e.target.checked);
@@ -39,25 +41,29 @@ const CardStatusExecution = (props: CardStatusExecutionProps) => {
   return (
     <StyledContainer>
       <Stack direction="row" justifyContent="space-between">
-        {filteredExecutionStatusByPerson.includes(entries?.status || "") &&
+        {filteredExecutionStatusByPerson.includes(
+          entries?.executionStatusByPerson || ""
+        ) &&
           (isLoading ? (
-            <Stack width="70px" gap={tokens.spacing.s025} justifyContent="center" alignItems="center">
+            <Stack
+              width="70px"
+              gap={tokens.spacing.s025}
+              justifyContent="center"
+              alignItems="center"
+            >
               <SkeletonIcon animated />
               <SkeletonLine animated />
             </Stack>
           ) : (
             <Stack alignItems="center">
-              <input
-                readOnly
-                type="checkbox"
+              <Checkbox
+                label="Gestionar"
                 id="checkboxManage"
                 name="checkboxManage"
                 onChange={handleChangeManage}
                 checked={checkedCard}
+                value={"checkboxManage"}
               />
-              <Label size="medium" htmlFor="checkboxManage">
-                Gestionar
-              </Label>
             </Stack>
           ))}
         <Stack direction="column">
@@ -73,12 +79,13 @@ const CardStatusExecution = (props: CardStatusExecutionProps) => {
               </Text>
               <Tag
                 label={
-                  normalizeexecutionStatusByPerson(entries?.status || "")
-                    ?.name || ""
+                  normalizeexecutionStatusByPerson(
+                    entries?.executionStatusByPerson || ""
+                  )?.name || ""
                 }
                 appearance={
                   (normalizeexecutionStatusByPerson(
-                    entries?.status || "light"
+                    entries?.executionStatusByPerson || "light"
                   )?.appearance as ITagAppearance) || "light"
                 }
                 weight="strong"
@@ -88,7 +95,7 @@ const CardStatusExecution = (props: CardStatusExecutionProps) => {
         </Stack>
         <Stack direction="column">
           {isLoading ? (
-            <Stack direction="column"  width="60px" gap={tokens.spacing.s025}>
+            <Stack direction="column" width="60px" gap={tokens.spacing.s025}>
               <SkeletonLine animated />
               <SkeletonLine animated />
             </Stack>
@@ -98,7 +105,7 @@ const CardStatusExecution = (props: CardStatusExecutionProps) => {
                 Código
               </Text>
               <Text type="label" size="small">
-                {entries?.code}
+                {entries?.personPublicCode}
               </Text>
             </>
           )}
@@ -116,7 +123,7 @@ const CardStatusExecution = (props: CardStatusExecutionProps) => {
               Nombre
             </Text>
             <Text type="label" size="small">
-              {entries?.namePerson}
+              {entries?.personName}
             </Text>
           </>
         )}
@@ -140,7 +147,7 @@ const CardStatusExecution = (props: CardStatusExecutionProps) => {
                 Fecha y hora inicial
               </Text>
               <Text type="label" size="small">
-                {entries?.dateStart}
+                {entries?.startDate}
               </Text>
             </Stack>
             <Stack direction="column">
@@ -148,25 +155,25 @@ const CardStatusExecution = (props: CardStatusExecutionProps) => {
                 Fecha y hora final
               </Text>
               <Text type="label" size="small">
-                {entries?.dateEnd}
+                {entries?.finishDate}
               </Text>
             </Stack>
           </>
         )}
       </Stack>
       <Stack gap={tokens.spacing.s150} justifyContent="flex-end">
-          {isLoading ? (
-            <Stack
-              width="100px"
-              gap={tokens.spacing.s025}
-              justifyContent="flex-end"
-            >
-              <SkeletonIcon animated />
-            </Stack>
-          ) : (
-            <>{entries?.actions && ShowAction(entries.actions, entries)}</>
-          )}
-        </Stack>
+        {isLoading ? (
+          <Stack
+            width="100px"
+            gap={tokens.spacing.s025}
+            justifyContent="flex-end"
+          >
+            <SkeletonIcon animated />
+          </Stack>
+        ) : (
+          <>{entries?.actions && ShowAction(entries.actions, entries)}</>
+        )}
+      </Stack>
     </StyledContainer>
   );
 };

@@ -41,15 +41,18 @@ interface IpeopleIncludedInTheProcess {
   processStatus?: string;
 }
 
-interface IEstimatedTimeToCompleteProcess {
+interface IPersonProcessTime {
   totalPersons: number;
   totalProcessedPersons: number;
   duration: string;
+  totalProcessedPersonsWithError: number;
+  processStartDate: string;
+  processEstimatedEndDate: string;
 }
 
 export type {
   IFilterDateForMonthAndYear,
   IpeopleIncludedInTheProcess,
   IProcessPersons,
-  IEstimatedTimeToCompleteProcess,
+  IPersonProcessTime,
 };

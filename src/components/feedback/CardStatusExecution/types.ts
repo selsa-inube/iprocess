@@ -1,16 +1,26 @@
+interface IProcessErrors {
+  errorDescription: string;
+  errorStatus: string;
+  procesErrorId: string;
+  processControlId: string;
+  processPersonId: string;
+}
+
 interface IPersonProcess {
-  id: string;
-  code: string;
-  namePerson: string;
-  dateStart: string;
-  dateEnd: string;
+  processPersonId: string;
+  personPublicCode: string;
+  personName: string;
+  startDate: string;
+  finishDate: string;
   actions?: IActions[];
-  status?: string;
+  executionStatusByPerson?: string;
+  processErrors?: IProcessErrors[];
+  errorsDescription?: string;
 }
 
 interface IActions {
   id: string;
-  content: (entry: IPersonProcess) => React.ReactNode;
+  content: (entries: IPersonProcess) => React.ReactNode;
 }
 
 interface IEntries {

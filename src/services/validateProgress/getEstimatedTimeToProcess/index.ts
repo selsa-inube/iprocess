@@ -1,10 +1,10 @@
 import { enviroment, fetchTimeoutServices, maxRetriesServices } from "@config/environment";
-import { IEstimatedTimeToCompleteProcess } from "@pages/validateProgress/types";
+import { IPersonProcessTime } from "@pages/validateProgress/types";
 import { mapEstimatedTimeToProcessApiToEntity } from "./mappers";
 
-const estimatedTimeToCompleteProcess = async (
+const personProcess = async (
     processControlId: string
-): Promise<IEstimatedTimeToCompleteProcess> => {
+): Promise<IPersonProcessTime> => {
   const maxRetries = maxRetriesServices;
   const fetchTimeout = fetchTimeoutServices;
 
@@ -31,7 +31,7 @@ const estimatedTimeToCompleteProcess = async (
       clearTimeout(timeoutId);
 
       if (res.status === 204) {
-        return {} as IEstimatedTimeToCompleteProcess;
+        return {} as IPersonProcessTime;
       }
 
       const data = await res.json();
@@ -54,7 +54,7 @@ const estimatedTimeToCompleteProcess = async (
     }
   }
 
-  return {} as IEstimatedTimeToCompleteProcess;
+  return {} as IPersonProcessTime;
 };
 
-export { estimatedTimeToCompleteProcess };
+export { personProcess };

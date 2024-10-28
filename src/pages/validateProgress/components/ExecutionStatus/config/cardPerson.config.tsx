@@ -1,36 +1,47 @@
-import { MdOutlineRemoveRedEye } from "react-icons/md";
-import { Icon } from "@inubekit/icon";
-import { StartProcesses } from "@pages/startProcess/types";
 import { formatDate } from "@utils/dates";
-import { IProcessPersons } from "@pages/validateProgress/types";
+import { IPersonProcessTime } from "@pages/validateProgress/types";
 import { IPersonProcess } from "@components/feedback/CardStatusExecution/types";
+import { DetailsExecutionStatus } from "../DetailsExecutionStatus";
 
 const normalizeDataInformationProcess = (
-  entry: StartProcesses,
-  estimedTimeFinish: string
+  id: string,
+  entry: IPersonProcessTime
 ) => {
   return {
-    id: entry.id,
-    dateExecution: formatDate(new Date(entry.plannedExecution || ""), true),
-    totalPersonCoversProcess: entry.totalPerson,
-    totalPersonProcessed: entry.totalPersonsProsecuted,
-    estimedTimeFinish: estimedTimeFinish,
-    totalPersonProcessedWithError:
-      entry.detailPeopleProcessed?.processedWithErrors,
+    id: id,
+    dateExecution: formatDate(new Date(entry.processStartDate || ""), true),
+    estimedTimeFinish: formatDate(
+      new Date(entry.processEstimatedEndDate || ""),
+      true
+    ),
+    totalPersonCoversProcess: entry.totalPersons,
+    totalPersonProcessed: entry.totalProcessedPersons,
+    totalPersonProcessedWithError: entry.totalProcessedPersonsWithError,
   };
 };
 
-const normalizeDataPerson = (entries: IProcessPersons[]): IPersonProcess[] =>
+const normalizeDataPerson = (entries: IPersonProcess[]) =>
   entries.map((entry) => ({
     ...entry,
     id: entry.processPersonId,
     code: entry.personPublicCode,
-    namePerson: entry.personName,
-    dateStart: formatDate(new Date(entry.startDate), true),
-    dateEnd: formatDate(new Date(entry.finishDate), true),
+    personName: entry.personName,
+    startDate: entry.startDate ? formatDate(new Date(entry.startDate), true) : "",
+    dateEnd: formatDate(new Date(entry.finishDate), true) || "",
     status: entry.executionStatusByPerson,
     actions: actions,
   }));
+
+const detailsPersonData = (entries: IPersonProcess) => {
+  return {
+    processPersonId: entries.processPersonId,
+    personName: entries.personName,
+    startDate: entries.startDate ? formatDate(new Date(entries.startDate), true) : "",
+    finishDate: entries.finishDate ? formatDate(new Date(entries.finishDate), true) : "",
+    personPublicCode: entries.personPublicCode,
+    errorsDescription: entries.processErrors?.[0]?.errorDescription || "",
+  };
+};
 
 const labels = [
   {
@@ -58,20 +69,35 @@ const labels = [
 const actions = [
   {
     id: "Details",
-    content: () => (
-      <Icon
-        appearance="dark"
-        icon={<MdOutlineRemoveRedEye />}
-        size="16px"
-        cursorHover
-      />
+    content: (entries: IPersonProcess) => (
+      <DetailsExecutionStatus data={detailsPersonData(entries)} />
     ),
+  },
+];
+
+const labelsDetails = [
+  {
+    id: "personName",
+    titleName: "Nombre",
+  },
+  {
+    id: "startDate",
+    titleName: "Fecha inicio",
+  },
+  {
+    id: "finishDate",
+    titleName: "Fecha final",
+  },
+  {
+    id: "errorsDescription",
+    titleName: "Error",
   },
 ];
 
 export {
   actions,
   labels,
+  labelsDetails,
   normalizeDataInformationProcess,
   normalizeDataPerson,
 };

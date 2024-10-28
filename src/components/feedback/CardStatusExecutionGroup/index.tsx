@@ -31,8 +31,8 @@ const CardStatusExecutionGroup = (props: CardStatusExecutionGroupProps) => {
         : true;
 
       const matchesError = filteredWithErrors
-        ? entry?.status &&
-          filteredExecutionStatusByPerson.includes(entry.status)
+        ? entry?.executionStatusByPerson &&
+          filteredExecutionStatusByPerson.includes(entry.executionStatusByPerson)
         : true;
 
       return matchesFilter && matchesError;

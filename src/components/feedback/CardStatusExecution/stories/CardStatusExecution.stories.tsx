@@ -34,22 +34,22 @@ const actionsMock = [
 ];
 
 const data = {
-  id: "01",
-  code: "01515464655121",
-  status: "WithoutProcessing",
-  namePerson: "Alberto de Jesús Morales Gonzales",
-  dateStart: "12/31/2023 - 19:05:00",
-  dateEnd: "12/31/2023 - 20:15:30",
+  processPersonId: "01",
+  personPublicCode: "01515464655121",
+  executionStatusByPerson: "WithoutProcessing",
+  personName: "Alberto de Jesús Morales Gonzales",
+  startDate: "12/31/2023 - 19:05:00",
+  finishDate: "12/31/2023 - 20:15:30",
   actions: actionsMock,
 };
 
 const dataWithError = {
-  id: "02",
-  code: "01515464655121",
-  status: "Error",
-  namePerson: "Alberto de Jesús Morales Gonzales",
-  dateStart: "12/31/2023 - 19:05:00",
-  dateEnd: "12/31/2023 - 20:15:30",
+  processPersonId: "02",
+  personPublicCode: "01515464655121",
+  executionStatusByPerson: "Error",
+  personName: "Alberto de Jesús Morales Gonzales",
+  startDate: "12/31/2023 - 19:05:00",
+  finishDate: "12/31/2023 - 20:15:30",
   actions: actionsMock,
 };
 
