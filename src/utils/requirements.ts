@@ -5,7 +5,7 @@ const statusRequirement = [
   { status: "NoEvaluated", name: "Sin Evaluar", appearance: "warning" },
   { status: "Undefined", name: "No Definido", appearance: "gray" },
   { status: "WithoutProcessing", name: "Sin procesar", appearance: "warning" },
-  { status: "Error", name: "Error", appearance: "danger" },
+  { status: "ProcessedWithErrors", name: "Error", appearance: "danger" },
 ];
 
 const evaluationStatusRequirement = [
@@ -49,7 +49,7 @@ const evaluationStatusRequirement = [
 
 const executionStatusByPerson =[
   { status: "WithoutProcessing", name: "Sin procesar", appearance: "warning" },
-  { status: "Error", name: "Error", appearance: "danger" },
+  { status: "ProcessedWithErrors", name: "Error", appearance: "danger" },
 ]
 
 const filteredExecutionStatusByPerson = ["Error"];
