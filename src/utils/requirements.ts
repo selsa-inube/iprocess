@@ -52,7 +52,7 @@ const executionStatusByPerson =[
   { status: "ProcessedWithErrors", name: "Error", appearance: "danger" },
 ]
 
-const filteredExecutionStatusByPerson = ["Error"];
+const filteredExecutionStatusByPerson = ["ProcessedWithErrors"];
 
 enum RequirementTypeNormalize  {
   SYSTEM_VALIDATION= "Validación del sistema",
