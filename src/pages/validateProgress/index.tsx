@@ -1,5 +1,4 @@
-import { useEffect, useState } from "react";
-
+import { useContext, useEffect, useState } from "react";
 import {
   currentMonthLetters,
   currentYear,
@@ -9,6 +8,7 @@ import {
 } from "@utils/dates";
 import { listPeriodsToProcessInitiated } from "@services/validateProgress/getPeriodsToProcessInitiated";
 import { validateProgressData } from "@services/validateProgress/getValidateProgress";
+import { AppContext } from "@context/AppContext";
 import { ValidateProgressUI } from "./interface";
 import {
   IChangePeriodEntry,
@@ -18,6 +18,7 @@ import {
 import { IFilterDateForMonthAndYear } from "./types";
 
 function ValidateProgress() {
+  const { appData } = useContext(AppContext);
   const [searchValidateProgress, setSearchValidateProgress] =
     useState<string>("");
   const [loading, setLoading] = useState<boolean>(true);
@@ -35,6 +36,7 @@ function ValidateProgress() {
   const validatePeriod = async () => {
     try {
       const newPeriod = await listPeriodsToProcessInitiated(
+        appData.businessUnit.publicCode,
         formatDateEndpoint(new Date())
       );
       setListPeriod(newPeriod);
@@ -46,7 +48,7 @@ function ValidateProgress() {
   const validateProgressProcess = async (date: IFilterDateForMonthAndYear) => {
     setLoading(true);
     try {
-      const newValidateProcess = await validateProgressData(date);
+      const newValidateProcess = await validateProgressData(appData.businessUnit.publicCode, date);
 
       setValidateProgress(newValidateProcess);
     } catch (error) {

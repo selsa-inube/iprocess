@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { MdOutlineRemoveRedEye } from "react-icons/md";
 import { Icon } from "@inubekit/icon";
 
@@ -11,6 +11,7 @@ import { IProcessRequirementResponse } from "@ptypes/statusRequeriments.types";
 import { IData } from "@components/modals/requirementsModal/types";
 import { labelsDetails } from "@pages/startProcess/tabs/scheduled/config/card.config";
 import { formatDateEndpoint } from "@utils/dates";
+import { AppContext } from "@context/AppContext";
 import { dataTablesDetailsDailyConfig} from "./config/tablesDetailsDaily.config";
 
 
@@ -27,6 +28,7 @@ const DetailsProcessDaily = (props: IDetailsProcessDailyProps) => {
     nameAplication
   } = props;
 
+  const { appData } = useContext(AppContext);
   const [showModal, setShowModal] = useState(false);
   const [loadingRequirements, setLoadingRequirements] = useState<boolean>(false);
   const [processRequirementData, setProcessRequirementData] = useState<IProcessRequirementResponse[]>([]);
@@ -45,7 +47,7 @@ const DetailsProcessDaily = (props: IDetailsProcessDailyProps) => {
     
     setLoadingRequirements(true);
     try {
-      const newRequirements = await processRequirement(processData);
+      const newRequirements = await processRequirement(appData.businessUnit.publicCode, processData);
       setProcessRequirementData(newRequirements || []); 
     } catch (error) {
       throw new Error(`Error al obtener los datos: ${(error as Error).message} `);

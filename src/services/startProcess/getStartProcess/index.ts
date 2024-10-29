@@ -1,14 +1,18 @@
-import { enviroment, fetchTimeoutServices, maxRetriesServices } from "@config/environment";
+import {
+  enviroment,
+  fetchTimeoutServices,
+  maxRetriesServices,
+} from "@config/environment";
 import {
   FilterProcessesForDate,
   StartProcessesFilter,
 } from "@pages/startProcess/types";
-import {
-  mapStartProcessApiToEntities,
-} from "./mappers";
+import { mapStartProcessApiToEntities } from "./mappers";
 
-const startProcessData = async (FilterProcesses: FilterProcessesForDate) 
-: Promise<StartProcessesFilter> => {
+const startProcessData = async (
+  businessUnitPublicCode: string,
+  FilterProcesses: FilterProcessesForDate
+): Promise<StartProcessesFilter> => {
   const maxRetries = maxRetriesServices;
   const fetchTimeout = fetchTimeoutServices;
   const emptyResponse = {
@@ -18,11 +22,10 @@ const startProcessData = async (FilterProcesses: FilterProcessesForDate)
 
   for (let attempt = 1; attempt <= maxRetries; attempt++) {
     try {
-        
       const queryParams = new URLSearchParams({
         year: FilterProcesses.year,
-        month:FilterProcesses.month,
-      })
+        month: FilterProcesses.month,
+      });
 
       const controller = new AbortController();
       const timeoutId = setTimeout(() => controller.abort(), fetchTimeout);
@@ -31,7 +34,7 @@ const startProcessData = async (FilterProcesses: FilterProcessesForDate)
         method: "GET",
         headers: {
           "X-Action": "IProcessStartProcesses",
-          "X-Business-Unit": enviroment.TEMP_BUSINESS_UNIT,
+          "X-Business-Unit": businessUnitPublicCode,
           "Content-type": "application/json; charset=UTF-8",
         },
         signal: controller.signal,

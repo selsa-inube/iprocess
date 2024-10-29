@@ -4,6 +4,7 @@ import { mapDeleteConfirmInitiatedToApi } from "./mappers";
 
   
   const removeProcessConfirmInitiated = async (
+    businessUnitPublicCode: string,
     process: IRemoveProcessRequest,
   ): Promise< IRemoveProcessResponse | undefined> => {
   
@@ -14,7 +15,7 @@ import { mapDeleteConfirmInitiatedToApi } from "./mappers";
         method: "DELETE",
         headers: {
           "X-Action": "RemoveProcessControlCatalog",
-          "X-Business-Unit": enviroment.TEMP_BUSINESS_UNIT,
+          "X-Business-Unit": businessUnitPublicCode,
           "Content-type": "application/json; charset=UTF-8",
         },
         body: JSON.stringify(mapDeleteConfirmInitiatedToApi(process)),

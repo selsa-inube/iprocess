@@ -3,7 +3,7 @@ import { StartProcesses } from "@pages/startProcess/types";
 
 import { mapConfirmInitiatedApiToEntities } from "./mappers";
 
-const confirmInitiatedData = async (): Promise<StartProcesses[]> => {
+const confirmInitiatedData = async (businessUnitPublicCode: string): Promise<StartProcesses[]> => {
   const maxRetries = maxRetriesServices;
   const fetchTimeout = fetchTimeoutServices;
 
@@ -22,7 +22,7 @@ const confirmInitiatedData = async (): Promise<StartProcesses[]> => {
         method: "GET",
         headers: {
           "X-Action": "SearchAllProcessControlCatalogs",
-          "X-Business-Unit": enviroment.TEMP_BUSINESS_UNIT,
+          "X-Business-Unit": businessUnitPublicCode,
           "Content-type": "application/json; charset=UTF-8",
         },
         signal: controller.signal,

@@ -1,6 +1,6 @@
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 import {
   IStartProcessEntry,
@@ -10,6 +10,7 @@ import {
 } from "@forms/types";
 import { EnumProcessCoverageData } from "@services/enumerators/getEnumeratorsProcessCoverage";
 import { comparisonDataForms, validateExecutionWay } from "@forms/utils";
+import { AppContext } from "@context/AppContext";
 import { RefreshPortfolioObligationUI } from "./interface";
 
 const validationSchema = Yup.object({
@@ -32,7 +33,7 @@ const initialValues: IStartProcessEntry = {
 
 const RefreshPortfolioObligation = (props: RefreshPortfolioObligationProps) => {
   const { data, setFieldsEntered, onStartProcess } = props;
-
+  const { appData } = useContext(AppContext);
   const [dynamicValidationSchema, setDynamicValidationSchema] =
     useState(validationSchema);
 
@@ -42,7 +43,9 @@ const RefreshPortfolioObligation = (props: RefreshPortfolioObligationProps) => {
 
   const validateOptionsTypeRefresh = async () => {
     try {
-      const newOptions = await EnumProcessCoverageData();
+      const newOptions = await EnumProcessCoverageData(
+        appData.businessUnit.publicCode
+      );
 
       setOptionsTypeRefresh(newOptions);
     } catch (error) {
@@ -97,7 +100,11 @@ const RefreshPortfolioObligation = (props: RefreshPortfolioObligationProps) => {
     }
   }, [formik.values, setFieldsEntered]);
 
-  const comparisonData = comparisonDataForms(data?.executionWay as string ,formik.values ,initialValues)
+  const comparisonData = comparisonDataForms(
+    data?.executionWay as string,
+    formik.values,
+    initialValues
+  );
 
   return (
     <RefreshPortfolioObligationUI

@@ -40,7 +40,7 @@ const {appData} = useContext(AppContext);
     try {
       setShowModal(!showModal);
       setShowProgressModal(true);
-      const newApproval = await approvalRequirement(dataApproval);
+      const newApproval = await approvalRequirement(appData.businessUnit.publicCode, dataApproval);
       setResponseApproval(newApproval);  
     } catch (error) {
       setShowProgressModal(false);

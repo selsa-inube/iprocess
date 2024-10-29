@@ -1,6 +1,6 @@
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 import { EnumProcessCoverageData } from "@services/enumerators/getEnumeratorsProcessCoverage";
 import {
@@ -10,6 +10,7 @@ import {
   IEnumeratorsProcessCoverage,
 } from "@forms/types";
 import { comparisonDataForms, validateExecutionWay } from "@forms/utils";
+import { AppContext } from "@context/AppContext";
 import { RefreshOtherDebtUI } from "./interface";
 
 const validationSchema = Yup.object({
@@ -32,7 +33,7 @@ const initialValues: IStartProcessEntry = {
 
 const RefreshOtherDebt = (props: RefreshOtherDebtProps) => {
   const { data, setFieldsEntered, onStartProcess } = props;
-
+  const { appData } = useContext(AppContext);
   const [dynamicValidationSchema, setDynamicValidationSchema] =
     useState(validationSchema);
 
@@ -42,7 +43,7 @@ const RefreshOtherDebt = (props: RefreshOtherDebtProps) => {
 
   const validateOptionsTypeRefresh = async () => {
     try {
-      const newOptions = await EnumProcessCoverageData();
+      const newOptions = await EnumProcessCoverageData(appData.businessUnit.publicCode);
 
       setOptionsTypeRefresh(newOptions);
     } catch (error) {

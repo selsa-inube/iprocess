@@ -7,6 +7,7 @@ import { ITimeEstimedCompleteProcess } from "@pages/startProcess/types";
 import { mapTimeToCompleteProcessApiToEntity } from "./mappers";
 
 const timeToCompleteProcess = async (
+  businessUnitPublicCode: string,
   processCatalogId: string
 ): Promise<ITimeEstimedCompleteProcess> => {
   const maxRetries = maxRetriesServices;
@@ -25,7 +26,7 @@ const timeToCompleteProcess = async (
         method: "GET",
         headers: {
           "X-Action": "SearchEstimatedTimeToInsertPeople",
-          "X-Business-Unit": enviroment.TEMP_BUSINESS_UNIT,
+          "X-Business-Unit": businessUnitPublicCode,
           "Content-type": "application/json; charset=UTF-8",
         },
         signal: controller.signal,

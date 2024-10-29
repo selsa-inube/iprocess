@@ -9,6 +9,7 @@ import { IFilterDateForMonthAndYear } from "@pages/validateProgress/types";
 import { mapValidateProgressApiToEntities } from "./mappers";
 
 const validateProgressData = async (
+  businessUnitPublicCode: string,
   date: IFilterDateForMonthAndYear
 ): Promise<StartProcesses[]> => {
   const maxRetries = maxRetriesServices;
@@ -30,7 +31,7 @@ const validateProgressData = async (
         method: "GET",
         headers: {
           "X-Action": "SearchAllProcessControlCatalogs",
-          "X-Business-Unit": enviroment.TEMP_BUSINESS_UNIT,
+          "X-Business-Unit": businessUnitPublicCode,
           "Content-type": "application/json; charset=UTF-8",
         },
         signal: controller.signal,

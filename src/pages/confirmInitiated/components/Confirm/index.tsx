@@ -1,6 +1,6 @@
 import { MdCheckCircleOutline } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Icon } from "@inubekit/icon";
 import { useFlag } from "@inubekit/flag";
 
@@ -10,6 +10,7 @@ import { DecisionModal } from "@components/modals/DecisionModal";
 import { ComponentAppearance } from "@ptypes/aparences.types";
 import { confirmIndividualProcess } from "@services/confirmInitiated/pathConfirmIndividualProcess";
 import { IConfirmProcessResponse } from "../../types";
+import { AppContext } from "@context/AppContext";
 
 interface ConfirmProcessProps {
   data: StartProcesses;
@@ -17,6 +18,7 @@ interface ConfirmProcessProps {
 
 const ConfirmProcess = (props: ConfirmProcessProps) => {
   const { data } = props;
+  const { appData } = useContext(AppContext);
   const [showModal, setShowModal] = useState(false);
   const [loading, setLoading] = useState(false);
   const [confirmProcessData, setConfirmProcessData] =
@@ -32,7 +34,7 @@ const ConfirmProcess = (props: ConfirmProcessProps) => {
   const handleConfirmProcess = async () => {
     setLoading(true);
     try {
-      const newConfirm = await confirmIndividualProcess(newData);
+      const newConfirm = await confirmIndividualProcess(appData.businessUnit.publicCode, newData);
       setConfirmProcessData(newConfirm);
     } catch (error) {
       setShowModal(false);
