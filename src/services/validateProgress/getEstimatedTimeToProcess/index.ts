@@ -3,6 +3,7 @@ import { IPersonProcessTime } from "@pages/validateProgress/types";
 import { mapEstimatedTimeToProcessApiToEntity } from "./mappers";
 
 const personProcess = async (
+  businessUnitPublicCode: string,
     processControlId: string
 ): Promise<IPersonProcessTime> => {
   const maxRetries = maxRetriesServices;
@@ -17,7 +18,7 @@ const personProcess = async (
         method: "GET",
         headers: {
           "X-Action": "CalculateEstimatedTimeToCompleteProcess",
-          "X-Business-Unit": enviroment.TEMP_BUSINESS_UNIT,
+          "X-Business-Unit": businessUnitPublicCode,
           "Content-type": "application/json; charset=UTF-8",
         },
         signal: controller.signal,

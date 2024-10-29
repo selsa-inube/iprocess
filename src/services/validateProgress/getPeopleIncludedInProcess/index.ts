@@ -4,6 +4,7 @@ import { mapPeopleIncludedInProcessApiToEntity } from "./mappers";
 
 
 const peopleIncludedInProcess = async (
+  businessUnitPublicCode: string,
     processControlId: string
 ): Promise<IpeopleIncludedInTheProcess> => {
   const maxRetries = maxRetriesServices;
@@ -18,7 +19,7 @@ const peopleIncludedInProcess = async (
         method: "GET",
         headers: {
           "X-Action": "SearchByIdProcessControl",
-          "X-Business-Unit": enviroment.TEMP_BUSINESS_UNIT,
+          "X-Business-Unit": businessUnitPublicCode,
           "Content-type": "application/json; charset=UTF-8",
         },
         signal: controller.signal,

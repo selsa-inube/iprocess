@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { MdOutlineSubtitles } from "react-icons/md";
 import { Icon } from "@inubekit/icon";
 import { tokens } from "@design/tokens";
@@ -6,16 +6,13 @@ import { StatusOfExecutionModal } from "@components/modals/StatusOfExecutionModa
 import { peopleIncludedInProcess } from "@services/validateProgress/getPeopleIncludedInProcess";
 import { StartProcesses } from "@pages/startProcess/types";
 import { personProcess } from "@services/validateProgress/getEstimatedTimeToProcess";
+import { AppContext } from "@context/AppContext";
 import {
   labels,
   normalizeDataInformationProcess,
   normalizeDataPerson,
 } from "./config/cardPerson.config";
-import {
-
-  IpeopleIncludedInTheProcess,
-  IPersonProcessTime,
-} from "../../types";
+import { IpeopleIncludedInTheProcess, IPersonProcessTime } from "../../types";
 
 interface IExecutionStatusProps {
   data: StartProcesses;
@@ -23,7 +20,7 @@ interface IExecutionStatusProps {
 
 export const ExecutionStatus = (props: IExecutionStatusProps) => {
   const { data } = props;
-
+  const { appData } = useContext(AppContext);
   const [showModal, setShowModal] = useState(false);
 
   const [loading, setLoading] = useState<boolean>(false);
@@ -35,7 +32,10 @@ export const ExecutionStatus = (props: IExecutionStatusProps) => {
   const peopleIncludedInProcessData = async () => {
     setLoading(true);
     try {
-      const newpeopleIncludedInProcess = await peopleIncludedInProcess(data.id);
+      const newpeopleIncludedInProcess = await peopleIncludedInProcess(
+        appData.businessUnit.publicCode,
+        data.id
+      );
       setPeopleIncludedData(newpeopleIncludedInProcess);
     } catch (error) {
       throw new Error(
@@ -48,7 +48,10 @@ export const ExecutionStatus = (props: IExecutionStatusProps) => {
 
   const estimatedTimeProcessData = async () => {
     try {
-      const newEstimatedTimeProcess = await personProcess(data.id);
+      const newEstimatedTimeProcess = await personProcess(
+        appData.businessUnit.publicCode,
+        data.id
+      );
       setPersonProcessData(newEstimatedTimeProcess);
     } catch (error) {
       throw new Error(
@@ -88,8 +91,9 @@ export const ExecutionStatus = (props: IExecutionStatusProps) => {
             "finishDate",
           ]}
           portalId="portal"
-          dataInformationProcess={normalizeDataInformationProcess(data.id,
-            personProcessData || {} as IPersonProcessTime
+          dataInformationProcess={normalizeDataInformationProcess(
+            data.id,
+            personProcessData || ({} as IPersonProcessTime)
           )}
           isLoading={loading}
           dataPerson={normalizeDataPerson(
