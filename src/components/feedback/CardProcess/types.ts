@@ -1,7 +1,7 @@
 interface IProcess {
   id: string;
   publicCode?: string;
-  description: string;
+  description?: string;
   date?:  Date | string | undefined;
   actions?: IActions[];
   duration?: number;

@@ -17,6 +17,7 @@
     "@inubekit/blanket": "^2.24.0",
     "@inubekit/breadcrumbs": "^2.33.0",
     "@inubekit/button": "^4.41.0",
+    "@inubekit/checkbox": "^0.2.2",
     "@inubekit/countdownbar": "^2.17.0",
     "@inubekit/divider": "^0.16.0",
     "@inubekit/fieldset": "^0.26.0",
