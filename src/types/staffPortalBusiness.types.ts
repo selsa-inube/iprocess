@@ -31,8 +31,8 @@ interface IBusinessUnitsPortalStaff {
   languageId: string;
   abbreviatedName: string;
   descriptionUse: string;
-  firstMonthOfFiscalYear: string;
   urlLogo: string;
+  firstMonthOfFiscalYear?: string;
 }
 
 export type {

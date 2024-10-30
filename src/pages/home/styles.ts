@@ -2,6 +2,11 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { tokens } from "@design/tokens";
 
+interface IStyledCollapseIcon {
+  $collapse: boolean;
+  $isTablet: boolean;
+}
+
 const StyledContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -15,8 +20,8 @@ const StyledContainerSection = styled.div`
     display: flex;
     flex-direction: column;
     height: 100vh;
-    padding: 16px;
-    gap: 24px;
+    padding: ${tokens.spacing.s200};
+    gap: ${tokens.spacing.s300};
   }
 `;
 
@@ -42,7 +47,7 @@ const StyledTitle = styled.div`
     padding: var(--spacing-S200, 16px);
     flex-direction: column;
     align-items: flex-start;
-    gap: var(--spacing-S300, 24px);
+    gap: var(--spacing-S300, ${tokens.spacing.s300});
     align-self: stretch;
   }
 `;
@@ -56,7 +61,7 @@ const StyledContainerCards = styled.div`
 
   @media screen and (max-width: 805px) {
     justify-content: center;
-    padding: 0px;
+    padding: ${tokens.spacing.s0};
   }
 `;
 
@@ -68,8 +73,22 @@ const StyledFooter = styled.footer`
 
   @media screen and (max-width: 532px) {
     padding-top: 50px;
-    margin: 0;
+    margin: ${tokens.spacing.s0};
   }
+`;
+
+const StyledCollapseIcon = styled.div<IStyledCollapseIcon>`
+  display: flex;
+  transition: all 500ms ease;
+  position: absolute;
+  top: 13.5px;
+  transform: ${({ $collapse }) =>
+    $collapse ? "rotate(-90deg)" : "rotate(90deg)"};
+  left: ${({ $isTablet }) => ($isTablet ? "150px" : "142px")};
+`;
+
+const StyledCollapse = styled.div`
+  position: absolute;
 `;
 
 export {
@@ -81,4 +100,6 @@ export {
   StyledContainerCards,
   StyledFooter,
   StyledContainerSection,
+  StyledCollapseIcon,
+  StyledCollapse
 };

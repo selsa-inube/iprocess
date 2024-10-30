@@ -4,8 +4,8 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { decrypt } from "@utils/encrypt";
 import { usePortalData } from "@hooks/usePortalData";
 import { useBusinessManagers } from "@hooks/useBusinessManagers";
+import { IBusinessUnitsPortalStaff } from "@ptypes/staffPortalBusiness.types";
 import { IAppContext, IAppData} from "./types";
-import { IBusinessUnitsPortalStaff } from "@src/types/staffPortalBusiness.types";
 
 
 const AppContext = createContext<IAppContext>({} as IAppContext);
