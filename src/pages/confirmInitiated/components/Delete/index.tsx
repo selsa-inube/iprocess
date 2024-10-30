@@ -29,7 +29,7 @@ const DeleteProcessConfirmInitiated = (
     setLoading(true);
     const dataRemove = {
       processControlId: data.id,
-      processDescription: data.description,
+      processDescription: data.description || "",
       removalJustification: fieldEntered,
     };
     try {

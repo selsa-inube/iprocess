@@ -1,9 +1,7 @@
-import { MdOutlineSubtitles } from "react-icons/md";
-import { Icon } from "@inubekit/icon";
-
 import { StartProcesses } from "@pages/startProcess/types";
 import { formatDate } from "@utils/dates";
 import { Details } from "../components/Details";
+import { ExecutionStatus } from "../components/ExecutionStatus";
 
 const normailzeValidateProgress = (process: StartProcesses[]) =>
   process.map((entry) => ({
@@ -39,16 +37,9 @@ const actions = [
   },
   {
     id: "statusExecute",
-    content: () => (
-      <Icon
-        appearance="dark"
-        icon={<MdOutlineSubtitles />}
-        size="16px"
-        cursorHover
-      />
-    ),
+    content: (entries: StartProcesses) => <ExecutionStatus data={entries} />,
   },
-];
+]
 
 const labelsDetails = [
   {
