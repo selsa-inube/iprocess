@@ -34,6 +34,8 @@ function AppContextProvider(props: AppProviderProps) {
 
   const { businessManagersData } = useBusinessManagers(portalData, portalCode);
 
+  const businessUnitData = JSON.parse(businessUnitSigla);
+
   const [appData, setAppData] = useState<IAppData>({
     portal: {
       abbreviatedName: "",
@@ -48,10 +50,10 @@ function AppContextProvider(props: AppProviderProps) {
       urlLogo: "",
     },
     businessUnit: {
-      publicCode: "",
-      abbreviatedName: "",
-      languageId: "",
-      urlLogo: "",
+      publicCode: businessUnitData.publicCode || "",
+      abbreviatedName: businessUnitData.abbreviatedName || "",
+      languageId: businessUnitData.languageId || "",
+      urlLogo: businessUnitData.urlLogo || "",
     },
     user: {
       userAccount: user?.email || "",

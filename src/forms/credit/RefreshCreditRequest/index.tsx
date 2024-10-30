@@ -1,5 +1,5 @@
 import { useFormik } from "formik";
-import * as Yup from "yup";
+import {object, string as stringYup } from "yup";
 import { useContext, useEffect, useState } from "react";
 
 import { IStartProcessEntry, IEntries, IFieldsEntered, IEnumeratorsProcessCoverage } from "@forms/types";
@@ -8,10 +8,10 @@ import { comparisonDataForms, validateExecutionWay } from "@forms/utils";
 import { AppContext } from "@context/AppContext";
 import { RefreshCreditRequestUI } from "./interface";
 
-const validationSchema = Yup.object({
-  typeRefresh: Yup.string().required("Este campo no puede estar vacío"),
-  descriptionComplementary: Yup.string(),
-  plannedExecutionDate: Yup.string(),
+const validationSchema = object({
+  typeRefresh: stringYup().required("Este campo no puede estar vacío"),
+  descriptionComplementary: stringYup(),
+  plannedExecutionDate: stringYup(),
 });
 
 interface RefreshCreditRequestProps {
@@ -70,7 +70,7 @@ useEffect(() => {
   ) {
     setDynamicValidationSchema(
       validationSchema.shape({
-        plannedExecutionDate: Yup.string().required(
+        plannedExecutionDate: stringYup().required(
           "Este campo es requerido"
         ),
       })
