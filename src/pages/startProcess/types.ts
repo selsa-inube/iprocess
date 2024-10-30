@@ -22,12 +22,17 @@ interface IAplication {
   appId: string;
   abbreviatedName: string;
   publicCode: string;
+}
 
+interface IDetailPeopleProcessed {
+  successfullyProcessed: number;
+  processedWithErrors: number;
+  excludedFromTheProcess: number;
 }
 
 interface StartProcesses {
   id: string;
-  description: string;
+  description?: string;
   publicCode?: string;
   date?: Date | string | undefined;
   dateAndHour?: Date;
@@ -49,9 +54,11 @@ interface StartProcesses {
   executionParameters?: IExecutionParameters;
   generalError?: string;
   plannedExecutionDate?: string;
+  plannedExecution?: string;
   executionOfTheProcess?: string;
   processControlId?: string;
   totalPersonsProsecuted?: number;
+  detailPeopleProcessed?: IDetailPeopleProcessed;
 }
 
 interface StartProcessesFilter {
@@ -154,5 +161,4 @@ export type {
   IDailyDetail,
   IListPeriods,
   ITimeEstimedCompleteProcess,
-  IAplication
 };
