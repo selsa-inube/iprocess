@@ -19,6 +19,7 @@ import { CardStatusExecution } from "@components/feedback/CardStatusExecution";
 import { CardStatusExecutionGroup } from "@components/feedback/CardStatusExecutionGroup";
 import { IPersonProcess } from "@components/feedback/CardStatusExecution/types";
 import { ComponentAppearance } from "@ptypes/aparences.types";
+import { IProcessPersonsWithErrors } from "@pages/validateProgress/types";
 import { StyledContainer, StyledFields, StyledModal } from "./styles";
 import { ILabel } from "./types";
 
@@ -26,15 +27,19 @@ interface StatusOfExecutionModalUIProps {
   attributes: string[];
   dataInformationProcess: StartProcesses;
   dataPerson: IPersonProcess[];
+  dataSubtmit: IProcessPersonsWithErrors[] | undefined;
+  disabledBoton: boolean;
   isLoading: boolean;
   labels: ILabel[];
   portalId: string;
   search: string;
   seeErrorsChecked: boolean;
+  loadingDiscard: boolean;
   onChangeSearch: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onChangeToggle: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onCloseModal: () => void;
-  onDiscard: () => void;
+  onDiscard: (data: IProcessPersonsWithErrors[]) => void;
+  onProcessPersonId: (id: string | undefined, check: boolean) => void;
   onReprocess: () => void;
 }
 
@@ -48,11 +53,15 @@ const StatusOfExecutionModalUI = (props: StatusOfExecutionModalUIProps) => {
     portalId,
     search,
     seeErrorsChecked,
+    disabledBoton, 
+    dataSubtmit,
+    loadingDiscard,
     onChangeSearch,
     onChangeToggle,
     onCloseModal,
     onDiscard,
     onReprocess,
+    onProcessPersonId
   } = props;
 
   const isMobile = useMediaQuery(mediaQueryMobile);
@@ -171,16 +180,17 @@ const StatusOfExecutionModalUI = (props: StatusOfExecutionModalUIProps) => {
                 entries={dataPerson}
                 filter={search}
                 filteredWithErrors={seeErrorsChecked}
+                handleProcessPersonId={onProcessPersonId}
               />
             )}
           </Stack>
           <Stack gap={tokens.spacing.s100} justifyContent="flex-end">
             <Button
               spacing="wide"
-              appearance="gray"
+              appearance={ComponentAppearance.GRAY}
               variant="filled"
               onClick={onReprocess}
-              disabled={false}
+              disabled={disabledBoton}
             >
               Reprocesar
             </Button>
@@ -188,8 +198,9 @@ const StatusOfExecutionModalUI = (props: StatusOfExecutionModalUIProps) => {
               spacing="wide"
               appearance={ComponentAppearance.PRIMARY}
               variant="filled"
-              onClick={onDiscard}
-              disabled={false}
+              onClick={() => dataSubtmit && onDiscard(dataSubtmit)}
+              disabled={disabledBoton}
+              loading={loadingDiscard}
             >
               Descartar
             </Button>

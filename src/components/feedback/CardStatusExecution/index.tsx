@@ -16,6 +16,7 @@ import { StyledAction, StyledContainer } from "./styles";
 interface CardStatusExecutionProps {
   entries?: IPersonProcess;
   isLoading?: boolean;
+  handleProcessPersonId?: (id: string | undefined, check: boolean) => void;
 }
 
 function ShowAction(actionContent: IActions[], entry: IPersonProcess) {
@@ -31,11 +32,12 @@ function ShowAction(actionContent: IActions[], entry: IPersonProcess) {
 }
 
 const CardStatusExecution = (props: CardStatusExecutionProps) => {
-  const { entries, isLoading } = props;
+  const { entries, isLoading, handleProcessPersonId } = props;
   const [checkedCard, setCheckedCard] = useState<boolean>(false);
 
   const handleChangeManage = (e: React.ChangeEvent<HTMLInputElement>) => {
     setCheckedCard(e.target.checked);
+    handleProcessPersonId && handleProcessPersonId(entries?.processPersonId, e.target.checked);
   };
 
   return (
