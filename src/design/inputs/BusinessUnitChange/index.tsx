@@ -1,63 +1,54 @@
-import { useState, useEffect, useContext } from "react";
-import { Link } from "react-router-dom";
 import { MdCheck } from "react-icons/md";
 import { Stack } from "@inubekit/stack";
 import { Icon } from "@inubekit/icon";
-
-import { AppContext } from "@context/AppContext";
 import { IBusinessUnitsPortalStaff } from "@ptypes/staffPortalBusiness.types";
+import { tokens } from "@design/tokens";
+import { ComponentAppearance } from "@ptypes/aparences.types";
 import {
   StyledContainer,
   StyledUl,
   StyledLi,
   StyledImg,
   StyledHr,
+  StyledContainerOption,
 } from "./styles";
 
 interface BusinessUnitChangeProps {
   businessUnits: IBusinessUnitsPortalStaff[];
-} 
+  selectedClient: string
+  onLogoClick: (businessUnit: IBusinessUnitsPortalStaff) => void;
+}
 
 export const BusinessUnitChange = (props: BusinessUnitChangeProps) => {
-  const {businessUnits} = props;
-  const { appData, setBusinessUnitSigla } = useContext(AppContext);
-  const [selectedClient, setSelectedClient] = useState<string>("");
-
-  useEffect(() => {
-    if (appData.businessUnit.publicCode) {
-      setSelectedClient(appData.businessUnit.abbreviatedName);
-    }
-  }, []);
-
-  const handleLogoClick = (businessUnit: IBusinessUnitsPortalStaff) => {
-    const selectJSON = JSON.stringify(businessUnit);
-      setBusinessUnitSigla(selectJSON);
-    setSelectedClient(businessUnit.abbreviatedName);
-  };
+  const { businessUnits, selectedClient, onLogoClick } = props;
 
   return (
     <StyledContainer>
       <Stack width="200px">
         <StyledUl>
           {businessUnits.map((businessUnit, index) => (
-            <Link
+            <StyledContainerOption
               key={businessUnit.publicCode}
-              to=".."
-              onClick={() => handleLogoClick(businessUnit)}
+              onClick={() => onLogoClick(businessUnit)}
             >
               <StyledLi>
-                <StyledImg src={businessUnit.urlLogo} alt={businessUnit.abbreviatedName} />
+                <StyledImg
+                  src={businessUnit.urlLogo}
+                  alt={businessUnit.abbreviatedName}
+                />
                 {selectedClient === businessUnit.abbreviatedName && (
+                  <Stack margin={`${tokens.spacing.s0} ${tokens.spacing.s150} ${tokens.spacing.s0}`}>
                   <Icon
                     icon={<MdCheck />}
-                    appearance="primary"
+                    appearance= {ComponentAppearance.PRIMARY}
                     size="24px"
                     cursorHover
                   />
+                  </Stack>
                 )}
               </StyledLi>
               {index !== businessUnits.length - 1 && <StyledHr />}
-            </Link>
+            </StyledContainerOption>
           ))}
         </StyledUl>
       </Stack>

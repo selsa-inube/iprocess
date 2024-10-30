@@ -7,7 +7,6 @@ import { useBusinessManagers } from "@hooks/useBusinessManagers";
 import { IBusinessUnitsPortalStaff } from "@ptypes/staffPortalBusiness.types";
 import { IAppContext, IAppData} from "./types";
 
-
 const AppContext = createContext<IAppContext>({} as IAppContext);
 
 interface AppProviderProps {
@@ -24,7 +23,10 @@ function AppContextProvider(props: AppProviderProps) {
     localStorage.getItem("businessUnitSigla") || ""
   );
 
-  const [businessUnitsToTheStaff, setBusinessUnitsToTheStaff] = useState<IBusinessUnitsPortalStaff[]>([]);
+  const [businessUnitsToTheStaff, setBusinessUnitsToTheStaff] = useState<IBusinessUnitsPortalStaff[]>(() => {
+    const savedBusinessUnits = localStorage.getItem("businessUnitsToTheStaff");
+    return savedBusinessUnits ? JSON.parse(savedBusinessUnits) : [];
+  });
 
   const portalId = localStorage.getItem("portalCode");
   let portalCode = "";
@@ -102,6 +104,10 @@ function AppContextProvider(props: AppProviderProps) {
       }));
     }
   }, [businessUnitSigla]);
+
+  useEffect(() => {
+    localStorage.setItem("businessUnitsToTheStaff", JSON.stringify(businessUnitsToTheStaff));
+  }, [businessUnitsToTheStaff]);
 
   const appContext = useMemo(
     () => ({

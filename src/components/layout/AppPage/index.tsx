@@ -1,5 +1,5 @@
-import { useContext, useRef, useState } from "react";
-import { Outlet } from "react-router-dom";
+import { useContext, useEffect, useRef, useState } from "react";
+import { Outlet, useNavigate } from "react-router-dom";
 import { MdOutlineChevronRight } from "react-icons/md";
 import { Grid } from "@inubekit/grid";
 import { Header } from "@inubekit/header";
@@ -10,6 +10,7 @@ import { Icon } from "@inubekit/icon";
 import { nav, userMenu } from "@config/nav";
 import { AppContext } from "@context/AppContext";
 import { BusinessUnitChange } from "@design/inputs/BusinessUnitChange";
+import { IBusinessUnitsPortalStaff } from "@ptypes/staffPortalBusiness.types";
 import {
   StyledAppPage,
   StyledCollapse,
@@ -29,13 +30,28 @@ const renderLogo = (imgUrl: string) => {
 };
 
 function AppPage() {
-  const { appData, businessUnitsToTheStaff } = useContext(AppContext);
+  const { appData, businessUnitsToTheStaff, setBusinessUnitSigla } =
+    useContext(AppContext);
   const [collapse, setCollapse] = useState(false);
   const collapseMenuRef = useRef<HTMLDivElement>(null);
   const businessUnitChangeRef = useRef<HTMLDivElement>(null);
+  const [selectedClient, setSelectedClient] = useState<string>("");
+  const navigate= useNavigate();
   const isTablet = useMediaQuery("(max-width: 944px)");
 
-  console.log("businessUnitsToTheStaff", businessUnitsToTheStaff, businessUnitsToTheStaff.length);
+  useEffect(() => {
+    if (appData.businessUnit.publicCode) {
+      setSelectedClient(appData.businessUnit.abbreviatedName);
+    }
+  }, [appData]);
+
+  const handleLogoClick = (businessUnit: IBusinessUnitsPortalStaff) => {
+    const selectJSON = JSON.stringify(businessUnit);
+    setBusinessUnitSigla(selectJSON);
+    setSelectedClient(businessUnit.abbreviatedName);
+    setCollapse(false);
+    navigate("/");
+  };
 
   return (
     <StyledAppPage>
@@ -64,7 +80,11 @@ function AppPage() {
             </StyledCollapseIcon>
             {collapse && (
               <StyledCollapse ref={businessUnitChangeRef}>
-                <BusinessUnitChange businessUnits={businessUnitsToTheStaff} />
+                <BusinessUnitChange
+                  businessUnits={businessUnitsToTheStaff}
+                  onLogoClick={handleLogoClick}
+                  selectedClient={selectedClient}
+                />
               </StyledCollapse>
             )}
           </>
