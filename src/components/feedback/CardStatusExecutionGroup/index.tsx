@@ -12,10 +12,17 @@ interface CardStatusExecutionGroupProps {
   filter: string;
   entries?: IPersonProcess[];
   filteredWithErrors?: boolean;
+  handleProcessPersonId?: (id: string | undefined, check: boolean) => void;
 }
 
 const CardStatusExecutionGroup = (props: CardStatusExecutionGroupProps) => {
-  const { attributes, entries, filter, filteredWithErrors } = props;
+  const {
+    attributes,
+    entries,
+    filter,
+    filteredWithErrors,
+    handleProcessPersonId,
+  } = props;
 
   const filteredEntries = useMemo(() => {
     const mapAttributes = attributes.map((attr) => attr);
@@ -32,7 +39,9 @@ const CardStatusExecutionGroup = (props: CardStatusExecutionGroupProps) => {
 
       const matchesError = filteredWithErrors
         ? entry?.executionStatusByPerson &&
-          filteredExecutionStatusByPerson.includes(entry.executionStatusByPerson)
+          filteredExecutionStatusByPerson.includes(
+            entry.executionStatusByPerson
+          )
         : true;
 
       return matchesFilter && matchesError;
@@ -46,7 +55,10 @@ const CardStatusExecutionGroup = (props: CardStatusExecutionGroupProps) => {
           {filteredEntries &&
             filteredEntries.map((entry, index) => (
               <Stack key={index}>
-                <CardStatusExecution entries={entry} />
+                <CardStatusExecution
+                  entries={entry}
+                  handleProcessPersonId={handleProcessPersonId}
+                />
               </Stack>
             ))}
         </StyledCardStatusGroup>
