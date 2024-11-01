@@ -23,15 +23,30 @@ const StyledModal = styled.div<IStyledModal>`
   background-color: ${({ theme }) =>
     theme.palette?.neutral?.N10 || inube.palette.neutral.N10};
 
-  width: ${(props) => (props.$smallScreen ? "280px" : "402px")};
+  width: ${(props) => (props.$smallScreen ? "280px" : "408px")};
   min-height: ${(props) => (props.$smallScreen ? "100vh" : "auto")};
   height: auto;
-  border-radius: ${(props) => (props.$smallScreen ? `${tokens.spacing.s0}` : `${tokens.spacing.s100}`)};
+  border-radius: ${(props) =>
+    props.$smallScreen ? `${tokens.spacing.s0}` : `${tokens.spacing.s100}`};
 
   & > div {
-    padding: ${(props) => (props.$smallScreen ? `${tokens.spacing.s200}`: `${tokens.spacing.s300}`)};
+    padding: ${(props) =>
+      props.$smallScreen ? `${tokens.spacing.s200}` : `${tokens.spacing.s300}`};
   }
 `;
+
+const StyledContainerModal = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: ${tokens.spacing.s250};
+  max-height: 680px;
+  `;
+
+const StyledScroll = styled.div`
+display: flex;
+flex-direction: column;
+gap: ${tokens.spacing.s250};
+overflow-y: auto;`;
 
 const StyledModalFields = styled.div<IStyledModal>`
   display: flex;
@@ -47,14 +62,14 @@ const StyledModalFields = styled.div<IStyledModal>`
     padding: ${tokens.spacing.s100} ${tokens.spacing.s0};
     background-color: red;
   }
- 
+
   & > div {
-    min-height:${tokens.spacing.s0} !important;
+    min-height: ${tokens.spacing.s0} !important;
     margin-bottom: -8px !important;
   }
 
   div {
-    min-height: ${tokens.spacing.s0}!important ;
+    min-height: ${tokens.spacing.s0}!important;
     margin-bottom: -8px !important;
   }
 
@@ -65,4 +80,17 @@ const StyledModalFields = styled.div<IStyledModal>`
   }
 `;
 
-export { StyledContainer, StyledModal, StyledModalFields };
+const StyledContainerRequirements = styled.div`
+  border: 1px solid
+    ${({ theme }) => theme?.palette?.neutral?.N40 || inube.palette.neutral.N40};
+  border-radius: ${tokens.spacing.s100};
+`;
+
+export {
+  StyledContainer,
+  StyledModal,
+  StyledContainerModal,
+  StyledScroll,
+  StyledModalFields,
+  StyledContainerRequirements,
+};

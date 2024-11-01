@@ -15,8 +15,16 @@ import { IBreakpoint, ITitle } from "@components/data/Table/props";
 import { mediaQueryMobile } from "@config/environment";
 import { tokens } from "@design/tokens";
 import { StartProcesses } from "@pages/startProcess/types";
-import { StyledContainer, StyledModal, StyledModalFields } from "./styles";
+import {
+  StyledContainer,
+  StyledContainerModal,
+  StyledContainerRequirements,
+  StyledModal,
+  StyledModalFields,
+  StyledScroll,
+} from "./styles";
 import { IEntries, ILabel } from "../MoreDetailsModal/types";
+import { IData } from "../requirementsModal/types";
 
 interface ExecutionParametersModalProps {
   isVisible: boolean;
@@ -27,6 +35,8 @@ interface ExecutionParametersModalProps {
   entriesParametersTable: IEntries[];
   breakPointsParametersTable: IBreakpoint[];
   onCloseModal: () => void;
+  requirement?: IData[];
+  breakpointsRequirement?: IBreakpoint[];
 }
 
 const ExecutionParametersModal = (props: ExecutionParametersModalProps) => {
@@ -38,6 +48,8 @@ const ExecutionParametersModal = (props: ExecutionParametersModalProps) => {
     entriesParametersTable,
     portalId,
     titlesParametersTable,
+    requirement,
+    breakpointsRequirement,
     onCloseModal,
   } = props;
 
@@ -56,7 +68,7 @@ const ExecutionParametersModal = (props: ExecutionParametersModalProps) => {
       <Blanket>
         <StyledModal $smallScreen={isMobile}>
           <Stack direction="column" gap={tokens.spacing.s200}>
-            <Stack direction="column" gap={tokens.spacing.s250}>
+            <StyledContainerModal>
               <Stack direction="column" gap={tokens.spacing.s100}>
                 <Stack alignItems="center" justifyContent="space-between">
                   <Text type="title" size="medium" appearance="dark">
@@ -71,41 +83,74 @@ const ExecutionParametersModal = (props: ExecutionParametersModalProps) => {
               </Stack>
 
               <Divider dashed />
-
-              {labels.map((field, id) => {
-                const value = data[field.id as keyof StartProcesses];
-                return value && value !== "undefined" ? (
-                  <StyledModalFields key={id} $smallScreen={isMobile}>
+              <StyledScroll>
+                {labels.map((field, id) => {
+                  const value = data[field.id as keyof StartProcesses];
+                  return value && value !== "undefined" ? (
+                    <StyledModalFields key={id} $smallScreen={isMobile}>
+                      <Label
+                        htmlFor={field.id}
+                        size="large"
+                        margin={`${tokens.spacing.s0} ${tokens.spacing.s0} ${tokens.spacing.s0} ${tokens.spacing.s200}`}
+                      >
+                        {field.titleName}
+                      </Label>
+                      <Fieldset
+                        legend=""
+                        spacing="compact"
+                        type="title"
+                        size="medium"
+                      >
+                        <Text type="body" size="medium">
+                          {String(value)}
+                        </Text>
+                      </Fieldset>
+                    </StyledModalFields>
+                  ) : null;
+                })}
+                {requirement && requirement.length > 0 && (
+                  <Stack direction="column" gap={tokens.spacing.s150}>
                     <Label
-                      htmlFor={field.id}
+                      htmlFor=""
                       size="large"
                       margin={`${tokens.spacing.s0} ${tokens.spacing.s0} ${tokens.spacing.s0} ${tokens.spacing.s200}`}
                     >
-                      {field.titleName}
+                      Requisitos
                     </Label>
-                    <Fieldset legend="" spacing="compact" type="title" size="medium">
-                      <Text type="body" size="medium">
-                        {String(value)}
-                      </Text>
-                    </Fieldset>
-                  </StyledModalFields>
-                ) : null;
-              })}
+                    <StyledContainerRequirements>
+                      {requirement.map((requirement) => (
+                            <Stack direction="column" key={requirement.id}>
+                              <Table
+                                id="portal"
+                                titles={requirement.titlesRequirements}
+                                entries={requirement.entriesRequirements}
+                                breakpoints={breakpointsRequirement}
+                                isLoading={false}
+                                widthFirstColumn="100%"
+                                multipleTables={true}
+                                typeTitle={"label"}
+                              />
+                            </Stack>
+                          ))}
+                    </StyledContainerRequirements>
+                  </Stack>
+                )}
 
-              {entriesParametersTable.length > 0 && (
-                <>
-                  <Divider dashed />
-                  <Table
-                    id="modals"
-                    titles={titlesParametersTable}
-                    entries={entriesParametersTable}
-                    breakpoints={breakPointsParametersTable}
-                    isLoading={isVisible}
-                    widthFirstColumn="65%"
-                  />
-                </>
-              )}
-            </Stack>
+                {entriesParametersTable.length > 0 && (
+                  <>
+                    <Divider dashed />
+                    <Table
+                      id="modals"
+                      titles={titlesParametersTable}
+                      entries={entriesParametersTable}
+                      breakpoints={breakPointsParametersTable}
+                      isLoading={isVisible}
+                      widthFirstColumn="65%"
+                    />
+                  </>
+                )}
+              </StyledScroll>
+            </StyledContainerModal>
             <Stack gap={tokens.spacing.s100} justifyContent="flex-end">
               <Button
                 spacing="wide"
