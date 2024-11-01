@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 import {
   currentMonthLetters,
@@ -16,16 +16,14 @@ import {
   StartProcesses,
 } from "../startProcess/types";
 import { IFilterDateForMonthAndYear } from "../validateProgress/types";
-
+import { AppContext } from "@src/context/AppContext";
 
 function Finished() {
-  const [searchFinished, setSearchFinished] =
-    useState<string>("");
+  const { appData } = useContext(AppContext);
+  const [searchFinished, setSearchFinished] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(true);
 
-  const [finished, setFinished] = useState<StartProcesses[]>(
-    []
-  );
+  const [finished, setFinished] = useState<StartProcesses[]>([]);
   const [selectedPeriod, setSelectedPeriod] = useState<IChangePeriodEntry>({
     month: "",
     year: "",
@@ -36,6 +34,7 @@ function Finished() {
   const validatePeriod = async () => {
     try {
       const newPeriod = await listPeriodsToProcessInitiated(
+        appData.businessUnit.publicCode,
         formatDateEndpoint(new Date())
       );
       setListPeriod(newPeriod);
@@ -47,7 +46,10 @@ function Finished() {
   const validateProgressProcess = async (date: IFilterDateForMonthAndYear) => {
     setLoading(true);
     try {
-      const newValidateProcess = await finishedData(date);
+      const newValidateProcess = await finishedData(
+        appData.businessUnit.publicCode,
+        date
+      );
 
       setFinished(newValidateProcess);
     } catch (error) {
@@ -78,9 +80,7 @@ function Finished() {
     }
   }, [selectedPeriod]);
 
-  const handleSearchFinished = (
-    e: React.ChangeEvent<HTMLInputElement>
-  ) => {
+  const handleSearchFinished = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchFinished(e.target.value);
   };
 

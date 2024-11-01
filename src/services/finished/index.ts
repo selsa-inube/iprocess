@@ -4,7 +4,7 @@ import { IFilterDateForMonthAndYear } from "@pages/validateProgress/types";
 
 import { mapFinishedApiToEntities } from "./mappers";
 
-const finishedData = async (date: IFilterDateForMonthAndYear): Promise<StartProcesses[]> => {
+const finishedData = async ( businessUnitPublicCode: string, date: IFilterDateForMonthAndYear): Promise<StartProcesses[]> => {
   const maxRetries = maxRetriesServices;
   const fetchTimeout = fetchTimeoutServices;
 
@@ -24,7 +24,7 @@ const finishedData = async (date: IFilterDateForMonthAndYear): Promise<StartProc
         method: "GET",
         headers: {
           "X-Action": "SearchAllProcessControlCatalogs",
-          "X-Business-Unit": enviroment.TEMP_BUSINESS_UNIT,
+          "X-Business-Unit": businessUnitPublicCode,
           "Content-type": "application/json; charset=UTF-8",
         },
         signal: controller.signal,

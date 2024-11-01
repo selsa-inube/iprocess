@@ -1,5 +1,5 @@
 import { MdOutlineRemoveRedEye } from "react-icons/md";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Icon } from "@inubekit/icon";
 
 import { IEntries } from "@forms/types";
@@ -8,6 +8,7 @@ import { refNumPackageRequirement } from "@services/processRequirements/getByRef
 import { IRefNumPackageRequirement } from "@ptypes/packageRequeriment.types";
 import { IData } from "@components/modals/requirementsModal/types";
 import { ExecutionParametersModal } from "@components/modals/ExecutionParametersModal";
+import { AppContext } from "@context/AppContext";
 import { labelsDetails } from "../../config/card.config";
 import {  breakPointsParameters, dataTablesDetailsConfig,  titlesParameters } from "./config/parameters.config";
 
@@ -17,6 +18,7 @@ interface DetailsProps {
 
 const Details = (props: DetailsProps) => {
   const { data } = props;
+  const {appData} = useContext(AppContext);
   const [showModal, setShowModal] = useState(false);
   const [processRequirementData, setProcessRequirementData] = useState<IRefNumPackageRequirement>();
 
@@ -30,7 +32,7 @@ const Details = (props: DetailsProps) => {
 
   const requirementsData = async () => {  
     try {
-      const newRequirement = await refNumPackageRequirement(String(data?.referenceNumberRequirement));
+      const newRequirement = await refNumPackageRequirement(appData.businessUnit.publicCode, String(data?.referenceNumberRequirement));
       setProcessRequirementData(newRequirement); 
     } catch (error) {
       throw new Error(`Error al obtener los datos: ${(error as Error).message} `);
