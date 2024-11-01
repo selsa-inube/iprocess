@@ -20,11 +20,11 @@ const Default = (args: RadioBusinessUnitProps) => (
 );
 
 Default.args = {
-  id: businessUnitDataMock[2].id,
+  id: businessUnitDataMock[2].publicCode,
   name: "BusinessUnit",
-  value: businessUnitDataMock[3].name,
-  label: businessUnitDataMock[3].name,
-  logo: businessUnitDataMock[3].logo,
+  value: businessUnitDataMock[3].abbreviatedName,
+  label: businessUnitDataMock[3].abbreviatedName,
+  logo: businessUnitDataMock[3].urlLogo,
 };
 
 export default meta;

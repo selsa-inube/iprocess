@@ -4,9 +4,8 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { decrypt } from "@utils/encrypt";
 import { usePortalData } from "@hooks/usePortalData";
 import { useBusinessManagers } from "@hooks/useBusinessManagers";
+import { IBusinessUnitsPortalStaff } from "@ptypes/staffPortalBusiness.types";
 import { IAppContext, IAppData} from "./types";
-import { IBusinessUnitsPortalStaff } from "@src/types/staffPortalBusiness.types";
-
 
 const AppContext = createContext<IAppContext>({} as IAppContext);
 
@@ -24,7 +23,10 @@ function AppContextProvider(props: AppProviderProps) {
     localStorage.getItem("businessUnitSigla") || ""
   );
 
-  const [businessUnitsToTheStaff, setBusinessUnitsToTheStaff] = useState<IBusinessUnitsPortalStaff[]>([]);
+  const [businessUnitsToTheStaff, setBusinessUnitsToTheStaff] = useState<IBusinessUnitsPortalStaff[]>(() => {
+    const savedBusinessUnits = localStorage.getItem("businessUnitsToTheStaff");
+    return savedBusinessUnits ? JSON.parse(savedBusinessUnits) : [];
+  });
 
   const portalId = localStorage.getItem("portalCode");
   let portalCode = "";
@@ -33,6 +35,13 @@ function AppContextProvider(props: AppProviderProps) {
   }
 
   const { businessManagersData } = useBusinessManagers(portalData, portalCode);
+
+  let businessUnitData: IBusinessUnitsPortalStaff | null = null;
+  try {
+    businessUnitData = JSON.parse(businessUnitSigla || "{}") as IBusinessUnitsPortalStaff;
+  } catch (error) {
+    console.error("Error parsing businessUnitSigla:", error);
+  }
 
   const [appData, setAppData] = useState<IAppData>({
     portal: {
@@ -48,10 +57,10 @@ function AppContextProvider(props: AppProviderProps) {
       urlLogo: "",
     },
     businessUnit: {
-      publicCode: "",
-      abbreviatedName: "",
-      languageId: "",
-      urlLogo: "",
+      publicCode: businessUnitData?.publicCode || "",
+      abbreviatedName: businessUnitData?.abbreviatedName || "",
+      languageId: businessUnitData?.languageId || "",
+      urlLogo: businessUnitData?.urlLogo || "",
     },
     user: {
       userAccount: user?.email || "",
@@ -102,6 +111,10 @@ function AppContextProvider(props: AppProviderProps) {
       }));
     }
   }, [businessUnitSigla]);
+
+  useEffect(() => {
+    localStorage.setItem("businessUnitsToTheStaff", JSON.stringify(businessUnitsToTheStaff));
+  }, [businessUnitsToTheStaff]);
 
   const appContext = useMemo(
     () => ({
