@@ -95,7 +95,7 @@ const CardProcess = (props: CardProcessProps) => {
                   Total personas procesadas
                 </Text>
                 <Text type="body" size="small">
-                  {entries?.totalPersonsProsecuted}
+                  {entries?.totalPersonsProsecuted }
                 </Text>
               </>
             )}
@@ -181,7 +181,7 @@ const CardProcess = (props: CardProcessProps) => {
                   weight="bold"
                   appearance="gray"
                 >
-                  Duración (Minutos)
+                  Duración (Segundos)
                 </Text>
 
                 <Stack>
