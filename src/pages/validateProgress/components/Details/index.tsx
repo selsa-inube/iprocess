@@ -1,5 +1,5 @@
 import { MdOutlineRemoveRedEye } from "react-icons/md";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Icon } from "@inubekit/icon";
 
 import { IEntries } from "@forms/types";
@@ -9,8 +9,12 @@ import { IRefNumPackageRequirement } from "@ptypes/packageRequeriment.types";
 import { DetailModal } from "@components/modals/DetailModal";
 import { IData } from "@components/modals/requirementsModal/types";
 import { normalizeStatusRequirementByStatus } from "@utils/requirements";
+import { AppContext } from "@context/AppContext";
 import { labelsDetails } from "../../config/card.config";
-import { breakPoints, dataTablesDetailsConfig } from "./config/tablesDetails.config";
+import {
+  breakPoints,
+  dataTablesDetailsConfig,
+} from "./config/tablesDetails.config";
 
 interface DetailsProps {
   data: IEntries;
@@ -18,28 +22,37 @@ interface DetailsProps {
 
 const Details = (props: DetailsProps) => {
   const { data } = props;
+  const { appData } = useContext(AppContext);
   const [showModal, setShowModal] = useState(false);
-  const [loadingRequirements, setLoadingRequirements] = useState<boolean>(false);
-  const [processRequirementData, setProcessRequirementData] = useState<IRefNumPackageRequirement>();
+  const [loadingRequirements, setLoadingRequirements] =
+    useState<boolean>(false);
+  const [processRequirementData, setProcessRequirementData] =
+    useState<IRefNumPackageRequirement>();
 
-  const requirementsData = async () => {  
-
+  const requirementsData = async () => {
     setLoadingRequirements(true);
     try {
-      const newRequirement = await refNumPackageRequirement(String(data?.referenceNumberRequirement));
-      setProcessRequirementData(newRequirement); 
-      data.statusText = normalizeStatusRequirementByStatus(newRequirement?.generalStatusRequirement||"")?.name;
+      const newRequirement = await refNumPackageRequirement(
+        appData.businessUnit.publicCode,
+        String(data?.referenceNumberRequirement)
+      );
+      setProcessRequirementData(newRequirement);
+      data.statusText = normalizeStatusRequirementByStatus(
+        newRequirement?.generalStatusRequirement || ""
+      )?.name;
     } catch (error) {
-      throw new Error(`Error al obtener los datos: ${(error as Error).message} `);
+      throw new Error(
+        `Error al obtener los datos: ${(error as Error).message} `
+      );
     } finally {
       setLoadingRequirements(false);
     }
   };
 
   useEffect(() => {
-    if(showModal)requirementsData();
+    if (showModal) requirementsData();
   }, [showModal]);
-   
+
   const handleToggleModal = () => {
     setShowModal(!showModal);
   };
@@ -53,15 +66,19 @@ const Details = (props: DetailsProps) => {
         onClick={handleToggleModal}
         cursorHover
         spacing="narrow"
-        />
+      />
       {showModal && (
-          <DetailModal
+        <DetailModal
           portalId="portal"
           title="Detalle"
           data={data}
           labels={labelsDetails}
           onCloseModal={handleToggleModal}
-          requirement={dataTablesDetailsConfig(processRequirementData?.listOfRequirements || []) as IData[]}
+          requirement={
+            dataTablesDetailsConfig(
+              processRequirementData?.listOfRequirements || []
+            ) as IData[]
+          }
           breakpoints={breakPoints}
           isVisible={loadingRequirements}
         />

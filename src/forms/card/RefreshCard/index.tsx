@@ -1,8 +1,9 @@
 import { useFormik } from "formik";
-import * as Yup from "yup";
-import { useEffect, useState } from "react";
+import {object, string as stringYup } from "yup";
+import { useContext, useEffect, useState } from "react";
 
 import { EnumProcessCoverageData } from "@services/enumerators/getEnumeratorsProcessCoverage";
+import { AppContext } from "@context/AppContext";
 import {
   IStartProcessEntry,
   IEntries,
@@ -12,10 +13,10 @@ import {
 import { comparisonDataForms, validateExecutionWay } from "@forms/utils";
 import { RefreshCardUI } from "./interface";
 
-const validationSchema = Yup.object({
-  typeRefresh: Yup.string().required("Este campo no puede estar vacío"),
-  descriptionComplementary: Yup.string(),
-  plannedExecutionDate: Yup.string(),
+const validationSchema = object({
+  typeRefresh: stringYup().required("Este campo no puede estar vacío"),
+  descriptionComplementary: stringYup(),
+  plannedExecutionDate: stringYup(),
 });
 
 interface RefreshCardProps {
@@ -32,7 +33,7 @@ const initialValues: IStartProcessEntry = {
 
 const RefreshCard = (props: RefreshCardProps) => {
   const { data, setFieldsEntered, onStartProcess } = props;
-
+  const { appData } = useContext(AppContext);
   const [dynamicValidationSchema, setDynamicValidationSchema] =
     useState(validationSchema);
 
@@ -42,7 +43,9 @@ const RefreshCard = (props: RefreshCardProps) => {
 
   const validateOptionsTypeRefresh = async () => {
     try {
-      const newOptions = await EnumProcessCoverageData();
+      const newOptions = await EnumProcessCoverageData(
+        appData.businessUnit.publicCode
+      );
 
       setOptionsTypeRefresh(newOptions);
     } catch (error) {
@@ -62,7 +65,7 @@ const RefreshCard = (props: RefreshCardProps) => {
   });
 
   const handleChange = (name: string, value: string) => {
-    formik.setFieldValue(name, value).then(()=> {
+    formik.setFieldValue(name, value).then(() => {
       formik.validateForm().then((errors) => {
         formik.setErrors(errors);
       });
@@ -76,7 +79,7 @@ const RefreshCard = (props: RefreshCardProps) => {
     ) {
       setDynamicValidationSchema(
         validationSchema.shape({
-          plannedExecutionDate: Yup.string().required(
+          plannedExecutionDate: stringYup().required(
             "Este campo es requerido"
           ),
         })
@@ -97,7 +100,11 @@ const RefreshCard = (props: RefreshCardProps) => {
     }
   }, [formik.values, setFieldsEntered]);
 
-  const comparisonData = comparisonDataForms(data?.executionWay as string ,formik.values ,initialValues)
+  const comparisonData = comparisonDataForms(
+    data?.executionWay as string,
+    formik.values,
+    initialValues
+  );
 
   return (
     <RefreshCardUI

@@ -1,9 +1,11 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { confirmInitiatedData } from "@services/confirmInitiated/getConfirmInitiated";
+import { AppContext } from "@context/AppContext";
 import { ConfirmInitiatedUI } from "./interface";
 import { StartProcesses } from "../startProcess/types";
 
 function ConfirmInitiated() {
+  const { appData } = useContext(AppContext);
   const [searchConfirmInitiated, setSearchConfirmInitiated] =
     useState<string>("");
   const [loading, setLoading] = useState<boolean>(true);
@@ -16,7 +18,7 @@ function ConfirmInitiated() {
   const validateConfirmInitiated = async () => {
     setLoading(true);
     try {
-      const newConfirmInitiated = await confirmInitiatedData();
+      const newConfirmInitiated = await confirmInitiatedData(appData.businessUnit.publicCode);
 
       setConfirmInitiated(newConfirmInitiated);
     } catch (error) {

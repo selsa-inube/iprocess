@@ -1,6 +1,6 @@
 import { useFormik } from "formik";
-import * as Yup from "yup";
-import { useEffect, useState } from "react";
+import {object, string as stringYup } from "yup";
+import { useContext, useEffect, useState } from "react";
 
 import { EnumProcessCoverageData } from "@services/enumerators/getEnumeratorsProcessCoverage";
 import { comparisonDataForms, validateExecutionWay } from "@forms/utils";
@@ -11,11 +11,12 @@ import {
   IEnumeratorsProcessCoverage,
 } from "@forms/types";
 import { RefreshCustomerAttributesUI } from "./interface";
+import { AppContext } from "@src/context/AppContext";
 
-const validationSchema = Yup.object({
-  typeRefresh: Yup.string().required("Este campo no puede estar vacío"),
-  descriptionComplementary: Yup.string(),
-  plannedExecutionDate: Yup.string(),
+const validationSchema = object({
+  typeRefresh: stringYup().required("Este campo no puede estar vacío"),
+  descriptionComplementary: stringYup(),
+  plannedExecutionDate: stringYup(),
 });
 
 interface RefreshCustomerAttributesProps {
@@ -32,7 +33,7 @@ const initialValues: IStartProcessEntry = {
 
 const RefreshCustomerAttributes = (props: RefreshCustomerAttributesProps) => {
   const { data, setFieldsEntered, onStartProcess } = props;
-
+  const { appData } = useContext(AppContext);
   const [dynamicValidationSchema, setDynamicValidationSchema] =
     useState(validationSchema);
 
@@ -42,7 +43,7 @@ const RefreshCustomerAttributes = (props: RefreshCustomerAttributesProps) => {
 
   const validateOptionsTypeRefresh = async () => {
     try {
-      const newOptions = await EnumProcessCoverageData();
+      const newOptions = await EnumProcessCoverageData(appData.businessUnit.publicCode);
 
       setOptionsTypeRefresh(newOptions);
     } catch (error) {
@@ -76,7 +77,7 @@ const RefreshCustomerAttributes = (props: RefreshCustomerAttributesProps) => {
     ) {
       setDynamicValidationSchema(
         validationSchema.shape({
-          plannedExecutionDate: Yup.string().required(
+          plannedExecutionDate: stringYup().required(
             "Este campo es requerido"
           ),
         })

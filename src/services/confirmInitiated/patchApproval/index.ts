@@ -6,6 +6,7 @@ import {
 import { mapApprovalRequirementEntityToApi } from "./mappers";
 
 const approvalRequirement = async (
+  businessUnitPublicCode: string,
   dataApproval: IApprovalRequest
 ): Promise<IApprovalResponse | undefined> => {
   const requestUrl = `${enviroment.IREQUER_API_URL_PERSISTENCE}/package-requirements-management`;
@@ -14,7 +15,7 @@ const approvalRequirement = async (
       method: "PATCH",
       headers: {
         "X-Action": "ApproveRequirement",
-        "X-Business-Unit": enviroment.TEMP_BUSINESS_UNIT,
+        "X-Business-Unit": businessUnitPublicCode,
         "Content-type": "application/json; charset=UTF-8",
       },
       body: JSON.stringify(mapApprovalRequirementEntityToApi(dataApproval)),

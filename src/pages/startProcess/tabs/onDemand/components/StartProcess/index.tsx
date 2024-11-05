@@ -1,4 +1,4 @@
-import { lazy, Suspense, useEffect, useState } from "react";
+import { lazy, Suspense, useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { MdLaunch } from "react-icons/md";
 import { Icon } from "@inubekit/icon";
@@ -17,6 +17,7 @@ import { IStartProcessResponse } from "@pages/startProcess/types";
 import { routesComponent } from "@pages/startProcess/config/routesForms.config";
 import { rediectToConfirmInitiated, redirectToFinished, redirectToValidateProgress } from "@pages/startProcess/utils";
 import { ComponentAppearance } from "@ptypes/aparences.types";
+import { AppContext } from "@context/AppContext";
 
 interface IStartProcessOnDemandProps {
   dataModal: IEntries;
@@ -25,6 +26,7 @@ interface IStartProcessOnDemandProps {
 
 const StartProcessOnDemand = (props: IStartProcessOnDemandProps) => {
   const { id, dataModal } = props;
+  const { appData } = useContext(AppContext);
   const [fieldsEntered, setFieldsEntered] = useState({} as IFieldsEntered);
   const { addFlag } = useFlag();
 
@@ -63,7 +65,7 @@ const StartProcessOnDemand = (props: IStartProcessOnDemandProps) => {
     try {
       setShowStartProcessModal(!showStartProcessModal);
       setShowProgressModal(true);
-      const newProcess = await startProcess(processData);
+      const newProcess = await startProcess(appData.businessUnit.publicCode, processData);
       setResponseStartProcess(newProcess);
       
     } catch (error) {

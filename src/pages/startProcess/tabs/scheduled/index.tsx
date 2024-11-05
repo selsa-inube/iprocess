@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { startProcessData } from "@services/startProcess/getStartProcess";
 import {
   filterDateChange,
@@ -7,6 +7,7 @@ import {
   formatDateEndpoint,
 } from "@utils/dates";
 import { listPeriodsStartProcess } from "@services/startProcess/getPeriodsToStartProcess";
+import { AppContext } from "@context/AppContext";
 import { ScheduledTabUI } from "./interface";
 import {
   IChangePeriodEntry,
@@ -16,6 +17,7 @@ import {
 } from "../../types";
 
 function ScheduledTab() {
+  const { appData } = useContext(AppContext);
   const [searchScheduled, setSearchScheduled] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(true);
 
@@ -34,7 +36,10 @@ function ScheduledTab() {
   ) => {
     setLoading(true);
     try {
-      const newScheduled = await startProcessData(filterDateChange);
+      const newScheduled = await startProcessData(
+        appData.businessUnit.publicCode,
+        filterDateChange
+      );
 
       setScheduled(newScheduled.scheduled);
     } catch (error) {
@@ -46,14 +51,18 @@ function ScheduledTab() {
 
   const validatePeriod = async () => {
     try {
-      const newPeriod = await listPeriodsStartProcess(formatDateEndpoint(new Date()));
+      const newPeriod = await listPeriodsStartProcess(
+        appData.businessUnit.publicCode,
+        formatDateEndpoint(new Date())
+      );
       setListPeriod(newPeriod);
     } catch (error) {
       console.info(error);
-  }}
+    }
+  };
 
   useEffect(() => {
-    validatePeriod()
+    validatePeriod();
     validateScheduled(
       filterDateChange({ month: currentMonthLetters!, year: currentYear })
     );

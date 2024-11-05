@@ -3,7 +3,7 @@ import { IEnumeratorsProcessCoverage } from "@forms/types";
 import { mapEnumProcessCoverageApiToEntities } from "./mappers";
 
 
-const EnumProcessCoverageData = async (): Promise<
+const EnumProcessCoverageData = async (businessUnitPublicCode: string): Promise<
   IEnumeratorsProcessCoverage[]
 > => {
   const maxRetries = maxRetriesServices;
@@ -18,7 +18,7 @@ const EnumProcessCoverageData = async (): Promise<
         method: "GET",
         headers: {
           "X-Action": "GetEnum",
-          "X-Business-Unit": enviroment.TEMP_BUSINESS_UNIT,
+          "X-Business-Unit": businessUnitPublicCode,
           "Content-type": "application/json; charset=UTF-8",
         },
         signal: controller.signal,

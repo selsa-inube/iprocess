@@ -1,8 +1,10 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { normalizeStatusRequirementByStatus } from "@utils/requirements";
 import { IRefNumPackageRequirement } from "@ptypes/packageRequeriment.types.ts";
 import { refNumPackageRequirement } from "@services/processRequirements/getByRefNumPackageRequirement/index.ts";
+import { AppContext } from "@context/AppContext/index.tsx";
 import { RequirementsUI } from "./interface.tsx";
+
 
 interface RequirementsProps {
   uniqueReferenceNumber: string;
@@ -18,7 +20,8 @@ const Requirements = (props: RequirementsProps) => {
     withTooltip = true,
     setStatus,
   } = props;
- 
+
+  const { appData } = useContext(AppContext);
   const [loading, setLoading] =
     useState<boolean>(false);
   const [showModal, setShowModal] = useState(false);
@@ -30,7 +33,7 @@ const Requirements = (props: RequirementsProps) => {
   const generalStatusRequirement = async () => {
     setLoading(true);
     try {
-      const newStatusRequirement = await refNumPackageRequirement(uniqueReferenceNumber);
+      const newStatusRequirement = await refNumPackageRequirement(appData.businessUnit.publicCode, uniqueReferenceNumber);
       setStatusRequirementData(newStatusRequirement);
     } catch (error) {
       console.info(error);

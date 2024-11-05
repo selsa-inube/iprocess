@@ -7,6 +7,7 @@ import { IRefNumPackageRequirement } from "@ptypes/packageRequeriment.types";
 import { mapRefNumPackRequirementApiToEntity } from "./mapper";
 
 const refNumPackageRequirement = async (
+  businessUnitPublicCode: string,
   uniqueRefNumber: string
 ): Promise<IRefNumPackageRequirement> => {
   const maxRetries = maxRetriesServices;
@@ -21,7 +22,7 @@ const refNumPackageRequirement = async (
         method: "GET",
         headers: {
           "X-Action": "SearchByIdPakageRequirementWhitGeneralStatus",
-          "X-Business-Unit": enviroment.TEMP_BUSINESS_UNIT,
+          "X-Business-Unit": businessUnitPublicCode,
           "Content-type": "application/json; charset=UTF-8",
         },
         signal: controller.signal,

@@ -1,5 +1,5 @@
 import { MdOutlineDelete } from "react-icons/md";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Icon } from "@inubekit/icon";
 import { useFlag } from "@inubekit/flag";
 
@@ -7,6 +7,7 @@ import { tokens } from "@design/tokens";
 import { StartProcesses } from "@pages/startProcess/types";
 import { DecisionModal } from "@components/modals/DecisionModal";
 import { ComponentAppearance } from "@ptypes/aparences.types";
+import { AppContext } from "@context/AppContext";
 import { removeProcessConfirmInitiated } from "@services/confirmInitiated/deleteConfirmInitiated";
 
 interface DeleteProcessConfirmInitiatedProps {
@@ -18,6 +19,7 @@ const DeleteProcessConfirmInitiated = (
   props: DeleteProcessConfirmInitiatedProps
 ) => {
   const { data, setDeleteProcess } = props;
+  const { appData } = useContext(AppContext);
   const [fieldEntered, setFieldEntered] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -31,7 +33,7 @@ const DeleteProcessConfirmInitiated = (
       removalJustification: fieldEntered,
     };
     try {
-      await removeProcessConfirmInitiated(dataRemove);
+      await removeProcessConfirmInitiated(appData.businessUnit.publicCode, dataRemove);
       setShowModal(false);
       addFlag({
         title: "Eliminación Exitosa",

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 import { startProcessData } from "@services/startProcess/getStartProcess";
@@ -7,11 +7,13 @@ import {
   IDailyDetail,
   StartProcesses,
 } from "@pages/startProcess/types";
+import { AppContext } from "@context/AppContext";
 import { filterDateChange, formatMonthEndpoint } from "@utils/dates";
 import { orderData } from "./utils";
 import { StartProcessesDailyUI } from "./interface";
 
 function StartProcessesDaily() {
+  const { appData } = useContext(AppContext)
   const [searchProcessesDaily, setSearchProcessDaily] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(true);
   const [orderAscending, setOrderAscending] = useState<boolean>(false);
@@ -28,7 +30,7 @@ function StartProcessesDaily() {
   ) => {
     setLoading(true);
     try {
-      const newScheduled = await startProcessData(filterDateChange);
+      const newScheduled = await startProcessData(appData.businessUnit.publicCode, filterDateChange);
 
       const processesDailyData = newScheduled.scheduled.filter(
         (process) => process.id === process_id

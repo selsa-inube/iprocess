@@ -1,15 +1,17 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 import {
   currentMonthLetters,
   currentYear,
   filterDateChange,
 } from "@utils/dates";
+import { AppContext } from "@context/AppContext";
 import { startProcessData } from "@services/startProcess/getStartProcess";
 import { OnDemandTabUI } from "./interface";
 import { FilterProcessesForDate, StartProcesses } from "../../types";
 
 function OnDemandTab() {
+  const { appData } = useContext(AppContext)
   const [searchOnDemand, setSearchOnDemand] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(true);
 
@@ -20,7 +22,7 @@ function OnDemandTab() {
   const validateOnDemand = async (filterDateChange: FilterProcessesForDate) => {
     setLoading(true);
     try {
-      const newOnDemand = await startProcessData(filterDateChange);
+      const newOnDemand = await startProcessData(appData.businessUnit.publicCode, filterDateChange);
       setOnDemand(newOnDemand.onDemand);
     } catch (error) {
       console.info(error);

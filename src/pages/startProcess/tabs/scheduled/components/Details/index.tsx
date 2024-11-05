@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { MdOutlineRemoveRedEye } from "react-icons/md";
 import { Icon } from "@inubekit/icon";
 
@@ -9,6 +9,7 @@ import { IBreakpoint } from "@components/data/Table/props";
 import { processRequirement } from "@services/processRequirements/postProcessRequirement";
 import { IProcessRequirementResponse } from "@ptypes/statusRequeriments.types";
 import { IData } from "@components/modals/requirementsModal/types";
+import { AppContext } from "@context/AppContext";
 import { formatDateEndpoint } from "@utils/dates";
 import { dataTablesDetailsConfig } from "./config/tablesDetails.config";
 import { labelsDetails } from "../../config/card.config";
@@ -25,8 +26,8 @@ export const Details = (props: IDetailsProps) => {
     breakpoints
   } = props;
 
+  const { appData } = useContext(AppContext);
   const [showModal, setShowModal] = useState(false);
-
   const [loadingRequirements, setLoadingRequirements] = useState<boolean>(false);
   const [processRequirementData, setProcessRequirementData] = useState<IProcessRequirementResponse[]>([]);
 
@@ -45,7 +46,7 @@ export const Details = (props: IDetailsProps) => {
 
     setLoadingRequirements(true);
     try {
-      const newRequirements = await processRequirement(processData);
+      const newRequirements = await processRequirement(appData.businessUnit.publicCode, processData);
       setProcessRequirementData(newRequirements || []); 
     } catch (error) {
       throw new Error(`Error al obtener los datos: ${(error as Error).message} `);

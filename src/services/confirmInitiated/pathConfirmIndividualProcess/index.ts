@@ -1,18 +1,21 @@
 import { enviroment } from "@config/environment";
-import { IConfirmProcessRequest, IConfirmProcessResponse } from "@pages/confirmInitiated/types";
+import {
+  IConfirmProcessRequest,
+  IConfirmProcessResponse,
+} from "@pages/confirmInitiated/types";
 import { mapConfirmProcessEntityToApi } from "./mappers";
 
-
-const confirmIndividualProcess = async (process: IConfirmProcessRequest ): Promise<
-IConfirmProcessResponse | undefined
-> => {
+const confirmIndividualProcess = async (
+  businessUnitPublicCode: string,
+  process: IConfirmProcessRequest
+): Promise<IConfirmProcessResponse | undefined> => {
   const requestUrl = `${enviroment.IPROCESS_API_URL_PERSISTENCE}/process-controls`;
   try {
     const options: RequestInit = {
       method: "PATCH",
       headers: {
         "X-Action": "ConfirmIndividualExecutionProcess",
-        "X-Business-Unit": enviroment.TEMP_BUSINESS_UNIT,
+        "X-Business-Unit": businessUnitPublicCode,
         "Content-type": "application/json; charset=UTF-8",
       },
       body: JSON.stringify(mapConfirmProcessEntityToApi(process)),
