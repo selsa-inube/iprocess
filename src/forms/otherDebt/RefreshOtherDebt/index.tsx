@@ -1,6 +1,6 @@
 import { useFormik } from "formik";
-import * as Yup from "yup";
-import { useEffect, useState } from "react";
+import {object, string as stringYup } from "yup";
+import { useContext, useEffect, useState } from "react";
 
 import { EnumProcessCoverageData } from "@services/enumerators/getEnumeratorsProcessCoverage";
 import {
@@ -10,12 +10,13 @@ import {
   IEnumeratorsProcessCoverage,
 } from "@forms/types";
 import { comparisonDataForms, validateExecutionWay } from "@forms/utils";
+import { AppContext } from "@context/AppContext";
 import { RefreshOtherDebtUI } from "./interface";
 
-const validationSchema = Yup.object({
-  typeRefresh: Yup.string().required("Este campo no puede estar vacío"),
-  descriptionComplementary: Yup.string(),
-  plannedExecutionDate: Yup.string(),
+const validationSchema = object({
+  typeRefresh: stringYup().required("Este campo no puede estar vacío"),
+  descriptionComplementary: stringYup(),
+  plannedExecutionDate: stringYup(),
 });
 
 interface RefreshOtherDebtProps {
@@ -32,7 +33,7 @@ const initialValues: IStartProcessEntry = {
 
 const RefreshOtherDebt = (props: RefreshOtherDebtProps) => {
   const { data, setFieldsEntered, onStartProcess } = props;
-
+  const { appData } = useContext(AppContext);
   const [dynamicValidationSchema, setDynamicValidationSchema] =
     useState(validationSchema);
 
@@ -42,7 +43,7 @@ const RefreshOtherDebt = (props: RefreshOtherDebtProps) => {
 
   const validateOptionsTypeRefresh = async () => {
     try {
-      const newOptions = await EnumProcessCoverageData();
+      const newOptions = await EnumProcessCoverageData(appData.businessUnit.publicCode);
 
       setOptionsTypeRefresh(newOptions);
     } catch (error) {
@@ -76,7 +77,7 @@ const RefreshOtherDebt = (props: RefreshOtherDebtProps) => {
     ) {
       setDynamicValidationSchema(
         validationSchema.shape({
-          plannedExecutionDate: Yup.string().required(
+          plannedExecutionDate: stringYup().required(
             "Este campo es requerido"
           ),
         })

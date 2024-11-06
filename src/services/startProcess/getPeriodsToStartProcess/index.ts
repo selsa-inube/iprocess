@@ -8,6 +8,7 @@ import { mapListPeriodStartProcessApiToEntities } from "./mappers";
 
 
 const listPeriodsStartProcess = async (
+  businessUnitPublicCode: string,
   cutOffDate: string
 ): Promise<IListPeriods[]> => {
   const maxRetries = maxRetriesServices;
@@ -26,7 +27,7 @@ const listPeriodsStartProcess = async (
         method: "GET",
         headers: {
           "X-Action": "PeriodToStartProcess",
-          "X-Business-Unit": enviroment.TEMP_BUSINESS_UNIT,
+          "X-Business-Unit": businessUnitPublicCode,
           "Content-type": "application/json; charset=UTF-8",
         },
         signal: controller.signal,

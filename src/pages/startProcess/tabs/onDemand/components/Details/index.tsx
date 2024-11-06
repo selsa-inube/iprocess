@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { MdOutlineRemoveRedEye } from "react-icons/md";
 import { Icon } from "@inubekit/icon";
 
@@ -11,6 +11,7 @@ import { processRequirement } from "@services/processRequirements/postProcessReq
 import { IData } from "@components/modals/requirementsModal/types";
 import { labelsDetailsOnDemand } from "../../config/card.config";
 import { dataTablesDetailsConfig } from "./config/tablesDetails.config";
+import { AppContext } from "@src/context/AppContext";
 
 interface IDetailsOnDemandProps {
   data: IActions;
@@ -19,7 +20,7 @@ interface IDetailsOnDemandProps {
 
 const DetailsOnDemand = (props: IDetailsOnDemandProps) => {
   const { data, breakpoints } = props;
-
+  const { appData } = useContext(AppContext);
   const [showModal, setShowModal] = useState(false);
 
   const [loadingRequirements, setLoadingRequirements] =
@@ -42,7 +43,7 @@ const DetailsOnDemand = (props: IDetailsOnDemandProps) => {
 
     setLoadingRequirements(true);
     try {
-      const newRequirements = await processRequirement(processData);
+      const newRequirements = await processRequirement(appData.businessUnit.publicCode, processData);
       setProcessRequirementData(newRequirements || []);
     } catch (error) {
       throw new Error(

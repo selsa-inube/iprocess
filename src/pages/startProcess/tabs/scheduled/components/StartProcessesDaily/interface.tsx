@@ -65,7 +65,7 @@ function StartProcessesDailyUI(props: StartProcessesDailyUIProps) {
         <Breadcrumbs crumbs={crumbsStartProcessesDaily} />
         <Stack gap={tokens.spacing.s400} direction="column">
           <Stack justifyContent="space-between" alignItems="center">
-            <Title title={descriptionProcess} navigatePage="/" />
+            <Title title={descriptionProcess}/>
 
             <Textfield
               name="searchProcessDaily"

@@ -1,16 +1,17 @@
 import { useFormik } from "formik";
-import * as Yup from "yup";
-import { useEffect, useState } from "react";
+import {object, string as stringYup } from "yup";
+import { useContext, useEffect, useState } from "react";
 
 import { IStartProcessEntry, IEntries, IFieldsEntered, IEnumeratorsProcessCoverage } from "@forms/types";
 import { EnumProcessCoverageData } from "@services/enumerators/getEnumeratorsProcessCoverage";
 import { comparisonDataForms, validateExecutionWay } from "@forms/utils";
+import { AppContext } from "@context/AppContext";
 import { RefreshCreditRequestUI } from "./interface";
 
-const validationSchema = Yup.object({
-  typeRefresh: Yup.string().required("Este campo no puede estar vacío"),
-  descriptionComplementary: Yup.string(),
-  plannedExecutionDate: Yup.string(),
+const validationSchema = object({
+  typeRefresh: stringYup().required("Este campo no puede estar vacío"),
+  descriptionComplementary: stringYup(),
+  plannedExecutionDate: stringYup(),
 });
 
 interface RefreshCreditRequestProps {
@@ -27,7 +28,7 @@ const initialValues: IStartProcessEntry = {
 
 const RefreshCreditRequest = (props: RefreshCreditRequestProps) => {
   const { data, setFieldsEntered, onStartProcess } = props;
-
+  const { appData } = useContext(AppContext);
   const [dynamicValidationSchema, setDynamicValidationSchema] =
   useState(validationSchema);
 
@@ -35,7 +36,7 @@ const RefreshCreditRequest = (props: RefreshCreditRequestProps) => {
 
   const validateOptionsTypeRefresh = async () => {
     try {
-      const newOptions = await EnumProcessCoverageData();
+      const newOptions = await EnumProcessCoverageData(appData.businessUnit.publicCode);
 
       setOptionsTypeRefresh(newOptions);
     } catch (error) {
@@ -69,7 +70,7 @@ useEffect(() => {
   ) {
     setDynamicValidationSchema(
       validationSchema.shape({
-        plannedExecutionDate: Yup.string().required(
+        plannedExecutionDate: stringYup().required(
           "Este campo es requerido"
         ),
       })

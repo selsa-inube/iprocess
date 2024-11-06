@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 import { generalStatusRequirement } from "@services/processRequirements/postGeneralStatusRequirement";
 import {
@@ -7,6 +7,7 @@ import {
 } from "@ptypes/statusRequeriments.types";
 import { processRequirement } from "@services/processRequirements/postProcessRequirement";
 import { formatDateEndpoint } from "@utils/dates";
+import { AppContext } from "@context/AppContext";
 import { normalizeStatusRequirementByStatus } from "@utils/requirements";
 import { ScheduledRequirementsUI } from "./interface";
 
@@ -32,6 +33,7 @@ const ScheduledRequirements = (props: ScheduledRequirementsProps) => {
     withTooltip = true,
     setStatus,
   } = props;
+  const { appData } = useContext(AppContext);
   const [loadingStatusRequirements, setLoadingStatusRequirements] =
     useState<boolean>(false);
   const [loadingRequirements, setLoadingRequirements] =
@@ -53,7 +55,7 @@ const ScheduledRequirements = (props: ScheduledRequirementsProps) => {
     };
     setLoadingStatusRequirements(true);
     try {
-      const newStatusRequirements = await generalStatusRequirement(processData);
+      const newStatusRequirements = await generalStatusRequirement(appData.businessUnit.publicCode, processData);
       setStatusRequirementData(newStatusRequirements);
     } catch (error) {
       console.info(error);
@@ -75,7 +77,10 @@ const ScheduledRequirements = (props: ScheduledRequirementsProps) => {
     };
     setLoadingRequirements(true);
     try {
-      const newRequirements = await processRequirement(processData);
+      const newRequirements = await processRequirement(
+        appData.businessUnit.publicCode,
+        processData
+      );
       setProcessRequirementData(newRequirements || []);
     } catch (error) {
       [];

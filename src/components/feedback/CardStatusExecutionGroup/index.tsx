@@ -17,17 +17,25 @@ interface CardStatusExecutionGroupProps {
   filter: string;
   processControlId: string;
   filteredWithErrors?: boolean;
+  handleProcessPersonId?: (id: string | undefined, check: boolean) => void;
 }
 
 const CardStatusExecutionGroup = (props: CardStatusExecutionGroupProps) => {
-  const { attributes, processControlId, filter, filteredWithErrors } = props;
+  const {
+    attributes,
+    processControlId,
+    filter,
+    filteredWithErrors,
+    handleProcessPersonId,
+  } = props;
   const { appData } = useContext(AppContext);
   const [loading, setLoading] = useState<boolean>(false);
   const divScroll = useRef<HTMLDivElement>(null);
   const [peopleIncludedData, setPeopleIncludedData] =
     useState<IProcessPersons[]>();
   const [page, setPage] = useState(1);
-  const [personsProcessedWithErrors, setPersonsProcessedWithErrors] = useState("");
+  const [personsProcessedWithErrors, setPersonsProcessedWithErrors] =
+    useState("");
 
   const peopleIncludedInProcessData = async () => {
     setLoading(true);
@@ -120,7 +128,7 @@ const CardStatusExecutionGroup = (props: CardStatusExecutionGroupProps) => {
           {filteredEntries &&
             filteredEntries.map((entry, index) => (
               <Stack key={index}>
-                <CardStatusExecution entries={entry} />
+                <CardStatusExecution entries={entry} handleProcessPersonId={handleProcessPersonId}/>
               </Stack>
             ))}
         </StyledCardStatusGroup>

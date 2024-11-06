@@ -1,9 +1,10 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 import { ProgressCardWithBarDetermined } from "@components/feedback/ProgressCardWithBarDetermined";
 import { timeToCompleteProcess } from "@services/startProcess/getTimeToCompleteProcess";
 import { calculateSeconds, stringToTime } from "@pages/startProcess/utils";
 import { ProgressCardWithBarIndetermined } from "@components/feedback/ProgressCardWithBarIndetermined";
+import { AppContext } from "@context/AppContext";
 
 interface ProgressOfStartProcessOnDemandProps {
   dateStart: Date;
@@ -44,13 +45,14 @@ const ProgressOfStartProcessOnDemand = (
   props: ProgressOfStartProcessOnDemandProps
 ) => {
   const { id,  dateStart } = props;
+  const { appData } = useContext(AppContext);
   const [percentage, setPercentage] = useState(0);
   const [processTime, setProcessTime] = useState<number | undefined>();
   const [time, setTime] = useState<Date | undefined>();
 
   const validateTimeToCompleteProcess = async (progressControlId: string) => {
     try {
-      const newTime = await timeToCompleteProcess(progressControlId);
+      const newTime = await timeToCompleteProcess(appData.businessUnit.publicCode, progressControlId);
       setProcessTime(newTime.secondsTime);
     } catch (error) {
       console.info(error);

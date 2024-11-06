@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 import { generalStatusRequirement } from "@services/processRequirements/postGeneralStatusRequirement";
 import {
@@ -7,6 +7,7 @@ import {
 } from "@ptypes/statusRequeriments.types";
 import { processRequirement } from "@services/processRequirements/postProcessRequirement";
 import { formatDateEndpoint } from "@utils/dates";
+import { AppContext } from "@context/AppContext";
 import { normalizeStatusRequirementByStatus } from "@utils/requirements";
 import { OnDemandRequirementsUI } from "./interface";
 
@@ -22,6 +23,7 @@ interface OnDemandRequirementsProps {
 
 const OnDemandRequirements = (props: OnDemandRequirementsProps) => {
   const { id, month, plannedExecution, publicCode, year, setStatus } = props;
+  const { appData } = useContext(AppContext);
   const [loadingStatusRequirements, setLoadingStatusRequirements] =
     useState<boolean>(false);
   const [loadingRequirements, setLoadingRequirements] =
@@ -43,7 +45,10 @@ const OnDemandRequirements = (props: OnDemandRequirementsProps) => {
     };
     setLoadingStatusRequirements(true);
     try {
-      const newStatusRequirements = await generalStatusRequirement(processData);
+      const newStatusRequirements = await generalStatusRequirement(
+        appData.businessUnit.publicCode,
+        processData
+      );
       setStatusRequirementData(newStatusRequirements);
     } catch (error) {
       console.info(error);
@@ -65,7 +70,10 @@ const OnDemandRequirements = (props: OnDemandRequirementsProps) => {
     };
     setLoadingRequirements(true);
     try {
-      const newRequirements = await processRequirement(processData);
+      const newRequirements = await processRequirement(
+        appData.businessUnit.publicCode,
+        processData
+      );
       setProcessRequirementData(newRequirements || []);
     } catch (error) {
       [];

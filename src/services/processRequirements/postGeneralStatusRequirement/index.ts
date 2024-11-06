@@ -1,18 +1,22 @@
 import { enviroment } from "@config/environment";
-import { IGeneralStatusRequirementRequest, IGeneralStatusRequirementResponse } from "@ptypes/statusRequeriments.types";
+import {
+  IGeneralStatusRequirementRequest,
+  IGeneralStatusRequirementResponse,
+} from "@ptypes/statusRequeriments.types";
 
 import { mapGeneralStatusRequirementEntityToApi } from "./mappers";
 
-const generalStatusRequirement = async (processData: IGeneralStatusRequirementRequest): Promise<
-IGeneralStatusRequirementResponse | undefined
-> => {
+const generalStatusRequirement = async (
+  businessUnitPublicCode: string,
+  processData: IGeneralStatusRequirementRequest
+): Promise<IGeneralStatusRequirementResponse | undefined> => {
   const requestUrl = `${enviroment.IPROCESS_API_URL_PERSISTENCE}/process-controls`;
   try {
     const options: RequestInit = {
       method: "POST",
       headers: {
         "X-Action": "DeduceGeneralStatusProcessRequirements",
-        "X-Business-Unit": enviroment.TEMP_BUSINESS_UNIT,
+        "X-Business-Unit": businessUnitPublicCode,
         "Content-type": "application/json; charset=UTF-8",
       },
       body: JSON.stringify(mapGeneralStatusRequirementEntityToApi(processData)),

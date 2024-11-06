@@ -1,6 +1,6 @@
 import { useFormik } from "formik";
-import * as Yup from "yup";
-import { useEffect, useState } from "react";
+import {object, string as stringYup } from "yup";
+import { useContext, useEffect, useState } from "react";
 
 import {
   IStartProcessEntry,
@@ -9,13 +9,14 @@ import {
   IEnumeratorsProcessCoverage,
 } from "@forms/types";
 import { EnumProcessCoverageData } from "@services/enumerators/getEnumeratorsProcessCoverage";
+import { AppContext } from "@context/AppContext";
 import { comparisonDataForms, validateExecutionWay } from "@forms/utils";
 import { RefreshSavingProductUI } from "./interface";
 
-const validationSchema = Yup.object({
-  typeRefresh: Yup.string().required("Este campo no puede estar vacío"),
-  descriptionComplementary: Yup.string(),
-  plannedExecutionDate: Yup.string(),
+const validationSchema = object({
+  typeRefresh: stringYup().required("Este campo no puede estar vacío"),
+  descriptionComplementary: stringYup(),
+  plannedExecutionDate: stringYup(),
 });
 
 interface RefreshSavingProductProps {
@@ -32,7 +33,7 @@ const initialValues: IStartProcessEntry = {
 
 const RefreshSavingProduct = (props: RefreshSavingProductProps) => {
   const { data, setFieldsEntered, onStartProcess } = props;
-
+  const { appData } = useContext(AppContext);
   const [dynamicValidationSchema, setDynamicValidationSchema] =
     useState(validationSchema);
 
@@ -42,7 +43,7 @@ const RefreshSavingProduct = (props: RefreshSavingProductProps) => {
 
   const validateOptionsTypeRefresh = async () => {
     try {
-      const newOptions = await EnumProcessCoverageData();
+      const newOptions = await EnumProcessCoverageData(appData.businessUnit.publicCode);
 
       setOptionsTypeRefresh(newOptions);
     } catch (error) {
@@ -76,7 +77,7 @@ const RefreshSavingProduct = (props: RefreshSavingProductProps) => {
     ) {
       setDynamicValidationSchema(
         validationSchema.shape({
-          plannedExecutionDate: Yup.string().required(
+          plannedExecutionDate: stringYup().required(
             "Este campo es requerido"
           ),
         })

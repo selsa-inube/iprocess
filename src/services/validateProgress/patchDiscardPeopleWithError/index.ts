@@ -1,24 +1,20 @@
 import { enviroment } from "@config/environment";
-import {
-  IConfirmProcessRequest,
-  IConfirmProcessResponse,
-} from "@pages/confirmInitiated/types";
-import { mapConfirmProcessEntityToApi } from "./mappers";
+import { IDiscardPersonsWithErrorsRequest, IDiscardPersonsWithErrorsResponse } from "@pages/validateProgress/types";
+import { mapDiscardPersonsWithErrorEntityToApi } from "./mappers";
 
-const confirmIndividualProcess = async (
-  businessUnitPublicCode: string,
-  process: IConfirmProcessRequest
-): Promise<IConfirmProcessResponse | undefined> => {
+const discardPersonsWithErrors = async ( businessUnitPublicCode: string, process: IDiscardPersonsWithErrorsRequest): Promise<
+IDiscardPersonsWithErrorsResponse | undefined
+> => {
   const requestUrl = `${enviroment.IPROCESS_API_URL_PERSISTENCE}/process-controls`;
   try {
     const options: RequestInit = {
       method: "PATCH",
       headers: {
-        "X-Action": "ConfirmIndividualExecutionProcess",
+        "X-Action": "IprocessDiscardPeopleWhoPresentedError",
         "X-Business-Unit": businessUnitPublicCode,
         "Content-type": "application/json; charset=UTF-8",
       },
-      body: JSON.stringify(mapConfirmProcessEntityToApi(process)),
+      body: JSON.stringify(mapDiscardPersonsWithErrorEntityToApi(process)),
     };
 
     const res = await fetch(requestUrl, options);
@@ -31,7 +27,7 @@ const confirmIndividualProcess = async (
 
     if (!res.ok) {
       throw {
-        message: "Error al confirmar el proceso",
+        message: "Error al iniciar proceso",
         status: res.status,
         data,
       };
@@ -44,4 +40,4 @@ const confirmIndividualProcess = async (
   }
 };
 
-export { confirmIndividualProcess };
+export { discardPersonsWithErrors };

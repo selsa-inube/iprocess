@@ -13,6 +13,7 @@ const mapPeopleIncludedInProcessApiToEntity = (
   processPersonId: String(peopleIncluded.processPersonId),
   startDate:  String(peopleIncluded.startDate),
   };
+  
   return peopleIncludedProcess;
 };
 

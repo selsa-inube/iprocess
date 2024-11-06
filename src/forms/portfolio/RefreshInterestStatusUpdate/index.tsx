@@ -1,14 +1,14 @@
 import { useFormik } from "formik";
-import * as Yup from "yup";
+import {object, string as stringYup } from "yup";
 import { useEffect, useState } from "react";
 
 import { IStartProcessEntry, IEntries, IFieldsEntered } from "@forms/types";
 import { validateExecutionWay } from "@forms/utils";
 import { RefreshInterestStatusUpdateUI } from "./interface";
 
-const validationSchema = Yup.object({
-  descriptionComplementary: Yup.string(),
-  plannedExecutionDate: Yup.string(),
+const validationSchema = object({
+  descriptionComplementary: stringYup(),
+  plannedExecutionDate: stringYup(),
 });
 
 interface RefreshInterestStatusUpdateProps {
@@ -44,7 +44,7 @@ const RefreshInterestStatusUpdate = (
     ) {
       setDynamicValidationSchema(
         validationSchema.shape({
-          plannedExecutionDate: Yup.string().required(
+          plannedExecutionDate: stringYup().required(
             "Este campo es requerido"
           ),
         })

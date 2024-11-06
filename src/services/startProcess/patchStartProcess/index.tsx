@@ -1,17 +1,21 @@
 import { enviroment } from "@config/environment";
-import { IStartProcessesRequest, IStartProcessResponse } from "@pages/startProcess/types";
+import {
+  IStartProcessesRequest,
+  IStartProcessResponse,
+} from "@pages/startProcess/types";
 import { mapStartProcessEntityToApi } from "./mappers";
 
-const startProcess = async (process: IStartProcessesRequest): Promise<
-  IStartProcessResponse | undefined
-> => {
+const startProcess = async (
+  businessUnitPublicCode: string,
+  process: IStartProcessesRequest
+): Promise<IStartProcessResponse | undefined> => {
   const requestUrl = `${enviroment.IPROCESS_API_URL_PERSISTENCE}/process-controls`;
   try {
     const options: RequestInit = {
       method: "PATCH",
       headers: {
         "X-Action": "IprocessStartAProcess",
-        "X-Business-Unit": enviroment.TEMP_BUSINESS_UNIT,
+        "X-Business-Unit": businessUnitPublicCode,
         "Content-type": "application/json; charset=UTF-8",
       },
       body: JSON.stringify(mapStartProcessEntityToApi(process)),

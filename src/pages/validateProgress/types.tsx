@@ -50,9 +50,38 @@ interface IPersonProcessTime {
   processEstimatedEndDate: string;
 }
 
+interface IProcessPersonsWithErrors{
+  processPersonId: string;
+}
+
+interface IDiscardPersonsWithErrorsRequest {
+  processControlId: string,
+  processPersons: IProcessPersonsWithErrors[];
+}
+
+interface  IDiscardPersonsWithErrorsResponse{
+  businessUnit: string,
+  confirmationForExecutionOfTheProcess: string,
+  executionDate: string,
+  executionParameters: IExecutionParameters,
+  generalError: string,
+  plannedExecution: string,
+  plannedExecutionDate: string,
+  processCatalogId: string,
+  processControlId: string,
+  processDescription: string,
+  processPersons: IProcessPersons[],
+  processStatus: string,
+  timeUsedToInsertPeople: number, 
+  uniqueReferenceNumberRequirement: string
+}
+
 export type {
   IFilterDateForMonthAndYear,
   IpeopleIncludedInTheProcess,
   IProcessPersons,
   IPersonProcessTime,
+  IDiscardPersonsWithErrorsResponse,
+  IDiscardPersonsWithErrorsRequest,
+  IProcessPersonsWithErrors
 };
