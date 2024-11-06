@@ -101,13 +101,6 @@ export const ExecutionStatus = (props: IExecutionStatusProps) => {
       />
       {showModal && (
         <StatusOfExecutionModal
-          attributes={[
-            "personPublicCode",
-            "executionStatusByPerson",
-            "personName",
-            "startDate",
-            "finishDate",
-          ]}
           portalId="portal"
           dataInformationProcess={normalizeDataInformationProcess(
             data.id,

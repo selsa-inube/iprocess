@@ -21,11 +21,12 @@ const normalizeDataInformationProcess = (
   };
 };
 
-const normalizeDataPerson = (entries: IPersonProcess[]) =>
+const normalizeDataPerson = (entries: IPersonProcess[], processControlId: string) =>
   entries.map((entry) => ({
     ...entry,
     id: entry.processPersonId,
     code: entry.personPublicCode,
+    processControlId: processControlId,
     personName: entry.personName,
     startDate: entry.startDate !== "undefined" ? formatDate(new Date(entry.startDate), true) : "",
     dateEnd: formatDate(new Date(entry.finishDate), true) || "",
@@ -38,10 +39,10 @@ const detailsPersonData = (entries: IPersonProcess) => {
   return {
     processPersonId: entries.processPersonId,
     personName: entries.personName,
+    processControlId: entries.processControlId,
     startDate: entries.startDate ? formatDate(new Date(entries.startDate), true): "",
     finishDate: entries.finishDate ? formatDate(new Date(entries.finishDate), true) : "",
     personPublicCode: entries.personPublicCode,
-    errorsDescription: entries.processErrors?.[0]?.errorDescription || "",
     statusText: normalizeStatusRequirementByStatus(entries?.executionStatusByPerson || "")?.name,
   };
 };

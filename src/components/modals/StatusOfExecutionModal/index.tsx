@@ -6,7 +6,6 @@ import { StatusOfExecutionModalUI } from "./interface";
 import { ILabel } from "./types";
 
 interface StatusOfExecutionModalProps {
-  attributes: string[];
   dataInformationProcess: StartProcesses;
   isdiscardPersonsWithErrors: boolean;
   labels: ILabel[];
@@ -20,7 +19,6 @@ interface StatusOfExecutionModalProps {
 
 const StatusOfExecutionModal = (props: StatusOfExecutionModalProps) => {
   const {
-    attributes,
     isdiscardPersonsWithErrors,
     processControlId,
     portalId,
@@ -76,7 +74,6 @@ const StatusOfExecutionModal = (props: StatusOfExecutionModalProps) => {
 
   return (
     <StatusOfExecutionModalUI
-      attributes={attributes}
       dataInformationProcess={dataInformationProcess}
       processControlId={processControlId}
       labels={labels}

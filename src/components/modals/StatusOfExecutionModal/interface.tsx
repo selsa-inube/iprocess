@@ -18,12 +18,11 @@ import { StartProcesses } from "@pages/startProcess/types";
 import { mediaQueryMobile } from "@config/environment";
 import { ComponentAppearance } from "@ptypes/aparences.types";
 import { CardStatusExecution } from "@components/feedback/CardStatusExecution";
+import { IProcessPersonsWithErrors } from "@pages/validateProgress/types";
 import { StyledContainer, StyledFields, StyledModal } from "./styles";
 import { ILabel } from "./types";
-import { IProcessPersonsWithErrors } from "@src/pages/validateProgress/types";
 
 interface StatusOfExecutionModalUIProps {
-  attributes: string[];
   dataInformationProcess: StartProcesses;
   dataSubtmit: IProcessPersonsWithErrors[] | undefined;
   disabledBoton: boolean;
@@ -44,7 +43,6 @@ interface StatusOfExecutionModalUIProps {
 
 const StatusOfExecutionModalUI = (props: StatusOfExecutionModalUIProps) => {
   const {
-    attributes,
     dataInformationProcess,
     isdiscardPersonsWithErrors,
     labels,
@@ -182,7 +180,6 @@ const StatusOfExecutionModalUI = (props: StatusOfExecutionModalUIProps) => {
               }
             >
               <CardStatusExecutionGroupComponent
-                attributes={attributes}
                 processControlId={processControlId}
                 filter={search}
                 filteredWithErrors={seeErrorsChecked}

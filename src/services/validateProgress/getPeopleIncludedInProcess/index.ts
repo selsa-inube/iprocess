@@ -6,7 +6,8 @@ const peopleIncludedInProcess = async (
   businessUnitPublicCode: string,
   processControlId: string,
   page: string,
-  personProcessedWithErrors: string
+  personProcessedWithErrors: string,
+  filter: string
 ): Promise<IProcessPersons[]> => {
   const maxRetries = maxRetriesServices;
   const fetchTimeout = 60000;
@@ -16,7 +17,8 @@ const peopleIncludedInProcess = async (
       const queryParams = new URLSearchParams({
         page: page,
         per_page: "60",
-        executionStatusByPerson: personProcessedWithErrors
+        executionStatusByPerson: personProcessedWithErrors,
+        personName: `lk.lkp.${filter}lkp.`,
       });
       const controller = new AbortController();
       const timeoutId = setTimeout(() => controller.abort(), fetchTimeout);
