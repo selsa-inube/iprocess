@@ -48,7 +48,6 @@ export const ExecutionStatus = (props: IExecutionStatusProps) => {
   };
 
   useEffect(() => {
-    discardData
     if (showModal) {
       estimatedTimeProcessData();
     }
@@ -62,6 +61,7 @@ export const ExecutionStatus = (props: IExecutionStatusProps) => {
       processControlId: data.id || "",
       processPersons: dataDiscardPersons,
     };
+    
     try {
       const newDiscard = await discardPersonsWithErrors(
         appData.businessUnit.publicCode,
@@ -119,6 +119,7 @@ export const ExecutionStatus = (props: IExecutionStatusProps) => {
           onReprocess={() => {}}
           onDiscard={handleDiscard}
           loadingDiscard={loadingDiscard}
+          isdiscardPersonsWithErrors={discardData ? true : false}
         />
       )}
     </>

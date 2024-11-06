@@ -35,7 +35,7 @@ const peopleIncludedInProcess = async (
         `${enviroment.IPROCESS_API_URL_QUERY}/process-controls/${processControlId}?${queryParams.toString()}`,
         options
       );
-
+      
       clearTimeout(timeoutId);
 
       if (res.status === 204) {

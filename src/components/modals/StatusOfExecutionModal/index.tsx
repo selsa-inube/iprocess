@@ -8,10 +8,11 @@ import { ILabel } from "./types";
 interface StatusOfExecutionModalProps {
   attributes: string[];
   dataInformationProcess: StartProcesses;
+  isdiscardPersonsWithErrors: boolean;
   labels: ILabel[];
+  loadingDiscard: boolean;
   portalId: string;
   processControlId: string;
-  loadingDiscard: boolean;
   onCloseModal: () => void;
   onDiscard: (data: IProcessPersonsWithErrors[]) => void;
   onReprocess: () => void;
@@ -20,6 +21,7 @@ interface StatusOfExecutionModalProps {
 const StatusOfExecutionModal = (props: StatusOfExecutionModalProps) => {
   const {
     attributes,
+    isdiscardPersonsWithErrors,
     processControlId,
     portalId,
     dataInformationProcess,
@@ -66,6 +68,12 @@ const StatusOfExecutionModal = (props: StatusOfExecutionModalProps) => {
     }
   }, [dataSubtmit]);
 
+  useEffect(() => { 
+    if (!seeErrorsChecked) {
+      setDataSubtmit([]);
+    }
+  } , [seeErrorsChecked]);
+
   return (
     <StatusOfExecutionModalUI
       attributes={attributes}
@@ -84,6 +92,7 @@ const StatusOfExecutionModal = (props: StatusOfExecutionModalProps) => {
       onReprocess={onReprocess}
       disabledBoton={disabledBoton}
       dataSubtmit={dataSubtmit}
+      isdiscardPersonsWithErrors={isdiscardPersonsWithErrors}
     />
   );
 };

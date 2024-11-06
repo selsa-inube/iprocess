@@ -14,6 +14,7 @@ import { StyledCardStatusGroup } from "./styles";
 
 interface CardStatusExecutionGroupProps {
   attributes: string[];
+  isdiscardPersonsWithErrors: boolean;
   filter: string;
   processControlId: string;
   filteredWithErrors?: boolean;
@@ -23,6 +24,7 @@ interface CardStatusExecutionGroupProps {
 const CardStatusExecutionGroup = (props: CardStatusExecutionGroupProps) => {
   const {
     attributes,
+    isdiscardPersonsWithErrors,
     processControlId,
     filter,
     filteredWithErrors,
@@ -34,23 +36,23 @@ const CardStatusExecutionGroup = (props: CardStatusExecutionGroupProps) => {
   const [peopleIncludedData, setPeopleIncludedData] =
     useState<IProcessPersons[]>();
   const [page, setPage] = useState(1);
-  const [personsProcessedWithErrors, setPersonsProcessedWithErrors] =
-    useState("");
-
-  const peopleIncludedInProcessData = async () => {
+ 
+  const peopleIncludedInProcessData = async (
+    personsProcessedWithErrors: string = "",
+    reset: boolean = false
+  ) => {
     setLoading(true);
     try {
       const newpeopleIncludedInProcess = await peopleIncludedInProcess(
         appData.businessUnit.publicCode,
         processControlId,
-        String(page),
+        String(reset ? 1 : page),
         personsProcessedWithErrors
       );
-      setPeopleIncludedData((prevData) => [
-        ...(prevData || []),
-        ...newpeopleIncludedInProcess,
-      ]);
-      setPage((prevPage) => prevPage + 1);
+      setPeopleIncludedData((prevData) =>
+        reset ? newpeopleIncludedInProcess : [...(prevData || []), ...newpeopleIncludedInProcess]
+      );
+      setPage((prevPage) => (reset ? 2 : prevPage + 1));
     } catch (error) {
       throw new Error(
         `Error al obtener los datos: ${(error as Error).message} `
@@ -80,13 +82,15 @@ const CardStatusExecutionGroup = (props: CardStatusExecutionGroupProps) => {
     return () => divScroll.current?.removeEventListener("scroll", handleScroll);
   }, [loading]);
 
-  useEffect(() => {
-    if (filteredWithErrors) {
-      setPersonsProcessedWithErrors("withErrors");
-    } else {
-      setPersonsProcessedWithErrors("");
-    }
+  useEffect(() => { 
+    peopleIncludedInProcessData(filteredWithErrors ? "ProcessedWithErrors" : "", true);
   }, [filteredWithErrors]);
+
+  useEffect(() => {
+    if (isdiscardPersonsWithErrors) {
+      peopleIncludedInProcessData("ProcessedWithErrors", true);
+    }
+  }, [isdiscardPersonsWithErrors]);
 
   const filteredEntries = useMemo(() => {
     const mapAttributes = attributes.map((attr) => attr);

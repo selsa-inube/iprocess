@@ -27,6 +27,7 @@ interface StatusOfExecutionModalUIProps {
   dataInformationProcess: StartProcesses;
   dataSubtmit: IProcessPersonsWithErrors[] | undefined;
   disabledBoton: boolean;
+  isdiscardPersonsWithErrors: boolean;
   labels: ILabel[];
   loadingDiscard: boolean;
   portalId: string;
@@ -45,6 +46,7 @@ const StatusOfExecutionModalUI = (props: StatusOfExecutionModalUIProps) => {
   const {
     attributes,
     dataInformationProcess,
+    isdiscardPersonsWithErrors,
     labels,
     portalId,
     processControlId,
@@ -185,6 +187,7 @@ const StatusOfExecutionModalUI = (props: StatusOfExecutionModalUIProps) => {
                 filter={search}
                 filteredWithErrors={seeErrorsChecked}
                 handleProcessPersonId={onProcessPersonId}
+                isdiscardPersonsWithErrors={isdiscardPersonsWithErrors}
               />
             </Suspense>
           </Stack>
