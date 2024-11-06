@@ -71,7 +71,6 @@ Default.args = {
   labels,
   dataInformationProcess,
   processControlId: "10",
-  attributes: ["personPublicCode", "executionStatusByPerson", "personName", "startDate", "finishDate"],
 };
 
 export default meta;
