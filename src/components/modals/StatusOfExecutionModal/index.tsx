@@ -1,17 +1,15 @@
 import { useState } from "react";
 
 import { StartProcesses } from "@pages/startProcess/types";
-import { IPersonProcess } from "@components/feedback/CardStatusExecution/types";
 import { StatusOfExecutionModalUI } from "./interface";
 import { ILabel } from "./types";
 
 interface StatusOfExecutionModalProps {
   attributes: string[];
   dataInformationProcess: StartProcesses;
-  dataPerson: IPersonProcess[];
-  isLoading: boolean;
   labels: ILabel[];
   portalId: string;
+  processControlId: string;
   onCloseModal: () => void;
   onReprocess: () => void;
   onDiscard: () => void;
@@ -20,10 +18,9 @@ interface StatusOfExecutionModalProps {
 const StatusOfExecutionModal = (props: StatusOfExecutionModalProps) => {
   const {
     attributes,
+    processControlId,
     portalId,
     dataInformationProcess,
-    isLoading,
-    dataPerson,
     labels,
     onCloseModal,
     onReprocess,
@@ -43,8 +40,7 @@ const StatusOfExecutionModal = (props: StatusOfExecutionModalProps) => {
   return (
     <StatusOfExecutionModalUI
       dataInformationProcess={dataInformationProcess}
-      dataPerson={dataPerson}
-      isLoading={isLoading}
+      processControlId={processControlId}
       labels={labels}
       portalId={portalId}
       search={search}

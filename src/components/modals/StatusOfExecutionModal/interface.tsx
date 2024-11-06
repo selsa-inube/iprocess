@@ -1,3 +1,4 @@
+import React, { lazy, Suspense } from "react";
 import { MdClear } from "react-icons/md";
 import { createPortal } from "react-dom";
 import { useMediaQuery } from "@inubekit/hooks";
@@ -15,18 +16,15 @@ import { Button } from "@inubekit/button";
 import { tokens } from "@design/tokens";
 import { StartProcesses } from "@pages/startProcess/types";
 import { mediaQueryMobile } from "@config/environment";
-import { CardStatusExecution } from "@components/feedback/CardStatusExecution";
-import { CardStatusExecutionGroup } from "@components/feedback/CardStatusExecutionGroup";
-import { IPersonProcess } from "@components/feedback/CardStatusExecution/types";
 import { ComponentAppearance } from "@ptypes/aparences.types";
+import { CardStatusExecution } from "@components/feedback/CardStatusExecution";
 import { StyledContainer, StyledFields, StyledModal } from "./styles";
 import { ILabel } from "./types";
 
 interface StatusOfExecutionModalUIProps {
   attributes: string[];
   dataInformationProcess: StartProcesses;
-  dataPerson: IPersonProcess[];
-  isLoading: boolean;
+  processControlId: string;
   labels: ILabel[];
   portalId: string;
   search: string;
@@ -42,10 +40,9 @@ const StatusOfExecutionModalUI = (props: StatusOfExecutionModalUIProps) => {
   const {
     attributes,
     dataInformationProcess,
-    dataPerson,
-    isLoading,
     labels,
     portalId,
+    processControlId,
     search,
     seeErrorsChecked,
     onChangeSearch,
@@ -65,12 +62,18 @@ const StatusOfExecutionModalUI = (props: StatusOfExecutionModalUIProps) => {
     );
   }
 
+  const CardStatusExecutionGroupComponent = lazy(() =>
+    import("@components/feedback/CardStatusExecutionGroup").then((module) => ({
+      default: module.CardStatusExecutionGroup,
+    }))
+  );
+
   return createPortal(
     <StyledContainer>
       <Blanket>
         <StyledModal $smallScreen={isMobile}>
           <Stack direction="column" gap={tokens.spacing.s250}>
-            <Stack direction="column" gap={tokens.spacing.s100}>
+            <Stack direction="column">
               <Stack alignItems="center" justifyContent="space-between">
                 <Text
                   type="title"
@@ -86,7 +89,7 @@ const StatusOfExecutionModalUI = (props: StatusOfExecutionModalUIProps) => {
             <Grid
               templateColumns="1fr 1fr 1fr"
               templateRows="1fr 1fr"
-              gap={tokens.spacing.s200}
+              gap={tokens.spacing.s100}
             >
               {labels.map((field, id) => {
                 const value =
@@ -158,21 +161,22 @@ const StatusOfExecutionModalUI = (props: StatusOfExecutionModalUIProps) => {
                 size="compact"
               />
             </Grid>
-
-            {isLoading ? (
-              <Stack gap={tokens.spacing.s200} width="100%" wrap="wrap">
-                <CardStatusExecution isLoading={isLoading} />
-                <CardStatusExecution isLoading={isLoading} />
-                <CardStatusExecution isLoading={isLoading} />
-              </Stack>
-            ) : (
-              <CardStatusExecutionGroup
+            <Suspense
+              fallback={
+                <Stack gap={tokens.spacing.s200} width="100%" wrap="wrap">
+                  <CardStatusExecution isLoading={true} />
+                  <CardStatusExecution isLoading={true} />
+                  <CardStatusExecution isLoading={true} />
+                </Stack>
+              }
+            >
+              <CardStatusExecutionGroupComponent
                 attributes={attributes}
-                entries={dataPerson}
+                processControlId={processControlId}
                 filter={search}
                 filteredWithErrors={seeErrorsChecked}
               />
-            )}
+            </Suspense>
           </Stack>
           <Stack gap={tokens.spacing.s100} justifyContent="flex-end">
             <Button
