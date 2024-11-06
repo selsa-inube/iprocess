@@ -29,8 +29,10 @@ const StyledMain = styled.main`
   height: calc(100vh - 54px);
   overflow-y: auto;
   padding: ${tokens.spacing.s400} ${tokens.spacing.s800};
+  padding: ${tokens.spacing.s300};
 
-  @media screen and (max-width: 560px) {
+
+  @media screen and (max-width: 1000px) {
     padding: ${tokens.spacing.s300};
   }
 `;
