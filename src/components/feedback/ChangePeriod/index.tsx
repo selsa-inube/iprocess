@@ -3,15 +3,13 @@ import { MdExpandMore } from "react-icons/md";
 import { Stack } from "@inubekit/stack";
 import { Text } from "@inubekit/text";
 import { Icon } from "@inubekit/icon";
+import { useMediaQuery } from "@inubekit/hooks";
 
 import { tokens } from "@design/tokens";
-import  {currentMonthLetters,
-currentYear,
-} from "@utils/dates";
+import { currentMonthLetters, currentYear } from "@utils/dates";
 import { PeriodsOptionsList } from "@design/feedback/PeriodsOptionsList";
 import { IOption } from "@design/feedback/PeriodsOptionsList/types";
 import { IChangePeriodEntry } from "@pages/startProcess/types";
-
 import { StyledOptionlist } from "./styles";
 
 interface ChangePeriodProps {
@@ -26,12 +24,12 @@ const ChangePeriod = (props: ChangePeriodProps) => {
   const [showListPeriods, setShowListPeriods] = useState(false);
   const [selectedOption, setSelectedOption] = useState<string>("");
   const optionsListRef = useRef<HTMLDivElement>(null);
+  const smallScreen = useMediaQuery("(max-width: 690px)");
 
   const handleClickOutside = (event: MouseEvent) => {
     if (
       optionsListRef.current &&
-      !optionsListRef.current.contains(event.target as Node) &&
-      event.target !== optionsListRef.current
+      !optionsListRef.current.contains(event.target as Node)
     ) {
       setShowListPeriods(false);
     }
@@ -49,7 +47,9 @@ const ChangePeriod = (props: ChangePeriodProps) => {
   };
 
   const periodCurrent = currentMonthLetters + " " + currentYear;
-  const period = listOfPeriods?.find( (period) => period.label === periodCurrent)?.id;
+  const period = listOfPeriods?.find(
+    (period) => period.label === periodCurrent
+  )?.id;
 
   useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);
@@ -61,7 +61,12 @@ const ChangePeriod = (props: ChangePeriodProps) => {
 
   return (
     <Stack gap={tokens.spacing.s150} alignItems="center">
-      <Text type="title" size="medium" appearance="dark" weight="bold">
+      <Text
+        type="title"
+        size={smallScreen ? "small" : "medium"}
+        appearance="dark"
+        weight="bold"
+      >
         {description}
       </Text>
 
@@ -75,10 +80,10 @@ const ChangePeriod = (props: ChangePeriodProps) => {
         onClick={() => setShowListPeriods(true)}
       />
 
-      {showListPeriods && listOfPeriods &&(
+      {showListPeriods && listOfPeriods && (
         <StyledOptionlist
           $numberOptions={listOfPeriods.length}
-          $ref={optionsListRef}
+          ref={optionsListRef}
         >
           <PeriodsOptionsList
             options={listOfPeriods}

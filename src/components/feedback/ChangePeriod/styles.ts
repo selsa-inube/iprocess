@@ -10,6 +10,11 @@ const StyledOptionlist = styled.div<IStyledOptionlist>`
   position: relative;
   bottom: ${({ $numberOptions }) => ($numberOptions > 5 ? "160px" : "80px")}; 
   right: 40px;
+
+  @media (max-width: 520px) {
+ left: -150px;
+ bottom: 0px;    
+  }
 `;
 
 export { StyledOptionlist };

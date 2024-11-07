@@ -1,6 +1,7 @@
 import { MdSearch } from "react-icons/md";
 import { Stack } from "@inubekit/stack";
 import { Textfield } from "@inubekit/textfield";
+import { useMediaQuery } from "@inubekit/hooks";
 
 import { ChangePeriod } from "@components/feedback/ChangePeriod";
 import { CardProcess } from "@components/feedback/CardProcess";
@@ -41,17 +42,25 @@ function ScheduledTabUI(props: ScheduledTabUIProps) {
 
   const formatMonth = formatMonthEndpoint(month);
   const formatYear = Number(year);
+  const smallScreen = useMediaQuery("(max-width: 690px)");
 
-  
   const normalizedPeriods = listOfPeriods.map((period) => ({
     id: period.numberMonth.toString(),
     label: `${monthNormalize[period.month]} ${period.year}`,
   }));
 
   return (
-    <Stack direction="column" gap={tokens.spacing.s600}>
+    <Stack
+      direction="column"
+      gap={smallScreen ? `${tokens.spacing.s300}` : `${tokens.spacing.s600}`}
+      justifyContent= {smallScreen ? "center" : "normal"}
+    >
       <Stack gap={tokens.spacing.s400} direction="column">
-        <Stack justifyContent="space-between">
+        <Stack
+          justifyContent={"space-between"} 
+          direction={smallScreen ? "column" : "row"}
+          gap={smallScreen ? `${tokens.spacing.s150}` :`${tokens.spacing.s0}`}
+        >
           <ChangePeriod
             description={`Procesos del mes de ${month} ${year}`}
             listOfPeriods={normalizedPeriods}
