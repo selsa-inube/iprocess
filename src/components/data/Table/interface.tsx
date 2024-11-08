@@ -5,6 +5,7 @@ import { useMediaQueries } from "@inubekit/hooks";
 import { SkeletonLine } from "@inubekit/skeleton";
 
 import { IInfoModal } from "@components/modals/InfoModal/types";
+import { mediaQueryMobile } from "@config/environment";
 import {
   StyledTable,
   StyledThead,
@@ -78,7 +79,8 @@ function showActionTitle(
   mediaQuery: boolean,
   multipleTables: boolean,
   typeTitle: ITypeTitle,
-  infoData: IInfoModal[]
+  infoData: IInfoModal[],
+  
 ) {
   return !mediaQuery
     ? actionTitle.map((action) => (
@@ -102,7 +104,7 @@ function showActionTitle(
         <StyledThActionResponsive key={`action-${action.id}`}></StyledThActionResponsive>
       ) : (
         <StyledThActionResponsive key={"action-00"}>
-          <InfoActions data={infoData}/>
+           <InfoActions data={infoData} />
         </StyledThActionResponsive>
       )
     );
@@ -111,6 +113,7 @@ function showActionTitle(
 function ShowAction(
   actionContent: IAction[],
   entry: IActions,
+  multipleTables: boolean,
   actionContentResponsive: IAction[],
   mediaQuery: boolean
 ) {
@@ -124,11 +127,21 @@ function ShowAction(
     </>
   ) : (
     <>
-      {actionContentResponsive.map((action) => (
-        <StyledTdActions key={`${entry.id}-${action.id}`}>
-          {action.content(entry)}
-        </StyledTdActions>
-      ))}
+      {multipleTables ?(
+        actionContent.map((action) => (
+          <StyledTdActions key={`${entry.id}-${action.id}`}>
+            {action.content(entry)}
+          </StyledTdActions>
+        ))
+      ):(
+        actionContentResponsive.map((action) => (
+          <StyledTdActions key={`${entry.id}-${action.id}`}>
+            {action.content(entry)}
+          </StyledTdActions>
+        ))
+      )
+      
+      }
     </>
   );
 }
@@ -148,8 +161,8 @@ const TableUI = (props: Omit<ITable, "id">) => {
     multipleTables = false,
   } = props;
 
-  const mediaActionOpen = useMediaQuery("(max-width: 645px)");
-
+  const mediaActionOpen = useMediaQuery(mediaQueryMobile);
+  
   const queriesArray = useMemo(
     () => breakpoints && breakpoints.map((breakpoint) => breakpoint.breakpoint),
     [breakpoints]
@@ -167,7 +180,7 @@ const TableUI = (props: Omit<ITable, "id">) => {
   return (
     <StyledContainer $multipleTables={multipleTables}>
       <StyledTable $smallScreen={mediaActionOpen}>
-        <StyledThead $smallScreen={mediaActionOpen}>
+        <StyledThead $smallScreen={mediaActionOpen} $actionsLength={actionsResponsive?.length}>
           <StyledTr>
             {TitleColumns.map((title) => (
               <StyledThTitle key={`title-${title.id}`}>
@@ -193,7 +206,7 @@ const TableUI = (props: Omit<ITable, "id">) => {
                 mediaActionOpen,
                 multipleTables,
                 typeTitle,
-                infoData || []
+                infoData || [],
               )}
           </StyledTr>
         </StyledThead>
@@ -211,6 +224,7 @@ const TableUI = (props: Omit<ITable, "id">) => {
                     $pageLength={pageLength}
                     $entriesLength={entries.length}
                     $widthFirstColumn={widthFirstColumn}
+                    $actionsLength={actionsResponsive?.length}
                   >
                     {TitleColumns.map((title) => (
                       <StyledTd
@@ -236,6 +250,7 @@ const TableUI = (props: Omit<ITable, "id">) => {
                       ShowAction(
                         actions,
                         entry,
+                        multipleTables,
                         actionsResponsive || [],
                         mediaActionOpen
                       )}

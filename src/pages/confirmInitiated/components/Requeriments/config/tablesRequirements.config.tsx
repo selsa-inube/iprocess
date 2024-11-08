@@ -16,6 +16,10 @@ import {
 import { appearances } from "@pages/confirmInitiated/types";
 import { MoreDetails } from "../MoreDetails";
 import { Approval } from "../Approval";
+import { Icon, IIconAppearance } from "@inubekit/icon";
+import { IInfoModal } from "@src/components/modals/InfoModal/types";
+import { MdCancel, MdCheckCircle, MdDoDisturbOn } from "react-icons/md";
+import { ComponentAppearance } from "@src/types/aparences.types";
 
 const requirementsNotMet = [
   "ERROR_IN_EVALUATION",
@@ -39,9 +43,9 @@ const requirementsNormailzeEntries = (entry: IlistOfRequirements[]) =>
           )?.name || "Estado no definido"
         }
         appearance={
-          normalizeEvalStatusRequirementByStatus(
+          (normalizeEvalStatusRequirementByStatus(
             String(entry.requirementStatus)
-          )?.appearance as appearances || "gray"
+          )?.appearance as appearances) || "gray"
         }
         weight="strong"
       />
@@ -63,7 +67,7 @@ const moreDetailsNormailzeEntries = (requiriment: IlistOfRequirements) => {
 const approvalsListOfReqNormailzeEntries = (
   requirement: IlistOfRequirements
 ) => {
-   return {
+  return {
     packageId: requirement.id,
     requirementId: requirement.requirementId,
     requirementPackageId: requirement.requirementPackageId,
@@ -75,10 +79,55 @@ const approvalsListOfReqNormailzeEntries = (
     descriptionEvaluationRequirement:
       requirement.descriptionEvaluationRequirement,
     typeOfRequirementToEvaluated: requirement.typeOfRequirementToEvaluated,
-  }};
+  };
+};
 
+const actionsResponsiveReq = [
+  {
+    id: "evaluationStatus",
+    actionName: "",
+    content: () => <></>,
+  },
+  {
+    id: "details",
+    actionName: "",
+    content: () => <></>,
+  },
+  {
+    id: "approvals",
+    actionName: "",
+    content: () => <></>,
+  },
+];
 
-const dataTablesConfig = (data: IRefNumPackageRequirement, setLoadDataTable:(show: boolean)=> void) => {
+const infoDataTable: IInfoModal[] = [
+  {
+    infoName: "Cumple",
+    infoIcon: <MdCheckCircle />,
+    appearanceIcon: ComponentAppearance.SUCCESS,
+  },
+  {
+    infoName: "No Cumple",
+    infoIcon: <MdCancel />,
+    appearanceIcon: ComponentAppearance.DANGER,
+  },
+  {
+    infoName: "Sin Evaluar",
+    infoIcon: <MdDoDisturbOn />,
+    appearanceIcon: ComponentAppearance.WARNING,
+  },
+  {
+    infoName: "No Definido",
+    infoIcon: <MdCheckCircle />,
+    appearanceIcon: ComponentAppearance.GRAY,
+  },
+];
+
+const dataTablesConfig = (
+  data: IRefNumPackageRequirement,
+  setLoadDataTable: (show: boolean) => void,
+  mediaQueryMobile: boolean
+) => {
   const dataTables: IData[] = [];
   const requirements = data?.listOfRequirements ?? [];
 
@@ -119,9 +168,9 @@ const dataTablesConfig = (data: IRefNumPackageRequirement, setLoadDataTable:(sho
               actionName: "Aprobaciones",
               content: (entry: IActions) => (
                 <Approval
-                dataListOfRequirements={
-                  approvalsListOfReqNormailzeEntries(entry as IlistOfRequirements)
-                }
+                  dataListOfRequirements={approvalsListOfReqNormailzeEntries(
+                    entry as IlistOfRequirements
+                  )}
                   packageId={data.id}
                   setLoadDataTable={setLoadDataTable}
                 />
@@ -145,30 +194,145 @@ const dataTablesConfig = (data: IRefNumPackageRequirement, setLoadDataTable:(sho
               actionName: "",
               content: (entry: IActions) => (
                 <Approval
-                dataListOfRequirements={
-                  approvalsListOfReqNormailzeEntries(entry as IlistOfRequirements)
-                }
-                packageId={data.id}
-                setLoadDataTable={setLoadDataTable}
+                  dataListOfRequirements={approvalsListOfReqNormailzeEntries(
+                    entry as IlistOfRequirements
+                  )}
+                  packageId={data.id}
+                  setLoadDataTable={setLoadDataTable}
                 />
               ),
             },
           ],
         ];
-        dataTables.push({
-          id: entry.requirementType,
-          titlesRequirements: titleRequirements,
-          entriesRequirements: requirements
-            .filter(
-              (requirement) =>
-                requirement.requirementType === entry.requirementType
-            )
-            .map((requirement, index) => ({
-              ...requirement,
-              id: String(index),
-            })),
-          actionsRequirements: dataTables.length > 0 ? actions[1] : actions[0],
-        });
+
+        const actionsResponsiveRequirements: IAction[][] = [
+          [
+            {
+              id: "evaluationStatus",
+              actionName: "",
+              content: (entry: IActions) => (
+                <Icon
+                  appearance={
+                    (normalizeEvalStatusRequirementByStatus(
+                      entry.requirementStatus as string
+                    )?.appearance as IIconAppearance) || "gray"
+                  }
+                  icon={
+                    normalizeEvalStatusRequirementByStatus(
+                      entry.requirementStatus as string
+                    )?.icon
+                  }
+                  size="16px"
+                />
+              ),
+            },
+            {
+              id: "details",
+              actionName: "Más Detalles",
+              content: (entry: IActions) => (
+                <MoreDetails
+                  data={moreDetailsNormailzeEntries(
+                    entry as IlistOfRequirements
+                  )}
+                />
+              ),
+            },
+            {
+              id: "approvals",
+              actionName: "Aprobaciones",
+              content: (entry: IActions) => (
+                <Approval
+                  dataListOfRequirements={approvalsListOfReqNormailzeEntries(
+                    entry as IlistOfRequirements
+                  )}
+                  packageId={data.id}
+                  setLoadDataTable={setLoadDataTable}
+                />
+              ),
+            },
+          ],
+          [
+            {
+              id: "evaluationStatus",
+              actionName: "",
+              content: (entry: IActions) => (
+                <Icon
+                  appearance={
+                    (normalizeEvalStatusRequirementByStatus(
+                      entry.requirementStatus as string
+                    )?.appearance as IIconAppearance) || "gray"
+                  }
+                  icon={
+                    normalizeEvalStatusRequirementByStatus(
+                      entry.requirementStatus as string
+                    )?.icon
+                  }
+                  size="16px"
+                />
+              ),
+            },
+            {
+              id: "details",
+              actionName: "",
+              content: (entry: IActions) => (
+                <MoreDetails
+                  data={moreDetailsNormailzeEntries(
+                    entry as IlistOfRequirements
+                  )}
+                />
+              ),
+            },
+            {
+              id: "approvals",
+              actionName: "",
+              content: (entry: IActions) => (
+                <Approval
+                  dataListOfRequirements={approvalsListOfReqNormailzeEntries(
+                    entry as IlistOfRequirements
+                  )}
+                  packageId={data.id}
+                  setLoadDataTable={setLoadDataTable}
+                />
+              ),
+            },
+          ],
+        ];
+
+        if (mediaQueryMobile) {
+          dataTables.push({
+            id: entry.requirementType,
+            titlesRequirements: titleRequirements,
+            entriesRequirements: requirements
+              .filter(
+                (requirement) =>
+                  requirement.requirementType === entry.requirementType
+              )
+              .map((requirement, index) => ({
+                ...requirement,
+                id: String(index),
+              })),
+            actionsRequirements:
+              dataTables.length > 0
+                ? actionsResponsiveRequirements[1]
+                : actionsResponsiveRequirements[0],
+          });
+        } else {
+          dataTables.push({
+            id: entry.requirementType,
+            titlesRequirements: titleRequirements,
+            entriesRequirements: requirements
+              .filter(
+                (requirement) =>
+                  requirement.requirementType === entry.requirementType
+              )
+              .map((requirement, index) => ({
+                ...requirement,
+                id: String(index),
+              })),
+            actionsRequirements:
+              dataTables.length > 0 ? actions[1] : actions[0],
+          });
+        }
       }
     }
   );
@@ -187,13 +351,18 @@ const labelsMoreDetails = [
   },
 ];
 
-const breakPoints = [{ breakpoint: "(min-width: 1091px)", totalColumns: 3 }];
+const breakPoints = [
+  { breakpoint: "(min-width: 771px)", totalColumns: 3 },
+  { breakpoint: "(max-width: 770px)", totalColumns: 1 },
+];
 
 export {
   dataTablesConfig,
   breakPoints,
   labelsMoreDetails,
   requirementsNotMet,
+  actionsResponsiveReq,
+  infoDataTable,
   requirementsNormailzeEntries,
   moreDetailsNormailzeEntries,
 };

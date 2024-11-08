@@ -6,12 +6,16 @@ import { Icon } from "@inubekit/icon";
 import { Stack } from "@inubekit/stack";
 import { Text } from "@inubekit/text";
 import { Button } from "@inubekit/button";
+import { useMediaQuery } from "@inubekit/hooks";
 
 import { Table } from "@components/data/Table";
-import { IBreakpoint } from "@components/data/Table/props";
-
+import { IAction, IBreakpoint } from "@components/data/Table/props";
+import { ComponentAppearance } from '@ptypes/aparences.types';
+import { mediaQueryMobile } from "@config/environment";
 import { IData } from "./types";
 import { StyledContainerTables, StyledModal } from "./styles";
+import { IInfoModal } from "../InfoModal/types";
+
 
 interface RequirementsModalProps {
   breakpoints: IBreakpoint[];
@@ -20,13 +24,17 @@ interface RequirementsModalProps {
   requirements: IData[];
   title: string;
   onCloseModal: () => void;
+  infoData?: IInfoModal[];
+  actionsResponsiveReq?: IAction[];
 }
 
 function RequirementsModal(props: RequirementsModalProps) {
-  const { breakpoints, isLoading, portalId, requirements, title, onCloseModal } =
+  const { breakpoints, isLoading, portalId, requirements, title,infoData, actionsResponsiveReq, onCloseModal } =
     props;
 
   const node = document.getElementById(portalId);
+
+  const isMobile = useMediaQuery(mediaQueryMobile);
 
   if (!node) {
     throw new Error(
@@ -36,7 +44,7 @@ function RequirementsModal(props: RequirementsModalProps) {
 
   return createPortal(
     <Blanket>
-      <StyledModal>
+      <StyledModal $smallScreen={isMobile}>
         <Stack direction="column" width="100%">
           <Stack justifyContent="space-between" alignItems="center">
             <Text type="title" size="medium" appearance="dark">
@@ -56,24 +64,26 @@ function RequirementsModal(props: RequirementsModalProps) {
 
         {requirements.length === 0 ? (
           <Stack padding="12px">
-            <Text type="body" size="medium" appearance="dark" ellipsis>
+            <Text type="body" size="medium" appearance={ComponentAppearance.DARK} ellipsis>
               No identificado
             </Text>
           </Stack>
         ) : (
-          <StyledContainerTables>
+          <StyledContainerTables $smallScreen={isMobile}>
             {requirements.map((requirement) => (
-              <Stack direction="column" key={requirement.id}>
+              <Stack direction="column" key={requirement.id} width="100%">
                 <Table
                   id="portal"
                   titles={requirement.titlesRequirements}
                   actions={requirement.actionsRequirements}
+                  actionsResponsive={actionsResponsiveReq || []}
                   entries={requirement.entriesRequirements}
                   isLoading={isLoading}
                   breakpoints={breakpoints}
-                  widthFirstColumn="55%"
+                 widthFirstColumn="55%"
                   multipleTables={true}
                   typeTitle={"label"}
+                  infoData={infoData}
                 />
               </Stack>
             ))}

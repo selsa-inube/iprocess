@@ -16,9 +16,12 @@ import {
 } from "@ptypes/statusRequeriments.types";
 import { IData } from "@components/modals/requirementsModal/types";
 import { normalizeStatusRequirementByName } from "@utils/requirements";
+import { mediaQueryMobile } from "@config/environment";
 import {
+  actionsResponsiveReq,
   breakPoints,
   dataTablesConfig,
+  infoDataTable,
 } from "./config/tablesRequirements.config";
 import { StyledContainer, StyledContainerIcon } from "./styles";
 
@@ -53,7 +56,7 @@ const ScheduledRequirementsUI = (props: ScheduledRequirementsUIProps) => {
     withTooltip,
   } = props;
 
-  const tabletScreen = useMediaQuery("(max-width: 645px)");
+  const tabletScreen = useMediaQuery(mediaQueryMobile);
 
   const validateStatus =
     normalizeStatusRequirement?.name === "Sin Evaluar" ||
@@ -131,9 +134,11 @@ const ScheduledRequirementsUI = (props: ScheduledRequirementsUIProps) => {
           breakpoints={breakPoints}
           isLoading={isVisibleRequirements}
           portalId="portal"
-          requirements={dataTablesConfig(processRequirementData) as IData[]}
+          requirements={dataTablesConfig(processRequirementData, tabletScreen) as IData[]}
           title="Pre-validar Requisitos"
           onCloseModal={handleToggleModal}
+          infoData={infoDataTable}
+          actionsResponsiveReq={actionsResponsiveReq}
         />
       )}
     </>
