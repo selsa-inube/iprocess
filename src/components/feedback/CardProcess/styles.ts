@@ -21,6 +21,10 @@ const StyledContainer = styled.div`
     word-break: keep-all;
     white-space: normal;
   }
+
+  @media (max-width: 690px) {
+    width: 305px; 
+  }
 `;
 
 const StyledAction = styled.div`

@@ -37,7 +37,7 @@ function AppPage() {
   const businessUnitChangeRef = useRef<HTMLDivElement>(null);
   const [selectedClient, setSelectedClient] = useState<string>("");
   const navigate= useNavigate();
-  const isTablet = useMediaQuery("(max-width: 944px)");
+  const isTablet = useMediaQuery("(max-width: 849px)");
 
   useEffect(() => {
     if (appData.businessUnit.publicCode) {

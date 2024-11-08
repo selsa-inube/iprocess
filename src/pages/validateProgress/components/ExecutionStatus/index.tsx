@@ -5,7 +5,6 @@ import { useFlag } from "@inubekit/flag";
 
 import { tokens } from "@design/tokens";
 import { StatusOfExecutionModal } from "@components/modals/StatusOfExecutionModal";
-import { peopleIncludedInProcess } from "@services/validateProgress/getPeopleIncludedInProcess";
 import { StartProcesses } from "@pages/startProcess/types";
 import { personProcess } from "@services/validateProgress/getEstimatedTimeToProcess";
 import { ComponentAppearance } from "@ptypes/aparences.types";
@@ -14,14 +13,8 @@ import { AppContext } from "@context/AppContext";
 import {
   labels,
   normalizeDataInformationProcess,
-  normalizeDataPerson,
 } from "./config/cardPerson.config";
-import {
-  IDiscardPersonsWithErrorsResponse,
-  IpeopleIncludedInTheProcess,
-  IPersonProcessTime,
-  IProcessPersonsWithErrors,
-} from "../../types";
+import { IDiscardPersonsWithErrorsResponse, IPersonProcessTime, IProcessPersonsWithErrors } from "../../types";
 
 interface IExecutionStatusProps {
   data: StartProcesses;
@@ -32,32 +25,13 @@ export const ExecutionStatus = (props: IExecutionStatusProps) => {
   const { appData } = useContext(AppContext);
   const { addFlag } = useFlag();
   const [showModal, setShowModal] = useState(false);
-  const [loading, setLoading] = useState<boolean>(false);
   const [loadingDiscard, setLoadingDiscard] = useState<boolean>(false);
-  const [peopleIncludedData, setPeopleIncludedData] =
-    useState<IpeopleIncludedInTheProcess>();
+
   const [personProcessData, setPersonProcessData] =
     useState<IPersonProcessTime>();
   const [discardData, setDiscardData] = useState<
     IDiscardPersonsWithErrorsResponse | undefined
   >();
-
-  const peopleIncludedInProcessData = async () => {
-    setLoading(true);
-    try {
-      const newpeopleIncludedInProcess = await peopleIncludedInProcess(
-        appData.businessUnit.publicCode,
-        data.id
-      );
-      setPeopleIncludedData(newpeopleIncludedInProcess);
-    } catch (error) {
-      throw new Error(
-        `Error al obtener los datos: ${(error as Error).message} `
-      );
-    } finally {
-      setLoading(false);
-    }
-  };
 
   const estimatedTimeProcessData = async () => {
     try {
@@ -76,7 +50,6 @@ export const ExecutionStatus = (props: IExecutionStatusProps) => {
   useEffect(() => {
     if (showModal) {
       estimatedTimeProcessData();
-      peopleIncludedInProcessData();
     }
   }, [showModal]);
 
@@ -85,9 +58,10 @@ export const ExecutionStatus = (props: IExecutionStatusProps) => {
   ) => {
     setLoadingDiscard(true);
     const dataDiscard = {
-      processControlId: peopleIncludedData?.processControlId || "",
+      processControlId: data.id || "",
       processPersons: dataDiscardPersons,
     };
+    
     try {
       const newDiscard = await discardPersonsWithErrors(
         appData.businessUnit.publicCode,
@@ -110,12 +84,7 @@ export const ExecutionStatus = (props: IExecutionStatusProps) => {
     }
   };
 
-  useEffect(() => {
-    if (discardData) {
-      peopleIncludedInProcessData();
-    }
-  }, [discardData]);
-
+  
   const handleToggleModal = () => {
     setShowModal(!showModal);
   };
@@ -132,27 +101,18 @@ export const ExecutionStatus = (props: IExecutionStatusProps) => {
       />
       {showModal && (
         <StatusOfExecutionModal
-          attributes={[
-            "personPublicCode",
-            "executionStatusByPerson",
-            "personName",
-            "startDate",
-            "finishDate",
-          ]}
           portalId="portal"
           dataInformationProcess={normalizeDataInformationProcess(
             data.id,
             personProcessData || ({} as IPersonProcessTime)
           )}
-          isLoading={loading}
-          dataPerson={normalizeDataPerson(
-            peopleIncludedData?.processPersons || []
-          )}
+          processControlId={data.id}
           labels={labels}
           onCloseModal={handleToggleModal}
           onReprocess={() => {}}
           onDiscard={handleDiscard}
           loadingDiscard={loadingDiscard}
+          isdiscardPersonsWithErrors={discardData ? true : false}
         />
       )}
     </>

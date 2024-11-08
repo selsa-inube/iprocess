@@ -4,7 +4,6 @@ import { Link } from "@inubekit/link";
 import { SkeletonIcon, SkeletonLine } from "@inubekit/skeleton";
 
 import { tokens } from "@design/tokens";
-
 import { IActions, IProcess } from "./types";
 import { StyledAction, StyledContainer } from "./styles";
 

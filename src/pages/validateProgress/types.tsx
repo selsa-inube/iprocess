@@ -76,6 +76,14 @@ interface  IDiscardPersonsWithErrorsResponse{
   uniqueReferenceNumberRequirement: string
 }
 
+interface IPersonWithError {
+  procesErrorId: string;
+  processControlId: string;
+  processPersonId: string;
+  errorDescription: string;
+  errorStatus: string;
+}
+
 export type {
   IFilterDateForMonthAndYear,
   IpeopleIncludedInTheProcess,
@@ -83,5 +91,6 @@ export type {
   IPersonProcessTime,
   IDiscardPersonsWithErrorsResponse,
   IDiscardPersonsWithErrorsRequest,
-  IProcessPersonsWithErrors
+  IProcessPersonsWithErrors,
+  IPersonWithError
 };

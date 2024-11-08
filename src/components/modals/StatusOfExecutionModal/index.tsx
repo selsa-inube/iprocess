@@ -1,19 +1,17 @@
 import { useEffect, useState } from "react";
 
 import { StartProcesses } from "@pages/startProcess/types";
-import { IPersonProcess } from "@components/feedback/CardStatusExecution/types";
 import { IProcessPersonsWithErrors } from "@pages/validateProgress/types";
 import { StatusOfExecutionModalUI } from "./interface";
 import { ILabel } from "./types";
 
 interface StatusOfExecutionModalProps {
-  attributes: string[];
   dataInformationProcess: StartProcesses;
-  dataPerson: IPersonProcess[];
-  isLoading: boolean;
+  isdiscardPersonsWithErrors: boolean;
   labels: ILabel[];
-  portalId: string;
   loadingDiscard: boolean;
+  portalId: string;
+  processControlId: string;
   onCloseModal: () => void;
   onDiscard: (data: IProcessPersonsWithErrors[]) => void;
   onReprocess: () => void;
@@ -21,11 +19,10 @@ interface StatusOfExecutionModalProps {
 
 const StatusOfExecutionModal = (props: StatusOfExecutionModalProps) => {
   const {
-    attributes,
+    isdiscardPersonsWithErrors,
+    processControlId,
     portalId,
     dataInformationProcess,
-    isLoading,
-    dataPerson,
     labels,
     loadingDiscard,
     onCloseModal,
@@ -69,14 +66,16 @@ const StatusOfExecutionModal = (props: StatusOfExecutionModalProps) => {
     }
   }, [dataSubtmit]);
 
+  useEffect(() => { 
+    if (!seeErrorsChecked) {
+      setDataSubtmit([]);
+    }
+  } , [seeErrorsChecked]);
+
   return (
     <StatusOfExecutionModalUI
-      attributes={attributes}
       dataInformationProcess={dataInformationProcess}
-      dataPerson={dataPerson}
-      dataSubtmit={dataSubtmit}
-      disabledBoton={disabledBoton}
-      isLoading={isLoading}
+      processControlId={processControlId}
       labels={labels}
       portalId={portalId}
       search={search}
@@ -88,6 +87,9 @@ const StatusOfExecutionModal = (props: StatusOfExecutionModalProps) => {
       onDiscard={onDiscard}
       onProcessPersonId={handleProcessPersonId}
       onReprocess={onReprocess}
+      disabledBoton={disabledBoton}
+      dataSubtmit={dataSubtmit}
+      isdiscardPersonsWithErrors={isdiscardPersonsWithErrors}
     />
   );
 };

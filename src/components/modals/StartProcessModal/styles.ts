@@ -15,9 +15,8 @@ const StyledModal = styled.div<IStyledModal>`
     theme?.palette?.neutral?.N10 || inube.palette.neutral.N10};
 
   width: ${(props) => (props.$smallScreen ? "280px" : "450px")};
-  min-height: ${(props) => (props.$smallScreen ? "100vh" : "auto")};
   height: auto;
-  border-radius: ${(props) => (props.$smallScreen ? `${tokens.spacing.s0}`: `${tokens.spacing.s100}`)};
+  border-radius: ${(props) => (props.$smallScreen ? `${tokens.spacing.s200}`: `${tokens.spacing.s100}`)};
 
   & > div {
     padding: ${(props) => (props.$smallScreen ? `${tokens.spacing.s200}` : `${tokens.spacing.s300}`)};
