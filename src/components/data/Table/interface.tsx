@@ -4,6 +4,7 @@ import { useMediaQuery } from "@inubekit/hooks";
 import { useMediaQueries } from "@inubekit/hooks";
 import { SkeletonLine } from "@inubekit/skeleton";
 
+import { IInfoModal } from "@components/modals/InfoModal/types";
 import {
   StyledTable,
   StyledThead,
@@ -14,9 +15,11 @@ import {
   StyledTd,
   StyledTdActions,
   StyledContainer,
+  StyledThActionResponsive,
 } from "./styles";
 import { IAction, IActions, IBreakpoint, ITitle, ITypeTitle } from "./props";
 import { ITable } from ".";
+import { InfoActions } from "./InfoActions";
 
 const actionsLoading = (numberActions: number) => {
   const cellsOfActionsLoading = [];
@@ -71,36 +74,57 @@ function totalTitleColumns(
 
 function showActionTitle(
   actionTitle: IAction[],
+  actionTitleResponsive: IAction[],
   mediaQuery: boolean,
   multipleTables: boolean,
-  typeTitle: ITypeTitle
+  typeTitle: ITypeTitle,
+  infoData: IInfoModal[]
 ) {
-  return !mediaQuery ? (
-    actionTitle.map((action) => (
-      <StyledThAction
-        key={`action-${action.id}`}
-        $multipleTables={multipleTables}
-      >
-        <Text
-          type={typeTitle}
-          size="small"
-          textAlign="center"
-          appearance="dark"
-          weight="bold"
+  return !mediaQuery
+    ? actionTitle.map((action) => (
+        <StyledThAction
+          key={`action-${action.id}`}
+          $multipleTables={multipleTables}
         >
-          {action.actionName}
-        </Text>
-      </StyledThAction>
-    ))
-  ) : (
-    <StyledThAction $multipleTables={multipleTables}></StyledThAction>
-  );
+          <Text
+            type={typeTitle}
+            size="small"
+            textAlign="center"
+            appearance="dark"
+            weight="bold"
+          >
+            {action.actionName}
+          </Text>
+        </StyledThAction>
+      ))
+    : actionTitleResponsive.map((action, index) =>
+      actionTitleResponsive.length - 1 !== index ? (
+        <StyledThActionResponsive key={`action-${action.id}`}></StyledThActionResponsive>
+      ) : (
+        <StyledThActionResponsive key={"action-00"}>
+          <InfoActions data={infoData}/>
+        </StyledThActionResponsive>
+      )
+    );
 }
 
-function ShowAction(actionContent: IAction[], entry: IActions) {
-  return (
+function ShowAction(
+  actionContent: IAction[],
+  entry: IActions,
+  actionContentResponsive: IAction[],
+  mediaQuery: boolean
+) {
+  return !mediaQuery ? (
     <>
       {actionContent.map((action) => (
+        <StyledTdActions key={`${entry.id}-${action.id}`}>
+          {action.content(entry)}
+        </StyledTdActions>
+      ))}
+    </>
+  ) : (
+    <>
+      {actionContentResponsive.map((action) => (
         <StyledTdActions key={`${entry.id}-${action.id}`}>
           {action.content(entry)}
         </StyledTdActions>
@@ -112,7 +136,9 @@ function ShowAction(actionContent: IAction[], entry: IActions) {
 const TableUI = (props: Omit<ITable, "id">) => {
   const {
     actions,
+    actionsResponsive,
     entries,
+    infoData,
     breakpoints,
     isLoading,
     pageLength,
@@ -122,7 +148,7 @@ const TableUI = (props: Omit<ITable, "id">) => {
     multipleTables = false,
   } = props;
 
-  const mediaActionOpen = useMediaQuery("(max-width: 1120px)");
+  const mediaActionOpen = useMediaQuery("(max-width: 645px)");
 
   const queriesArray = useMemo(
     () => breakpoints && breakpoints.map((breakpoint) => breakpoint.breakpoint),
@@ -163,9 +189,11 @@ const TableUI = (props: Omit<ITable, "id">) => {
             {actions &&
               showActionTitle(
                 actions,
+                actionsResponsive || [],
                 mediaActionOpen,
                 multipleTables,
-                typeTitle
+                typeTitle,
+                infoData || []
               )}
           </StyledTr>
         </StyledThead>
@@ -204,7 +232,13 @@ const TableUI = (props: Omit<ITable, "id">) => {
                         )}
                       </StyledTd>
                     ))}
-                    {actions && ShowAction(actions, entry)}
+                    {actions &&
+                      ShowAction(
+                        actions,
+                        entry,
+                        actionsResponsive || [],
+                        mediaActionOpen
+                      )}
                   </StyledTr>
                 ))
               ) : (

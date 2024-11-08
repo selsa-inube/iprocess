@@ -1,12 +1,4 @@
-const statusRequirement = [
-  { status: "Meets", name: "Cumple", appearance: "success" },
-  { status: "NotMeets", name: "No Cumple", appearance: "danger" },
-  { status: "NoMeets", name: "No Cumple", appearance: "danger" },
-  { status: "NoEvaluated", name: "Sin Evaluar", appearance: "warning" },
-  { status: "Undefined", name: "No Definido", appearance: "gray" },
-  { status: "WithoutProcessing", name: "Sin procesar", appearance: "warning" },
-  { status: "ProcessedWithErrors", name: "Error", appearance: "danger" },
-];
+import { statusRequirement } from "./requirementsStatus";
 
 const evaluationStatusRequirement = [
   {
@@ -77,7 +69,6 @@ const normalizeexecutionStatusByPerson = (requirement: string) =>
 
 
 export {
-  statusRequirement,
   filteredExecutionStatusByPerson, 
   RequirementTypeNormalize,
   normalizeStatusRequirementByStatus,

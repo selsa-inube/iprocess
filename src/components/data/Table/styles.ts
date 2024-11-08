@@ -36,15 +36,18 @@ interface IStyledThAction {
 
 const StyledContainer = styled.div<IStyledContainer>`
   border-radius: 8px;
-  border: ${({ $multipleTables}) =>
+  position: relative;
+  border: ${({ $multipleTables }) =>
     $multipleTables === false && `1px solid ${inube.palette.neutral.N40}`};
 `;
 
 const StyledContainerTable = styled.div<IStyledContainer>`
   border-radius: 8px;
-  border: ${({  $pageLength, $entriesLength }) =>
-    $pageLength && $entriesLength && $entriesLength > $pageLength && `1px solid ${inube.palette.neutral.N40}`};
-
+  border: ${({ $pageLength, $entriesLength }) =>
+    $pageLength &&
+    $entriesLength &&
+    $entriesLength > $pageLength &&
+    `1px solid ${inube.palette.neutral.N40}`};
 `;
 
 const StyledTable = styled.table<IStyledTable>`
@@ -75,11 +78,17 @@ const StyledTr = styled.tr<IStyledTr>`
     width: ${({ $widthFirstColumn }) => $widthFirstColumn};
     box-sizing: ${({ $widthFirstColumn }) => $widthFirstColumn && "border-box"};
   }
-
 `;
 
 const StyledThTitle = styled.th`
   padding: 12px 16px;
+  p {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    word-wrap: break-word;
+    white-space: normal;
+  }
 `;
 
 const StyledThAction = styled.th<IStyledThAction>`
@@ -87,6 +96,12 @@ const StyledThAction = styled.th<IStyledThAction>`
     theme?.palette?.neutral?.N0 || inube.palette.neutral.N0};
   padding: 12px 16px;
   min-width: 70px;
+`;
+
+const StyledThActionResponsive = styled.th`
+  background-color: ${({ theme }) =>
+    theme?.palette?.neutral?.N0 || inube.palette.neutral.N0};
+  width: 50px;
 `;
 
 const StyledTd = styled.td<IStyledTd>`
@@ -99,6 +114,8 @@ const StyledTdActions = styled.td<IStyledTdActions>`
   background-color: ${({ theme }) =>
     theme?.palette?.neutral?.N0 || inube.palette.neutral.N0};
   text-align: center;
+
+
 `;
 
 export {
@@ -110,6 +127,7 @@ export {
   StyledTr,
   StyledThTitle,
   StyledThAction,
+  StyledThActionResponsive,
   StyledTd,
   StyledTdActions,
 };

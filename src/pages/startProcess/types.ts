@@ -36,6 +36,7 @@ interface StartProcesses {
   publicCode?: string;
   date?: Date | string | undefined;
   dateAndHour?: Date;
+  processCatalogId?: string;
   aplication?: IAplication;
   periodicity?: string;
   statusText?: string;

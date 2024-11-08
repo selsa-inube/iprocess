@@ -1,10 +1,18 @@
-import { MdImportExport } from "react-icons/md";
+import {
+  MdCancel,
+  MdCheckCircle,
+  MdDoDisturbOn,
+  MdImportExport,
+} from "react-icons/md";
+
 import { Icon } from "@inubekit/icon";
 import { Text } from "@inubekit/text";
 
 import { IActions, ITitle } from "@components/data/Table/props";
 import { StyledContainerTitle } from "@components/data/Table/stories/styles";
 import { IDailyDetail, StartProcesses } from "@pages/startProcess/types";
+import { IInfoModal } from "@components/modals/InfoModal/types";
+import { ComponentAppearance } from "@ptypes/aparences.types";
 import { formatDate } from "@utils/dates";
 import { ScheduledRequirements } from "../../ScheduledRequirements";
 import { DetailsProcessDaily } from "../components/DetailsProcessDaily";
@@ -139,11 +147,94 @@ const actionsConfig = (url: string, nameAplication: string) => {
   return actions;
 };
 
-const breakPoints = [{ breakpoint: "(min-width: 1091px)", totalColumns: 3 }];
+const actionsResponsiveConfig = (
+  url: string,
+  nameAplication: string,
+  status: string,
+  setStatus: (status: string) => void
+) => {
+  const actionsResponsive = [
+    {
+      id: "requirements",
+      actionName: "",
+      content: (process: StartProcesses) => (
+        <ScheduledRequirements
+          isCard={false}
+          id={process.processCatalogId || ""}
+          month={process.month || 0}
+          publicCode={process.publicCode || ""}
+          plannedExecution={
+            process.estimatedExecutionDate
+              ? new Date(process.estimatedExecutionDate)
+              : undefined
+          }
+          year={process.year || 0}
+          setStatus={setStatus}
+          status={status}
+          withTooltip={false}
+        />
+      ),
+    },
+    {
+      id: "Details",
+      actionName: "",
+      content: (process: StartProcesses) => (
+        <DetailsProcessDaily
+          data={mapScheduled(process)}
+          nameAplication={nameAplication}
+          breakpoints={breakPoints}
+        />
+      ),
+    },
+
+    {
+      id: "StartProcess",
+      actionName: "",
+      content: (process: StartProcesses) => (
+        <StartProcessScheduled
+          dataModal={mapStartProcessScheduled(process)}
+          id={process.id}
+          urlParams={url}
+        />
+      ),
+    },
+  ];
+
+  return actionsResponsive;
+};
+const breakPoints = [
+  { breakpoint: "(min-width: 825px)", totalColumns: 2 },
+  { breakpoint: "(max-width: 646px)", totalColumns: 1 },
+];
+
+const infoDataTable: IInfoModal[] = [
+  {
+    infoName: "Cumple",
+    infoIcon: <MdCheckCircle />,
+    appearanceIcon: ComponentAppearance.SUCCESS,
+  },
+  {
+    infoName: "No Cumple",
+    infoIcon: <MdCancel />,
+    appearanceIcon: ComponentAppearance.DANGER,
+  },
+  {
+    infoName: "Sin Evaluar",
+    infoIcon: <MdDoDisturbOn />,
+    appearanceIcon: ComponentAppearance.WARNING,
+  },
+  {
+    infoName: "No Definido",
+    infoIcon: <MdCheckCircle />,
+    appearanceIcon: ComponentAppearance.GRAY,
+  },
+];
 
 export {
   titlesConfig,
   actionsConfig,
   breakPoints,
+  infoDataTable,
   processesDailyNormailzeEntries,
+  actionsResponsiveConfig,
 };
