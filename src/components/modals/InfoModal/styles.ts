@@ -6,7 +6,7 @@ const StyledModal = styled.div`
   display: flex;
   position: absolute;
   top: 6px;
-  right: 8px;
+  right: 6px;
   flex-direction: column;
   background-color: ${inube.palette.neutral.N0};
   width: 155px;

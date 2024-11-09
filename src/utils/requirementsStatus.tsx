@@ -1,4 +1,4 @@
-import { MdCancel, MdCheckCircle, MdDoDisturbOn } from 'react-icons/md';
+import { MdCancel, MdCheckCircle, MdDoDisturbOn, MdReportProblem } from 'react-icons/md';
 
 const statusRequirement = [
   { status: "Meets", name: "Cumple", appearance: "success", icon: <MdCheckCircle /> },
@@ -15,9 +15,9 @@ const evaluationStatusRequirement = [
     status: "ERROR_IN_EVALUATION",
     name: "Error en evaluación",
     appearance: "danger",
-    icon: <MdCancel />
+    icon: <MdReportProblem />
   },
-  { status: "UNVALIDATED", name: "No Valido", appearance: "danger" },
+    { status: "UNVALIDATED", name: "No Valido", appearance: "danger", icon: <MdCancel />  },
   {
     status: "PASSED_WITH_SYSTEM_VALIDATION",
     name: "Validación sistema cumplida",
@@ -33,8 +33,8 @@ const evaluationStatusRequirement = [
   {
     status: "FAILED_SYSTEM_VALIDATION",
     name: "Validacion del sistema NO cumplida",
-    appearance: "warning",
-    icon: <MdDoDisturbOn />
+    appearance: "danger",
+    icon: <MdCancel />
   },
   {
     status: "DOCUMENT_NOT_LOADED",
@@ -45,8 +45,8 @@ const evaluationStatusRequirement = [
   {
     status: "DOCUMENT_STORED_WITHOUT_VALIDATION",
     name: "Documento almacenado sin validación",
-    appearance: "warning",
-    icon: <MdDoDisturbOn />
+    appearance: "danger",
+    icon: <MdCancel />
   },
   {
     status: "DOCUMENT_STORED_AND_VALIDATED",

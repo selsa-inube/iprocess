@@ -49,8 +49,6 @@ const RequirementsUI = (props: RequirementsUIProps) => {
   const validateStatus =
     normalizeStatusRequirement?.name === "Sin Evaluar" ||
     normalizeStatusRequirement?.name === "No Cumple";
-
-    console.log(dataTablesConfig(statusRequirement || {} as IRefNumPackageRequirement, setLoadDataTable,  tabletScreen));
     
   return (
     <>

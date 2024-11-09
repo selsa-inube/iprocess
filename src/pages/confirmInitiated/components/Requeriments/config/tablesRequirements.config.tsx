@@ -1,4 +1,6 @@
+import { MdCancel, MdCheckCircle, MdDoDisturbOn, MdReportProblem } from "react-icons/md";
 import { Tag } from "@inubekit/tag";
+import { Icon, IIconAppearance } from "@inubekit/icon";
 
 import { IAction, IActions } from "@components/data/Table/props";
 import {
@@ -9,17 +11,16 @@ import {
   normalizeEvalStatusRequirementByStatus,
   RequirementTypeNormalize,
 } from "@utils/requirements";
+import { IInfoModal } from "@components/modals/InfoModal/types";
+import { ComponentAppearance } from "@ptypes/aparences.types";
 import {
   IlistOfRequirements,
   IRefNumPackageRequirement,
 } from "@ptypes/packageRequeriment.types";
 import { appearances } from "@pages/confirmInitiated/types";
+import { InfoActions } from "@components/data/Table/InfoActions";
 import { MoreDetails } from "../MoreDetails";
 import { Approval } from "../Approval";
-import { Icon, IIconAppearance } from "@inubekit/icon";
-import { IInfoModal } from "@src/components/modals/InfoModal/types";
-import { MdCancel, MdCheckCircle, MdDoDisturbOn } from "react-icons/md";
-import { ComponentAppearance } from "@src/types/aparences.types";
 
 const requirementsNotMet = [
   "ERROR_IN_EVALUATION",
@@ -82,6 +83,29 @@ const approvalsListOfReqNormailzeEntries = (
   };
 };
 
+const infoDataTable: IInfoModal[] = [
+  {
+    infoName: "Cumple",
+    infoIcon: <MdCheckCircle />,
+    appearanceIcon: ComponentAppearance.SUCCESS,
+  },
+  {
+    infoName: "No Cumple",
+    infoIcon: <MdCancel />,
+    appearanceIcon: ComponentAppearance.DANGER,
+  },
+  {
+    infoName: "Error",
+    infoIcon: <MdReportProblem />,
+    appearanceIcon: ComponentAppearance.DANGER,
+  },
+  {
+    infoName: "No Definido",
+    infoIcon: <MdDoDisturbOn />,
+    appearanceIcon: ComponentAppearance.GRAY,
+  },
+];
+
 const actionsResponsiveReq = [
   {
     id: "evaluationStatus",
@@ -97,29 +121,6 @@ const actionsResponsiveReq = [
     id: "approvals",
     actionName: "",
     content: () => <></>,
-  },
-];
-
-const infoDataTable: IInfoModal[] = [
-  {
-    infoName: "Cumple",
-    infoIcon: <MdCheckCircle />,
-    appearanceIcon: ComponentAppearance.SUCCESS,
-  },
-  {
-    infoName: "No Cumple",
-    infoIcon: <MdCancel />,
-    appearanceIcon: ComponentAppearance.DANGER,
-  },
-  {
-    infoName: "Sin Evaluar",
-    infoIcon: <MdDoDisturbOn />,
-    appearanceIcon: ComponentAppearance.WARNING,
-  },
-  {
-    infoName: "No Definido",
-    infoIcon: <MdCheckCircle />,
-    appearanceIcon: ComponentAppearance.GRAY,
   },
 ];
 
@@ -228,7 +229,7 @@ const dataTablesConfig = (
             },
             {
               id: "details",
-              actionName: "Más Detalles",
+              actionName: "",
               content: (entry: IActions) => (
                 <MoreDetails
                   data={moreDetailsNormailzeEntries(
@@ -239,7 +240,7 @@ const dataTablesConfig = (
             },
             {
               id: "approvals",
-              actionName: "Aprobaciones",
+              actionName: <InfoActions data={infoDataTable} />,
               content: (entry: IActions) => (
                 <Approval
                   dataListOfRequirements={approvalsListOfReqNormailzeEntries(
@@ -361,8 +362,8 @@ export {
   breakPoints,
   labelsMoreDetails,
   requirementsNotMet,
-  actionsResponsiveReq,
   infoDataTable,
+  actionsResponsiveReq,
   requirementsNormailzeEntries,
   moreDetailsNormailzeEntries,
 };

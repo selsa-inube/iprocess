@@ -68,8 +68,9 @@ const StyledThead = styled.thead<IStyledThead>`
   background-color: ${({ theme }) =>
     theme?.palette?.neutral?.N0 || inube.palette.neutral.N0};
 
-${({ $actionsLength, $smallScreen, theme }) =>
-    $actionsLength && $actionsLength > 0 &&
+  ${({ $actionsLength, $smallScreen, theme }) =>
+    $actionsLength &&
+    $actionsLength > 0 &&
     `
     td:nth-last-child(${$actionsLength}) {
       border-left: ${$smallScreen ? `1px solid ${theme?.palette?.neutral?.N40 || inube.palette.neutral.N40}` : "none"};
@@ -85,8 +86,6 @@ ${({ $actionsLength, $smallScreen, theme }) =>
   }
 
   `}
-
- 
 `;
 
 const StyledTbody = styled.tbody`
@@ -104,21 +103,30 @@ const StyledTr = styled.tr<IStyledTr>`
     box-sizing: ${({ $widthFirstColumn }) => $widthFirstColumn && "border-box"};
   }
 
-     @media (max-width: ${mediaQueryMobile}) {
-     :hover {
+  @media (${mediaQueryMobile}) {
+    :hover {
       background-color: ${({ theme }) =>
         theme?.palette?.neutral?.N10 || inube.palette.neutral.N10};
-       overflow-x: auto;
-     }
+      overflow-x: auto;
     }
+
+    @media (${mediaQueryMobile}) {
+      :hover {
+        background-color: ${({ theme }) =>
+          theme?.palette?.neutral?.N10 || inube.palette.neutral.N10};
+        overflow-x: auto;
+      }
+    }
+  }
+
   ${({ $actionsLength, $smallScreen, theme }) =>
-    $actionsLength && $actionsLength > 0 &&
+    $actionsLength &&
+    $actionsLength > 0 &&
     `
     td:nth-last-child(${$actionsLength}) {
       border-left: ${$smallScreen ? `1px solid ${theme?.palette?.neutral?.N40 || inube.palette.neutral.N40}` : "none"};
       box-shadow: ${$smallScreen ? "-2px 0px 6px 0px rgba(0, 0, 0, 0.10)" : "none"};
     }
-
   
   `}
 `;
@@ -139,6 +147,11 @@ const StyledThAction = styled.th<IStyledThAction>`
     theme?.palette?.neutral?.N0 || inube.palette.neutral.N0};
   padding: ${tokens.spacing.s150} ${tokens.spacing.s200};
   min-width: 70px;
+
+  @media (${mediaQueryMobile}) {
+    padding: ${tokens.spacing.s075};
+    width: 20px;
+  }
 `;
 
 const StyledThActionResponsive = styled.th`

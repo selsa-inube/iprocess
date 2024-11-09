@@ -82,12 +82,15 @@ function showActionTitle(
   infoData: IInfoModal[],
   
 ) {
-  return !mediaQuery
+  return !mediaQuery || multipleTables
     ? actionTitle.map((action) => (
         <StyledThAction
           key={`action-${action.id}`}
           $multipleTables={multipleTables}
         >
+          {typeof action.actionName !== "string" ? (
+                  action.actionName
+                ) : (
           <Text
             type={typeTitle}
             size="small"
@@ -96,10 +99,10 @@ function showActionTitle(
             weight="bold"
           >
             {action.actionName}
-          </Text>
+          </Text>)}
         </StyledThAction>
       ))
-    : actionTitleResponsive.map((action, index) =>
+    :  actionTitleResponsive.map((action, index) =>
       actionTitleResponsive.length - 1 !== index ? (
         <StyledThActionResponsive key={`action-${action.id}`}></StyledThActionResponsive>
       ) : (
@@ -180,7 +183,7 @@ const TableUI = (props: Omit<ITable, "id">) => {
   return (
     <StyledContainer $multipleTables={multipleTables}>
       <StyledTable $smallScreen={mediaActionOpen}>
-        <StyledThead $smallScreen={mediaActionOpen} $actionsLength={actionsResponsive?.length}>
+        <StyledThead $smallScreen={mediaActionOpen} $actionsLength={actions && actions.length - 1}>
           <StyledTr>
             {TitleColumns.map((title) => (
               <StyledThTitle key={`title-${title.id}`}>

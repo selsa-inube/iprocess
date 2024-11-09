@@ -4,7 +4,6 @@ import {
   MdDoDisturbOn,
   MdImportExport,
 } from "react-icons/md";
-
 import { Icon } from "@inubekit/icon";
 import { Text } from "@inubekit/text";
 
@@ -203,8 +202,8 @@ const actionsResponsiveConfig = (
   return actionsResponsive;
 };
 const breakPoints = [
-  { breakpoint: "(min-width: 825px)", totalColumns: 2 },
-  { breakpoint: "(max-width: 646px)", totalColumns: 1 },
+  { breakpoint: "(min-width: 771px)", totalColumns: 2 },
+  { breakpoint: "(max-width: 770px)", totalColumns: 1 },
 ];
 
 const infoDataTable: IInfoModal[] = [
