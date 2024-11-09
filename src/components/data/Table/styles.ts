@@ -170,10 +170,13 @@ const StyledTd = styled.td<IStyledTd>`
   background-color: ${({ theme }) =>
     theme?.palette?.neutral?.N0 || inube.palette.neutral.N0};
 
+@media (${mediaQueryMobile}) {
+
   & > p {
     white-space: nowrap;
     text-overflow: clip;
   }
+}
 `;
 
 const StyledTdActions = styled.td<IStyledTdActions>`

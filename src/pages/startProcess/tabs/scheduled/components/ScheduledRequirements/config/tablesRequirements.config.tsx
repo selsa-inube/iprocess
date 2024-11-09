@@ -15,6 +15,7 @@ import {
   RequirementTypeNormalize,
 } from "@utils/requirements";
 import { ComponentAppearance } from "@ptypes/aparences.types";
+import { InfoActions } from "@components/data/Table/InfoActions";
 
 const requirementsNormailzeEntries = (process: IProcessRequirementResponse[]) =>
   process.map((entry) => ({
@@ -151,8 +152,8 @@ const dataTablesConfig = (
                 }
                 icon={
                   normalizeEvalStatusRequirementByStatus(
-                    process.evaluationStatus as string
-                  )?.icon
+                    process.evaluationStatusText as string
+                  )?.icon || <MdDoDisturbOn />
                 }
                 size="16px"
               />
@@ -160,7 +161,7 @@ const dataTablesConfig = (
           },
           {
             id: "details",
-            actionName: "",
+            actionName: <InfoActions data={infoDataTable} />,
             content: (process: IProcessRequirementResponse) => (
               <MoreDetails data={moreDetailsNormailzeEntries(process)} />
             ),

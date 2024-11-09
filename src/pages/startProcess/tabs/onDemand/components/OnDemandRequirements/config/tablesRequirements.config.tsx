@@ -16,6 +16,7 @@ import {
   RequirementTypeNormalize,
 } from "@utils/requirements";
 import { ComponentAppearance } from "@ptypes/aparences.types";
+import { InfoActions } from '@components/data/Table/InfoActions';
 
 const requirementsNormailzeEntries = (process: IProcessRequirementResponse[]) =>
   process.map((entry) => ({
@@ -157,7 +158,7 @@ const dataTablesOnDemandConfig = (entry: IProcessRequirementResponse[], mediaQue
           },
           {
             id: "details",
-            actionName: "Más Detalles",
+            actionName: <InfoActions data={infoDataTable} />,
             content: (process: IProcessRequirementResponse) => (
               <MoreDetails data={moreDetailsNormailzeEntries(process)} />
             ),

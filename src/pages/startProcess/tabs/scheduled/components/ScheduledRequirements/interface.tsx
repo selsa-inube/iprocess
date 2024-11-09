@@ -21,7 +21,6 @@ import {
   actionsResponsiveReq,
   breakPoints,
   dataTablesConfig,
-  infoDataTable,
 } from "./config/tablesRequirements.config";
 import { StyledContainer, StyledContainerIcon } from "./styles";
 
@@ -137,7 +136,6 @@ const ScheduledRequirementsUI = (props: ScheduledRequirementsUIProps) => {
           requirements={dataTablesConfig(processRequirementData, tabletScreen) as IData[]}
           title="Pre-validar Requisitos"
           onCloseModal={handleToggleModal}
-          infoData={infoDataTable}
           actionsResponsiveReq={actionsResponsiveReq}
         />
       )}

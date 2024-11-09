@@ -10,12 +10,10 @@ import { useMediaQuery } from "@inubekit/hooks";
 
 import { Table } from "@components/data/Table";
 import { IAction, IBreakpoint } from "@components/data/Table/props";
-import { ComponentAppearance } from '@ptypes/aparences.types';
+import { ComponentAppearance } from "@ptypes/aparences.types";
 import { mediaQueryMobile } from "@config/environment";
 import { IData } from "./types";
 import { StyledContainerTables, StyledModal } from "./styles";
-import { IInfoModal } from "../InfoModal/types";
-
 
 interface RequirementsModalProps {
   breakpoints: IBreakpoint[];
@@ -24,13 +22,19 @@ interface RequirementsModalProps {
   requirements: IData[];
   title: string;
   onCloseModal: () => void;
-  infoData?: IInfoModal[];
   actionsResponsiveReq?: IAction[];
 }
 
 function RequirementsModal(props: RequirementsModalProps) {
-  const { breakpoints, isLoading, portalId, requirements, title,infoData, actionsResponsiveReq, onCloseModal } =
-    props;
+  const {
+    breakpoints,
+    isLoading,
+    portalId,
+    requirements,
+    title,
+    actionsResponsiveReq,
+    onCloseModal,
+  } = props;
 
   const node = document.getElementById(portalId);
 
@@ -64,7 +68,12 @@ function RequirementsModal(props: RequirementsModalProps) {
 
         {requirements.length === 0 ? (
           <Stack padding="12px">
-            <Text type="body" size="medium" appearance={ComponentAppearance.DARK} ellipsis>
+            <Text
+              type="body"
+              size="medium"
+              appearance={ComponentAppearance.DARK}
+              ellipsis
+            >
               No identificado
             </Text>
           </Stack>
@@ -80,10 +89,9 @@ function RequirementsModal(props: RequirementsModalProps) {
                   entries={requirement.entriesRequirements}
                   isLoading={isLoading}
                   breakpoints={breakpoints}
-                 widthFirstColumn="55%"
+                  widthFirstColumn="55%"
                   multipleTables={true}
                   typeTitle={"label"}
-                  infoData={infoData}
                 />
               </Stack>
             ))}
