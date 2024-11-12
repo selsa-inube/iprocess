@@ -18,7 +18,7 @@ import { StartProcesses } from "@pages/startProcess/types";
 import { mediaQueryMobile } from "@config/environment";
 import { ComponentAppearance } from "@ptypes/aparences.types";
 import { CardStatusExecution } from "@components/feedback/CardStatusExecution";
-import { IProcessPersonsWithErrors } from "@pages/validateProgress/types";
+import { IListOfPeopleToReprocess, IProcessPersonsWithErrors } from "@pages/validateProgress/types";
 import { StyledContainer, StyledFields, StyledModal } from "./styles";
 import { ILabel } from "./types";
 
@@ -27,8 +27,10 @@ interface StatusOfExecutionModalUIProps {
   dataSubtmit: IProcessPersonsWithErrors[] | undefined;
   disabledBoton: boolean;
   isdiscardPersonsWithErrors: boolean;
+  isReprocessPersonsWithErrors: boolean;
   labels: ILabel[];
   loadingDiscard: boolean;
+  loadingReprocess: boolean;
   portalId: string;
   processControlId: string;
   search: string;
@@ -37,14 +39,15 @@ interface StatusOfExecutionModalUIProps {
   onChangeToggle: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onCloseModal: () => void;
   onDiscard: (data: IProcessPersonsWithErrors[]) => void;
-  onProcessPersonId: (id: string | undefined, check: boolean) => void;
-  onReprocess: () => void;
+  onProcessPersonId: (id: string | undefined, publicCode: string | undefined, check: boolean) => void;
+  onReprocess: (data: IListOfPeopleToReprocess[]) => void;
 }
 
 const StatusOfExecutionModalUI = (props: StatusOfExecutionModalUIProps) => {
   const {
     dataInformationProcess,
     isdiscardPersonsWithErrors,
+    isReprocessPersonsWithErrors,
     labels,
     portalId,
     processControlId,
@@ -53,6 +56,7 @@ const StatusOfExecutionModalUI = (props: StatusOfExecutionModalUIProps) => {
     disabledBoton, 
     dataSubtmit,
     loadingDiscard,
+    loadingReprocess,
     onChangeSearch,
     onChangeToggle,
     onCloseModal,
@@ -185,6 +189,7 @@ const StatusOfExecutionModalUI = (props: StatusOfExecutionModalUIProps) => {
                 filteredWithErrors={seeErrorsChecked}
                 handleProcessPersonId={onProcessPersonId}
                 isdiscardPersonsWithErrors={isdiscardPersonsWithErrors}
+                isReprocessPersonsWithErrors={isReprocessPersonsWithErrors}
               />
             </Suspense>
           </Stack>
@@ -193,8 +198,9 @@ const StatusOfExecutionModalUI = (props: StatusOfExecutionModalUIProps) => {
               spacing="wide"
               appearance={ComponentAppearance.GRAY}
               variant="filled"
-              onClick={onReprocess}
+              onClick={() => dataSubtmit && onReprocess(dataSubtmit)}
               disabled={disabledBoton}
+              loading={loadingReprocess}
             >
               Reprocesar
             </Button>

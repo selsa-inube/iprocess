@@ -50,30 +50,31 @@ interface IPersonProcessTime {
   processEstimatedEndDate: string;
 }
 
-interface IProcessPersonsWithErrors{
+interface IProcessPersonsWithErrors {
   processPersonId: string;
+  personPublicCode?: string;
 }
 
 interface IDiscardPersonsWithErrorsRequest {
-  processControlId: string,
+  processControlId: string;
   processPersons: IProcessPersonsWithErrors[];
 }
 
-interface  IDiscardPersonsWithErrorsResponse{
-  businessUnit: string,
-  confirmationForExecutionOfTheProcess: string,
-  executionDate: string,
-  executionParameters: IExecutionParameters,
-  generalError: string,
-  plannedExecution: string,
-  plannedExecutionDate: string,
-  processCatalogId: string,
-  processControlId: string,
-  processDescription: string,
-  processPersons: IProcessPersons[],
-  processStatus: string,
-  timeUsedToInsertPeople: number, 
-  uniqueReferenceNumberRequirement: string
+interface IDiscardPersonsWithErrorsResponse {
+  businessUnit: string;
+  confirmationForExecutionOfTheProcess: string;
+  executionDate: string;
+  executionParameters: IExecutionParameters;
+  generalError: string;
+  plannedExecution: string;
+  plannedExecutionDate: string;
+  processCatalogId: string;
+  processControlId: string;
+  processDescription: string;
+  processPersons: IProcessPersons[];
+  processStatus: string;
+  timeUsedToInsertPeople: number;
+  uniqueReferenceNumberRequirement: string;
 }
 
 interface IPersonWithError {
@@ -84,6 +85,22 @@ interface IPersonWithError {
   errorStatus: string;
 }
 
+interface IListOfPeopleToReprocess {
+  personPublicCode?: string;
+}
+
+interface IReprocessPersonsWithErrorsRequest {
+  persons: IListOfPeopleToReprocess[];
+  processControlId: string;
+}
+
+interface IReprocessPersonsWithErrorsResponse {
+  listOfPeopleToProcess: IListOfPeopleToReprocess[];
+  processControlId: string;
+}
+
+
+
 export type {
   IFilterDateForMonthAndYear,
   IpeopleIncludedInTheProcess,
@@ -92,5 +109,8 @@ export type {
   IDiscardPersonsWithErrorsResponse,
   IDiscardPersonsWithErrorsRequest,
   IProcessPersonsWithErrors,
-  IPersonWithError
+  IPersonWithError,
+  IListOfPeopleToReprocess,
+  IReprocessPersonsWithErrorsRequest,
+  IReprocessPersonsWithErrorsResponse,
 };

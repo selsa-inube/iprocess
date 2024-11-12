@@ -10,11 +10,18 @@ import { personProcess } from "@services/validateProgress/getEstimatedTimeToProc
 import { ComponentAppearance } from "@ptypes/aparences.types";
 import { discardPersonsWithErrors } from "@services/validateProgress/patchDiscardPeopleWithError";
 import { AppContext } from "@context/AppContext";
+import { reprocessPersonsWithErrors } from "@services/validateProgress/patchReprocessPeopleWithError";
 import {
   labels,
   normalizeDataInformationProcess,
 } from "./config/cardPerson.config";
-import { IDiscardPersonsWithErrorsResponse, IPersonProcessTime, IProcessPersonsWithErrors } from "../../types";
+import {
+  IDiscardPersonsWithErrorsResponse,
+  IListOfPeopleToReprocess,
+  IPersonProcessTime,
+  IProcessPersonsWithErrors,
+  IReprocessPersonsWithErrorsResponse,
+} from "../../types";
 
 interface IExecutionStatusProps {
   data: StartProcesses;
@@ -26,11 +33,16 @@ export const ExecutionStatus = (props: IExecutionStatusProps) => {
   const { addFlag } = useFlag();
   const [showModal, setShowModal] = useState(false);
   const [loadingDiscard, setLoadingDiscard] = useState<boolean>(false);
+  const [loadingReprocess, setLoadingReprocess] = useState<boolean>(false);
 
   const [personProcessData, setPersonProcessData] =
     useState<IPersonProcessTime>();
   const [discardData, setDiscardData] = useState<
     IDiscardPersonsWithErrorsResponse | undefined
+  >();
+
+  const [reprocessData, setReprocessData] = useState<
+    IReprocessPersonsWithErrorsResponse | undefined
   >();
 
   const estimatedTimeProcessData = async () => {
@@ -84,7 +96,37 @@ export const ExecutionStatus = (props: IExecutionStatusProps) => {
     }
   };
 
-  
+  const handleReprocess = async (
+    dataReprocessPersons: IListOfPeopleToReprocess[]
+  ) => {
+    setLoadingReprocess(true);
+    const dataDiscard = {
+      processControlId: data.id || "",
+      persons: dataReprocessPersons,
+    };
+
+    try {
+      const newReprocess = await reprocessPersonsWithErrors(
+        appData.businessUnit.publicCode,
+        dataDiscard
+      );
+      setReprocessData(newReprocess);
+    } catch (error) {
+      addFlag({
+        title: "Error al reprocesar personas con errores",
+        description:
+          "No fue posible reprocesar personas con errores, por favor intenta más tarde",
+        appearance: ComponentAppearance.DANGER,
+        duration: 5000,
+      });
+      throw new Error(
+        `Error al reprocesar personas con errores: ${(error as Error).message} `
+      );
+    } finally {
+      setLoadingReprocess(false);
+    }
+  };
+
   const handleToggleModal = () => {
     setShowModal(!showModal);
   };
@@ -109,10 +151,12 @@ export const ExecutionStatus = (props: IExecutionStatusProps) => {
           processControlId={data.id}
           labels={labels}
           onCloseModal={handleToggleModal}
-          onReprocess={() => {}}
+          onReprocess={handleReprocess}
           onDiscard={handleDiscard}
           loadingDiscard={loadingDiscard}
+          loadingReprocess={loadingReprocess}
           isdiscardPersonsWithErrors={discardData ? true : false}
+          isReprocessPersonsWithErrors={reprocessData ? true : false}
         />
       )}
     </>
