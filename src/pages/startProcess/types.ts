@@ -59,6 +59,7 @@ interface StartProcesses {
   processControlId?: string;
   totalPersonsProsecuted?: number;
   detailPeopleProcessed?: IDetailPeopleProcessed;
+  minutesOfProcessEnd?: number;
 }
 
 interface StartProcessesFilter {
