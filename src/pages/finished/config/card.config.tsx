@@ -13,7 +13,7 @@ const normailzeFinished = (process: StartProcesses[]) =>
       entry.dateAndHour && formatDate(new Date(entry.dateAndHour), true),
     totalPersonsCoversProcess: entry.totalPerson,
     totalPersonsProsecuted: entry.totalPersonsProsecuted,
-    duration: entry.timeUsedToInsertPeople,
+    duration: entry.minutesOfProcessEnd,
     dailyDetail: entry.dailyDetail,
     actions: actions,
     dateWithoutFormat: entry.date,
