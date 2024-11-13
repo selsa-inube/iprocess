@@ -36,6 +36,7 @@ interface StartProcesses {
   publicCode?: string;
   date?: Date | string | undefined;
   dateAndHour?: Date;
+  processCatalogId?: string;
   aplication?: IAplication;
   periodicity?: string;
   statusText?: string;
@@ -114,7 +115,7 @@ interface IStartProcessResponse {
 
 interface IAction {
   id: string;
-  actionName: string;
+  actionName: string | React.ReactNode;
   content: (entry: IProcessRequirementResponse) => React.ReactNode;
 }
 

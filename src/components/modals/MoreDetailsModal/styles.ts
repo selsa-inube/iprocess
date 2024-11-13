@@ -24,18 +24,18 @@ const StyledModal = styled.div<IStyledModal>`
     theme?.palette?.neutral?.N10 || inube.palette.neutral.N10};
 
   width: ${(props) => (props.$smallScreen ? "280px" : "450px")};
-  min-height: ${(props) => (props.$smallScreen ? "100vh" : "auto")};
+
   height: auto;
-  border-radius: ${(props) => (props.$smallScreen ? "0" : "8px")};
+  border-radius: ${(props) => (props.$smallScreen ? `${tokens.spacing.s200}` : `${tokens.spacing.s100}`)};
 
   & > div {
-    padding: ${(props) => (props.$smallScreen ? "16px" : "24px")};
+    padding: ${(props) => (props.$smallScreen ? `${tokens.spacing.s200}` : `${tokens.spacing.s300}`)};
   }
 `;
 
 const StyledModalFields = styled.div<IStyledModal>`
   display: flex;
-  gap: 4px;
+  gap: ${tokens.spacing.s050};
   flex-direction: column;
   hyphens: auto;
 
@@ -45,7 +45,6 @@ const StyledModalFields = styled.div<IStyledModal>`
 
   & > fieldset div:nth-child(1) {
     padding: ${tokens.spacing.s100} ${tokens.spacing.s0};
-    background-color: red;
   }
  
   & > div {
