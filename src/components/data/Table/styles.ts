@@ -126,13 +126,6 @@ const StyledTr = styled.tr<IStyledTr>`
 
 const StyledThTitle = styled.th`
   padding: ${tokens.spacing.s150} ${tokens.spacing.s200};
-  /* p {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    word-wrap: break-word;
-    white-space: normal;
-  } */
 `;
 
 const StyledThAction = styled.th<IStyledThAction>`
