@@ -9,51 +9,36 @@ import {
 } from "react-icons/md";
 import { OptionsNav } from "./optionsNav";
 
-const navConfig = (optionsCards: ICardData[]) => {
-  const getOptionByPublicCode = (publicCode: string) =>
-    optionsCards.find((option) => option.id === publicCode);
+const getOptionByPublicCode = (optionsCards: ICardData[], publicCode: string) =>
+  optionsCards.find((option) => option.id === publicCode);
 
-  const startProcess = getOptionByPublicCode(OptionsNav[0]);
-  const confirmInitiated = getOptionByPublicCode(OptionsNav[1]);
-  const validateProgress = getOptionByPublicCode(OptionsNav[2]);
-  const finished = getOptionByPublicCode(OptionsNav[3]);
+const optionNav = (option: ICardData | undefined, defaultIcon: JSX.Element) => ({
+  id: option?.id || "",
+  label: option?.label || "",
+  icon: option?.icon || defaultIcon,
+  path: option?.url || "",
+});
 
-  const nav: INav = {
+const navConfig = (optionsCards: ICardData[]): INav => {
+  const startProcess = getOptionByPublicCode(optionsCards, OptionsNav[0]);
+  const confirmInitiated = getOptionByPublicCode(optionsCards, OptionsNav[1]);
+  const validateProgress = getOptionByPublicCode(optionsCards, OptionsNav[2]);
+  const finished = getOptionByPublicCode(optionsCards, OptionsNav[3]);
+
+  return {
     title: "MENU",
     sections: {
       administrate: {
         name: "",
         links: {
-          startProcess: {
-            id: startProcess?.id || "",
-            label: startProcess?.label || "",
-            icon: startProcess?.icon || <MdOutlineStart />,
-            path: startProcess?.url || "",
-          },
-          confirmInitiated: {
-            id: confirmInitiated?.id || "",
-            label: confirmInitiated?.label || "",
-            icon: confirmInitiated?.icon || <MdOutlineThumbUp />,
-            path: confirmInitiated?.url || "",
-          },
-          validateProgress: {
-            id: validateProgress?.id || "",
-            label: validateProgress?.label || "",
-            icon: validateProgress?.icon || <MdOutlineMoving />,
-            path: validateProgress?.url || "",
-          },
-          finished: {
-            id: finished?.id || "",
-            label: finished?.label || "",
-            icon: finished?.icon || <MdOutlineCheck />,
-            path: finished?.url || "",
-          },
+          startProcess: optionNav(startProcess, <MdOutlineStart />),
+          confirmInitiated: optionNav(confirmInitiated, <MdOutlineThumbUp />),
+          validateProgress: optionNav(validateProgress, <MdOutlineMoving />),
+          finished: optionNav(finished, <MdOutlineCheck />),
         },
       },
     },
   };
-
-  return nav;
 };
 
 const userMenu = [
