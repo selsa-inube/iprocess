@@ -184,7 +184,7 @@ const TableUI = (props: Omit<ITable, "id">) => {
     <StyledContainer $multipleTables={multipleTables}>
       <StyledTable $smallScreen={mediaActionOpen}>
         <StyledThead $smallScreen={mediaActionOpen} $actionsLength={actions && actions.length - 1}>
-          <StyledTr>
+          <StyledTr $overflow={false}>
             {TitleColumns.map((title) => (
               <StyledThTitle key={`title-${title.id}`}>
                 {typeof title.titleName !== "string" ? (
@@ -228,6 +228,7 @@ const TableUI = (props: Omit<ITable, "id">) => {
                     $entriesLength={entries.length}
                     $widthFirstColumn={widthFirstColumn}
                     $actionsLength={actionsResponsive?.length}
+                    $overflow={true}
                   >
                     {TitleColumns.map((title) => (
                       <StyledTd

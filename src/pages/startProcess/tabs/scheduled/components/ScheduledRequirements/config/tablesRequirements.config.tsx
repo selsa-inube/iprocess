@@ -1,4 +1,4 @@
-import { MdCancel, MdCheckCircle, MdDoDisturbOn, MdReportProblem } from "react-icons/md";
+import { MdAddCircleOutline, MdCancel, MdCheckCircle, MdDoDisturbOn, MdReportProblem } from "react-icons/md";
 import { ITagAppearance, Tag } from "@inubekit/tag";
 import { Icon, IIconAppearance } from "@inubekit/icon";
 
@@ -93,6 +93,11 @@ const infoDataTable: IInfoModal[] = [
     infoName: "No Definido",
     infoIcon: <MdDoDisturbOn />,
     appearanceIcon: ComponentAppearance.GRAY,
+  },
+  {
+    infoName: "Más Detalles",
+    infoIcon: <MdAddCircleOutline />,
+    appearanceIcon: ComponentAppearance.DARK,
   },
 ];
 

@@ -3,6 +3,8 @@ import {
   MdCheckCircle,
   MdDoDisturbOn,
   MdImportExport,
+  MdLaunch,
+  MdOutlineRemoveRedEye,
 } from "react-icons/md";
 import { Icon } from "@inubekit/icon";
 import { Text } from "@inubekit/text";
@@ -226,6 +228,16 @@ const infoDataTable: IInfoModal[] = [
     infoName: "No Definido",
     infoIcon: <MdCheckCircle />,
     appearanceIcon: ComponentAppearance.GRAY,
+  },
+  {
+    infoName: "Más Detalles",
+    infoIcon: <Icon icon={<MdOutlineRemoveRedEye/>} size="18px" appearance={ComponentAppearance.DARK}/> ,
+    appearanceIcon: ComponentAppearance.DARK,
+  },
+  {
+    infoName: "Iniciar Proceso",
+    infoIcon: <Icon icon={<MdLaunch/>} size="18px" appearance={ComponentAppearance.DARK}/> ,
+    appearanceIcon: ComponentAppearance.DARK,
   },
 ];
 

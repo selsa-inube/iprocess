@@ -9,6 +9,7 @@ interface IStyledTr {
   $actionsLength?: number;
   $pageLength?: number;
   $widthFirstColumn?: string;
+  $overflow?: boolean;
 }
 
 interface IStyledContainer {
@@ -82,7 +83,7 @@ const StyledThead = styled.thead<IStyledThead>`
   }
 
   tr th:nth-child(1) {
-    box-shadow: ${$actionsLength && $smallScreen && "inset -2px 0px 6px 0px rgba(0, 0, 0, 0.10)"};
+    column-span: 3;
   }
 
   `}
@@ -107,15 +108,7 @@ const StyledTr = styled.tr<IStyledTr>`
     :hover {
       background-color: ${({ theme }) =>
         theme?.palette?.neutral?.N10 || inube.palette.neutral.N10};
-      overflow-x: auto;
-    }
-
-    @media (${mediaQueryMobile}) {
-      :hover {
-        background-color: ${({ theme }) =>
-          theme?.palette?.neutral?.N10 || inube.palette.neutral.N10};
-        overflow-x: auto;
-      }
+      overflow-x: ${({ $overflow }) => $overflow ? "auto" : "none"};
     }
   }
 
@@ -133,13 +126,13 @@ const StyledTr = styled.tr<IStyledTr>`
 
 const StyledThTitle = styled.th`
   padding: ${tokens.spacing.s150} ${tokens.spacing.s200};
-  p {
+  /* p {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     word-wrap: break-word;
     white-space: normal;
-  }
+  } */
 `;
 
 const StyledThAction = styled.th<IStyledThAction>`
@@ -170,13 +163,12 @@ const StyledTd = styled.td<IStyledTd>`
   background-color: ${({ theme }) =>
     theme?.palette?.neutral?.N0 || inube.palette.neutral.N0};
 
-@media (${mediaQueryMobile}) {
-
-  & > p {
-    white-space: nowrap;
-    text-overflow: clip;
+  @media (${mediaQueryMobile}) {
+    & > p {
+      white-space: nowrap;
+      text-overflow: clip;
+    }
   }
-}
 `;
 
 const StyledTdActions = styled.td<IStyledTdActions>`
