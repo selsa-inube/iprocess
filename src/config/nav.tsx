@@ -1,50 +1,63 @@
 import { INav } from "@components/layout/AppPage/types";
+import { ICardData } from "@pages/home/types";
 import {
   MdLogout,
   MdOutlineCheck,
   MdOutlineMoving,
   MdOutlineStart,
   MdOutlineThumbUp,
-
 } from "react-icons/md";
+import { OptionsNav } from "./optionsNav";
 
-const nav: INav = {
-  title: "MENU",
-  sections: {
-    administrate: {
-      name: "",
-      links: {
-        startProcess: {
-          id: "startProcess",
-          label: "Iniciar procesos",
-          icon: <MdOutlineStart />,
-          path:"/start-process",
-        },
-        confirmInitiated: {
-          id: "confirmInitiated",
-          label: "Confirmar iniciados",
-          icon: <MdOutlineThumbUp />,
-          path: "/confirm-initiated",
-        },
-        validateProgress: {
-          id: "validateProgress",
-          label: "Validar progreso",
-          icon: <MdOutlineMoving />,
-          path: "/validate-progress",
-        },
-        finished: {
-          id: "finished",
-          label: "Finalizados",
-          icon: <MdOutlineCheck />,
-          path: "/finished",
+const navConfig = (optionsCards: ICardData[]) => {
+  const getOptionByPublicCode = (publicCode: string) =>
+    optionsCards.find((option) => option.id === publicCode);
+
+  const startProcess = getOptionByPublicCode(OptionsNav[0]);
+  const confirmInitiated = getOptionByPublicCode(OptionsNav[1]);
+  const validateProgress = getOptionByPublicCode(OptionsNav[2]);
+  const finished = getOptionByPublicCode(OptionsNav[3]);
+
+  const nav: INav = {
+    title: "MENU",
+    sections: {
+      administrate: {
+        name: "",
+        links: {
+          startProcess: {
+            id: startProcess?.id || "",
+            label: startProcess?.label || "",
+            icon: startProcess?.icon || <MdOutlineStart />,
+            path: startProcess?.url || "",
+          },
+          confirmInitiated: {
+            id: confirmInitiated?.id || "",
+            label: confirmInitiated?.label || "",
+            icon: confirmInitiated?.icon || <MdOutlineThumbUp />,
+            path: confirmInitiated?.url || "",
+          },
+          validateProgress: {
+            id: validateProgress?.id || "",
+            label: validateProgress?.label || "",
+            icon: validateProgress?.icon || <MdOutlineMoving />,
+            path: validateProgress?.url || "",
+          },
+          finished: {
+            id: finished?.id || "",
+            label: finished?.label || "",
+            icon: finished?.icon || <MdOutlineCheck />,
+            path: finished?.url || "",
+          },
         },
       },
     },
-  },
+  };
+
+  return nav;
 };
 
 const userMenu = [
-   {
+  {
     id: "section",
     title: "",
     links: [
@@ -59,4 +72,4 @@ const userMenu = [
   },
 ];
 
-export { nav,userMenu };
+export { userMenu, navConfig };
