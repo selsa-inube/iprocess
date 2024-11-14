@@ -108,6 +108,7 @@ const RefreshCustomerAttributesUI = (
 
           {data?.executionWay &&
             validateExecutionWay(data?.executionWay as string) && (
+              <Stack width="auto">
               <Datetimefield
                 withFullwidth={true}
                 id="plannedExecutionDate"
@@ -125,6 +126,7 @@ const RefreshCustomerAttributesUI = (
                 value={formik.values.plannedExecutionDate}
                 isRequired
               />
+              </Stack>
             )}
 
           <Stack gap={tokens.spacing.s100} justifyContent="flex-end">
