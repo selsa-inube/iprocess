@@ -30,7 +30,7 @@ const StyledMain = styled.main`
   overflow-y: auto;
   padding: ${tokens.spacing.s300};
 
-  @media screen and (max-width: 1000px) {
+  
   @media screen and (max-width: 1000px) {
     padding: ${tokens.spacing.s300};
   }
