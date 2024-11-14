@@ -1,4 +1,6 @@
+import { MdAddCircleOutline, MdCancel, MdCheckCircle, MdDoDisturbOn, MdReportProblem } from 'react-icons/md';
 import { Tag } from "@inubekit/tag";
+import { Icon, IIconAppearance } from "@inubekit/icon";
 
 import { MoreDetails } from "@pages/startProcess/tabs/scheduled/components/ScheduledRequirements/MoreDetails";
 import {
@@ -8,10 +10,13 @@ import {
   ITitlesRequirements,
 } from "@pages/startProcess/types";
 import { IProcessRequirementResponse } from "@ptypes/statusRequeriments.types";
+import { IInfoModal } from "@components/modals/InfoModal/types";
 import {
   normalizeEvalStatusRequirementByStatus,
   RequirementTypeNormalize,
 } from "@utils/requirements";
+import { ComponentAppearance } from "@ptypes/aparences.types";
+import { InfoActions } from '@components/data/Table/InfoActions';
 
 const requirementsNormailzeEntries = (process: IProcessRequirementResponse[]) =>
   process.map((entry) => ({
@@ -50,8 +55,53 @@ const moreDetailsNormailzeEntries = (
   };
 };
 
+const infoDataTable: IInfoModal[] = [
+  {
+    infoName: "Cumple",
+    infoIcon: <MdCheckCircle />,
+    appearanceIcon: ComponentAppearance.SUCCESS,
+  },
+  {
+    infoName: "No Cumple",
+    infoIcon: <MdCancel />,
+    appearanceIcon: ComponentAppearance.DANGER,
+  },
+  {
+    infoName: "Error",
+    infoIcon: <MdReportProblem />,
+    appearanceIcon: ComponentAppearance.DANGER,
+  },
+  {
+    infoName: "No Definido",
+    infoIcon: <MdDoDisturbOn />,
+    appearanceIcon: ComponentAppearance.GRAY,
+  },
+  {
+    infoName: "Más Detalles",
+    infoIcon: <MdAddCircleOutline />,
+    appearanceIcon: ComponentAppearance.DARK,
+  },
+];
 
-const dataTablesOnDemandConfig = (entry: IProcessRequirementResponse[]) => {
+const actionsResponsiveReq = [
+  
+    {
+      id: "evaluationStatus",
+      actionName: "",
+      content: () => (
+        <></>
+      ),
+    },
+    {
+      id: "details",
+      actionName: "",
+      content: () => (
+        <></>
+      ),
+    },
+  ]
+
+const dataTablesOnDemandConfig = (entry: IProcessRequirementResponse[], mediaQueryMobile: boolean) => {
   const dataTables: IData[] = [];
 
   requirementsNormailzeEntries(entry).forEach((entry, _, requirements) => {
@@ -89,23 +139,101 @@ const dataTablesOnDemandConfig = (entry: IProcessRequirementResponse[]) => {
           },
         ],
       ];
-      dataTables.push({
-        id: entry.requirementType,
-        titlesRequirements: titleRequirements,
-        entriesRequirements: requirements
-          .filter(
-            (requirement) =>
-              requirement.requirementType === entry.requirementType
-          )
-          .map((requirement, index) => ({ ...requirement, id: String(index) })),
-        actionsRequirements: dataTables.length > 0 ? actions[1] : actions[0],
-      });
+
+      const actionsResponsiveRequirements: IAction[][] = [
+        [
+          {
+            id: "evaluationStatus",
+            actionName: "",
+            content: (process: IProcessRequirementResponse) => (
+              <Icon
+                appearance={
+                  (normalizeEvalStatusRequirementByStatus(
+                    process.evaluationStatusText as string
+                  )?.appearance as IIconAppearance) || "gray"
+                }
+                icon={
+                  normalizeEvalStatusRequirementByStatus(
+                    process.evaluationStatus as string
+                  )?.icon
+                }
+                size="16px"
+              />
+            ),
+          },
+          {
+            id: "details",
+            actionName: <InfoActions data={infoDataTable} />,
+            content: (process: IProcessRequirementResponse) => (
+              <MoreDetails data={moreDetailsNormailzeEntries(process)} />
+            ),
+          },
+        ],
+        [
+          {
+            id: "evaluationStatus",
+            actionName: "",
+            content: (process: IProcessRequirementResponse) => (
+              <Icon
+                appearance={
+                  (normalizeEvalStatusRequirementByStatus(
+                    process.evaluationStatusText as string
+                  )?.appearance as IIconAppearance) || "gray"
+                }
+                icon={
+                  normalizeEvalStatusRequirementByStatus(
+                    process.evaluationStatus as string
+                  )?.icon || <MdDoDisturbOn />
+                }
+                size="16px"
+              />
+            ),
+          },
+          {
+            id: "details",
+            actionName: "",
+            content: (process: IProcessRequirementResponse) => (
+              <MoreDetails data={moreDetailsNormailzeEntries(process)} />
+            ),
+          },
+        ],
+      ];
+
+      if (mediaQueryMobile) {
+        dataTables.push({
+          id: entry.requirementType,
+          titlesRequirements: titleRequirements,
+          entriesRequirements: requirements
+            .filter(
+              (requirement) =>
+                requirement.requirementType === entry.requirementType
+            )
+            .map((requirement, index) => ({ ...requirement, id: String(index) })),
+            actionsRequirements: dataTables.length > 0 ? actionsResponsiveRequirements[1] : actionsResponsiveRequirements[0],
+        });
+      }else{
+
+        dataTables.push({
+          id: entry.requirementType,
+          titlesRequirements: titleRequirements,
+          entriesRequirements: requirements
+            .filter(
+              (requirement) =>
+                requirement.requirementType === entry.requirementType
+            )
+            .map((requirement, index) => ({ ...requirement, id: String(index) })),
+          actionsRequirements: dataTables.length > 0 ? actions[1] : actions[0],
+        });
+      }
     }
   });
   return dataTables;
 };
 
-const breakPoints = [{ breakpoint: "(min-width: 1091px)", totalColumns: 3 }];
+const breakPoints = [
+  { breakpoint: "(min-width: 771px)", totalColumns: 3 },
+  { breakpoint: "(max-width: 770px)", totalColumns: 1 },
+];
 
 const labelsMoreDetails = [
   {
@@ -123,6 +251,8 @@ export {
   dataTablesOnDemandConfig,
   breakPoints,
   labelsMoreDetails,
+  infoDataTable,
+  actionsResponsiveReq,
   requirementsNormailzeEntries,
   moreDetailsNormailzeEntries,
 };

@@ -3,6 +3,7 @@ import { SkeletonLine } from "@inubekit/skeleton";
 import { Tag } from "@inubekit/tag";
 import { Text } from "@inubekit/text";
 import { Stack } from "@inubekit/stack";
+import { useMediaQuery } from "@inubekit/hooks";
 
 import { appearances } from "@pages/startProcess/types";
 import { RequirementsModal } from "@components/modals/requirementsModal";
@@ -13,7 +14,9 @@ import {
   IProcessRequirementResponse,
 } from "@ptypes/statusRequeriments.types";
 import { IData } from "@components/modals/requirementsModal/types";
+import { mediaQueryMobile } from "@config/environment";
 import {
+  actionsResponsiveReq,
   breakPoints,
   dataTablesOnDemandConfig,
 } from "./config/tablesRequirements.config";
@@ -49,7 +52,8 @@ const OnDemandRequirementsUI = (props: OnDemandRequirementsUIProps) => {
   const validateStatus =
     normalizeStatusRequirement?.name === "Sin Evaluar" ||
     normalizeStatusRequirement?.name === "No Cumple";
-
+    
+    const tabletScreen = useMediaQuery(mediaQueryMobile);
   return (
     <>
       {isVisibleStatusReq ? (
@@ -94,9 +98,10 @@ const OnDemandRequirementsUI = (props: OnDemandRequirementsUIProps) => {
             breakpoints={breakPoints}
             isLoading={isVisibleRequirements}
             portalId="portal"
-            requirements={dataTablesOnDemandConfig(processRequirementData) as IData[]}
+            requirements={dataTablesOnDemandConfig(processRequirementData, tabletScreen) as IData[]}
             title="Pre-validar Requisitos"
             onCloseModal={handleToggleModal}
+          actionsResponsiveReq={actionsResponsiveReq}
           />
         )}
     </>
