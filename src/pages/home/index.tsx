@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 
 import { useOptionsByBusinessunits } from "@hooks/useOptionsByBusinessunits";
 import { AppContext } from "@context/AppContext";
@@ -7,6 +7,7 @@ import { HomeUI } from "./interface";
 
 function Home() {
   const { appData } = useContext(AppContext);
+  const [selectedClient, setSelectedClient] = useState<string>("");
   const portalId = localStorage.getItem("portalCode");
   const staffPortalId = portalId ? decrypt(portalId) : "";
 
@@ -16,7 +17,12 @@ function Home() {
   );
 
   return (
-    <HomeUI data={optionsCards || []}  isLoading={loading} />
+    <HomeUI
+      data={optionsCards || []}
+      isLoading={loading}
+      selectedClient={selectedClient}
+      setSelectedClient={setSelectedClient}
+    />
   );
 }
 

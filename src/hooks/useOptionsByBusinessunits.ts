@@ -6,7 +6,7 @@ import { normalizeOptionsByPublicCode } from "@utils/optionsByBusinessUnits";
 
 export const useOptionsByBusinessunits = (
   staffPortalId: string,
-  businessUnitPublicCode: string
+  businessUnitPublicCode: string,
 ) => {
   const [optionsData, setOptionsData] = useState<IOptionsByBusinessUnits[]>([]);
   const [loading, setLoading] = useState<boolean>(true);

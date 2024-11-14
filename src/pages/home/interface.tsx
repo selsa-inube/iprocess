@@ -26,6 +26,8 @@ import {
 } from "./styles";
 
 interface HomeProps {
+  selectedClient: string;
+  setSelectedClient: (show: string) => void;
   data?: ICardData[];
   isLoading?: boolean;
 }
@@ -39,12 +41,12 @@ const renderLogo = (imgUrl: string) => {
 };
 
 function HomeUI(props: HomeProps) {
-  const { data, isLoading } = props;
+  const { data, isLoading, selectedClient, setSelectedClient } = props;
 
   const { appData, businessUnitsToTheStaff, setBusinessUnitSigla } =
     useContext(AppContext);
   const [collapse, setCollapse] = useState(false);
-  const [selectedClient, setSelectedClient] = useState<string>("");
+ 
 
   const collapseMenuRef = useRef<HTMLDivElement>(null);
   const businessUnitChangeRef = useRef<HTMLDivElement>(null);
@@ -61,22 +63,20 @@ function HomeUI(props: HomeProps) {
     const selectJSON = JSON.stringify(businessUnit);
     setBusinessUnitSigla(selectJSON);
     setSelectedClient(businessUnit.abbreviatedName);
-    setCollapse(false);
+    window.location.reload();
   };
-
+ 
   return (
     <>
       <StyledContainer>
         <StyledHeaderContainer>
-          {data && data?.length > 0 && (
             <Header
               portalId="portal"
-              navigation={navConfig(data)}
+              navigation={navConfig(data || [])}
               logoURL={renderLogo(appData.businessUnit.urlLogo)}
               userName={appData.user.userName}
               userMenu={userMenu}
             />
-          )}
 
           {businessUnitsToTheStaff.length > 1 && (
             <>

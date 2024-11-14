@@ -2,17 +2,10 @@ import { INav } from "@components/layout/AppPage/types";
 import { ICardData } from "@pages/home/types";
 import {
   MdLogout,
-  MdOutlineCheck,
-  MdOutlineMoving,
   MdOutlineStart,
-  MdOutlineThumbUp,
 } from "react-icons/md";
-import { OptionsNav } from "./optionsNav";
 
-const getOptionByPublicCode = (optionsCards: ICardData[], publicCode: string) =>
-  optionsCards.find((option) => option.id === publicCode);
-
-const optionNav = (option: ICardData | undefined, defaultIcon: JSX.Element) => ({
+const createNavLink = (option: ICardData | undefined, defaultIcon: JSX.Element) => ({
   id: option?.id || "",
   label: option?.label || "",
   icon: option?.icon || defaultIcon,
@@ -20,22 +13,18 @@ const optionNav = (option: ICardData | undefined, defaultIcon: JSX.Element) => (
 });
 
 const navConfig = (optionsCards: ICardData[]): INav => {
-  const startProcess = getOptionByPublicCode(optionsCards, OptionsNav[0]);
-  const confirmInitiated = getOptionByPublicCode(optionsCards, OptionsNav[1]);
-  const validateProgress = getOptionByPublicCode(optionsCards, OptionsNav[2]);
-  const finished = getOptionByPublicCode(optionsCards, OptionsNav[3]);
+  const linkNav = optionsCards.reduce<Record<string, ReturnType<typeof createNavLink>>>((acc, option) => {
+    const navLink = createNavLink(option, <MdOutlineStart />);
+    acc[navLink.id] = navLink;
+    return acc;
+  }, {});
 
   return {
     title: "MENU",
     sections: {
       administrate: {
         name: "",
-        links: {
-          startProcess: optionNav(startProcess, <MdOutlineStart />),
-          confirmInitiated: optionNav(confirmInitiated, <MdOutlineThumbUp />),
-          validateProgress: optionNav(validateProgress, <MdOutlineMoving />),
-          finished: optionNav(finished, <MdOutlineCheck />),
-        },
+        links: linkNav,
       },
     },
   };
