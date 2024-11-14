@@ -196,7 +196,7 @@ const StatusOfExecutionModalUI = (props: StatusOfExecutionModalUIProps) => {
           <Stack gap={tokens.spacing.s100} justifyContent="flex-end">
             <Button
               spacing="wide"
-              appearance={ComponentAppearance.GRAY}
+              appearance={ComponentAppearance.PRIMARY}
               variant="filled"
               onClick={() => dataSubtmit && onReprocess(dataSubtmit)}
               disabled={disabledBoton}

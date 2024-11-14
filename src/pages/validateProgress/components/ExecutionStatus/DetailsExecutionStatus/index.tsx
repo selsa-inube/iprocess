@@ -43,7 +43,7 @@ const DetailsExecutionStatus = (props: IDetailsExecutionStatusProps) => {
   useEffect(() => {
     if (showModal) {
       errorInPersonData();
-      data.errorsDescription = errorInPerson?.errorDescription;
+      data.errorsDescription = errorInPerson?.errorStatus;
     }
   }, [showModal]);
 
