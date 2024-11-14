@@ -30,6 +30,7 @@
     "@inubekit/input": "^1.6.3",
     "@inubekit/label": "^3.1.0",
     "@inubekit/link": "^1.16.0",
+    "@inubekit/nav": "^5.3.1",
     "@inubekit/progressbar": "^1.1.0",
     "@inubekit/select": "^6.32.0",
     "@inubekit/skeleton": "^2.11.0",

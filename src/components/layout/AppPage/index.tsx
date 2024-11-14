@@ -7,7 +7,7 @@ import { Nav } from "@inubekit/nav";
 import { useMediaQuery } from "@inubekit/hooks";
 import { Icon } from "@inubekit/icon";
 
-import { nav, userMenu } from "@config/nav";
+import { actionsConfig, nav, userMenu } from "@config/nav";
 import { AppContext } from "@context/AppContext";
 import { BusinessUnitChange } from "@design/inputs/BusinessUnitChange";
 import { IBusinessUnitsPortalStaff } from "@ptypes/staffPortalBusiness.types";
@@ -20,6 +20,7 @@ import {
   StyledLogo,
   StyledMain,
 } from "./styles";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const renderLogo = (imgUrl: string) => {
   return (
@@ -32,6 +33,7 @@ const renderLogo = (imgUrl: string) => {
 function AppPage() {
   const { appData, businessUnitsToTheStaff, setBusinessUnitSigla } =
     useContext(AppContext);
+    const { logout } = useAuth0();
   const [collapse, setCollapse] = useState(false);
   const collapseMenuRef = useRef<HTMLDivElement>(null);
   const businessUnitChangeRef = useRef<HTMLDivElement>(null);
@@ -93,12 +95,12 @@ function AppPage() {
           <Grid
             templateColumns={!isTablet ? "auto 1fr" : "1fr"}
             alignContent="unset"
+            height={"95vh"}
           >
             {!isTablet && (
               <Nav
-                navigation={nav}
-                logoutPath="/logout"
-                logoutTitle="Cerrar sesión"
+                 navigation={nav}
+                  actions={actionsConfig(logout)}
               />
             )}
             <StyledMain>

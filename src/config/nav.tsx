@@ -7,6 +7,7 @@ import {
   MdOutlineThumbUp,
 
 } from "react-icons/md";
+import { enviroment } from "./environment";
 
 const nav: INav = {
   title: "MENU",
@@ -43,6 +44,20 @@ const nav: INav = {
   },
 };
 
+const actionsConfig = (logout: () => void) => {
+ const actions =[{
+    id: "logout",
+    label: "Cerrar sesión",
+    icon: <MdLogout />,
+    action: () => {
+      logout();
+      window.location.href = enviroment.REDIRECT_URI;
+    },
+  }]
+
+  return actions
+};
+
 const userMenu = [
    {
     id: "section",
@@ -59,4 +74,4 @@ const userMenu = [
   },
 ];
 
-export { nav,userMenu };
+export { nav, userMenu, actionsConfig };
