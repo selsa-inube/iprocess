@@ -1,13 +1,14 @@
 import { useContext, useEffect, useRef, useState } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import { MdOutlineChevronRight } from "react-icons/md";
+import { useAuth0 } from "@auth0/auth0-react";
 import { Grid } from "@inubekit/grid";
 import { Header } from "@inubekit/header";
 import { Nav } from "@inubekit/nav";
 import { useMediaQuery } from "@inubekit/hooks";
 import { Icon } from "@inubekit/icon";
 
-import { nav, userMenu } from "@config/nav";
+import { actionsConfig, nav, userMenu } from "@config/nav";
 import { AppContext } from "@context/AppContext";
 import { BusinessUnitChange } from "@design/inputs/BusinessUnitChange";
 import { IBusinessUnitsPortalStaff } from "@ptypes/staffPortalBusiness.types";
@@ -32,6 +33,7 @@ const renderLogo = (imgUrl: string) => {
 function AppPage() {
   const { appData, businessUnitsToTheStaff, setBusinessUnitSigla } =
     useContext(AppContext);
+  const { logout } = useAuth0();
   const [collapse, setCollapse] = useState(false);
   const collapseMenuRef = useRef<HTMLDivElement>(null);
   const businessUnitChangeRef = useRef<HTMLDivElement>(null);
@@ -56,13 +58,16 @@ function AppPage() {
   return (
     <StyledAppPage>
       <Grid templateRows="auto 1fr" height="100vh" justifyContent="unset">
-        <Header
-          portalId="portal"
-          navigation={nav}
-          logoURL={renderLogo(appData.businessUnit.urlLogo)}
-          userName={appData.user.userName}
-          userMenu={userMenu}
-        />
+      <Header
+            portalId="portal"
+            navigation={nav}
+            user={{
+              username: appData.user.userName,
+              breakpoint: "848px"
+            }}
+            logoURL={renderLogo(appData.businessUnit.urlLogo)}
+            menu={userMenu}
+          />
         {businessUnitsToTheStaff.length > 1 && (
           <>
             <StyledCollapseIcon
@@ -95,11 +100,10 @@ function AppPage() {
             alignContent="unset"
           >
             {!isTablet && (
-              <Nav
-                navigation={nav}
-                logoutPath="/logout"
-                logoutTitle="Cerrar sesión"
-              />
+               <Nav
+               navigation={nav.items}
+                actions={actionsConfig(logout)}
+            />
             )}
             <StyledMain>
               <Outlet />

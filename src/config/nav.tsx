@@ -5,46 +5,66 @@ import {
   MdOutlineMoving,
   MdOutlineStart,
   MdOutlineThumbUp,
-
 } from "react-icons/md";
+import { enviroment } from "./environment";
 
 const nav: INav = {
-  title: "MENU",
-  sections: {
-    administrate: {
-      name: "",
-      links: {
-        startProcess: {
-          id: "startProcess",
-          label: "Iniciar procesos",
-          icon: <MdOutlineStart />,
-          path:"/start-process",
-        },
-        confirmInitiated: {
-          id: "confirmInitiated",
-          label: "Confirmar iniciados",
-          icon: <MdOutlineThumbUp />,
-          path: "/confirm-initiated",
-        },
-        validateProgress: {
-          id: "validateProgress",
-          label: "Validar progreso",
-          icon: <MdOutlineMoving />,
-          path: "/validate-progress",
-        },
-        finished: {
-          id: "finished",
-          label: "Finalizados",
-          icon: <MdOutlineCheck />,
-          path: "/finished",
+  items: {
+    title: "MENU",
+    sections: {
+      administrate: {
+        name: "",
+        links: {
+          startProcess: {
+            id: "startProcess",
+            label: "Iniciar procesos",
+            icon: <MdOutlineStart />,
+            path: "/start-process",
+          },
+          confirmInitiated: {
+            id: "confirmInitiated",
+            label: "Confirmar iniciados",
+            icon: <MdOutlineThumbUp />,
+            path: "/confirm-initiated",
+          },
+          validateProgress: {
+            id: "validateProgress",
+            label: "Validar progreso",
+            icon: <MdOutlineMoving />,
+            path: "/validate-progress",
+          },
+          finished: {
+            id: "finished",
+            label: "Finalizados",
+            icon: <MdOutlineCheck />,
+            path: "/finished",
+          },
         },
       },
     },
   },
+  breakpoint: "848px",
+};
+
+
+const actionsConfig = (logout: () => void) => {
+  const actions = [
+    {
+      id: "logout",
+      label: "Cerrar sesión",
+      icon: <MdLogout />,
+      action: () => {
+        logout();
+        window.location.href = enviroment.REDIRECT_URI;
+      },
+    },
+  ];
+
+  return actions;
 };
 
 const userMenu = [
-   {
+  {
     id: "section",
     title: "",
     links: [
@@ -59,4 +79,4 @@ const userMenu = [
   },
 ];
 
-export { nav,userMenu };
+export { nav,userMenu, actionsConfig };

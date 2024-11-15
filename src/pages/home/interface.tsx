@@ -39,65 +39,69 @@ const renderLogo = (imgUrl: string) => {
 function HomeUI(props: HomeProps) {
   const { data } = props;
 
-  const { appData, businessUnitsToTheStaff, setBusinessUnitSigla } = useContext(AppContext);
+  const { appData, businessUnitsToTheStaff, setBusinessUnitSigla } =
+    useContext(AppContext);
   const [collapse, setCollapse] = useState(false);
   const [selectedClient, setSelectedClient] = useState<string>("");
 
   const collapseMenuRef = useRef<HTMLDivElement>(null);
   const businessUnitChangeRef = useRef<HTMLDivElement>(null);
   const isTablet = useMediaQuery("(max-width: 944px)");
- const username = appData.user.userName.split(" ")[0];
+  const username = appData.user.userName.split(" ")[0];
 
- useEffect(() => {
-  if (appData.businessUnit.publicCode) {
-    setSelectedClient(appData.businessUnit.abbreviatedName);
-  }
-}, [appData]);
+  useEffect(() => {
+    if (appData.businessUnit.publicCode) {
+      setSelectedClient(appData.businessUnit.abbreviatedName);
+    }
+  }, [appData]);
 
- const handleLogoClick = (businessUnit: IBusinessUnitsPortalStaff) => {
-  const selectJSON = JSON.stringify(businessUnit);
-  setBusinessUnitSigla(selectJSON);
-  setSelectedClient(businessUnit.abbreviatedName);
-  setCollapse(false);
-};
+  const handleLogoClick = (businessUnit: IBusinessUnitsPortalStaff) => {
+    const selectJSON = JSON.stringify(businessUnit);
+    setBusinessUnitSigla(selectJSON);
+    setSelectedClient(businessUnit.abbreviatedName);
+    setCollapse(false);
+  };
 
- return (
+  return (
     <>
       <StyledContainer>
         <StyledHeaderContainer>
           <Header
             portalId="portal"
             navigation={nav}
+            user={{
+              username: appData.user.userName,
+              breakpoint: "848px",
+            }}
             logoURL={renderLogo(appData.businessUnit.urlLogo)}
-            userName={appData.user.userName}
-            userMenu={userMenu}
+            menu={userMenu}
           />
           {businessUnitsToTheStaff.length > 1 && (
-          <>
-            <StyledCollapseIcon
-              $collapse={collapse}
-              onClick={() => setCollapse(!collapse)}
-              $isTablet={isTablet}
-              ref={collapseMenuRef}
-            >
-              <Icon
-                icon={<MdOutlineChevronRight />}
-                appearance="primary"
-                size="24px"
-                cursorHover
-              />
-            </StyledCollapseIcon>
-            {collapse && (
-              <StyledCollapse ref={businessUnitChangeRef}>
-                 <BusinessUnitChange
-                  businessUnits={businessUnitsToTheStaff}
-                  onLogoClick={handleLogoClick}
-                  selectedClient={selectedClient}
+            <>
+              <StyledCollapseIcon
+                $collapse={collapse}
+                onClick={() => setCollapse(!collapse)}
+                $isTablet={isTablet}
+                ref={collapseMenuRef}
+              >
+                <Icon
+                  icon={<MdOutlineChevronRight />}
+                  appearance="primary"
+                  size="24px"
+                  cursorHover
                 />
-              </StyledCollapse>
-            )}
-          </>
-        )}
+              </StyledCollapseIcon>
+              {collapse && (
+                <StyledCollapse ref={businessUnitChangeRef}>
+                  <BusinessUnitChange
+                    businessUnits={businessUnitsToTheStaff}
+                    onLogoClick={handleLogoClick}
+                    selectedClient={selectedClient}
+                  />
+                </StyledCollapse>
+              )}
+            </>
+          )}
         </StyledHeaderContainer>
         <StyledContainerSection>
           <StyledTitle>
