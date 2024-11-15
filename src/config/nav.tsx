@@ -4,6 +4,7 @@ import {
   MdLogout,
   MdOutlineStart,
 } from "react-icons/md";
+import { enviroment } from "./environment";
 
 const createNavLink = (option: ICardData | undefined, defaultIcon: JSX.Element) => ({
   id: option?.id || "",
@@ -46,4 +47,18 @@ const userMenu = [
   },
 ];
 
-export { userMenu, navConfig };
+const actionsConfig = (logout: () => void) => {
+  const actions =[{
+     id: "logout",
+     label: "Cerrar sesión",
+     icon: <MdLogout />,
+     action: () => {
+       logout();
+       window.location.href = enviroment.REDIRECT_URI;
+     },
+   }]
+ 
+   return actions
+ };
+
+export { userMenu, navConfig, actionsConfig };

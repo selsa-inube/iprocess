@@ -1,6 +1,7 @@
 import { useContext, useEffect, useRef, useState } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import { MdOutlineChevronRight } from "react-icons/md";
+import { useAuth0 } from "@auth0/auth0-react";
 import { Grid } from "@inubekit/grid";
 import { Header } from "@inubekit/header";
 import { Nav } from "@inubekit/nav";
@@ -10,7 +11,7 @@ import { Spinner } from "@inubekit/spinner";
 import { Stack } from "@inubekit/stack";
 import { Text } from "@inubekit/text";
 
-import { navConfig, userMenu } from "@config/nav";
+import { actionsConfig, navConfig, userMenu } from "@config/nav";
 import { AppContext } from "@context/AppContext";
 import { BusinessUnitChange } from "@design/inputs/BusinessUnitChange";
 import { IBusinessUnitsPortalStaff } from "@ptypes/staffPortalBusiness.types";
@@ -27,6 +28,7 @@ import {
   StyledMain,
 } from "./styles";
 import { ErrorPage } from "../ErrorPage";
+import { tokens } from "@src/design/tokens";
 
 
 const renderLogo = (imgUrl: string) => {
@@ -40,6 +42,7 @@ const renderLogo = (imgUrl: string) => {
 function AppPage() {
   const { appData, businessUnitsToTheStaff, setBusinessUnitSigla, businessUnitSigla } =
     useContext(AppContext);
+    const { logout } = useAuth0();
   const [collapse, setCollapse] = useState(false);
   const collapseMenuRef = useRef<HTMLDivElement>(null);
   const businessUnitChangeRef = useRef<HTMLDivElement>(null);
@@ -72,7 +75,7 @@ function AppPage() {
   return (
     <StyledAppPage>
       {loading ? (
-         <Stack gap="16px" direction="column" padding="300px">
+         <Stack gap={tokens.spacing.s200} direction="column" padding="300px">
          <Stack direction="column">
            <Text type="title" size="small" textAlign="center">
              Espere un momento, por favor.
@@ -126,10 +129,9 @@ function AppPage() {
                 >
                   {!isTablet && optionsCards && (
                     <Nav
-                      navigation={navConfig(optionsCards)}
-                      logoutPath="/logout"
-                      logoutTitle="Cerrar sesión"
-                    />
+                    navigation={navConfig(optionsCards)}
+                     actions={actionsConfig(logout)}
+                 />
                   )}
                   <StyledMain>
                     <Outlet />

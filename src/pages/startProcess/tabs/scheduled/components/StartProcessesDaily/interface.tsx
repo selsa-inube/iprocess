@@ -1,8 +1,7 @@
-import { MdSearch } from "react-icons/md";
 import { Stack } from "@inubekit/stack";
-import { Textfield } from "@inubekit/textfield";
 import { Breadcrumbs } from "@inubekit/breadcrumbs";
 import { useMediaQuery } from "@inubekit/hooks";
+import { Input } from "@inubekit/input";
 
 import { IDailyDetail } from "@pages/startProcess/types";
 import { IAction } from "@components/data/Table/props";
@@ -75,12 +74,11 @@ function StartProcessesDailyUI(props: StartProcessesDailyUIProps) {
               title={descriptionProcess}
             />
 
-            <Textfield
+            <Input
               name="searchProcessDaily"
               id="searchProcessDaily"
               placeholder="Búsqueda..."
               type="search"
-              iconBefore={<MdSearch />}
               size="compact"
               value={searchProcessDaily}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>

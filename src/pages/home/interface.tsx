@@ -142,10 +142,10 @@ function HomeUI(props: HomeProps) {
             )}
           </StyledContainerCards>
         </StyledContainerSection>
+      </StyledContainer>
         <StyledFooter>
           <StyledLogo src={appData.businessManager.urlBrand} />
         </StyledFooter>
-      </StyledContainer>
     </>
   );
 }
