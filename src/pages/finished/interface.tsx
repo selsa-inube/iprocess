@@ -1,4 +1,3 @@
-import { MdSearch } from "react-icons/md";
 import { Stack } from "@inubekit/stack";
 import { Text } from "@inubekit/text";
 import { useMediaQuery } from "@inubekit/hooks";
@@ -78,7 +77,6 @@ function FinishedUI(props: FinishedUIProps) {
               id="searchFinished"
               placeholder="Búsqueda..."
               type="search"
-              iconBefore={<MdSearch />}
               size="compact"
               value={searchFinished}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
