@@ -6,7 +6,7 @@ import { normalizeOptionsByPublicCode } from "@utils/optionsByBusinessUnits";
 
 export const useOptionsByBusinessunits = (
   staffPortalId: string,
-  businessUnitPublicCode: string,
+  businessUnitSigla: string
 ) => {
   const [optionsData, setOptionsData] = useState<IOptionsByBusinessUnits[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
@@ -16,22 +16,21 @@ export const useOptionsByBusinessunits = (
     const fetchOptionsByBusinessUnits = async () => {
       setLoading(true);
       try {
+        const businessUnit = JSON.parse(businessUnitSigla || "{}");
         const newOptions = await optionsByBusinessUnits(
           staffPortalId,
-          businessUnitPublicCode
+          businessUnit.publicCode
         );
         setOptionsData(newOptions);
       } catch (error) {
         console.info(error);
         setHasError(true);
-      }finally {
+      } finally {
         setLoading(false);
       }
     };
-
     fetchOptionsByBusinessUnits();
-  }, []);
-
+  }, [businessUnitSigla]);
 
   const optionsCards = optionsData
     .filter((option) => normalizeOptionsByPublicCode(option.publicCode))

@@ -52,7 +52,7 @@ function HomeUI(props: HomeProps) {
   const businessUnitChangeRef = useRef<HTMLDivElement>(null);
   const isTablet = useMediaQuery("(max-width: 944px)");
   const username = appData.user.userName.split(" ")[0];
-
+ 
   useEffect(() => {
     if (appData.businessUnit.publicCode) {
       setSelectedClient(appData.businessUnit.abbreviatedName);
@@ -63,7 +63,7 @@ function HomeUI(props: HomeProps) {
     const selectJSON = JSON.stringify(businessUnit);
     setBusinessUnitSigla(selectJSON);
     setSelectedClient(businessUnit.abbreviatedName);
-    window.location.reload();
+    setCollapse(false);
   };
  
   return (

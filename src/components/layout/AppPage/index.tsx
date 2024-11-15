@@ -38,7 +38,7 @@ const renderLogo = (imgUrl: string) => {
 };
 
 function AppPage() {
-  const { appData, businessUnitsToTheStaff, setBusinessUnitSigla } =
+  const { appData, businessUnitsToTheStaff, setBusinessUnitSigla, businessUnitSigla } =
     useContext(AppContext);
   const [collapse, setCollapse] = useState(false);
   const collapseMenuRef = useRef<HTMLDivElement>(null);
@@ -49,7 +49,7 @@ function AppPage() {
 
   const { optionsCards, loading } = useOptionsByBusinessunits(
     staffPortalId,
-    appData.businessUnit.publicCode
+    businessUnitSigla
   );
 
   const navigate = useNavigate();

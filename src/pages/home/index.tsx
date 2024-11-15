@@ -6,14 +6,14 @@ import { decrypt } from "@utils/encrypt";
 import { HomeUI } from "./interface";
 
 function Home() {
-  const { appData } = useContext(AppContext);
+  const { businessUnitSigla } = useContext(AppContext);
   const [selectedClient, setSelectedClient] = useState<string>("");
   const portalId = localStorage.getItem("portalCode");
   const staffPortalId = portalId ? decrypt(portalId) : "";
 
   const { optionsCards, loading } = useOptionsByBusinessunits(
     staffPortalId,
-    appData.businessUnit.publicCode
+    businessUnitSigla
   );
 
   return (
