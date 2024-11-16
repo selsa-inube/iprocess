@@ -18,6 +18,7 @@ import {
   StyledCollapseIcon,
   StyledContainer,
   StyledContentImg,
+  StyledHeaderContainer,
   StyledLogo,
   StyledMain,
 } from "./styles";
@@ -38,7 +39,7 @@ function AppPage() {
   const collapseMenuRef = useRef<HTMLDivElement>(null);
   const businessUnitChangeRef = useRef<HTMLDivElement>(null);
   const [selectedClient, setSelectedClient] = useState<string>("");
-  const navigate= useNavigate();
+  const navigate = useNavigate();
   const isTablet = useMediaQuery("(max-width: 849px)");
 
   useEffect(() => {
@@ -58,16 +59,18 @@ function AppPage() {
   return (
     <StyledAppPage>
       <Grid templateRows="auto 1fr" height="100vh" justifyContent="unset">
-      <Header
+        <StyledHeaderContainer>
+          <Header
             portalId="portal"
             navigation={nav}
             user={{
               username: appData.user.userName,
-              breakpoint: "848px"
+              breakpoint: "848px",
             }}
             logoURL={renderLogo(appData.businessUnit.urlLogo)}
             menu={userMenu}
           />
+        </StyledHeaderContainer>
         {businessUnitsToTheStaff.length > 1 && (
           <>
             <StyledCollapseIcon
@@ -100,10 +103,7 @@ function AppPage() {
             alignContent="unset"
           >
             {!isTablet && (
-               <Nav
-               navigation={nav.items}
-                actions={actionsConfig(logout)}
-            />
+              <Nav navigation={nav.items} actions={actionsConfig(logout)} />
             )}
             <StyledMain>
               <Outlet />
