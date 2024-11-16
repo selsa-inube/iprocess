@@ -1,7 +1,6 @@
-import { MdSearch } from "react-icons/md";
 import { Stack } from "@inubekit/stack";
-import { Textfield } from "@inubekit/textfield";
 import { useMediaQuery } from "@inubekit/hooks";
+import { Input } from "@inubekit/input";
 
 import { ChangePeriod } from "@components/feedback/ChangePeriod";
 import { CardProcess } from "@components/feedback/CardProcess";
@@ -9,7 +8,6 @@ import { tokens } from "@design/tokens";
 import { formatMonthEndpoint, monthNormalize } from "@utils/dates";
 import { IProcess } from "@components/feedback/CardProcess/types";
 import { CardProcessGroup } from "@components/feedback/CardProcessGroup";
-
 import { IChangePeriodEntry, IListPeriods } from "../../types";
 import { scheduledNormailzeEntries } from "./config/card.config";
 
@@ -67,12 +65,11 @@ function ScheduledTabUI(props: ScheduledTabUIProps) {
             setSelectedPeriod={setSelectedPeriod}
           />
 
-          <Textfield
+          <Input
             name="searchScheduled"
             id="searchScheduled"
             placeholder="Búsqueda..."
             type="search"
-            iconBefore={<MdSearch />}
             size="compact"
             value={searchScheduled}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>

@@ -5,7 +5,7 @@ import { decrypt } from "@utils/encrypt";
 import { usePortalData } from "@hooks/usePortalData";
 import { useBusinessManagers } from "@hooks/useBusinessManagers";
 import { IBusinessUnitsPortalStaff } from "@ptypes/staffPortalBusiness.types";
-import { IAppContext, IAppData} from "./types";
+import { IAppContext, IAppData } from "./types";
 
 const AppContext = createContext<IAppContext>({} as IAppContext);
 
@@ -92,7 +92,7 @@ function AppContextProvider(props: AppProviderProps) {
         urlLogo: businessManagersData.urlLogo || "",
       },
     }));
-  }, [businessManagersData]);
+  }, [businessManagersData, portalData, portalCode]);
 
   useEffect(() => {
     localStorage.setItem("businessUnitSigla", businessUnitSigla);
@@ -102,15 +102,16 @@ function AppContextProvider(props: AppProviderProps) {
 
       setAppData((prev) => ({
         ...prev,
-        businessUnit:{
+        businessUnit: {
           ...prev.businessUnit,
-          abbreviatedName: businessUnit?.abbreviatedName ,
-          publicCode: businessUnit?.publicCode ,
-          languageId: businessUnit?.languageId ,
-          urlLogo: businessUnit?.urlLogo }
+          abbreviatedName: businessUnit?.abbreviatedName,
+          publicCode: businessUnit?.publicCode,
+          languageId: businessUnit?.languageId,
+          urlLogo: businessUnit?.urlLogo,
+        },
       }));
     }
-  }, [businessUnitSigla]);
+  }, [businessUnitSigla, businessUnitsToTheStaff]);
 
   useEffect(() => {
     localStorage.setItem("businessUnitsToTheStaff", JSON.stringify(businessUnitsToTheStaff));
@@ -120,12 +121,12 @@ function AppContextProvider(props: AppProviderProps) {
     () => ({
       appData,
       businessUnitSigla,
-      businessUnitsToTheStaff, 
+      businessUnitsToTheStaff,
       setAppData,
       setBusinessUnitSigla,
-      setBusinessUnitsToTheStaff
+      setBusinessUnitsToTheStaff,
     }),
-    [appData, businessUnitSigla, businessUnitsToTheStaff, setAppData, setBusinessUnitSigla, setBusinessUnitsToTheStaff]
+    [appData, businessUnitSigla, businessUnitsToTheStaff]
   );
 
   return (

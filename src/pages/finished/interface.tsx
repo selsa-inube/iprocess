@@ -1,4 +1,3 @@
-import { MdSearch } from "react-icons/md";
 import { Stack } from "@inubekit/stack";
 import { Text } from "@inubekit/text";
 import { useMediaQuery } from "@inubekit/hooks";
@@ -63,7 +62,10 @@ function FinishedUI(props: FinishedUIProps) {
           </Text>
         </Stack>
         <Stack gap={tokens.spacing.s400} direction="column">
-          <Stack justifyContent="space-between">
+          <Stack justifyContent="space-between" direction={smallScreen ? "column" : "row"}
+            gap={
+              smallScreen ? `${tokens.spacing.s150}` : `${tokens.spacing.s0}`
+            }>
             <ChangePeriod
               description={`Procesos del mes de ${month} ${year}`}
               listOfPeriods={normalizedPeriods}
@@ -75,7 +77,6 @@ function FinishedUI(props: FinishedUIProps) {
               id="searchFinished"
               placeholder="Búsqueda..."
               type="search"
-              iconBefore={<MdSearch />}
               size="compact"
               value={searchFinished}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
