@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { MdKeyboardArrowDown, MdKeyboardArrowUp } from "react-icons/md";
-import { useMediaQuery } from "@inubekit/hooks";
 import { Text } from "@inubekit/text";
 import { Icon } from "@inubekit/icon";
 import { Divider } from "@inubekit/divider";
@@ -12,24 +11,23 @@ export interface IAccordionProps {
   title: string;
   defaultOpen?: boolean;
   children?: JSX.Element | JSX.Element[];
-  dashed?: boolean;
+  divider?: boolean;
 }
 export const Accordion = (props: IAccordionProps) => {
-  const { title, defaultOpen = true, children, dashed } = props;
+  const { title, defaultOpen = true, children, divider= true } = props;
   const [isOpen, setIsOpen] = useState(defaultOpen);
 
   const handleToggleOpen = () => setIsOpen(!isOpen);
-
-  const isMobile = useMediaQuery("(max-width: 450px)");
 
   return (
     <StyledContainer>
       <StyledHead onClick={handleToggleOpen}>
         <Text
           type="label"
-          size={isMobile ? "medium" : "large"}
+          size={"large"}
           appearance={ComponentAppearance.GRAY}
           weight="bold"
+          ellipsis
         >
           {title}
         </Text>
@@ -45,7 +43,7 @@ export const Accordion = (props: IAccordionProps) => {
 
       {isOpen && (
         <>
-          <Divider dashed={dashed} />
+         { divider && <Divider dashed={true} /> } 
           {children}
         </>
       )}

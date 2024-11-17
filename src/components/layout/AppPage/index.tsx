@@ -132,6 +132,7 @@ function AppPage() {
                 <Grid
                   templateColumns={!isTablet ? "auto 1fr" : "1fr"}
                   alignContent="unset"
+                  height={"95vh"}
                 >
                   {!isTablet && optionsCards && (
                     <Nav

@@ -67,7 +67,7 @@ export const Default: Story = (args: IAccordionProps) => (
 Default.args = {
   title: "Datos generales",
   defaultOpen: true,
-  dashed: true,
+  divider: true,
   children: <Text></Text>,
 };
 

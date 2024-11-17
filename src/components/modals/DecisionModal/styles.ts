@@ -11,7 +11,6 @@ const StyledModal = styled.div<IStyledModal>`
   flex-direction: column;
   background-color: ${inube.palette.neutral.N0};
   width: ${(props) => (props.$smallScreen ? "300px" : "360px")};
-
   height: auto;
   border-radius: ${tokens.spacing.s100};
   padding: ${tokens.spacing.s300};

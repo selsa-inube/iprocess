@@ -1,5 +1,4 @@
 import { lazy, Suspense } from "react";
-import { MdClear } from "react-icons/md";
 import { Divider } from "@inubekit/divider";
 import { Grid } from "@inubekit/grid";
 import { Label } from "@inubekit/label";
@@ -24,7 +23,6 @@ interface GeneralDataDesktopProps {
   seeErrorsChecked: boolean;
   onChangeSearch: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onChangeToggle: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  onCloseModal: () => void;
   onProcessPersonId: (id: string | undefined, check: boolean) => void;
 }
 
@@ -38,7 +36,6 @@ const GeneralDataDesktop = (props: GeneralDataDesktopProps) => {
     seeErrorsChecked,
     onChangeSearch,
     onChangeToggle,
-    onCloseModal,
     onProcessPersonId,
   } = props;
 
@@ -50,14 +47,6 @@ const GeneralDataDesktop = (props: GeneralDataDesktopProps) => {
 
   return (
     <>
-      <Stack direction="column">
-        <Stack alignItems="center" justifyContent="space-between">
-          <Text type="title" size="medium" appearance="dark" weight="bold">
-            Estado de la ejecución
-          </Text>
-          <MdClear size="24px" cursor="pointer" onClick={onCloseModal} />
-        </Stack>
-      </Stack>
       <Grid
         templateColumns="1fr 1fr 1fr"
         templateRows="1fr 1fr"
@@ -69,7 +58,7 @@ const GeneralDataDesktop = (props: GeneralDataDesktopProps) => {
           return value !== null &&
             value !== undefined &&
             (typeof value === "string" || typeof value === "number") ? (
-            <StyledFields key={id} $smallScreen={false}>
+            <StyledFields key={id}>
               <Label
                 htmlFor={field.id}
                 size="large"

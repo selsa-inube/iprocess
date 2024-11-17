@@ -1,77 +1,137 @@
-import { MdClear } from 'react-icons/md';
-import { Divider } from "@inubekit/divider";
-import { Grid } from "@inubekit/grid";
-import { Label } from "@inubekit/label";
 import { Fieldset } from "@inubekit/fieldset";
 import { Stack } from "@inubekit/stack";
 import { Text } from "@inubekit/text";
 
 import { tokens } from "@design/tokens";
+import { Accordion } from "@components/data/Accordion";
 import { StartProcesses } from "@pages/startProcess/types";
 import { StyledFields } from "../styles";
-import { ILabel } from '../types';
+import { ILabel } from "../types";
+import { Toggle } from "@inubekit/toggle";
+import { Label } from "@inubekit/label";
+import { Input } from "@inubekit/input";
+import { lazy, Suspense } from "react";
+
+import { CardStatusExecution } from "@components/feedback/CardStatusExecution";
+import { StyledContainerInput } from "./styles";
 
 interface GeneralDataMobileProps {
-    dataInformationProcess: StartProcesses;
-    labels: ILabel[];
-    onCloseModal: () => void;
+  dataInformationProcess: StartProcesses;
+  isdiscardPersonsWithErrors: boolean;
+  labels: ILabel[];
+  processControlId: string;
+  search: string;
+  seeErrorsChecked: boolean;
+  onChangeSearch: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onChangeToggle: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onProcessPersonId: (id: string | undefined, check: boolean) => void;
 }
 
-const GeneralDataMobile =(props: GeneralDataMobileProps) =>{
+const GeneralDataMobile = (props: GeneralDataMobileProps) => {
+  const {
+    dataInformationProcess,
+    isdiscardPersonsWithErrors,
+    labels,
+    processControlId,
+    search,
+    seeErrorsChecked,
+    onChangeSearch,
+    onChangeToggle,
+    onProcessPersonId,
+  } = props;
 
-    const { dataInformationProcess, labels, onCloseModal } = props;
+  const CardStatusExecutionGroupComponent = lazy(() =>
+    import("@components/feedback/CardStatusExecutionGroup").then((module) => ({
+      default: module.CardStatusExecutionGroup,
+    }))
+  );
 
-    return (
-        <>
-        <Stack direction="column">
-        <Stack alignItems="center" justifyContent="space-between">
-          <Text
-            type="title"
-            size="medium"
-            appearance="dark"
-            weight="bold"
-          >
-            Estado de la ejecución
-          </Text>
-          <MdClear size="24px" cursor="pointer" onClick={onCloseModal} />
+  return (
+    <>
+      <Accordion title="Datos generales" divider={false}>
+        <Stack direction="column" gap={tokens.spacing.s200}>
+          {labels.map((field, id) => {
+            const value =
+              dataInformationProcess[field.id as keyof StartProcesses];
+            return value !== null &&
+              value !== undefined &&
+              (typeof value === "string" || typeof value === "number") ? (
+              <StyledFields key={id}>
+                <Fieldset
+                  legend=""
+                  spacing="compact"
+                  type="title"
+                  size="medium"
+                >
+                  <Stack direction="column" gap={tokens.spacing.s025} width="100%">
+                    <Text type="label" size="medium" weight="bold" >
+                      {field.titleName}
+                    </Text>
+                    <Text type="body" size="small">
+                      {value}
+                    </Text>
+                  </Stack>
+                </Fieldset>
+              </StyledFields>
+            ) : null;
+          })}
         </Stack>
-      </Stack>
-      <Grid
-        templateColumns="1fr 1fr 1fr"
-        templateRows="1fr 1fr"
-        gap={tokens.spacing.s100}
+      </Accordion>
+      <Accordion
+        title="Personas incluidas en el proceso"
+        divider={true}
+        defaultOpen={false}
       >
-        {labels.map((field, id) => {
-          const value =
-            dataInformationProcess[field.id as keyof StartProcesses];
-          return value !== null &&
-            value !== undefined &&
-            (typeof value === "string" || typeof value === "number") ? (
-            <StyledFields key={id} $smallScreen={false}>
-              <Label
-                htmlFor={field.id}
-                size="large"
-                margin={`${tokens.spacing.s0} ${tokens.spacing.s0} ${tokens.spacing.s0} ${tokens.spacing.s200}`}
-              >
-                {field.titleName}
-              </Label>
-              <Fieldset
-                legend=""
-                spacing="compact"
-                type="title"
-                size="medium"
-              >
-                <Text type="body" size="medium">
-                  {value}
-                </Text>
-              </Fieldset>
-            </StyledFields>
-          ) : null;
-        })}
-      </Grid>
-      <Divider dashed />
-      </>
-    )
-}
+        <Stack direction="column">
+          <Stack
+            direction="row"
+            gap={tokens.spacing.s100}
+            justifyContent="left"
+          >
+            <Toggle
+              checked={seeErrorsChecked}
+              id="seeErrors"
+              margin={tokens.spacing.s0}
+              name="seeErrors"
+              onChange={onChangeToggle}
+              padding={tokens.spacing.s0}
+              value={"seeErrors"}
+              size="small"
+            />
+            <Label htmlFor="seeErrors" size="medium">
+              Ver errores
+            </Label>
+          </Stack>
+          <StyledContainerInput>
+            <Input
+              placeholder="Búsqueda..."
+              type="search"
+              name="search"
+              id="search"
+              value={search}
+              onChange={onChangeSearch}
+              size="compact"
+            />
+          </StyledContainerInput>
+        </Stack>
+        <Suspense
+          fallback={
+            <Stack gap={tokens.spacing.s200} width="100%" wrap="wrap">
+              <CardStatusExecution isLoading={true} />
+            </Stack>
+          }
+        >
+          <CardStatusExecutionGroupComponent
+            processControlId={processControlId}
+            filter={search}
+            filteredWithErrors={seeErrorsChecked}
+            handleProcessPersonId={onProcessPersonId}
+            isdiscardPersonsWithErrors={isdiscardPersonsWithErrors}
+          />
+        </Suspense>
+      </Accordion>
+    </>
+  );
+};
 
-export {GeneralDataMobile}
+export { GeneralDataMobile };
