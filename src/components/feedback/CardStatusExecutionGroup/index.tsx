@@ -127,7 +127,7 @@ const CardStatusExecutionGroup = (props: CardStatusExecutionGroupProps) => {
             </Stack>
           )}
           {peopleIncludedData &&
-            normalizeDataPerson(peopleIncludedData, processControlId).map((entry, index) => (
+            normalizeDataPerson(peopleIncludedData, processControlId, filteredWithErrors).map((entry, index) => (
               <Stack key={index}>
                 <CardStatusExecution
                   entries={entry}
