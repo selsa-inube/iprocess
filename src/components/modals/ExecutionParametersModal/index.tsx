@@ -68,7 +68,7 @@ const ExecutionParametersModal = (props: ExecutionParametersModalProps) => {
       <Blanket>
         <StyledModal $smallScreen={isMobile}>
           <Stack direction="column" gap={tokens.spacing.s200}>
-            <StyledContainerModal>
+            <StyledContainerModal $smallScreen={isMobile}>
               <Stack direction="column" gap={tokens.spacing.s100}>
                 <Stack alignItems="center" justifyContent="space-between">
                   <Text type="title" size="medium" appearance="dark">

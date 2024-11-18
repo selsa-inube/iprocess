@@ -40,8 +40,8 @@ const detailsPersonData = (entries: IPersonProcess) => {
     processPersonId: entries.processPersonId,
     personName: entries.personName,
     processControlId: entries.processControlId,
-    startDate: entries.startDate ? formatDate(new Date(entries.startDate), true): "",
-    finishDate: entries.finishDate ? formatDate(new Date(entries.finishDate), true) : "",
+    startDate: entries.startDate,
+    finishDate: entries.finishDate,
     personPublicCode: entries.personPublicCode,
     statusText: normalizeStatusRequirementByStatus(entries?.executionStatusByPerson || "")?.name,
   };

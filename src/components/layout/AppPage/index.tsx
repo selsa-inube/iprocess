@@ -24,6 +24,7 @@ import {
   StyledCollapseIcon,
   StyledContainer,
   StyledContentImg,
+  StyledHeaderContainer,
   StyledLogo,
   StyledMain,
 } from "./styles";
@@ -89,13 +90,18 @@ function AppPage() {
         <>
           {optionsCards && optionsCards.length > 0 ? (
             <Grid templateRows="auto 1fr" height="100vh" justifyContent="unset">
-              <Header
-                portalId="portal"
-                navigation={navConfig(optionsCards)}
-                logoURL={renderLogo(appData.businessUnit.urlLogo)}
-                userName={appData.user.userName}
-                userMenu={userMenu}
-              />
+              <StyledHeaderContainer>
+          <Header
+            portalId="portal"
+            navigation={navConfig(optionsCards)}
+            user={{
+              username: appData.user.userName,
+              breakpoint: "848px",
+            }}
+            logoURL={renderLogo(appData.businessUnit.urlLogo)}
+            menu={userMenu}
+          />
+        </StyledHeaderContainer>
               {businessUnitsToTheStaff.length > 1 && (
                 <>
                   <StyledCollapseIcon
@@ -126,10 +132,11 @@ function AppPage() {
                 <Grid
                   templateColumns={!isTablet ? "auto 1fr" : "1fr"}
                   alignContent="unset"
+                  height={"95vh"}
                 >
                   {!isTablet && optionsCards && (
                     <Nav
-                    navigation={navConfig(optionsCards)}
+                    navigation={navConfig(optionsCards).items}
                      actions={actionsConfig(logout)}
                  />
                   )}

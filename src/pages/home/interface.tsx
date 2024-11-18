@@ -73,9 +73,12 @@ function HomeUI(props: HomeProps) {
             <Header
               portalId="portal"
               navigation={navConfig(data || [])}
+              user={{
+                username: appData.user.userName,
+                breakpoint: "848px",
+              }}
               logoURL={renderLogo(appData.businessUnit.urlLogo)}
-              userName={appData.user.userName}
-              userMenu={userMenu}
+              menu={userMenu}
             />
 
           {businessUnitsToTheStaff.length > 1 && (

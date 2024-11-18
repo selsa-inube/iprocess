@@ -21,6 +21,7 @@ const navConfig = (optionsCards: ICardData[]): INav => {
   }, {});
 
   return {
+    items: {
     title: "MENU",
     sections: {
       administrate: {
@@ -28,6 +29,8 @@ const navConfig = (optionsCards: ICardData[]): INav => {
         links: linkNav,
       },
     },
+  },
+  breakpoint: "848px",
   };
 };
 

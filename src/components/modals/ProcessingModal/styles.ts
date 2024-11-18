@@ -14,7 +14,7 @@ const StyledModal = styled.div<IStyledModal>`
     theme?.palette?.neutral?.N10 || inube.palette.neutral.N10};
 
   width: ${(props) => (props.$smallScreen ? "280px" : "402px")};
-  min-height: auto;
+  height: auto;
   border-radius: ${(props) => (props.$smallScreen ? "0" : "8px")};
   gap: 20px;
   & > div {

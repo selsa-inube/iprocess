@@ -30,12 +30,14 @@ const StyledMain = styled.main`
   overflow-y: auto;
   padding: ${tokens.spacing.s300};
 
-  
   @media screen and (max-width: 1000px) {
     padding: ${tokens.spacing.s300};
   }
 `;
 
+const StyledHeaderContainer = styled.div`
+    position: relative;
+`;
 const StyledContentImg = styled(Link)`
   width: 100px;
 `;
@@ -62,6 +64,7 @@ const StyledCollapse = styled.div`
 export {
   StyledAppPage,
   StyledContainer,
+  StyledHeaderContainer,
   StyledContentImg,
   StyledLogo,
   StyledMain,

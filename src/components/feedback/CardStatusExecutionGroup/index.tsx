@@ -75,7 +75,11 @@ const CardStatusExecutionGroup = (props: CardStatusExecutionGroupProps) => {
         divScroll.current.scrollHeight &&
       !loading
     ) {
-      peopleIncludedInProcessData();
+      if (!filteredWithErrors) {
+        peopleIncludedInProcessData();
+      } else {
+        peopleIncludedInProcessData("ProcessedWithErrors", true);
+      }
     }
   };
 
@@ -119,14 +123,17 @@ const CardStatusExecutionGroup = (props: CardStatusExecutionGroupProps) => {
             </Stack>
           )}
           {peopleIncludedData &&
-            normalizeDataPerson(peopleIncludedData, processControlId).map((entry, index) => (
-              <Stack key={index}>
-                <CardStatusExecution
-                  entries={entry}
-                  handleProcessPersonId={handleProcessPersonId}
-                />
-              </Stack>
-            ))}
+            normalizeDataPerson(peopleIncludedData, processControlId).map(
+              (entry, index) => (
+                <Stack key={index}>
+                  <CardStatusExecution
+                    entries={entry}
+                    isFilteredWithErrors={filteredWithErrors}
+                    handleProcessPersonId={handleProcessPersonId}
+                  />
+                </Stack>
+              )
+            )}
         </StyledCardStatusGroup>
       ) : (
         <Stack justifyContent="center">
