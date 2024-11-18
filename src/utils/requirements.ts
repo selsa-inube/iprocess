@@ -6,6 +6,7 @@ const statusRequirement = [
   { status: "Undefined", name: "No Definido", appearance: "gray" },
   { status: "WithoutProcessing", name: "Sin procesar", appearance: "warning" },
   { status: "ProcessedWithErrors", name: "Error", appearance: "danger" },
+  { status: "BugIdentified", name: "Error identificado", appearance: "danger" },
 ];
 
 const evaluationStatusRequirement = [

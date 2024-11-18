@@ -17,6 +17,7 @@ interface IPersonProcess {
   processErrors?: IProcessErrors[];
   errorsDescription?: string;
   processControlId?: string;
+  statusText?: string;
 }
 
 interface IActions {

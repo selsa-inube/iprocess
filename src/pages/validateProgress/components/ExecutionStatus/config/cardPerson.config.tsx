@@ -1,7 +1,6 @@
 import { formatDate } from "@utils/dates";
 import { IPersonProcessTime } from "@pages/validateProgress/types";
 import { IPersonProcess } from "@components/feedback/CardStatusExecution/types";
-import { normalizeStatusRequirementByStatus } from "@utils/requirements";
 import { DetailsExecutionStatus } from "../DetailsExecutionStatus";
 
 const normalizeDataInformationProcess = (
@@ -43,7 +42,6 @@ const detailsPersonData = (entries: IPersonProcess) => {
     startDate: entries.startDate ,
     finishDate: entries.finishDate,
     personPublicCode: entries.personPublicCode,
-    statusText: normalizeStatusRequirementByStatus(entries?.executionStatusByPerson || "")?.name,
   };
 };
 

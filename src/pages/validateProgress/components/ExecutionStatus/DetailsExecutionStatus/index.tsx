@@ -7,6 +7,7 @@ import { tokens } from "@design/tokens";
 import { IPersonProcess } from "@components/feedback/CardStatusExecution/types";
 import { personWithError } from "@services/validateProgress/getPersonWithError";
 import { AppContext } from "@context/AppContext";
+import { normalizeStatusRequirementByStatus } from "@utils/requirements";
 import { labelsDetails } from "../config/cardPerson.config";
 
 interface IDetailsExecutionStatusProps {
@@ -31,7 +32,10 @@ const DetailsExecutionStatus = (props: IDetailsExecutionStatusProps) => {
         data.processControlId || "",
         data.processPersonId
       );
-      data.errorsDescription = newError.find((item) => item)?.errorStatus;
+
+      const dataErrors = newError.find((item) => item);
+      data.errorsDescription = dataErrors?.errorDescription;
+      data.statusText = normalizeStatusRequirementByStatus(dataErrors?.errorStatus || "")?.name;
     } catch (error) {
       throw new Error(
         `Error al obtener los datos: ${(error as Error).message} `
