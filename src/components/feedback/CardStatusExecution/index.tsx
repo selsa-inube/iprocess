@@ -37,7 +37,6 @@ const CardStatusExecution = (props: CardStatusExecutionProps) => {
   const [checkedCard, setCheckedCard] = useState<boolean>(false);
 
   useEffect(() => {
-    // Restablecer el estado del checkbox a false cada vez que el componente se monte
     setCheckedCard(false);
   }, []);
 
@@ -47,7 +46,6 @@ const CardStatusExecution = (props: CardStatusExecutionProps) => {
 
   const handleChangeManage = (e: React.ChangeEvent<HTMLInputElement>) => {
     setCheckedCard(e.target.checked);
-    console.log(e.target.checked);
     handleProcessPersonId && handleProcessPersonId(entries?.processPersonId, e.target.checked);
   };
 
