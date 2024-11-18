@@ -60,6 +60,8 @@ const StatusOfExecutionModal = (props: StatusOfExecutionModalProps) => {
     }
   };
 
+  console.log("dataSubtmit", dataSubtmit);
+
   useEffect(() => {
     if (dataSubtmit && dataSubtmit.length === 0) {
       setDisabledBoton(true);

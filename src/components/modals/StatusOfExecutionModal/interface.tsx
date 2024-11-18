@@ -9,7 +9,6 @@ import { Button } from "@inubekit/button";
 
 import { tokens } from "@design/tokens";
 import { StartProcesses } from "@pages/startProcess/types";
-import { mediaQueryMobile } from "@config/environment";
 import { ComponentAppearance } from "@ptypes/aparences.types";
 import { IProcessPersonsWithErrors } from "@pages/validateProgress/types";
 import { StyledContainer, StyledModal } from "./styles";
@@ -56,7 +55,7 @@ const StatusOfExecutionModalUI = (props: StatusOfExecutionModalUIProps) => {
     onProcessPersonId,
   } = props;
 
-  const isMobile = useMediaQuery(mediaQueryMobile);
+  const isMobile = useMediaQuery("(max-width: 1000px)");
 
   const node = document.getElementById(portalId);
 
@@ -113,7 +112,7 @@ const StatusOfExecutionModalUI = (props: StatusOfExecutionModalUIProps) => {
           <Stack gap={tokens.spacing.s100} justifyContent="flex-end">
             <Button
               spacing="wide"
-              appearance={ComponentAppearance.GRAY}
+              appearance={ComponentAppearance.PRIMARY}
               variant="filled"
               onClick={onReprocess}
               disabled={disabledBoton}

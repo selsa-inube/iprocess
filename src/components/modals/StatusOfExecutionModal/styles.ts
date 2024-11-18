@@ -14,7 +14,7 @@ const StyledModal = styled.div<IStyledModal>`
   background-color: ${({ theme }) =>
     theme?.palette?.neutral?.N10 || inube.palette.neutral.N10};
 
-  width: ${(props) => (props.$smallScreen ? "340px" : "996px")};
+  width: ${(props) => (props.$smallScreen ? "348px" : "996px")};
   height: auto;
   border-radius: ${(props) =>
     props.$smallScreen ? `${tokens.spacing.s150}` : `${tokens.spacing.s100}`};

@@ -34,11 +34,12 @@ const StyledModal = styled.div<IStyledModal>`
   }
 `;
 
-const StyledContainerModal = styled.div`
+const StyledContainerModal = styled.div<IStyledModal>`
   display: flex;
   flex-direction: column;
   gap: ${tokens.spacing.s250};
-  max-height: 680px;
+  max-height: ${(props) =>
+      props.$smallScreen ? "500px" : "680px"}; ;
   `;
 
 const StyledScroll = styled.div`

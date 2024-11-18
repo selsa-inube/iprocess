@@ -1,18 +1,17 @@
+import { lazy, Suspense, useState } from "react";
 import { Fieldset } from "@inubekit/fieldset";
 import { Stack } from "@inubekit/stack";
 import { Text } from "@inubekit/text";
+import { Toggle } from "@inubekit/toggle";
+import { Label } from "@inubekit/label";
+import { Input } from "@inubekit/input";
 
 import { tokens } from "@design/tokens";
 import { Accordion } from "@components/data/Accordion";
 import { StartProcesses } from "@pages/startProcess/types";
+import { CardStatusExecution } from "@components/feedback/CardStatusExecution";
 import { StyledFields } from "../styles";
 import { ILabel } from "../types";
-import { Toggle } from "@inubekit/toggle";
-import { Label } from "@inubekit/label";
-import { Input } from "@inubekit/input";
-import { lazy, Suspense } from "react";
-
-import { CardStatusExecution } from "@components/feedback/CardStatusExecution";
 import { StyledContainerInput } from "./styles";
 
 interface GeneralDataMobileProps {
@@ -40,6 +39,14 @@ const GeneralDataMobile = (props: GeneralDataMobileProps) => {
     onProcessPersonId,
   } = props;
 
+  const [isOpenDataGeneral, setIsOpenDataGeneral] = useState(true);
+  const [isOpenPersons, setIsOpenPersons] = useState(false);
+
+  const handleToggleOpen = () => {
+    setIsOpenDataGeneral(!isOpenDataGeneral);
+    setIsOpenPersons(!isOpenPersons);
+  };
+
   const CardStatusExecutionGroupComponent = lazy(() =>
     import("@components/feedback/CardStatusExecutionGroup").then((module) => ({
       default: module.CardStatusExecutionGroup,
@@ -48,7 +55,12 @@ const GeneralDataMobile = (props: GeneralDataMobileProps) => {
 
   return (
     <>
-      <Accordion title="Datos generales" divider={false}>
+      <Accordion
+        title="Datos generales"
+        divider={false}
+        isOpen={isOpenDataGeneral}
+        onToggleOpen={handleToggleOpen}
+      >
         <Stack direction="column" gap={tokens.spacing.s200}>
           {labels.map((field, id) => {
             const value =
@@ -63,8 +75,12 @@ const GeneralDataMobile = (props: GeneralDataMobileProps) => {
                   type="title"
                   size="medium"
                 >
-                  <Stack direction="column" gap={tokens.spacing.s025} width="100%">
-                    <Text type="label" size="medium" weight="bold" >
+                  <Stack
+                    direction="column"
+                    gap={tokens.spacing.s025}
+                    width="100%"
+                  >
+                    <Text type="label" size="medium" weight="bold">
                       {field.titleName}
                     </Text>
                     <Text type="body" size="small">
@@ -80,7 +96,8 @@ const GeneralDataMobile = (props: GeneralDataMobileProps) => {
       <Accordion
         title="Personas incluidas en el proceso"
         divider={true}
-        defaultOpen={false}
+        isOpen={isOpenPersons}
+        onToggleOpen={handleToggleOpen}
       >
         <Stack direction="column">
           <Stack

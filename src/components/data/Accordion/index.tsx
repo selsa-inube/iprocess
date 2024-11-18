@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { MdKeyboardArrowDown, MdKeyboardArrowUp } from "react-icons/md";
 import { Text } from "@inubekit/text";
 import { Icon } from "@inubekit/icon";
@@ -9,19 +8,17 @@ import { StyledContainer, StyledHead } from "./styles";
 
 export interface IAccordionProps {
   title: string;
-  defaultOpen?: boolean;
+  isOpen: boolean;
+  onToggleOpen: () => void;
   children?: JSX.Element | JSX.Element[];
   divider?: boolean;
 }
 export const Accordion = (props: IAccordionProps) => {
-  const { title, defaultOpen = true, children, divider= true } = props;
-  const [isOpen, setIsOpen] = useState(defaultOpen);
-
-  const handleToggleOpen = () => setIsOpen(!isOpen);
+  const { title, isOpen, children, divider= true, onToggleOpen } = props;
 
   return (
     <StyledContainer>
-      <StyledHead onClick={handleToggleOpen}>
+      <StyledHead onClick={onToggleOpen}>
         <Text
           type="label"
           size={"large"}
@@ -34,7 +31,7 @@ export const Accordion = (props: IAccordionProps) => {
 
         <Icon
           icon={isOpen ? <MdKeyboardArrowUp /> : <MdKeyboardArrowDown />}
-          appearance="dark"
+          appearance={ComponentAppearance.DARK}
           spacing="compact"
           cursorHover={true}
           size="24px"
