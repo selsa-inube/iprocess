@@ -17,7 +17,7 @@ const StyledModal = styled.div<IStyledModal>`
   width: ${(props) => (props.$smallScreen ? "280px" : "402px")};
   min-height: auto;
   border-radius: ${(props) =>
-    props.$smallScreen ? `${tokens.spacing.s0}` : `${tokens.spacing.s100}`};
+    props.$smallScreen ? `${tokens.spacing.s200}` : `${tokens.spacing.s100}`};
   gap: ${tokens.spacing.s250};
   & > div {
     padding: ${(props) =>

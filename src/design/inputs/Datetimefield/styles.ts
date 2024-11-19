@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { inube } from "@inubekit/foundations";
 import { tokens } from "@design/tokens";
+import { mediaQueryMobile } from "@config/environment";
 
 interface IStyledContainer {
   $withFullwidth?: boolean;
@@ -124,7 +125,12 @@ const StyledInputContainer = styled.div<IStyledInputContainer>`
       -webkit-appearance: none;
       margin: 0;
     }
+
+    @media(${mediaQueryMobile}) {
+      padding-left: ${tokens.spacing.s050};
+      padding-right: ${tokens.spacing.s025};
   }
+}
 `;
 
 const StyledMessageContainer = styled.div`

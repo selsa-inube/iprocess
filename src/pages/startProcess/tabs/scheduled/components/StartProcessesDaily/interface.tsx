@@ -1,18 +1,18 @@
-import { MdSearch } from "react-icons/md";
 import { Stack } from "@inubekit/stack";
-import { Textfield } from "@inubekit/textfield";
 import { Breadcrumbs } from "@inubekit/breadcrumbs";
 import { useMediaQuery } from "@inubekit/hooks";
+import { Input } from "@inubekit/input";
 
 import { IDailyDetail } from "@pages/startProcess/types";
 import { IAction } from "@components/data/Table/props";
 import { Table } from "@components/data/Table";
 import { tokens } from "@design/tokens";
-import { mediaQueryMobile } from "@config/environment";
 import { Title } from "@design/data/Title";
 import {
   actionsConfig,
+  actionsResponsiveConfig,
   breakPoints,
+  infoDataTable,
   processesDailyNormailzeEntries,
   titlesConfig,
 } from "./config/tableDetails.config";
@@ -49,30 +49,36 @@ function StartProcessesDailyUI(props: StartProcessesDailyUIProps) {
     setStatus,
   } = props;
 
-  const smallScreen = useMediaQuery(mediaQueryMobile);
+  const tabletScreen = useMediaQuery("(max-width: 850px)");
 
   return (
     <Stack
       direction="column"
       width="-webkit-fill-available"
       padding={
-        smallScreen
-          ? `${tokens.spacing.s600}`
+        tabletScreen
+          ? `${tokens.spacing.s200}`
           : `${tokens.spacing.s400} ${tokens.spacing.s800}`
       }
     >
       <Stack gap={tokens.spacing.s300} direction="column">
         <Breadcrumbs crumbs={crumbsStartProcessesDaily} />
         <Stack gap={tokens.spacing.s400} direction="column">
-          <Stack justifyContent="space-between" alignItems="center">
-            <Title title={descriptionProcess}/>
+          <Stack
+            justifyContent="space-between"
+            alignItems={tabletScreen ? "start" : "center"}
+            direction={tabletScreen ? "column" : "row"}
+          >
+            <Title
+              sizeTitle={tabletScreen ? "small" : "medium"}
+              title={descriptionProcess}
+            />
 
-            <Textfield
+            <Input
               name="searchProcessDaily"
               id="searchProcessDaily"
               placeholder="Búsqueda..."
               type="search"
-              iconBefore={<MdSearch />}
               size="compact"
               value={searchProcessDaily}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
@@ -84,6 +90,11 @@ function StartProcessesDailyUI(props: StartProcessesDailyUIProps) {
             id="portal"
             titles={titlesConfig(handleOrderData)}
             actions={actionsConfig(urlParams, nameAplication) as IAction[]}
+            actionsResponsive={
+              actionsResponsiveConfig(urlParams, nameAplication, status,
+                setStatus) as IAction[]
+            }
+            infoData={infoDataTable}
             entries={processesDailyNormailzeEntries(
               entries,
               month,

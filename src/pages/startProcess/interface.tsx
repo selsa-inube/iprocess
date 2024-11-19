@@ -4,7 +4,6 @@ import { useMediaQuery } from "@inubekit/hooks";
 import { Text } from "@inubekit/text";
 
 import { tokens } from "@design/tokens";
-import { mediaQueryMobile } from "@config/environment";
 import { startProcessTabsConfig } from "./config/tabs.config";
 import { ScheduledTab } from "./tabs/scheduled";
 import { OnDemandTab } from "./tabs/onDemand";
@@ -18,13 +17,13 @@ interface StartProcessUIProps {
 function StartProcessUI(props: StartProcessUIProps) {
   const { isSelected, handleTabChange } = props;
 
-  const smallScreen = useMediaQuery(mediaQueryMobile);
+  const smallScreen = useMediaQuery("(max-width: 990px)");
 
   return (
     <Stack
       direction="column"
       width="-webkit-fill-available"
-      padding={smallScreen ? "24px" : "32px 64px"}
+      padding={smallScreen ? `${tokens.spacing.s200}` : `${tokens.spacing.s400} ${tokens.spacing.s800}`}
     >
       <Stack gap={tokens.spacing.s600} direction="column">
         <Stack gap={tokens.spacing.s300} direction="column">

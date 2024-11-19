@@ -25,11 +25,17 @@ const StyledBusinessUnitsList = styled.div<StyledBusinessUnitsListProps>`
   & > div {
     list-style: none;
     max-height: 330px;
-    width: 560px;
+    width: 500px;
     overflow-y: auto;
+
     @media screen and (max-height: 1000px) {
       min-height: 200px;
+     
     }
+
+    @media screen and (max-width: 532px) {
+        width: 250px;
+      }
   }
 `;
 

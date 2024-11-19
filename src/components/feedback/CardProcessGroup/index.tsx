@@ -1,6 +1,7 @@
 import { useMemo } from "react";
 import { Stack } from "@inubekit/stack";
 import { Text } from "@inubekit/text";
+import { useMediaQuery } from "@inubekit/hooks";
 
 import { tokens } from "@design/tokens";
 import { IProcess } from "../CardProcess/types";
@@ -33,7 +34,7 @@ const CardProcessGroup = (props: CardProcessGroupProps) => {
     year,
     pathDetailByDay,
   } = props;
-
+  const smallScreen = useMediaQuery("(max-width: 690px)");
   const filteredEntries = useMemo(() => {
     const mapAttributes = attributes.map((attr) => attr);
 
@@ -56,7 +57,7 @@ const CardProcessGroup = (props: CardProcessGroupProps) => {
   return (
     <>
       {entries.length > 0 ? (
-        <Stack gap={tokens.spacing.s200} width="100%" wrap="wrap">
+        <Stack gap={tokens.spacing.s200} width="100%" wrap="wrap" justifyContent={smallScreen ? "center" : "inherit"} >
           {filteredEntries.map((entry, index) => (
             <Stack key={index}>
               <CardProcess

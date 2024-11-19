@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Stack } from "@inubekit/stack";
 import { Text } from "@inubekit/text";
 import { SkeletonIcon, SkeletonLine } from "@inubekit/skeleton";
@@ -16,6 +16,7 @@ import { StyledAction, StyledContainer } from "./styles";
 interface CardStatusExecutionProps {
   entries?: IPersonProcess;
   isLoading?: boolean;
+  isFilteredWithErrors?: boolean;
   handleProcessPersonId?: (id: string | undefined, check: boolean) => void;
 }
 
@@ -32,13 +33,23 @@ function ShowAction(actionContent: IActions[], entry: IPersonProcess) {
 }
 
 const CardStatusExecution = (props: CardStatusExecutionProps) => {
-  const { entries, isLoading, handleProcessPersonId } = props;
+  const { entries, isLoading, isFilteredWithErrors, handleProcessPersonId } = props;
   const [checkedCard, setCheckedCard] = useState<boolean>(false);
+
+  useEffect(() => {
+    setCheckedCard(false);
+  }, []);
+
+  useEffect(() => {
+    if (isFilteredWithErrors) setCheckedCard(false);
+  }, [isFilteredWithErrors]);
 
   const handleChangeManage = (e: React.ChangeEvent<HTMLInputElement>) => {
     setCheckedCard(e.target.checked);
     handleProcessPersonId && handleProcessPersonId(entries?.processPersonId, e.target.checked);
   };
+
+  
 
   return (
     <StyledContainer>

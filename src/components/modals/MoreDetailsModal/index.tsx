@@ -10,6 +10,7 @@ import { Blanket } from "@inubekit/blanket";
 import { Label } from "@inubekit/label";
 import { Fieldset } from "@inubekit/fieldset";
 
+import { mediaQueryMobile } from "@config/environment";
 import { StyledContainer, StyledModal, StyledModalFields } from "./styles";
 import { IEntries, ILabel } from "./types";
 
@@ -23,7 +24,7 @@ interface MoreDetailsModalProps {
 const MoreDetailsModal = (props: MoreDetailsModalProps) => {
   const { data, labels, portalId, onCloseModal } = props;
 
-  const isMobile = useMediaQuery("(max-width: 500px)");
+  const isMobile = useMediaQuery(mediaQueryMobile);
 
   const node = document.getElementById(portalId);
 

@@ -3,13 +3,16 @@ import { SkeletonLine } from "@inubekit/skeleton";
 import { Tag } from "@inubekit/tag";
 import { Text } from "@inubekit/text";
 import { Stack } from "@inubekit/stack";
+import { useMediaQuery } from "@inubekit/hooks";
 
 import { appearances } from "@pages/startProcess/types";
 import { RequirementsModal } from "@components/modals/requirementsModal";
 import { Tooltip } from "@design/feedback/Tooltip";
 import { tokens } from "@design/tokens";
 import { IRefNumPackageRequirement } from "@ptypes/packageRequeriment.types";
+import { mediaQueryMobile } from "@config/environment";
 import {
+  actionsResponsiveReq,
   breakPoints,
   dataTablesConfig,
 } from "./config/tablesRequirements.config";
@@ -39,6 +42,8 @@ const RequirementsUI = (props: RequirementsUIProps) => {
     setLoadDataTable,
     withTooltip,
   } = props;
+
+  const tabletScreen = useMediaQuery(mediaQueryMobile);
 
   const validateStatus =
     normalizeStatusRequirement?.name === "Sin Evaluar" ||
@@ -90,9 +95,10 @@ const RequirementsUI = (props: RequirementsUIProps) => {
           breakpoints={breakPoints}
           isLoading={isVisibleStatusReq}
           portalId="portal"
-          requirements={dataTablesConfig(statusRequirement || {} as IRefNumPackageRequirement, setLoadDataTable)}
+          requirements={dataTablesConfig(statusRequirement || {} as IRefNumPackageRequirement, setLoadDataTable,  tabletScreen)}
           title="Pre-validar Requisitos"
           onCloseModal={handleToggleModal}
+          actionsResponsiveReq={actionsResponsiveReq}
         />
       )}
     </>

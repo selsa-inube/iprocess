@@ -1,9 +1,7 @@
 import { useState } from "react";
 import { BrowserRouter } from "react-router-dom";
-import { MdOutlineRemoveRedEye } from "react-icons/md";
 import { Meta, StoryFn } from "@storybook/react";
 import { Button } from "@inubekit/button";
-import { Icon } from "@inubekit/icon";
 
 import { StatusOfExecutionModal, StatusOfExecutionModalProps } from "..";
 
@@ -51,104 +49,6 @@ const labels = [
   },
 ];
 
-const actionsMock = [
-  {
-    id: "Details",
-    content: () => (
-      <Icon
-        appearance="dark"
-        icon={<MdOutlineRemoveRedEye />}
-        size="16px"
-        cursorHover
-      />
-    ),
-  },
-];
-
-const dataPerson = [
-  {
-    processPersonId: "01",
-    personPublicCode: "01515464655121",
-    executionStatusByPerson: "WithoutProcessing",
-    personName: "Alberto de Jesús Morales Gonzales",
-    startDate: "12/31/2023 - 19:05:00",
-    finishDate: "12/31/2023 - 20:15:30",
-    actions: actionsMock,
-  },
-  {
-    processPersonId: "02",
-    personPublicCode: "01515464655121",
-    executionStatusByPerson: "Error",
-    personName: "Jose Perez Ortiz",
-    startDate: "12/31/2023 - 19:05:00",
-    finishDate: "12/31/2023 - 20:15:30",
-    actions: actionsMock,
-  },
-  {
-    processPersonId: "03",
-    personPublicCode: "0177777755121",
-    executionStatusByPerson: "WithoutProcessing",
-    personName: "Martha Liliana Florez Quiroga",
-    startDate: "12/31/2023 - 19:05:00",
-    finishDate: "12/31/2023 - 20:15:30",
-    actions: actionsMock,
-  },
-  {
-    processPersonId: "04",
-    personPublicCode: "962451540025",
-    executionStatusByPerson: "Error",
-    personName: "Wendy Tatiana Maldonado Vargas",
-    startDate: "12/31/2023 - 19:05:00",
-    finishDate: "12/31/2023 - 20:15:30",
-    actions: actionsMock,
-  },
-  {
-    processPersonId: "05",
-    personPublicCode: "546547855121",
-    executionStatusByPerson: "WithoutProcessing",
-    personName: "Daniel Felipe Fernadez Quintero",
-    startDate: "12/31/2023 - 19:05:00",
-    finishDate: "12/31/2023 - 20:15:30",
-    actions: actionsMock,
-  },
-  {
-    processPersonId: "06",
-    personPublicCode: "545888545121",
-    executionStatusByPerson: "Error",
-    personName: "Dana Sofia Martinez Giraldo",
-    startDate: "12/31/2023 - 19:05:00",
-    finishDate: "12/31/2023 - 20:15:30",
-    actions: actionsMock,
-  },
-  {
-    processPersonId: "07",
-    personPublicCode: "00245451544",
-    executionStatusByPerson: "Error",
-    personName: "Tomas Gaitan Salazar",
-    startDate: "12/31/2023 - 19:05:00",
-    finishDate: "12/31/2023 - 20:15:30",
-    actions: actionsMock,
-  },
-  {
-    processPersonId: "08",
-    personPublicCode: "8723230044",
-    executionStatusByPerson: "WithoutProcessing",
-    personName: "Esteban Jose Quiñonez Fernandez",
-    startDate: "12/31/2023 - 19:05:00",
-    finishDate: "12/31/2023 - 20:15:30",
-    actions: actionsMock,
-  },
-  {
-    processPersonId: "09",
-    personPublicCode: "545888545121",
-    executionStatusByPerson: "Error",
-    personName: "Martina Suarez Novoa",
-    startDate: "12/31/2023 - 19:05:00",
-    finishDate: "12/31/2023 - 20:15:30",
-    actions: actionsMock,
-  }
-];
-
 const Template: StoryFn<StatusOfExecutionModalProps> = (args) => {
   const [showModal, setShowModal] = useState(false);
 
@@ -170,8 +70,7 @@ Default.args = {
   portalId: "portal",
   labels,
   dataInformationProcess,
-  dataPerson,
-  attributes: ["personPublicCode", "executionStatusByPerson", "personName", "startDate", "finishDate"],
+  processControlId: "10",
 };
 
 export default meta;

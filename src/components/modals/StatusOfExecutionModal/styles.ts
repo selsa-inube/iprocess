@@ -14,19 +14,18 @@ const StyledModal = styled.div<IStyledModal>`
   background-color: ${({ theme }) =>
     theme?.palette?.neutral?.N10 || inube.palette.neutral.N10};
 
-  width: ${(props) => (props.$smallScreen ? "480px" : "996px")};
-  min-height: ${(props) => (props.$smallScreen ? "100vh" : "auto")};
+  width: ${(props) => (props.$smallScreen ? "348px" : "996px")};
   height: auto;
   border-radius: ${(props) =>
-    props.$smallScreen ? `${tokens.spacing.s0}` : `${tokens.spacing.s100}`};
+    props.$smallScreen ? `${tokens.spacing.s150}` : `${tokens.spacing.s100}`};
 
   & > div {
     padding: ${(props) =>
-      props.$smallScreen ? `${tokens.spacing.s200}` : `${tokens.spacing.s300}`};
+      props.$smallScreen ? `${tokens.spacing.s200}` : `${tokens.spacing.s200} ${tokens.spacing.s300} ${tokens.spacing.s075}`};
   }
 `;
 
-const StyledFields = styled.div<IStyledModal>`
+const StyledFields = styled.div`
   display: flex;
   gap: ${tokens.spacing.s050};
   flex-direction: column;
@@ -53,7 +52,7 @@ const StyledFields = styled.div<IStyledModal>`
 
   @media screen and (max-width: 500px) {
     div {
-      max-width: 200px;
+      max-width: 300px;
     }
   }
 `;

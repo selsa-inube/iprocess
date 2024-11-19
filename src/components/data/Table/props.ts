@@ -11,7 +11,7 @@ interface ITitle {
 
 interface IAction {
   id: string;
-  actionName: string;
+  actionName: string | React.ReactNode;
   content: (entry: IActions) => React.ReactNode;
 }
 

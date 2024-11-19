@@ -16,6 +16,7 @@ interface IEntries {
     titlesRequirements: ITitlesRequirements[];
     entriesRequirements: IEntries[];
     actionsRequirements?: IAction[];
+    actionsResponsiveRequirements?: IAction[];
   }
   
 

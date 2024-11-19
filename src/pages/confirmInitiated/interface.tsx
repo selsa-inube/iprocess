@@ -1,8 +1,7 @@
-import { MdSearch } from "react-icons/md";
 import { Stack } from "@inubekit/stack";
-import { Textfield } from "@inubekit/textfield";
 import { Text } from "@inubekit/text";
 import { useMediaQuery } from "@inubekit/hooks";
+import { Input } from "@inubekit/input";
 
 import { CardProcess } from "@components/feedback/CardProcess";
 import { tokens } from "@design/tokens";
@@ -48,12 +47,11 @@ function ConfirmInitiatedUI(props: ConfirmInitiatedUIProps) {
         </Stack>
         <Stack gap={tokens.spacing.s400} direction="column">
         <Stack>
-          <Textfield
+          <Input
             name="searchConfirmInitiated"
             id="searchConfirmInitiated"
             placeholder="Búsqueda..."
             type="search"
-            iconBefore={<MdSearch />}
             size="compact"
             value={searchConfirmInitiated}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>

@@ -4,7 +4,7 @@ const AUTH_REDIRECT_URI = import.meta.env.VITE_AUTH0_REDIRECT_URI;
 const periodLaterYears = 3;
 const periodPreviousYears = 1;
 
-const mediaQueryMobile = "(max-width: 580px)";
+const mediaQueryMobile = "(max-width: 770px)";
 
 const maxRetriesServices = 5;
 const fetchTimeoutServices = 3000;

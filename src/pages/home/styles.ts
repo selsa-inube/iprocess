@@ -12,7 +12,7 @@ const StyledContainer = styled.div`
   flex-direction: column;
   box-sizing: border-box;
   padding-bottom: ${tokens.spacing.s500};
-  height: 100vh;
+  min-height: 95vh;
   overflow-y: auto;
 `;
 const StyledContainerSection = styled.div`
@@ -26,6 +26,7 @@ const StyledContainerSection = styled.div`
 `;
 
 const StyledHeaderContainer = styled.div`
+    position: relative;
   & div > div {
     cursor: pointer;
   }
@@ -72,8 +73,8 @@ const StyledFooter = styled.footer`
   justify-content: center;
 
   @media screen and (max-width: 532px) {
-    padding-top: 50px;
-    margin: ${tokens.spacing.s0};
+    padding-top: 20px;
+    margin: ${tokens.spacing.s050};
   }
 `;
 

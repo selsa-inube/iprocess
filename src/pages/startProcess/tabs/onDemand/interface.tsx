@@ -1,6 +1,6 @@
-import { MdSearch } from "react-icons/md";
 import { Stack } from "@inubekit/stack";
-import { Textfield } from "@inubekit/textfield";
+import { useMediaQuery } from "@inubekit/hooks";
+import { Input } from "@inubekit/input";
 
 import { tokens } from "@design/tokens";
 import { CardProcessGroup } from "@components/feedback/CardProcessGroup";
@@ -32,19 +32,23 @@ function OnDemandTabUI(props: OnDemandTabUIProps) {
     handlesearchOnDemand,
   } = props;
 
+  const smallScreen = useMediaQuery("(max-width: 690px)");
   const formatMonth = formatMonthEndpoint(month);
   const formatYear = Number(year);
 
   return (
-    <Stack direction="column" gap={tokens.spacing.s600}>
+    <Stack
+      direction="column"
+      gap={smallScreen ? `${tokens.spacing.s300}` : `${tokens.spacing.s600}`}
+      justifyContent= {smallScreen ? "center" : "normal"}
+    >
       <Stack gap={tokens.spacing.s400} direction="column">
         <Stack justifyContent="flex-start">
-          <Textfield
+          <Input
             name="searchOnDemand"
             id="searchOnDemand"
             placeholder="Búsqueda..."
             type="search"
-            iconBefore={<MdSearch />}
             size="compact"
             value={searchOnDemand}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>

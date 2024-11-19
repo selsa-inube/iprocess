@@ -10,6 +10,10 @@ const StyledWelcomeContainer = styled.div`
 `;
 
 const StyledOutletContainer = styled(StyledWelcomeContainer)`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   background-color: ${inube.palette.neutral.N0};
 `;
 

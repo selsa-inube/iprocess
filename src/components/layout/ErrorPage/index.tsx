@@ -34,18 +34,18 @@ function ErrorPage(props: ErrorPageProps) {
     onClick,
   } = props;
 
-  const mediaQueries = ["(max-width: 1000px)", "(max-width: 600px)"];
+  const mediaQueries = ["(min-width: 771px)", "(max-width: 770px)"];
   const matches = useMediaQueries(mediaQueries);
 
   return (
     <Stack
       padding={
-        matches["(max-width: 600px)"]
+        matches["(max-width: 770px)"]
           ? `${tokens.spacing.s400}`
           : `${tokens.spacing.s1000}`
       }
       gap={
-        matches["(max-width: 1000px)"]
+        matches["(min-width: 771px)"]
           ? `${tokens.spacing.s600}`
           : `${tokens.spacing.s800}`
       }
@@ -53,21 +53,29 @@ function ErrorPage(props: ErrorPageProps) {
     >
       <StyledCompanyLogo src={logo} alt={logoAlt} />
       <Grid
-        templateRows={matches["(max-width: 600px)"] ? "repeat(2, 1fr)" : "1fr"}
+        templateRows={matches["(max-width: 770px)"] ? "repeat(2, 1fr)" : "1fr"}
         templateColumns={
-          matches["(max-width: 600px)"] ? "auto" : "repeat(2, 1fr)"
+          matches["(max-width: 770px)"] ? "auto" : "repeat(2, 1fr)"
         }
         alignItems="center"
         gap={
-          matches["(max-width: 600px)"]
-            ? `${tokens.spacing.s800}`
+          matches["(max-width: 770px)"]
+            ? `${tokens.spacing.s0}`
             : `${tokens.spacing.s1000}`
         }
       >
-        <Stack gap="24px" direction="column">
-          <Stack gap="16px" direction="column">
-            <Text type="title">{heading}</Text>
-            <Text type="title" size="medium">
+        <Stack gap={tokens.spacing.s300} direction="column">
+          <Stack gap={tokens.spacing.s300} direction="column">
+            <Text
+              type="title" weight="bold"
+              size={matches["(max-width: 770px)"] ? "small" : "medium"}
+            >
+              {heading}
+            </Text>
+            <Text
+              type="title"
+              size={matches["(max-width: 770px)"] ? "small" : "medium"}
+            >
               {description}
             </Text>
           </Stack>
