@@ -28,15 +28,16 @@ const StyledMain = styled.main`
   box-sizing: border-box;
   height: calc(100vh - 54px);
   overflow-y: auto;
-  padding: ${tokens.spacing.s400} ${tokens.spacing.s800};
   padding: ${tokens.spacing.s300};
-
 
   @media screen and (max-width: 1000px) {
     padding: ${tokens.spacing.s300};
   }
 `;
 
+const StyledHeaderContainer = styled.div`
+    position: relative;
+`;
 const StyledContentImg = styled(Link)`
   width: 100px;
 `;
@@ -63,6 +64,7 @@ const StyledCollapse = styled.div`
 export {
   StyledAppPage,
   StyledContainer,
+  StyledHeaderContainer,
   StyledContentImg,
   StyledLogo,
   StyledMain,

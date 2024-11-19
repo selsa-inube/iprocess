@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { inube } from "@inubekit/foundations";
 import { tokens } from "@design/tokens";
+import { mediaQueryMobile } from "@src/config/environment";
 
 const StyledContainer = styled.div`
   display: flex;
@@ -17,6 +18,10 @@ const StyledContainer = styled.div`
   & > div:nth-child(1) p:nth-child(1) {
     word-break: keep-all;
     white-space: normal;
+  }
+
+  @media (${mediaQueryMobile}) {
+    width: 280px;
   }
 `;
 

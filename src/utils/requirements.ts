@@ -78,7 +78,6 @@ const normalizeexecutionStatusByPerson = (requirement: string) =>
 
 
 export {
-  statusRequirement,
   filteredExecutionStatusByPerson, 
   RequirementTypeNormalize,
   normalizeStatusRequirementByStatus,

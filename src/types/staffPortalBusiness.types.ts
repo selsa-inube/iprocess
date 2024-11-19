@@ -35,8 +35,17 @@ interface IBusinessUnitsPortalStaff {
   firstMonthOfFiscalYear?: string;
 }
 
+interface IOptionsByBusinessUnits {
+  abbreviatedName: string;
+  descriptionUse: string;
+  optionStaffId: string;
+  publicCode: string;
+  useCaseId: string;
+}
+
 export type {
   IStaffPortalByBusinessManager,
   IBusinessManagers,
   IBusinessUnitsPortalStaff,
+  IOptionsByBusinessUnits,
 };

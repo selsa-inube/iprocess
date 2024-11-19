@@ -13,15 +13,13 @@ import {
   StyledImage,
 } from "./styles";
 
-const SelectBusinessUnitsUI =() =>{
+const SelectBusinessUnitsUI = () => {
   const {
-    "(max-width: 768px)": screenMobile, 
-    "(min-width: 769px) and (max-width: 992px)": screenTablet,
-    "(min-width: 993px) and (max-width: 2200px)": screenDesktop,
+    "(max-width: 1100px)": screenTablet,
+    "(min-width: 1101px) and (max-width: 2200px)": screenDesktop,
   }: { [key: string]: boolean } = useMediaQueries([
-    "(max-width: 768px)",
-    "(min-width: 769px) and (max-width: 992px)",
-    "(min-width: 993px) and (max-width: 2200px)",
+    "(max-width: 1100px)",
+    "(min-width: 1101px) and (max-width: 2200px)",
   ]);
 
   const imageWidth = () => {
@@ -33,8 +31,8 @@ const SelectBusinessUnitsUI =() =>{
   const { appData } = useContext(AppContext);
   return (
     <Grid
-      templateColumns={screenMobile ? "1fr" : "repeat(2, 1fr)"}
-      templateRows={screenMobile ? "minmax(150px, 20vh) 1fr" : "100vh"}
+      templateColumns={screenTablet ? "1fr" : "repeat(2, 1fr)"}
+      templateRows={screenTablet ? "minmax(150px, 30vh) 1fr" : "100vh"}
     >
       <StyledWelcomeContainer>
         <Stack
@@ -43,7 +41,7 @@ const SelectBusinessUnitsUI =() =>{
           alignItems="center"
           height="100%"
           gap={
-            screenMobile ? `${tokens.spacing.s200}` : `${tokens.spacing.s400}`
+            screenTablet ? `${tokens.spacing.s200}` : `${tokens.spacing.s400}`
           }
         >
           <Stack direction="column" alignItems="center">
@@ -62,14 +60,18 @@ const SelectBusinessUnitsUI =() =>{
         <Stack
           alignItems="center"
           justifyContent="center"
-          height={screenMobile ? "70vh" : "-webkit-fill-available"}
-          padding={`${tokens.spacing.s400} ${tokens.spacing.s200}`}
+          alignContent="center"
+          padding={
+            screenTablet
+              ? `${tokens.spacing.s600} ${tokens.spacing.s100} ${tokens.spacing.s0}`
+              : `${tokens.spacing.s0}`
+          }
         >
           <Outlet />
         </Stack>
       </StyledOutletContainer>
     </Grid>
   );
-}
+};
 
 export { SelectBusinessUnitsUI };

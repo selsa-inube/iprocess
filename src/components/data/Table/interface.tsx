@@ -4,6 +4,8 @@ import { useMediaQuery } from "@inubekit/hooks";
 import { useMediaQueries } from "@inubekit/hooks";
 import { SkeletonLine } from "@inubekit/skeleton";
 
+import { IInfoModal } from "@components/modals/InfoModal/types";
+import { mediaQueryMobile } from "@config/environment";
 import {
   StyledTable,
   StyledThead,
@@ -14,9 +16,11 @@ import {
   StyledTd,
   StyledTdActions,
   StyledContainer,
+  StyledThActionResponsive,
 } from "./styles";
 import { IAction, IActions, IBreakpoint, ITitle, ITypeTitle } from "./props";
 import { ITable } from ".";
+import { InfoActions } from "./InfoActions";
 
 const actionsLoading = (numberActions: number) => {
   const cellsOfActionsLoading = [];
@@ -71,34 +75,52 @@ function totalTitleColumns(
 
 function showActionTitle(
   actionTitle: IAction[],
+  actionTitleResponsive: IAction[],
   mediaQuery: boolean,
   multipleTables: boolean,
-  typeTitle: ITypeTitle
+  typeTitle: ITypeTitle,
+  infoData: IInfoModal[],
+  
 ) {
-  return !mediaQuery ? (
-    actionTitle.map((action) => (
-      <StyledThAction
-        key={`action-${action.id}`}
-        $multipleTables={multipleTables}
-      >
-        <Text
-          type={typeTitle}
-          size="small"
-          textAlign="center"
-          appearance="dark"
-          weight="bold"
+  return !mediaQuery || multipleTables
+    ? actionTitle.map((action) => (
+        <StyledThAction
+          key={`action-${action.id}`}
+          $multipleTables={multipleTables}
         >
-          {action.actionName}
-        </Text>
-      </StyledThAction>
-    ))
-  ) : (
-    <StyledThAction $multipleTables={multipleTables}></StyledThAction>
-  );
+          {typeof action.actionName !== "string" ? (
+                  action.actionName
+                ) : (
+          <Text
+            type={typeTitle}
+            size="small"
+            textAlign="center"
+            appearance="dark"
+            weight="bold"
+          >
+            {action.actionName}
+          </Text>)}
+        </StyledThAction>
+      ))
+    :  actionTitleResponsive.map((action, index) =>
+      actionTitleResponsive.length - 1 !== index ? (
+        <StyledThActionResponsive key={`action-${action.id}`}></StyledThActionResponsive>
+      ) : (
+        <StyledThActionResponsive key={"action-00"}>
+           <InfoActions data={infoData} />
+        </StyledThActionResponsive>
+      )
+    );
 }
 
-function ShowAction(actionContent: IAction[], entry: IActions) {
-  return (
+function ShowAction(
+  actionContent: IAction[],
+  entry: IActions,
+  multipleTables: boolean,
+  actionContentResponsive: IAction[],
+  mediaQuery: boolean
+) {
+  return !mediaQuery ? (
     <>
       {actionContent.map((action) => (
         <StyledTdActions key={`${entry.id}-${action.id}`}>
@@ -106,13 +128,33 @@ function ShowAction(actionContent: IAction[], entry: IActions) {
         </StyledTdActions>
       ))}
     </>
+  ) : (
+    <>
+      {multipleTables ?(
+        actionContent.map((action) => (
+          <StyledTdActions key={`${entry.id}-${action.id}`}>
+            {action.content(entry)}
+          </StyledTdActions>
+        ))
+      ):(
+        actionContentResponsive.map((action) => (
+          <StyledTdActions key={`${entry.id}-${action.id}`}>
+            {action.content(entry)}
+          </StyledTdActions>
+        ))
+      )
+      
+      }
+    </>
   );
 }
 
 const TableUI = (props: Omit<ITable, "id">) => {
   const {
     actions,
+    actionsResponsive,
     entries,
+    infoData,
     breakpoints,
     isLoading,
     pageLength,
@@ -122,8 +164,8 @@ const TableUI = (props: Omit<ITable, "id">) => {
     multipleTables = false,
   } = props;
 
-  const mediaActionOpen = useMediaQuery("(max-width: 1120px)");
-
+  const mediaActionOpen = useMediaQuery(mediaQueryMobile);
+  
   const queriesArray = useMemo(
     () => breakpoints && breakpoints.map((breakpoint) => breakpoint.breakpoint),
     [breakpoints]
@@ -141,8 +183,8 @@ const TableUI = (props: Omit<ITable, "id">) => {
   return (
     <StyledContainer $multipleTables={multipleTables}>
       <StyledTable $smallScreen={mediaActionOpen}>
-        <StyledThead $smallScreen={mediaActionOpen}>
-          <StyledTr>
+        <StyledThead $smallScreen={mediaActionOpen} $actionsLength={actions && actions.length - 1}>
+          <StyledTr $overflow={false}>
             {TitleColumns.map((title) => (
               <StyledThTitle key={`title-${title.id}`}>
                 {typeof title.titleName !== "string" ? (
@@ -163,9 +205,11 @@ const TableUI = (props: Omit<ITable, "id">) => {
             {actions &&
               showActionTitle(
                 actions,
+                actionsResponsive || [],
                 mediaActionOpen,
                 multipleTables,
-                typeTitle
+                typeTitle,
+                infoData || [],
               )}
           </StyledTr>
         </StyledThead>
@@ -183,6 +227,8 @@ const TableUI = (props: Omit<ITable, "id">) => {
                     $pageLength={pageLength}
                     $entriesLength={entries.length}
                     $widthFirstColumn={widthFirstColumn}
+                    $actionsLength={actionsResponsive?.length}
+                    $overflow={true}
                   >
                     {TitleColumns.map((title) => (
                       <StyledTd
@@ -204,7 +250,14 @@ const TableUI = (props: Omit<ITable, "id">) => {
                         )}
                       </StyledTd>
                     ))}
-                    {actions && ShowAction(actions, entry)}
+                    {actions &&
+                      ShowAction(
+                        actions,
+                        entry,
+                        multipleTables,
+                        actionsResponsive || [],
+                        mediaActionOpen
+                      )}
                   </StyledTr>
                 ))
               ) : (

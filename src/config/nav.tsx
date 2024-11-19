@@ -1,50 +1,41 @@
 import { INav } from "@components/layout/AppPage/types";
+import { ICardData } from "@pages/home/types";
 import {
   MdLogout,
-  MdOutlineCheck,
-  MdOutlineMoving,
   MdOutlineStart,
-  MdOutlineThumbUp,
-
 } from "react-icons/md";
+import { enviroment } from "./environment";
 
-const nav: INav = {
-  title: "MENU",
-  sections: {
-    administrate: {
-      name: "",
-      links: {
-        startProcess: {
-          id: "startProcess",
-          label: "Iniciar procesos",
-          icon: <MdOutlineStart />,
-          path:"/start-process",
-        },
-        confirmInitiated: {
-          id: "confirmInitiated",
-          label: "Confirmar iniciados",
-          icon: <MdOutlineThumbUp />,
-          path: "/confirm-initiated",
-        },
-        validateProgress: {
-          id: "validateProgress",
-          label: "Validar progreso",
-          icon: <MdOutlineMoving />,
-          path: "/validate-progress",
-        },
-        finished: {
-          id: "finished",
-          label: "Finalizados",
-          icon: <MdOutlineCheck />,
-          path: "/finished",
-        },
+const createNavLink = (option: ICardData | undefined, defaultIcon: JSX.Element) => ({
+  id: option?.id || "",
+  label: option?.label || "",
+  icon: option?.icon || defaultIcon,
+  path: option?.url || "",
+});
+
+const navConfig = (optionsCards: ICardData[]): INav => {
+  const linkNav = optionsCards.reduce<Record<string, ReturnType<typeof createNavLink>>>((acc, option) => {
+    const navLink = createNavLink(option, <MdOutlineStart />);
+    acc[navLink.id] = navLink;
+    return acc;
+  }, {});
+
+  return {
+    items: {
+    title: "MENU",
+    sections: {
+      administrate: {
+        name: "",
+        links: linkNav,
       },
     },
   },
+  breakpoint: "848px",
+  };
 };
 
 const userMenu = [
-   {
+  {
     id: "section",
     title: "",
     links: [
@@ -59,4 +50,18 @@ const userMenu = [
   },
 ];
 
-export { nav,userMenu };
+const actionsConfig = (logout: () => void) => {
+  const actions =[{
+     id: "logout",
+     label: "Cerrar sesión",
+     icon: <MdLogout />,
+     action: () => {
+       logout();
+       window.location.href = enviroment.REDIRECT_URI;
+     },
+   }]
+ 
+   return actions
+ };
+
+export { userMenu, navConfig, actionsConfig };

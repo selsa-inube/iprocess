@@ -9,4 +9,9 @@ cursor:${({  $withCursor }) =>
    $withCursor && "pointer" }; 
 `;
 
-export { StyledContainer };
+const StyledContainerIcon = styled.div<IStyledContainer>`
+cursor:${({  $withCursor }) =>
+   $withCursor && "pointer" }; 
+`;
+
+export { StyledContainer, StyledContainerIcon };

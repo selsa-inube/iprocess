@@ -23,7 +23,7 @@ function RadioBusinessUnit(props: RadioBusinessUnitProps) {
     <StyledRadioBusinessUnit>
       <Grid
         templateColumns={
-          matches["(max-width: 460px)"] ? "auto 1fr" : "auto 1fr 130px"
+          matches["(max-width: 532px)"] ? "auto 1fr" : "auto 1fr 130px"
         }
         padding={
           matches["(max-width: 532px)"]

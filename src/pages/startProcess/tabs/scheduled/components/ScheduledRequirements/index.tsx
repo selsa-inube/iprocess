@@ -20,11 +20,13 @@ interface ScheduledRequirementsProps {
   setStatus: (status: string) => void;
   plannedExecution?: Date;
   withTooltip?: boolean;
+  isCard?: boolean;
 }
 
 const ScheduledRequirements = (props: ScheduledRequirementsProps) => {
   const {
     id,
+    isCard = true,
     month,
     plannedExecution,
     publicCode,
@@ -95,7 +97,7 @@ const ScheduledRequirements = (props: ScheduledRequirementsProps) => {
   }, []);
 
   const normalizeStatusRequirement = normalizeStatusRequirementByStatus(
-    statusRequirementData?.generalStatus || ""
+   statusRequirementData?.generalStatus || ""
   );
 
   useEffect(() => {
@@ -110,6 +112,7 @@ const ScheduledRequirements = (props: ScheduledRequirementsProps) => {
   return (
     <ScheduledRequirementsUI
       id={id}
+      isCard={isCard}
       isVisibleStatusReq={loadingStatusRequirements}
       isVisibleRequirements={loadingRequirements}
       statusRequirement={statusRequirementData}
