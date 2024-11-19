@@ -47,6 +47,23 @@ const StartProcessScheduled = (props: IStartProcessScheduledProps) => {
 
   const {addFlag} =useFlag();
 
+  console.log({
+    processCatalogId: String(id),
+    month: Number(dataModal.month),
+    publicCode: String(dataModal.publicCode),
+    suggestedDescription: String(dataModal.descriptionSuggested),
+    year: Number(dataModal.year),
+    cutOffDate: formatDateEndpoint(new Date()),
+    complementaryDescription: String(fieldsEntered.descriptionComplementary),
+    plannedExecution: formatDateEndpoint(dataModal.date as Date),
+    plannedExecutionDate: fieldsEntered.plannedExecutionDate
+      ? new Date(fieldsEntered.plannedExecutionDate).toISOString()
+      : new Date(dataModal.date as Date).toISOString(),
+    executionParameters: fieldsEntered.parameters
+      ? fieldsEntered.parameters
+      : {},
+  });
+
   const handleStartProcess = async () => {
     const processData = {
       processCatalogId: String(id),
