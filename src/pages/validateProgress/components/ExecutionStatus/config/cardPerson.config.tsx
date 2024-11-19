@@ -20,7 +20,7 @@ const normalizeDataInformationProcess = (
   };
 };
 
-const normalizeDataPerson = (entries: IPersonProcess[], processControlId: string, filteredWithErrors?: boolean) =>
+const normalizeDataPerson = (entries: IPersonProcess[], processControlId: string, ) =>
   entries.map((entry) => ({
     ...entry,
     id: entry.processPersonId,
@@ -31,7 +31,7 @@ const normalizeDataPerson = (entries: IPersonProcess[], processControlId: string
     dateEnd: formatDate(new Date(entry.finishDate), true) || "",
     status: entry.executionStatusByPerson,
     finishDate: entry.finishDate !== "undefined" ? formatDate(new Date(entry.finishDate), true) : "",
-    actions: actionsConfig(filteredWithErrors || false),
+    actions: actions,
   }));
 
 const detailsPersonData = (entries: IPersonProcess) => {
@@ -68,17 +68,15 @@ const labels = [
   },
 ];
 
-const actionsConfig =(filteredWithErrors: boolean)=>{
   const actions = [
     {
       id: "Details",
       content: (entries: IPersonProcess) => (
-        <DetailsExecutionStatus data={detailsPersonData(entries)} filteredWithErrors={filteredWithErrors} />
+        <DetailsExecutionStatus data={detailsPersonData(entries)}/>
       ),
     },
   ];
-  return actions;
-}
+
 
 const labelsDetails = [
   {
@@ -96,7 +94,7 @@ const labelsDetails = [
 ];
 
 export {
-  actionsConfig,
+  actions,
   labels,
   labelsDetails,
   normalizeDataInformationProcess,
