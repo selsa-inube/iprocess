@@ -11,6 +11,7 @@ import {
 import { EnumProcessCoverageData } from "@services/enumerators/getEnumeratorsProcessCoverage";
 import { AppContext } from "@context/AppContext";
 import { comparisonDataForms, validateExecutionWay } from "@forms/utils";
+import { formatDateEndpoint } from "@utils/dates";
 import { RefreshSavingProductUI } from "./interface";
 
 const validationSchema = object({
@@ -92,6 +93,10 @@ const RefreshSavingProduct = (props: RefreshSavingProductProps) => {
         plannedExecutionDate: formik.values.plannedExecutionDate,
         parameters: {
           typeExecution: formik.values.typeRefresh || "",
+          cutOfDate:
+            formik.values.typeRefresh === "MIGRATION"
+              ? formatDateEndpoint(new Date())
+              : "",
         },
       };
       setFieldsEntered(dataForm);

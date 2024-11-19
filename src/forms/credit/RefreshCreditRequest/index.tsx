@@ -6,6 +6,7 @@ import { IStartProcessEntry, IEntries, IFieldsEntered, IEnumeratorsProcessCovera
 import { EnumProcessCoverageData } from "@services/enumerators/getEnumeratorsProcessCoverage";
 import { comparisonDataForms, validateExecutionWay } from "@forms/utils";
 import { AppContext } from "@context/AppContext";
+import { formatDateEndpoint } from "@utils/dates";
 import { RefreshCreditRequestUI } from "./interface";
 
 const validationSchema = object({
@@ -85,6 +86,10 @@ useEffect(() => {
       plannedExecutionDate: formik.values.plannedExecutionDate,
       parameters: {
         typeExecution: formik.values.typeRefresh || "",
+        cutOfDate:
+            formik.values.typeRefresh === "MIGRATION"
+              ? formatDateEndpoint(new Date())
+              : "",
       },
     };
     setFieldsEntered(dataForm);

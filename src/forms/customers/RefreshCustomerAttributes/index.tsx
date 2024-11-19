@@ -1,5 +1,5 @@
 import { useFormik } from "formik";
-import {object, string as stringYup } from "yup";
+import { object, string as stringYup } from "yup";
 import { useContext, useEffect, useState } from "react";
 
 import { EnumProcessCoverageData } from "@services/enumerators/getEnumeratorsProcessCoverage";
@@ -10,8 +10,9 @@ import {
   IFieldsEntered,
   IEnumeratorsProcessCoverage,
 } from "@forms/types";
+import { AppContext } from "@context/AppContext";
+import { formatDateEndpoint } from "@utils/dates";
 import { RefreshCustomerAttributesUI } from "./interface";
-import { AppContext } from "@src/context/AppContext";
 
 const validationSchema = object({
   typeRefresh: stringYup().required("Este campo no puede estar vacío"),
@@ -43,7 +44,9 @@ const RefreshCustomerAttributes = (props: RefreshCustomerAttributesProps) => {
 
   const validateOptionsTypeRefresh = async () => {
     try {
-      const newOptions = await EnumProcessCoverageData(appData.businessUnit.publicCode);
+      const newOptions = await EnumProcessCoverageData(
+        appData.businessUnit.publicCode
+      );
 
       setOptionsTypeRefresh(newOptions);
     } catch (error) {
@@ -77,9 +80,7 @@ const RefreshCustomerAttributes = (props: RefreshCustomerAttributesProps) => {
     ) {
       setDynamicValidationSchema(
         validationSchema.shape({
-          plannedExecutionDate: stringYup().required(
-            "Este campo es requerido"
-          ),
+          plannedExecutionDate: stringYup().required("Este campo es requerido"),
         })
       );
     }
@@ -92,13 +93,21 @@ const RefreshCustomerAttributes = (props: RefreshCustomerAttributesProps) => {
         plannedExecutionDate: formik.values.plannedExecutionDate,
         parameters: {
           typeExecution: formik.values.typeRefresh || "",
+          cutOfDate:
+            formik.values.typeRefresh === "MIGRATION"
+              ? formatDateEndpoint(new Date())
+              : "",
         },
       };
       setFieldsEntered(dataForm);
     }
   }, [formik.values, setFieldsEntered]);
 
-  const comparisonData = comparisonDataForms(data?.executionWay as string ,formik.values ,initialValues)
+  const comparisonData = comparisonDataForms(
+    data?.executionWay as string,
+    formik.values,
+    initialValues
+  );
 
   return (
     <RefreshCustomerAttributesUI

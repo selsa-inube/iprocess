@@ -11,6 +11,7 @@ import {
   IEnumeratorsProcessCoverage,
 } from "@forms/types";
 import { AppContext } from "@context/AppContext";
+import { formatDateEndpoint } from "@utils/dates";
 import { RefreshSavingCommitmentUI } from "./interface";
 
 const validationSchema = object({
@@ -92,6 +93,10 @@ const RefreshSavingCommitment = (props: RefreshSavingCommitmentProps) => {
         plannedExecutionDate: formik.values.plannedExecutionDate,
         parameters: {
           typeExecution: formik.values.typeRefresh || "",
+          cutOfDate:
+            formik.values.typeRefresh === "MIGRATION"
+              ? formatDateEndpoint(new Date())
+              : "",
         },
       };
       setFieldsEntered(dataForm);

@@ -83,6 +83,7 @@ const StartProcessScheduled = (props: IStartProcessScheduledProps) => {
       );
     }
   };
+  
   useEffect(() => {
     if (responseStartProcess?.processStatus.length) {
       setShowProgressModal(false);

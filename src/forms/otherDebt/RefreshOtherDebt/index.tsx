@@ -11,6 +11,7 @@ import {
 } from "@forms/types";
 import { comparisonDataForms, validateExecutionWay } from "@forms/utils";
 import { AppContext } from "@context/AppContext";
+import { formatDateEndpoint } from "@utils/dates";
 import { RefreshOtherDebtUI } from "./interface";
 
 const validationSchema = object({
@@ -92,6 +93,10 @@ const RefreshOtherDebt = (props: RefreshOtherDebtProps) => {
         plannedExecutionDate: formik.values.plannedExecutionDate,
         parameters: {
           typeExecution: formik.values.typeRefresh || "",
+          cutOfDate:
+            formik.values.typeRefresh === "MIGRATION"
+              ? formatDateEndpoint(new Date())
+              : "",
         },
       };
       setFieldsEntered(dataForm);

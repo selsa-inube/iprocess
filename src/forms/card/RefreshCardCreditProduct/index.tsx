@@ -10,6 +10,7 @@ import {
   IEnumeratorsProcessCoverage,
 } from "@forms/types";
 import { AppContext } from "@context/AppContext";
+import { formatDateEndpoint } from "@utils/dates";
 import { comparisonDataForms, validateExecutionWay } from "@forms/utils";
 import { RefreshCardCreditProductUI } from "./interface";
 
@@ -92,6 +93,10 @@ const RefreshCardCreditProduct = (props: RefreshCardCreditProductProps) => {
         plannedExecutionDate: formik.values.plannedExecutionDate,
         parameters: {
           typeExecution: formik.values.typeRefresh || "",
+          cutOfDate:
+            formik.values.typeRefresh === "MIGRATION"
+              ? formatDateEndpoint(new Date())
+              : "",
         },
       };
       setFieldsEntered(dataForm);

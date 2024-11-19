@@ -12,6 +12,7 @@ import {
 import { AppContext } from "@context/AppContext";
 import { comparisonDataForms, validateExecutionWay } from "@forms/utils";
 import { RefreshSavingProductCardUI } from "./interface";
+import { formatDateEndpoint } from "@utils/dates";
 
 const validationSchema = object({
   typeRefresh: stringYup().required("Este campo no puede estar vacío"),
@@ -92,6 +93,10 @@ const RefreshSavingProductCard = (props: RefreshSavingProductCardProps) => {
         plannedExecutionDate: formik.values.plannedExecutionDate,
         parameters: {
           typeExecution: formik.values.typeRefresh || "",
+          cutOfDate:
+            formik.values.typeRefresh === "MIGRATION"
+              ? formatDateEndpoint(new Date())
+              : "",
         },
       };
       setFieldsEntered(dataForm);
