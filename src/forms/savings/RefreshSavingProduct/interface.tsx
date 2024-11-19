@@ -14,7 +14,7 @@ import { tokens } from "@design/tokens";
 import { mediaQueryMobile } from "@config/environment";
 import { getFieldState, validateExecutionWay } from "@forms/utils";
 import { ComponentAppearance } from "@ptypes/aparences.types";
-import { StyledField, StyledTextarea } from "./styles";
+import { StyledField, StyledTextarea, StyledContainerForm } from "@forms/styles";
 
 interface RefreshSavingProductUIProps {
   data: IEntries;
@@ -48,7 +48,8 @@ const RefreshSavingProductUI = (props: RefreshSavingProductUIProps) => {
         e.preventDefault();
       }}
     >
-      <Stack direction="column" gap={tokens.spacing.s250}>
+       <Stack direction="column" gap={tokens.spacing.s250} height={isMobile ?"410px" : "auto"}>
+       <StyledContainerForm>
         <StyledField>
           <Text type="label" size="large" weight="bold">
             Descripción sugerida
@@ -123,7 +124,7 @@ const RefreshSavingProductUI = (props: RefreshSavingProductUIProps) => {
                 isRequired
               />
             )}
-
+</StyledContainerForm>
           <Stack gap={tokens.spacing.s100} justifyContent="flex-end">
             <Button
               spacing="wide"
