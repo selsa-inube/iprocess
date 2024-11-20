@@ -1,5 +1,5 @@
 import { useFormik } from "formik";
-import {object, string as stringYup } from "yup";
+import {date, object, string as stringYup } from "yup";
 import { useContext, useEffect, useState } from "react";
 
 import { IStartProcessEntry, IEntries, IFieldsEntered, IEnumeratorsProcessCoverage } from "@forms/types";
@@ -13,6 +13,7 @@ const validationSchema = object({
   typeRefresh: stringYup().required("Este campo no puede estar vacío"),
   descriptionComplementary: stringYup(),
   plannedExecutionDate: stringYup(),
+  cutOffDate: date(),
 });
 
 interface RefreshCreditRequestProps {
@@ -25,6 +26,7 @@ const initialValues: IStartProcessEntry = {
   descriptionComplementary: "",
   typeRefresh: "",
   plannedExecutionDate: "",
+  cutOffDate: "",
 };
 
 const RefreshCreditRequest = (props: RefreshCreditRequestProps) => {
@@ -88,7 +90,7 @@ useEffect(() => {
         typeExecution: formik.values.typeRefresh || "",
         cutOfDate:
             formik.values.typeRefresh === "MIGRATION"
-              ? formatDateEndpoint(new Date())
+              ? (formik.values.cutOffDate ||  formatDateEndpoint(new Date(data.date as Date)))
               : "",
       },
     };

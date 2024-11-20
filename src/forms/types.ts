@@ -1,7 +1,8 @@
 interface IStartProcessEntry{
   descriptionComplementary: string;
-  typeRefresh?: string;
   plannedExecutionDate: string;
+  cutOffDate?: string;
+  typeRefresh?: string;
 }
 
 interface IEntries {
