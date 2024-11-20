@@ -88,7 +88,7 @@ useEffect(() => {
       plannedExecutionDate: formik.values.plannedExecutionDate,
       parameters: {
         typeExecution: formik.values.typeRefresh || "",
-        cutOfDate:
+        cutOffDate:
             formik.values.typeRefresh === "MIGRATION"
               ? (formik.values.cutOffDate ||  formatDateEndpoint(new Date(data.date as Date)))
               : "",
