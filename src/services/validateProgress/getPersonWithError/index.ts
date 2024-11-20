@@ -16,6 +16,10 @@ import {
   
     for (let attempt = 1; attempt <= maxRetries; attempt++) {
       try {
+        const queryParams = new URLSearchParams({
+          errorStatus: "BugIdentified",
+        });
+
         const controller = new AbortController();
         const timeoutId = setTimeout(() => controller.abort(), fetchTimeout);
   
@@ -30,7 +34,7 @@ import {
         };
   
         const res = await fetch(
-          `${enviroment.IPROCESS_API_URL_QUERY}/process-controls/${processControlId}/${processPersonId}`,
+          `${enviroment.IPROCESS_API_URL_QUERY}/process-controls/${processControlId}/${processPersonId}?${queryParams.toString()}`,
           options
         );
   

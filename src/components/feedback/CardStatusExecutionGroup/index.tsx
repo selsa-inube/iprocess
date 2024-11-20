@@ -12,15 +12,17 @@ import { StyledCardStatusGroup } from "./styles";
 
 interface CardStatusExecutionGroupProps {
   isdiscardPersonsWithErrors: boolean;
+  isReprocessPersonsWithErrors: boolean;
   filter: string;
   processControlId: string;
   filteredWithErrors?: boolean;
-  handleProcessPersonId?: (id: string | undefined, check: boolean) => void;
+  handleProcessPersonId?: (id: string | undefined, publicCode: string | undefined, check: boolean) => void;
 }
 
 const CardStatusExecutionGroup = (props: CardStatusExecutionGroupProps) => {
   const {
     isdiscardPersonsWithErrors,
+    isReprocessPersonsWithErrors,
     processControlId,
     filter,
     filteredWithErrors,
@@ -101,6 +103,12 @@ const CardStatusExecutionGroup = (props: CardStatusExecutionGroupProps) => {
       peopleIncludedInProcessData("ProcessedWithErrors", true);
     }
   }, [isdiscardPersonsWithErrors]);
+
+  useEffect(() => {
+    if (isReprocessPersonsWithErrors) {
+      peopleIncludedInProcessData("ProcessedWithErrors", true);
+    }
+  }, [isReprocessPersonsWithErrors]);
 
   useEffect(() => {
     if (filteredWithErrors) {

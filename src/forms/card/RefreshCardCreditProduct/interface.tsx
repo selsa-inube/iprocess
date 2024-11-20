@@ -14,7 +14,7 @@ import { getFieldState, validateExecutionWay } from "@forms/utils";
 import { tokens } from "@design/tokens";
 import { mediaQueryMobile } from "@config/environment";
 import { ComponentAppearance } from "@ptypes/aparences.types";
-import { StyledField, StyledTextarea } from "./styles";
+import { StyledContainerForm, StyledField, StyledTextarea } from "@forms/styles";
 
 
 interface RefreshCardCreditProductUIProps {
@@ -49,7 +49,8 @@ const RefreshCardCreditProductUI = (props: RefreshCardCreditProductUIProps) => {
           e.preventDefault();
         }}
       >
-        <Stack direction="column" gap={tokens.spacing.s250}>
+        <Stack direction="column" gap={tokens.spacing.s250} height={isMobile ?"410px" : "auto"}>
+        <StyledContainerForm>
           <StyledField>
             <Text type="label" size="large" weight="bold">
               Descripción sugerida
@@ -124,7 +125,7 @@ const RefreshCardCreditProductUI = (props: RefreshCardCreditProductUIProps) => {
                 isRequired
               />
             )}
-
+          </StyledContainerForm>
           <Stack gap={tokens.spacing.s100} justifyContent="flex-end">
             <Button
               spacing="wide"

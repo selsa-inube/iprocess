@@ -51,6 +51,12 @@ const refreshOtherDebt = lazy(() =>
   }))
 );
 
+const refreshCard = lazy(() =>
+  import("@forms/card/RefreshCard").then((module) => ({
+    default: module.RefreshCard,
+  }))
+);
+
 const routesComponent = [
   {
     path: "src/forms/customers/RefreshCustomerAttributes",
@@ -87,6 +93,10 @@ const routesComponent = [
   {
     path: "src/forms/credit/RefreshCreditRequest",
     component: refreshCreditRequest,
+  },
+  {
+    path: "src/forms/card/RefreshCard",
+    component: refreshCard,
   },
 ];
 

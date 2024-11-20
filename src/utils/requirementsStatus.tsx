@@ -8,6 +8,7 @@ const statusRequirement = [
   { status: "Undefined", name: "No Definido", appearance: "gray", icon: <MdCheckCircle />},
   { status: "WithoutProcessing", name: "Sin procesar", appearance: "warning" , icon: <MdDoDisturbOn />},
   { status: "ProcessedWithErrors", name: "Error", appearance: "danger", icon: <MdCancel /> },
+  { status: "BugIdentified", name: "Error identificado", appearance: "danger", icon: <MdCancel />},
 ];
 
 const evaluationStatusRequirement = [

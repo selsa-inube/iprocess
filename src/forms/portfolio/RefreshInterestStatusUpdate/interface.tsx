@@ -13,8 +13,11 @@ import { tokens } from "@design/tokens";
 import { mediaQueryMobile } from "@config/environment";
 import { getFieldState, validateExecutionWay } from "@forms/utils";
 import { ComponentAppearance } from "@ptypes/aparences.types";
-import { StyledField, StyledTextarea } from "./styles";
-
+import {
+  StyledContainerForm,
+  StyledField,
+  StyledTextarea,
+} from "@forms/styles";
 
 interface RefreshInterestStatusUpdateUIProps {
   data: IEntries;
@@ -23,7 +26,9 @@ interface RefreshInterestStatusUpdateUIProps {
   onStartProcess: () => void;
 }
 
-const RefreshInterestStatusUpdateUI = (props: RefreshInterestStatusUpdateUIProps) => {
+const RefreshInterestStatusUpdateUI = (
+  props: RefreshInterestStatusUpdateUIProps
+) => {
   const { data, formik, comparisonData, onStartProcess } = props;
 
   const isMobile = useMediaQuery(mediaQueryMobile);
@@ -34,79 +39,88 @@ const RefreshInterestStatusUpdateUI = (props: RefreshInterestStatusUpdateUIProps
         Estado de interés
       </Text>
       <Divider dashed />
-    <form
-      onSubmit={(e) => {
-        e.preventDefault();
-      }}
-    >
-      <Stack direction="column" gap={tokens.spacing.s250}>
-        <StyledField>
-          <Text type="label" size="large" weight="bold">
-            Descripción sugerida
-          </Text>
-          <Fieldset legend="" spacing="compact" type="title" size="medium">
-            <Text>{String(data?.descriptionSuggested)}</Text>
-          </Fieldset>
-        </StyledField>
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+        }}
+      >
+        <Stack
+          direction="column"
+          gap={tokens.spacing.s250}
+          height={isMobile ? "410px" : "auto"}
+        >
+          <StyledContainerForm>
+            <StyledField>
+              <Text type="label" size="large" weight="bold">
+                Descripción sugerida
+              </Text>
+              <Fieldset legend="" spacing="compact" type="title" size="medium">
+                <Text>{String(data?.descriptionSuggested)}</Text>
+              </Fieldset>
+            </StyledField>
 
-        <StyledTextarea>
-          <Textarea
-            label="Descripción complementaria"
-            name="descriptionComplementary"
-            id="descriptionComplementary"
-            placeholder=""
-            value={formik.values.descriptionComplementary}
-            fullwidth
-            maxLength={220}
-            onChange={formik.handleChange}
-          />
-        </StyledTextarea>
+            <StyledTextarea>
+              <Textarea
+                label="Descripción complementaria"
+                name="descriptionComplementary"
+                id="descriptionComplementary"
+                placeholder=""
+                value={formik.values.descriptionComplementary}
+                fullwidth
+                maxLength={220}
+                onChange={formik.handleChange}
+              />
+            </StyledTextarea>
 
-        <StyledField $smallScreen={isMobile}>
-          <Text type="label" size="large" weight="bold">
-            Fecha y hora de ejecución
-          </Text>
-          <Fieldset legend="" spacing="compact" type="title" size="medium">
-            <Text>{String(data.date)}</Text>
-          </Fieldset>
-        </StyledField>
+            <StyledField $smallScreen={isMobile}>
+              <Text type="label" size="large" weight="bold">
+                Fecha y hora de ejecución
+              </Text>
+              <Fieldset legend="" spacing="compact" type="title" size="medium">
+                <Text>{String(data.date)}</Text>
+              </Fieldset>
+            </StyledField>
 
-        {data?.executionWay &&
-            validateExecutionWay(data?.executionWay as string) && (
-            <Datetimefield
-              withFullwidth={true}
-              id="plannedExecutionDate"
-              label="Fecha planeada de ejecución"
-              message={
-                getFieldState(formik, "plannedExecutionDate") === "invalid"
-                  ? "La fecha es requerida"
-                  : ""
+            {data?.executionWay &&
+              validateExecutionWay(data?.executionWay as string) && (
+                <Datetimefield
+                  withFullwidth={true}
+                  id="plannedExecutionDate"
+                  label="Fecha planeada de ejecución"
+                  message={
+                    getFieldState(formik, "plannedExecutionDate") === "invalid"
+                      ? "La fecha es requerida"
+                      : ""
+                  }
+                  name="plannedExecutionDate"
+                  onBlur={formik.handleBlur}
+                  onChange={formik.handleChange}
+                  size="wide"
+                  status={getFieldState(formik, "plannedExecutionDate")}
+                  value={formik.values.plannedExecutionDate}
+                  isRequired
+                />
+              )}
+          </StyledContainerForm>
+          <Stack gap={tokens.spacing.s100} justifyContent="flex-end">
+            <Button
+              spacing="wide"
+              appearance={ComponentAppearance.PRIMARY}
+              variant="filled"
+              type="submit"
+              onClick={onStartProcess}
+              disabled={
+                data?.executionWay &&
+                data?.executionWay === "PlannedAutomaticExecution"
+                  ? !comparisonData
+                  : false
               }
-              name="plannedExecutionDate"
-              onBlur={formik.handleBlur}
-              onChange={formik.handleChange}
-              size="wide"
-              status={getFieldState(formik, "plannedExecutionDate")}
-              value={formik.values.plannedExecutionDate}
-              isRequired
-            />
-          )}
-
-        <Stack gap={tokens.spacing.s100} justifyContent="flex-end">
-          <Button
-            spacing="wide"
-            appearance={ComponentAppearance.PRIMARY}
-            variant="filled"
-            type="submit"
-            onClick={onStartProcess}
-            disabled={data?.executionWay &&
-              data?.executionWay === "PlannedAutomaticExecution" ? !comparisonData : false }
-          >
-            Iniciar proceso
-          </Button>
+            >
+              Iniciar proceso
+            </Button>
+          </Stack>
         </Stack>
-      </Stack>
-    </form>
+      </form>
     </Stack>
   );
 };
