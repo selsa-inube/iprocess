@@ -17,7 +17,7 @@ interface CardStatusExecutionProps {
   entries?: IPersonProcess;
   isLoading?: boolean;
   isFilteredWithErrors?: boolean;
-  handleProcessPersonId?: (id: string | undefined, check: boolean) => void;
+  handleProcessPersonId?: (id: string | undefined, publicCode: string | undefined, check: boolean) => void;
 }
 
 function ShowAction(actionContent: IActions[], entry: IPersonProcess) {
@@ -46,7 +46,7 @@ const CardStatusExecution = (props: CardStatusExecutionProps) => {
 
   const handleChangeManage = (e: React.ChangeEvent<HTMLInputElement>) => {
     setCheckedCard(e.target.checked);
-    handleProcessPersonId && handleProcessPersonId(entries?.processPersonId, e.target.checked);
+    handleProcessPersonId && handleProcessPersonId(entries?.processPersonId, entries?.personPublicCode, e.target.checked);
   };
 
   

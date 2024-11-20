@@ -1,6 +1,5 @@
 import { evaluationStatusRequirement, statusRequirement } from "./requirementsStatus";
 
-
 const executionStatusByPerson =[
   { status: "WithoutProcessing", name: "Sin procesar", appearance: "warning" },
   { status: "ProcessedWithErrors", name: "Error", appearance: "danger" },

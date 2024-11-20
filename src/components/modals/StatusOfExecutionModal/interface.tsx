@@ -10,7 +10,7 @@ import { Button } from "@inubekit/button";
 import { tokens } from "@design/tokens";
 import { StartProcesses } from "@pages/startProcess/types";
 import { ComponentAppearance } from "@ptypes/aparences.types";
-import { IProcessPersonsWithErrors } from "@pages/validateProgress/types";
+import { IListOfPeopleToReprocess, IProcessPersonsWithErrors } from "@pages/validateProgress/types";
 import { StyledContainer, StyledModal } from "./styles";
 import { ILabel } from "./types";
 import { GeneralDataMobile } from "./GeneralDataMobile";
@@ -21,8 +21,10 @@ interface StatusOfExecutionModalUIProps {
   dataSubtmit: IProcessPersonsWithErrors[] | undefined;
   disabledBoton: boolean;
   isdiscardPersonsWithErrors: boolean;
+  isReprocessPersonsWithErrors: boolean;
   labels: ILabel[];
   loadingDiscard: boolean;
+  loadingReprocess: boolean;
   portalId: string;
   processControlId: string;
   search: string;
@@ -31,14 +33,15 @@ interface StatusOfExecutionModalUIProps {
   onChangeToggle: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onCloseModal: () => void;
   onDiscard: (data: IProcessPersonsWithErrors[]) => void;
-  onProcessPersonId: (id: string | undefined, check: boolean) => void;
-  onReprocess: () => void;
+  onProcessPersonId: (id: string | undefined, publicCode: string | undefined, check: boolean) => void;
+  onReprocess: (data: IListOfPeopleToReprocess[]) => void;
 }
 
 const StatusOfExecutionModalUI = (props: StatusOfExecutionModalUIProps) => {
   const {
     dataInformationProcess,
     isdiscardPersonsWithErrors,
+    isReprocessPersonsWithErrors,
     labels,
     portalId,
     processControlId,
@@ -47,6 +50,7 @@ const StatusOfExecutionModalUI = (props: StatusOfExecutionModalUIProps) => {
     disabledBoton,
     dataSubtmit,
     loadingDiscard,
+    loadingReprocess,
     onChangeSearch,
     onChangeToggle,
     onCloseModal,
@@ -94,6 +98,7 @@ const StatusOfExecutionModalUI = (props: StatusOfExecutionModalUIProps) => {
                 onChangeSearch={onChangeSearch}
                 onChangeToggle={onChangeToggle}
                 onProcessPersonId={onProcessPersonId}
+                isReprocessPersonsWithErrors={isReprocessPersonsWithErrors}
               />
             ) : (
               <GeneralDataDesktop
@@ -106,6 +111,7 @@ const StatusOfExecutionModalUI = (props: StatusOfExecutionModalUIProps) => {
                 onChangeSearch={onChangeSearch}
                 onChangeToggle={onChangeToggle}
                 onProcessPersonId={onProcessPersonId}
+                isReprocessPersonsWithErrors={isReprocessPersonsWithErrors}
               />
             )}
           </Stack>
@@ -114,8 +120,9 @@ const StatusOfExecutionModalUI = (props: StatusOfExecutionModalUIProps) => {
               spacing="wide"
               appearance={ComponentAppearance.PRIMARY}
               variant="filled"
-              onClick={onReprocess}
+              onClick={() => dataSubtmit && onReprocess(dataSubtmit)}
               disabled={disabledBoton}
+              loading={loadingReprocess}
             >
               Reprocesar
             </Button>

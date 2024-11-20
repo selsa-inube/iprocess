@@ -21,9 +21,10 @@ interface GeneralDataMobileProps {
   processControlId: string;
   search: string;
   seeErrorsChecked: boolean;
+  isReprocessPersonsWithErrors: boolean;
   onChangeSearch: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onChangeToggle: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  onProcessPersonId: (id: string | undefined, check: boolean) => void;
+  onProcessPersonId: (id: string | undefined, publicCode: string | undefined, check: boolean) => void;
 }
 
 const GeneralDataMobile = (props: GeneralDataMobileProps) => {
@@ -34,6 +35,7 @@ const GeneralDataMobile = (props: GeneralDataMobileProps) => {
     processControlId,
     search,
     seeErrorsChecked,
+    isReprocessPersonsWithErrors,
     onChangeSearch,
     onChangeToggle,
     onProcessPersonId,
@@ -144,6 +146,7 @@ const GeneralDataMobile = (props: GeneralDataMobileProps) => {
             filteredWithErrors={seeErrorsChecked}
             handleProcessPersonId={onProcessPersonId}
             isdiscardPersonsWithErrors={isdiscardPersonsWithErrors}
+            isReprocessPersonsWithErrors={isReprocessPersonsWithErrors}
           />
         </Suspense>
       </Accordion>

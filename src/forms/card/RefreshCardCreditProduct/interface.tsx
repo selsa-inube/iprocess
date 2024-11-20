@@ -6,6 +6,7 @@ import { Fieldset } from "@inubekit/fieldset";
 import { Textarea } from "@inubekit/textarea";
 import { Select } from "@inubekit/select";
 import { Divider } from "@inubekit/divider";
+import { useMediaQuery } from "@inubekit/hooks";
 import { Date as Datefield } from "@inubekit/date";
 
 import { IEntries, IEnumeratorsProcessCoverage } from "@forms/types";
@@ -13,8 +14,10 @@ import { Datetimefield } from "@design/inputs/Datetimefield";
 import { getFieldState, validateExecutionWay } from "@forms/utils";
 import { tokens } from "@design/tokens";
 import { ComponentAppearance } from "@ptypes/aparences.types";
+import { StyledContainerForm, StyledField, StyledTextarea } from "@forms/styles";
 import { formatDateEndpoint } from "@utils/dates";
-import { StyledField, StyledTextarea } from "./styles";
+import { mediaQueryMobile } from "@config/environment";
+
 
 interface RefreshCardCreditProductUIProps {
   data: IEntries;
@@ -35,6 +38,8 @@ const RefreshCardCreditProductUI = (props: RefreshCardCreditProductUIProps) => {
     onStartProcess,
   } = props;
 
+  const isMobile = useMediaQuery(mediaQueryMobile);
+
   return (
     <Stack direction="column" gap={tokens.spacing.s250}>
       <Text type="title" size="medium" appearance="dark" weight="bold">
@@ -46,7 +51,8 @@ const RefreshCardCreditProductUI = (props: RefreshCardCreditProductUIProps) => {
           e.preventDefault();
         }}
       >
-        <Stack direction="column" gap={tokens.spacing.s250}>
+        <Stack direction="column" gap={tokens.spacing.s250} height={isMobile ?"410px" : "auto"}>
+        <StyledContainerForm>
           <StyledField>
             <Text type="label" size="large" weight="bold">
               Descripción sugerida
@@ -135,7 +141,7 @@ const RefreshCardCreditProductUI = (props: RefreshCardCreditProductUIProps) => {
                 isRequired
               />
             )}
-
+          </StyledContainerForm>
           <Stack gap={tokens.spacing.s100} justifyContent="flex-end">
             <Button
               spacing="wide"

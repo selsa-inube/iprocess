@@ -1,14 +1,16 @@
 import { useContext, useEffect, useState } from "react";
 import { MdOutlineRemoveRedEye } from "react-icons/md";
 import { Icon } from "@inubekit/icon";
+import { useFlag } from "@inubekit/flag";
 
 import { DetailModal } from "@components/modals/DetailModal";
 import { tokens } from "@design/tokens";
 import { IPersonProcess } from "@components/feedback/CardStatusExecution/types";
-import { labelsDetails } from "../config/cardPerson.config";
-import { IPersonWithError } from "@pages/validateProgress/types";
 import { personWithError } from "@services/validateProgress/getPersonWithError";
 import { AppContext } from "@context/AppContext";
+import { ComponentAppearance } from "@ptypes/aparences.types";
+import { normalizeStatusRequirementByStatus } from "@utils/requirements";
+import { labelsDetails } from "../config/cardPerson.config";
 
 interface IDetailsExecutionStatusProps {
   data: IPersonProcess;
@@ -18,8 +20,10 @@ const DetailsExecutionStatus = (props: IDetailsExecutionStatusProps) => {
   const { data } = props;
 
   const { appData } = useContext(AppContext);
-  const [errorInPerson, setErrorInPerson] = useState<IPersonWithError>();
   const [showModal, setShowModal] = useState(false);
+  const [dataShow, setDataShow] = useState(data);
+
+  const { addFlag } = useFlag();
 
   const handleToggleModal = () => {
     setShowModal(!showModal);
@@ -32,8 +36,22 @@ const DetailsExecutionStatus = (props: IDetailsExecutionStatusProps) => {
         data.processControlId || "",
         data.processPersonId
       );
-      setErrorInPerson(newError.find((item) => item));
+      const dataErrors = newError.find((item) => item);
+      setDataShow((prev) => ({
+        ...prev,
+        errorsDescription: dataErrors?.errorDescription,
+        statusText: normalizeStatusRequirementByStatus(
+          dataErrors?.errorStatus || ""
+        )?.name,
+      }));
     } catch (error) {
+      addFlag({
+        title: "Error en la consulta de errores",
+        description:
+          "No fue posible consulta los errores, por favor intenta más tarde",
+        appearance: ComponentAppearance.DANGER,
+        duration: 5000,
+      });
       throw new Error(
         `Error al obtener los datos: ${(error as Error).message} `
       );
@@ -41,9 +59,12 @@ const DetailsExecutionStatus = (props: IDetailsExecutionStatusProps) => {
   };
 
   useEffect(() => {
+    errorInPersonData();
+  }, []);
+
+  useEffect(() => {
     if (showModal) {
       errorInPersonData();
-      data.errorsDescription = errorInPerson?.errorDescription;
     }
   }, [showModal]);
 
@@ -61,7 +82,7 @@ const DetailsExecutionStatus = (props: IDetailsExecutionStatusProps) => {
         <DetailModal
           portalId="portal"
           title="Detalle"
-          data={data}
+          data={dataShow}
           labels={labelsDetails}
           onCloseModal={handleToggleModal}
         />

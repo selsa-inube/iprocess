@@ -21,15 +21,17 @@ interface GeneralDataDesktopProps {
   processControlId: string;
   search: string;
   seeErrorsChecked: boolean;
+  isReprocessPersonsWithErrors: boolean;
   onChangeSearch: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onChangeToggle: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  onProcessPersonId: (id: string | undefined, check: boolean) => void;
+  onProcessPersonId: (id: string | undefined, publicCode: string | undefined, check: boolean) => void;
 }
 
 const GeneralDataDesktop = (props: GeneralDataDesktopProps) => {
   const {
     dataInformationProcess,
     isdiscardPersonsWithErrors,
+    isReprocessPersonsWithErrors,
     labels,
     processControlId,
     search,
@@ -128,6 +130,7 @@ const GeneralDataDesktop = (props: GeneralDataDesktopProps) => {
           filteredWithErrors={seeErrorsChecked}
           handleProcessPersonId={onProcessPersonId}
           isdiscardPersonsWithErrors={isdiscardPersonsWithErrors}
+          isReprocessPersonsWithErrors={isReprocessPersonsWithErrors}
         />
       </Suspense>
     </>

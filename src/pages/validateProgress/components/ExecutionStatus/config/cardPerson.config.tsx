@@ -1,7 +1,6 @@
 import { formatDate } from "@utils/dates";
 import { IPersonProcessTime } from "@pages/validateProgress/types";
 import { IPersonProcess } from "@components/feedback/CardStatusExecution/types";
-import { normalizeStatusRequirementByStatus } from "@utils/requirements";
 import { DetailsExecutionStatus } from "../DetailsExecutionStatus";
 
 const normalizeDataInformationProcess = (
@@ -21,7 +20,7 @@ const normalizeDataInformationProcess = (
   };
 };
 
-const normalizeDataPerson = (entries: IPersonProcess[], processControlId: string) =>
+const normalizeDataPerson = (entries: IPersonProcess[], processControlId: string, ) =>
   entries.map((entry) => ({
     ...entry,
     id: entry.processPersonId,
@@ -40,10 +39,9 @@ const detailsPersonData = (entries: IPersonProcess) => {
     processPersonId: entries.processPersonId,
     personName: entries.personName,
     processControlId: entries.processControlId,
-    startDate: entries.startDate,
+    startDate: entries.startDate ,
     finishDate: entries.finishDate,
     personPublicCode: entries.personPublicCode,
-    statusText: normalizeStatusRequirementByStatus(entries?.executionStatusByPerson || "")?.name,
   };
 };
 
@@ -70,27 +68,20 @@ const labels = [
   },
 ];
 
-const actions = [
-  {
-    id: "Details",
-    content: (entries: IPersonProcess) => (
-      <DetailsExecutionStatus data={detailsPersonData(entries)} />
-    ),
-  },
-];
+  const actions = [
+    {
+      id: "Details",
+      content: (entries: IPersonProcess) => (
+        <DetailsExecutionStatus data={detailsPersonData(entries)}/>
+      ),
+    },
+  ];
+
 
 const labelsDetails = [
   {
     id: "personName",
     titleName: "Nombre",
-  },
-  {
-    id: "startDate",
-    titleName: "Fecha inicio",
-  },
-  {
-    id: "finishDate",
-    titleName: "Fecha final",
   },
   {
     id: "errorsDescription",

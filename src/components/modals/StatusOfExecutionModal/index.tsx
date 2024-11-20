@@ -1,30 +1,34 @@
 import { useEffect, useState } from "react";
 
 import { StartProcesses } from "@pages/startProcess/types";
-import { IProcessPersonsWithErrors } from "@pages/validateProgress/types";
+import { IListOfPeopleToReprocess, IProcessPersonsWithErrors } from "@pages/validateProgress/types";
 import { StatusOfExecutionModalUI } from "./interface";
 import { ILabel } from "./types";
 
 interface StatusOfExecutionModalProps {
   dataInformationProcess: StartProcesses;
   isdiscardPersonsWithErrors: boolean;
+  isReprocessPersonsWithErrors: boolean;
   labels: ILabel[];
   loadingDiscard: boolean;
+  loadingReprocess: boolean;
   portalId: string;
   processControlId: string;
   onCloseModal: () => void;
   onDiscard: (data: IProcessPersonsWithErrors[]) => void;
-  onReprocess: () => void;
+  onReprocess: (data: IListOfPeopleToReprocess[]) => void;
 }
 
 const StatusOfExecutionModal = (props: StatusOfExecutionModalProps) => {
   const {
     isdiscardPersonsWithErrors,
+    isReprocessPersonsWithErrors,
     processControlId,
     portalId,
     dataInformationProcess,
     labels,
     loadingDiscard,
+    loadingReprocess,
     onCloseModal,
     onReprocess,
     onDiscard,
@@ -42,7 +46,7 @@ const StatusOfExecutionModal = (props: StatusOfExecutionModalProps) => {
     setSearch(e.target.value);
   };
 
-  const handleProcessPersonId = (id: string | undefined, check: boolean) => {
+  const handleProcessPersonId = (id: string | undefined, publicCode: string | undefined, check: boolean) => {
     if (check) {
       setDisabledBoton(false);
       setDataSubtmit((prev) => {
@@ -50,12 +54,15 @@ const StatusOfExecutionModal = (props: StatusOfExecutionModalProps) => {
           ...(prev || []),
           {
             processPersonId: id || "",
+            personPublicCode: publicCode || "",
           },
         ];
       });
+
+
     } else {
       setDataSubtmit((prev) => {
-        return prev?.filter((item) => item.processPersonId !== id);
+        return prev?.filter((item) => item.processPersonId !== id );
       });
     }
   };
@@ -81,6 +88,7 @@ const StatusOfExecutionModal = (props: StatusOfExecutionModalProps) => {
       search={search}
       seeErrorsChecked={seeErrorsChecked}
       loadingDiscard={loadingDiscard}
+      loadingReprocess={loadingReprocess}
       onChangeSearch={handleSearch}
       onChangeToggle={handleChangeToggle}
       onCloseModal={onCloseModal}
@@ -90,6 +98,7 @@ const StatusOfExecutionModal = (props: StatusOfExecutionModalProps) => {
       disabledBoton={disabledBoton}
       dataSubtmit={dataSubtmit}
       isdiscardPersonsWithErrors={isdiscardPersonsWithErrors}
+      isReprocessPersonsWithErrors={isReprocessPersonsWithErrors}
     />
   );
 };
