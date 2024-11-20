@@ -96,9 +96,7 @@ const RefreshCustomerAttributes = (props: RefreshCustomerAttributesProps) => {
         parameters: {
           typeExecution: formik.values.typeRefresh || "",
           cutOffDate:
-          formik.values.typeRefresh === "MIGRATION"
-            ? (formik.values.cutOffDate ||  formatDateEndpoint(new Date(data.date as Date)))
-            : "",
+          formik.values.cutOffDate ||  formatDateEndpoint(new Date(data.date as Date)),
         },
       };
       setFieldsEntered(dataForm);
