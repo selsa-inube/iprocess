@@ -11,7 +11,7 @@ import { StartProcessModal } from "@components/modals/StartProcessModal";
 import { IEntries } from "@components/modals/MoreDetailsModal/types";
 import { IFieldsEntered } from "@forms/types";
 import { tokens } from "@design/tokens";
-import { formatDate, formatDateEndpoint } from "@utils/dates";
+import { formatDateEndpoint } from "@utils/dates";
 import { IStartProcessResponse } from "@pages/startProcess/types";
 import { startProcess } from "@services/startProcess/patchStartProcess";
 import { routesComponent } from "@pages/startProcess/config/routesForms.config";
@@ -56,7 +56,7 @@ const StartProcessScheduled = (props: IStartProcessScheduledProps) => {
       year: Number(dataModal.year),
       cutOffDate: formatDateEndpoint(new Date()),
       complementaryDescription: String(fieldsEntered.descriptionComplementary),
-      plannedExecution: formatDateEndpoint(dataModal.date as Date),
+      plannedExecution: formatDateEndpoint(new Date(dataModal.date as Date)),
       plannedExecutionDate: fieldsEntered.plannedExecutionDate
         ? new Date(fieldsEntered.plannedExecutionDate).toISOString()
         : new Date(dataModal.date as Date).toISOString(),
@@ -83,6 +83,7 @@ const StartProcessScheduled = (props: IStartProcessScheduledProps) => {
       );
     }
   };
+  
   useEffect(() => {
     if (responseStartProcess?.processStatus.length) {
       setShowProgressModal(false);
@@ -138,10 +139,7 @@ const StartProcessScheduled = (props: IStartProcessScheduledProps) => {
                         data={{
                           id: id,
                           descriptionSuggested: dataModal?.descriptionSuggested,
-                          date: formatDate(
-                            new Date(dataModal.date as string),
-                            true
-                          ),
+                          date: dataModal.date,
                           executionWay:
                             dataModal?.executionWay,
                         }}

@@ -1,5 +1,5 @@
 import { useFormik } from "formik";
-import {object, string as stringYup } from "yup";
+import {date, object, string as stringYup } from "yup";
 import { useContext, useEffect, useState } from "react";
 
 import {
@@ -11,12 +11,14 @@ import {
 import { EnumProcessCoverageData } from "@services/enumerators/getEnumeratorsProcessCoverage";
 import { AppContext } from "@context/AppContext";
 import { comparisonDataForms, validateExecutionWay } from "@forms/utils";
+import { formatDateEndpoint } from "@utils/dates";
 import { RefreshSavingProductUI } from "./interface";
 
 const validationSchema = object({
   typeRefresh: stringYup().required("Este campo no puede estar vacío"),
   descriptionComplementary: stringYup(),
   plannedExecutionDate: stringYup(),
+  cutOffDate: date(),
 });
 
 interface RefreshSavingProductProps {
@@ -29,6 +31,7 @@ const initialValues: IStartProcessEntry = {
   descriptionComplementary: "",
   typeRefresh: "",
   plannedExecutionDate: "",
+  cutOffDate: "",
 };
 
 const RefreshSavingProduct = (props: RefreshSavingProductProps) => {
@@ -92,6 +95,8 @@ const RefreshSavingProduct = (props: RefreshSavingProductProps) => {
         plannedExecutionDate: formik.values.plannedExecutionDate,
         parameters: {
           typeExecution: formik.values.typeRefresh || "",
+          cutOffDate:
+          formik.values.cutOffDate ||  formatDateEndpoint(new Date(data.date as Date)),
         },
       };
       setFieldsEntered(dataForm);

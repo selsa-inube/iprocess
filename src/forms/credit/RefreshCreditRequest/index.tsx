@@ -1,17 +1,19 @@
 import { useFormik } from "formik";
-import {object, string as stringYup } from "yup";
+import {date, object, string as stringYup } from "yup";
 import { useContext, useEffect, useState } from "react";
 
 import { IStartProcessEntry, IEntries, IFieldsEntered, IEnumeratorsProcessCoverage } from "@forms/types";
 import { EnumProcessCoverageData } from "@services/enumerators/getEnumeratorsProcessCoverage";
 import { comparisonDataForms, validateExecutionWay } from "@forms/utils";
 import { AppContext } from "@context/AppContext";
+import { formatDateEndpoint } from "@utils/dates";
 import { RefreshCreditRequestUI } from "./interface";
 
 const validationSchema = object({
   typeRefresh: stringYup().required("Este campo no puede estar vacío"),
   descriptionComplementary: stringYup(),
   plannedExecutionDate: stringYup(),
+  cutOffDate: date(),
 });
 
 interface RefreshCreditRequestProps {
@@ -24,6 +26,7 @@ const initialValues: IStartProcessEntry = {
   descriptionComplementary: "",
   typeRefresh: "",
   plannedExecutionDate: "",
+  cutOffDate: "",
 };
 
 const RefreshCreditRequest = (props: RefreshCreditRequestProps) => {
@@ -85,6 +88,7 @@ useEffect(() => {
       plannedExecutionDate: formik.values.plannedExecutionDate,
       parameters: {
         typeExecution: formik.values.typeRefresh || "",
+        cutOffDate: formik.values.cutOffDate ||  formatDateEndpoint(new Date(data.date as Date)),
       },
     };
     setFieldsEntered(dataForm);

@@ -1,5 +1,4 @@
 import { FormikValues } from "formik";
-import { useMediaQuery } from "@inubekit/hooks";
 import { Stack } from "@inubekit/stack";
 import { Text } from "@inubekit/text";
 import { Button } from "@inubekit/button";
@@ -7,11 +6,12 @@ import { Fieldset } from "@inubekit/fieldset";
 import { Textarea } from "@inubekit/textarea";
 import { Select } from "@inubekit/select";
 import { Divider } from "@inubekit/divider";
+import { useMediaQuery } from "@inubekit/hooks";
+import { Date as Datefield } from "@inubekit/date";
 
 import { IEntries, IEnumeratorsProcessCoverage } from "@forms/types";
 import { Datetimefield } from "@design/inputs/Datetimefield";
 import { tokens } from "@design/tokens";
-import { mediaQueryMobile } from "@config/environment";
 import { getFieldState, validateExecutionWay } from "@forms/utils";
 import { ComponentAppearance } from "@ptypes/aparences.types";
 
@@ -20,6 +20,8 @@ import {
   StyledField,
   StyledTextarea,
 } from "@forms/styles";
+import { mediaQueryMobile } from "@config/environment";
+import { formatDateEndpoint } from "@utils/dates";
 
 interface RefreshCreditRequestUIProps {
   data: IEntries;
@@ -104,14 +106,28 @@ const RefreshCreditRequestUI = (props: RefreshCreditRequestUIProps) => {
             required
           />
 
-          <StyledField $smallScreen={isMobile}>
-            <Text type="label" size="large" weight="bold">
-              Fecha y hora de ejecución
-            </Text>
-            <Fieldset legend="" spacing="compact" type="title" size="medium">
-              <Text>{String(data.date)}</Text>
-            </Fieldset>
-          </StyledField>
+<Datefield
+          disabled={false}
+          fullwidth={true}
+          id="cutOffDate"
+          label="Fecha de corte para la ejecución"
+          name="cutOffDate"
+          message={
+            getFieldState(formik, "cutOffDate") === "invalid"
+              ? "La fecha de corte es requerida"
+              : ""
+          }
+          onBlur={formik.handleBlur}
+          onFocus={formik.handleFocus}
+          onChange={formik.handleChange}
+          required={false}
+          size="wide"
+          status={getFieldState(formik, "cutOffDate")}
+          value={
+            formik.values.cutOffDate ||
+            formatDateEndpoint(new Date(data.date as Date))
+          }
+        />
 
           {data?.executionWay &&
             validateExecutionWay(data?.executionWay as string) && (
