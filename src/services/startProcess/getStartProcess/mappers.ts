@@ -4,7 +4,6 @@ import { periodicityValuesMock } from "@mocks/startProcess/utils.mocks";
 const mapStartProcessApiToEntity = (
   process: Record<string, string | number | object>
 ): StartProcesses => {
-
   const processes: StartProcesses = {
     id: String(process.processCatalogId),
     publicCode: String(process.publicCode),

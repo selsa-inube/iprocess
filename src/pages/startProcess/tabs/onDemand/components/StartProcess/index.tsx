@@ -11,7 +11,7 @@ import { StartProcessModal } from "@components/modals/StartProcessModal";
 import { IEntries } from "@components/modals/MoreDetailsModal/types";
 import { IFieldsEntered } from "@forms/types";
 import { tokens } from "@design/tokens";
-import { formatDate, formatDateEndpoint } from "@utils/dates";
+import { formatDateEndpoint } from "@utils/dates";
 import { startProcess } from "@services/startProcess/patchStartProcess";
 import { IStartProcessResponse } from "@pages/startProcess/types";
 import { routesComponent } from "@pages/startProcess/config/routesForms.config";
@@ -137,10 +137,7 @@ const StartProcessOnDemand = (props: IStartProcessOnDemandProps) => {
                         data={{
                           id: id,
                           descriptionSuggested: dataModal?.descriptionSuggested,
-                          date: formatDate(
-                            new Date(dataModal.date as string),
-                            true
-                          ),
+                          date: dataModal.date,
                           executionWay:
                             dataModal?.executionWay,
                         }}

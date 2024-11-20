@@ -34,7 +34,7 @@ const scheduledNormailzeEntries = (
     actions: actions,
     month: month,
     year: year,
-    dateWithoutFormat: entry.date,
+    dateWithoutFormat: entry.dateWithoutFormat,
     executionWay: entry.executionWay,
   }));
 
