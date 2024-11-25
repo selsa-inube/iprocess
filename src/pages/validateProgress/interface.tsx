@@ -1,6 +1,7 @@
 import { Stack } from "@inubekit/stack";
 import { Text } from "@inubekit/text";
 import { useMediaQuery } from "@inubekit/hooks";
+import { Breadcrumbs } from "@inubekit/breadcrumbs";
 import { Input } from "@inubekit/input";
 
 import { ChangePeriod } from "@components/feedback/ChangePeriod";
@@ -12,6 +13,7 @@ import { CardProcessGroup } from "@components/feedback/CardProcessGroup";
 import { CardProcess } from "@components/feedback/CardProcess";
 import { IChangePeriodEntry, IListPeriods } from "../startProcess/types";
 import { normailzeValidateProgress } from "./config/card.config";
+import { crumbsValidateProgress } from "./config/navigation";
 
 interface ValidateProgressUIProps {
   entries: IProcess[];
@@ -57,6 +59,7 @@ function ValidateProgressUI(props: ValidateProgressUIProps) {
     >
       <Stack gap={tokens.spacing.s600} direction="column">
         <Stack gap={tokens.spacing.s300} direction="column">
+        <Breadcrumbs crumbs={crumbsValidateProgress}/>
           <Text type="title" size={smallScreen ? "medium" : "large"}>
             Validar el progreso
           </Text>

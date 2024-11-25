@@ -1,7 +1,13 @@
 const crumbsStartProcessesDaily =  [
   {
-    id: "startProcess",
+    id: "home",
     path: "/",
+    label: "Home",
+    isActive: false,
+  },
+  {
+    id: "startProcess",
+    path: "/start-process",
     label: "Iniciar procesos",
     isActive: false,
   },

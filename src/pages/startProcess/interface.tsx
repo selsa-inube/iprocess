@@ -2,11 +2,13 @@ import { Stack } from "@inubekit/stack";
 import { Tabs } from "@inubekit/tabs";
 import { useMediaQuery } from "@inubekit/hooks";
 import { Text } from "@inubekit/text";
+import { Breadcrumbs } from "@inubekit/breadcrumbs";
 
 import { tokens } from "@design/tokens";
 import { startProcessTabsConfig } from "./config/tabs.config";
 import { ScheduledTab } from "./tabs/scheduled";
 import { OnDemandTab } from "./tabs/onDemand";
+import { crumbsStartProcess } from "./config/navigation";
 
 
 interface StartProcessUIProps {
@@ -27,6 +29,7 @@ function StartProcessUI(props: StartProcessUIProps) {
     >
       <Stack gap={tokens.spacing.s600} direction="column">
         <Stack gap={tokens.spacing.s300} direction="column">
+        <Breadcrumbs crumbs={crumbsStartProcess}/>
           <Text type="title" size={smallScreen ? "medium" : "large"}>
             Procesos por Iniciar
           </Text>
