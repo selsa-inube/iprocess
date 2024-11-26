@@ -1,16 +1,13 @@
 import { useFormik } from "formik";
 import {date, object, string as stringYup } from "yup";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
-import { EnumProcessCoverageData } from "@services/enumerators/getEnumeratorsProcessCoverage";
 import { comparisonDataForms, validateExecutionWay } from "@forms/utils";
 import {
   IStartProcessEntry,
   IEntries,
   IFieldsEntered,
-  IEnumeratorsProcessCoverage,
 } from "@forms/types";
-import { AppContext } from "@context/AppContext";
 import { formatDateEndpoint } from "@utils/dates";
 import { RefreshSavingCommitmentUI } from "./interface";
 
@@ -36,27 +33,8 @@ const initialValues: IStartProcessEntry = {
 
 const RefreshSavingCommitment = (props: RefreshSavingCommitmentProps) => {
   const { data, setFieldsEntered, onStartProcess } = props;
-  const { appData } = useContext(AppContext);
   const [dynamicValidationSchema, setDynamicValidationSchema] =
     useState(validationSchema);
-
-  const [optionsTypeRefresh, setOptionsTypeRefresh] = useState<
-    IEnumeratorsProcessCoverage[]
-  >([]);
-
-  const validateOptionsTypeRefresh = async () => {
-    try {
-      const newOptions = await EnumProcessCoverageData(appData.businessUnit.publicCode); 
-
-      setOptionsTypeRefresh(newOptions);
-    } catch (error) {
-      console.info(error);
-    }
-  };
-
-  useEffect(() => {
-    validateOptionsTypeRefresh();
-  }, []);
 
   const formik = useFormik({
     initialValues,
@@ -109,7 +87,6 @@ const RefreshSavingCommitment = (props: RefreshSavingCommitmentProps) => {
     <RefreshSavingCommitmentUI
       formik={formik}
       data={data}
-      optionsTypeRefresh={optionsTypeRefresh}
       onChange={handleChange}
       onStartProcess={onStartProcess}
       comparisonData={comparisonData}

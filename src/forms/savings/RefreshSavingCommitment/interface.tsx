@@ -21,14 +21,15 @@ import {
 } from "@forms/styles";
 import { mediaQueryMobile } from "@config/environment";
 import { formatDateEndpoint } from "@utils/dates";
+import { getDomainById } from "@mocks/domains/domainService.mocks";
 
 interface RefreshSavingCommitmentUIProps {
   data: IEntries;
   formik: FormikValues;
   comparisonData: boolean;
-  optionsTypeRefresh: IEnumeratorsProcessCoverage[];
   onChange: (name: string, value: string) => void;
   onStartProcess: () => void;
+  optionsTypeRefresh?: IEnumeratorsProcessCoverage[];
 }
 
 const RefreshSavingCommitmentUI = (props: RefreshSavingCommitmentUIProps) => {
@@ -36,7 +37,6 @@ const RefreshSavingCommitmentUI = (props: RefreshSavingCommitmentUIProps) => {
     data,
     formik,
     comparisonData,
-    optionsTypeRefresh,
     onChange,
     onStartProcess,
   } = props;
@@ -89,7 +89,7 @@ const RefreshSavingCommitmentUI = (props: RefreshSavingCommitmentUIProps) => {
               name="typeRefresh"
               onChange={onChange}
               onBlur={formik.handleBlur}
-              options={optionsTypeRefresh}
+              options={getDomainById("typeRefresh")}
               placeholder="Seleccione uno"
               size="wide"
               message={
