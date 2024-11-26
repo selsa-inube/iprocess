@@ -7,6 +7,8 @@ const executionStatusByPerson =[
 
 const filteredExecutionStatusByPerson = ["ProcessedWithErrors"];
 
+const errorsStatus =["ProcessedWithErrors"];
+
 enum RequirementTypeNormalize  {
   SYSTEM_VALIDATION= "Validación del sistema",
   DOCUMENT= "Documento",
@@ -31,6 +33,7 @@ const normalizeexecutionStatusByPerson = (requirement: string) =>
 
 export {
   filteredExecutionStatusByPerson, 
+  errorsStatus,
   RequirementTypeNormalize,
   normalizeStatusRequirementByStatus,
   normalizeStatusRequirementByName,
