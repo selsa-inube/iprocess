@@ -24,9 +24,7 @@ const StyledContainer = styled.div`
 const StyledModal = styled.div<IStyledModal>`
   background-color: ${({ theme }) =>
     theme?.palette?.neutral?.N10 || inube.palette.neutral.N10};
-
   width: ${(props) => (props.$smallScreen ? "280px" : "450px")};
-  height: auto;
   border-radius: ${(props) =>
     props.$smallScreen ? `${tokens.spacing.s200}` : `${tokens.spacing.s100}`};
 
@@ -48,20 +46,30 @@ const StyledModalFields = styled.div<IStyledModal>`
 
   & > fieldset div:nth-child(1) {
     padding: ${tokens.spacing.s100} ${tokens.spacing.s0};
-    background-color: red;
   }
- 
+
   & > div {
     min-height: ${tokens.spacing.s0} !important;
     margin-bottom: 8px !important;
   }
-  
 
   @media screen and (${mediaQueryMobile}) {
     div {
       max-width: 200px;
     }
+
+    & > fieldset > p {
+      word-break: break-word;
+      white-space: normal;
+    }
   }
+`;
+
+const StyledDataContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: ${tokens.spacing.s100};
+  overflow-y: auto;
 `;
 
 const StyledContainerTables = styled.div`
@@ -72,6 +80,7 @@ const StyledContainerTables = styled.div`
 
 export {
   StyledContainer,
+  StyledDataContainer,
   StyledModal,
   StyledModalFields,
   StyledContainerTables,

@@ -1,6 +1,7 @@
 import { formatDate } from "@utils/dates";
 import { IPersonProcessTime } from "@pages/validateProgress/types";
 import { IPersonProcess } from "@components/feedback/CardStatusExecution/types";
+import { errorsStatus } from "@utils/requirements";
 import { DetailsExecutionStatus } from "../DetailsExecutionStatus";
 
 const normalizeDataInformationProcess = (
@@ -72,6 +73,7 @@ const labels = [
     {
       id: "Details",
       content: (entries: IPersonProcess) => (
+        errorsStatus.includes(entries.executionStatusByPerson || "") &&
         <DetailsExecutionStatus data={detailsPersonData(entries)}/>
       ),
     },
