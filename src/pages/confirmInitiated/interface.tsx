@@ -2,6 +2,7 @@ import { Stack } from "@inubekit/stack";
 import { Text } from "@inubekit/text";
 import { useMediaQuery } from "@inubekit/hooks";
 import { Input } from "@inubekit/input";
+import { Breadcrumbs } from "@inubekit/breadcrumbs";
 
 import { CardProcess } from "@components/feedback/CardProcess";
 import { tokens } from "@design/tokens";
@@ -9,6 +10,7 @@ import { IProcess } from "@components/feedback/CardProcess/types";
 import { CardProcessGroup } from "@components/feedback/CardProcessGroup";
 import { mediaQueryMobile } from "@config/environment";
 import { confirmInitiatedNormailzeEntries } from "./config/card.config";
+import { crumbsConfirmInitiated } from "./config/navigation";
 
 interface ConfirmInitiatedUIProps {
   entries: IProcess[];
@@ -41,6 +43,7 @@ function ConfirmInitiatedUI(props: ConfirmInitiatedUIProps) {
     >
       <Stack gap={tokens.spacing.s600} direction="column">
         <Stack gap={tokens.spacing.s300} direction="column">
+          <Breadcrumbs crumbs={crumbsConfirmInitiated}/>
           <Text type="title" size={smallScreen ? "medium" : "large"}>
           Confirmar Iniciados
           </Text>

@@ -2,6 +2,7 @@ import { Stack } from "@inubekit/stack";
 import { Text } from "@inubekit/text";
 import { useMediaQuery } from "@inubekit/hooks";
 import { Input } from "@inubekit/input";
+import { Breadcrumbs } from "@inubekit/breadcrumbs";
 
 import { ChangePeriod } from "@components/feedback/ChangePeriod";
 import { tokens } from "@design/tokens";
@@ -12,6 +13,7 @@ import { CardProcessGroup } from "@components/feedback/CardProcessGroup";
 import { CardProcess } from "@components/feedback/CardProcess";
 import { IChangePeriodEntry, IListPeriods } from "../startProcess/types";
 import { normailzeFinished } from "./config/card.config";
+import { crumbsFinished } from "./config/navigation";
 
 interface FinishedUIProps {
   entries: IProcess[];
@@ -57,6 +59,7 @@ function FinishedUI(props: FinishedUIProps) {
     >
       <Stack gap={tokens.spacing.s600} direction="column">
         <Stack gap={tokens.spacing.s300} direction="column">
+        <Breadcrumbs crumbs={crumbsFinished}/>
           <Text type="title" size={smallScreen ? "medium" : "large"}>
             Finalizados
           </Text>
