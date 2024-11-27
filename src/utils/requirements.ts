@@ -3,6 +3,7 @@ import { evaluationStatusRequirement, statusRequirement } from "./requirementsSt
 const executionStatusByPerson =[
   { status: "WithoutProcessing", name: "Sin procesar", appearance: "warning" },
   { status: "ProcessedWithErrors", name: "Error", appearance: "danger" },
+  { status: "SuccessfullyProcessed", name: "Procesado", appearance: "success" },
 ]
 
 const filteredExecutionStatusByPerson = ["ProcessedWithErrors"];
