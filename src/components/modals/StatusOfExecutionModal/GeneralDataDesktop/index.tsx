@@ -117,7 +117,7 @@ const GeneralDataDesktop = (props: GeneralDataDesktopProps) => {
       </Grid>
       <Suspense
         fallback={
-          <Stack gap={tokens.spacing.s200} width="100%" wrap="wrap">
+          <Stack gap={tokens.spacing.s200} width="100%" wrap="wrap" height="372px">
             <CardStatusExecution isLoading={true} />
             <CardStatusExecution isLoading={true} />
             <CardStatusExecution isLoading={true} />

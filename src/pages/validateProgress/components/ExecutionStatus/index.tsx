@@ -1,8 +1,8 @@
+// index.tsx
 import { useContext, useEffect, useState } from "react";
 import { MdOutlineSubtitles } from "react-icons/md";
 import { Icon } from "@inubekit/icon";
 import { useFlag } from "@inubekit/flag";
-
 import { tokens } from "@design/tokens";
 import { StatusOfExecutionModal } from "@components/modals/StatusOfExecutionModal";
 import { StartProcesses } from "@pages/startProcess/types";
@@ -34,7 +34,8 @@ export const ExecutionStatus = (props: IExecutionStatusProps) => {
   const [showModal, setShowModal] = useState(false);
   const [loadingDiscard, setLoadingDiscard] = useState<boolean>(false);
   const [loadingReprocess, setLoadingReprocess] = useState<boolean>(false);
-
+  const [totalPersons, setTotalPersons] = useState<number>(0);
+  const [totalProcessedPersons, setTotalProcessedPersons] = useState<number>(0);
   const [personProcessData, setPersonProcessData] =
     useState<IPersonProcessTime>();
   const [discardData, setDiscardData] = useState<
@@ -52,6 +53,8 @@ export const ExecutionStatus = (props: IExecutionStatusProps) => {
         data.id
       );
       setPersonProcessData(newEstimatedTimeProcess);
+      setTotalProcessedPersons(newEstimatedTimeProcess.totalProcessedPersons);
+      setTotalPersons(newEstimatedTimeProcess.totalPersons);
     } catch (error) {
       throw new Error(
         `Error al obtener los datos: ${(error as Error).message} `
@@ -62,8 +65,17 @@ export const ExecutionStatus = (props: IExecutionStatusProps) => {
   useEffect(() => {
     if (showModal) {
       estimatedTimeProcessData();
+      const interval = setInterval(() => {
+        if (totalProcessedPersons < totalPersons) {
+          estimatedTimeProcessData();
+        } else {
+          clearInterval(interval);
+        }
+      }, 2000);
+
+      return () => clearInterval(interval);
     }
-  }, [showModal]);
+  }, [showModal, totalProcessedPersons, totalPersons]);
 
   const handleDiscard = async (
     dataDiscardPersons: IProcessPersonsWithErrors[]
@@ -73,7 +85,7 @@ export const ExecutionStatus = (props: IExecutionStatusProps) => {
       processControlId: data.id || "",
       processPersons: dataDiscardPersons,
     };
-    
+
     try {
       const newDiscard = await discardPersonsWithErrors(
         appData.businessUnit.publicCode,
