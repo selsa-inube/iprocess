@@ -135,7 +135,7 @@ const GeneralDataMobile = (props: GeneralDataMobileProps) => {
         </Stack>
         <Suspense
           fallback={
-            <Stack gap={tokens.spacing.s200} width="100%" wrap="wrap">
+            <Stack gap={tokens.spacing.s200} width="100%" wrap="wrap" height="372px">
               <CardStatusExecution isLoading={true} />
             </Stack>
           }

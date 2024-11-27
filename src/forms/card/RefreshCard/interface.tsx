@@ -18,6 +18,7 @@ import {
   StyledField,
   StyledTextarea,
 } from "@forms/styles";
+import { getDomainById } from "@mocks/domains/domainService.mocks";
 import { formatDateEndpoint } from "@utils/dates";
 import { getFieldState, validateExecutionWay } from "@forms/utils";
 
@@ -25,9 +26,9 @@ interface RefreshCardUIProps {
   data: IEntries;
   formik: FormikValues;
   comparisonData: boolean;
-  optionsTypeRefresh: IEnumeratorsProcessCoverage[];
   onChange: (name: string, value: string) => void;
   onStartProcess: () => void;
+  optionsTypeRefresh?: IEnumeratorsProcessCoverage[];
 }
 
 const RefreshCardUI = (props: RefreshCardUIProps) => {
@@ -35,7 +36,6 @@ const RefreshCardUI = (props: RefreshCardUIProps) => {
     data,
     formik,
     comparisonData,
-    optionsTypeRefresh,
     onChange,
     onStartProcess,
   } = props;
@@ -87,7 +87,7 @@ const RefreshCardUI = (props: RefreshCardUIProps) => {
               name="typeRefresh"
               onChange={onChange}
               onBlur={formik.handleBlur}
-              options={optionsTypeRefresh}
+              options={getDomainById("typeRefresh")}
               placeholder="Seleccione uno"
               size="wide"
               message={

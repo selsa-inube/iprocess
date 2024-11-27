@@ -144,7 +144,7 @@ const CardStatusExecutionGroup = (props: CardStatusExecutionGroupProps) => {
             )}
         </StyledCardStatusGroup>
       ) : (
-        <Stack justifyContent="center">
+        <Stack justifyContent="center" height="372px">
           <Text type="body" size="medium">
             No se encontró información
           </Text>

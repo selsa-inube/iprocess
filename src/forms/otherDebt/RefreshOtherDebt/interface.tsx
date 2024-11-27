@@ -21,14 +21,15 @@ import {
 } from "@forms/styles";
 import { mediaQueryMobile } from "@config/environment";
 import { formatDateEndpoint } from "@utils/dates";
+import { getDomainById } from "@mocks/domains/domainService.mocks";
 
 interface RefreshOtherDebtUIProps {
   data: IEntries;
   formik: FormikValues;
   comparisonData: boolean;
-  optionsTypeRefresh: IEnumeratorsProcessCoverage[];
   onChange: (name: string, value: string) => void;
   onStartProcess: () => void;
+  optionsTypeRefresh?: IEnumeratorsProcessCoverage[];
 }
 
 const RefreshOtherDebtUI = (props: RefreshOtherDebtUIProps) => {
@@ -36,7 +37,6 @@ const RefreshOtherDebtUI = (props: RefreshOtherDebtUIProps) => {
     data,
     formik,
     comparisonData,
-    optionsTypeRefresh,
     onChange,
     onStartProcess,
   } = props;
@@ -88,7 +88,7 @@ const RefreshOtherDebtUI = (props: RefreshOtherDebtUIProps) => {
               name="typeRefresh"
               onChange={onChange}
               onBlur={formik.handleBlur}
-              options={optionsTypeRefresh}
+              options={getDomainById("typeRefresh")}
               placeholder="Seleccione uno"
               size="wide"
               message={

@@ -17,15 +17,16 @@ import { ComponentAppearance } from "@ptypes/aparences.types";
 import { StyledContainerForm, StyledField, StyledTextarea } from "@forms/styles";
 import { formatDateEndpoint } from "@utils/dates";
 import { mediaQueryMobile } from "@config/environment";
+import { getDomainById } from "@mocks/domains/domainService.mocks";
 
 
 interface RefreshCardCreditProductUIProps {
   data: IEntries;
   formik: FormikValues;
   comparisonData: boolean;
-  optionsTypeRefresh: IEnumeratorsProcessCoverage[];
   onChange: (name: string, value: string) => void;
   onStartProcess: () => void;
+  optionsTypeRefresh?: IEnumeratorsProcessCoverage[];
 }
 
 const RefreshCardCreditProductUI = (props: RefreshCardCreditProductUIProps) => {
@@ -33,7 +34,6 @@ const RefreshCardCreditProductUI = (props: RefreshCardCreditProductUIProps) => {
     data,
     formik,
     comparisonData,
-    optionsTypeRefresh,
     onChange,
     onStartProcess,
   } = props;
@@ -81,7 +81,7 @@ const RefreshCardCreditProductUI = (props: RefreshCardCreditProductUIProps) => {
             name="typeRefresh"
             onChange={onChange}
             onBlur={formik.handleBlur}
-            options={optionsTypeRefresh}
+            options={getDomainById("typeRefresh")}
             placeholder="Seleccione uno"
             size="wide"
             message={

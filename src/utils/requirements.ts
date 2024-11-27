@@ -3,9 +3,12 @@ import { evaluationStatusRequirement, statusRequirement } from "./requirementsSt
 const executionStatusByPerson =[
   { status: "WithoutProcessing", name: "Sin procesar", appearance: "warning" },
   { status: "ProcessedWithErrors", name: "Error", appearance: "danger" },
+  { status: "SuccessfullyProcessed", name: "Procesado", appearance: "success" },
 ]
 
 const filteredExecutionStatusByPerson = ["ProcessedWithErrors"];
+
+const errorsStatus =["ProcessedWithErrors"];
 
 enum RequirementTypeNormalize  {
   SYSTEM_VALIDATION= "Validación del sistema",
@@ -31,6 +34,7 @@ const normalizeexecutionStatusByPerson = (requirement: string) =>
 
 export {
   filteredExecutionStatusByPerson, 
+  errorsStatus,
   RequirementTypeNormalize,
   normalizeStatusRequirementByStatus,
   normalizeStatusRequirementByName,

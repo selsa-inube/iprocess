@@ -20,14 +20,15 @@ import {
 } from "@forms/styles";
 import { mediaQueryMobile } from "@config/environment";
 import { formatDateEndpoint } from "@utils/dates";
+import { getDomainById } from "@mocks/domains/domainService.mocks";
 
 interface RefreshSavingProductCardUIProps {
   data: IEntries;
   formik: FormikValues;
   comparisonData: boolean;
-  optionsTypeRefresh: IEnumeratorsProcessCoverage[];
   onChange: (name: string, value: string) => void;
   onStartProcess: () => void;
+  optionsTypeRefresh?: IEnumeratorsProcessCoverage[];
 }
 
 const RefreshSavingProductCardUI = (props: RefreshSavingProductCardUIProps) => {
@@ -35,7 +36,6 @@ const RefreshSavingProductCardUI = (props: RefreshSavingProductCardUIProps) => {
     data,
     formik,
     comparisonData,
-    optionsTypeRefresh,
     onChange,
     onStartProcess,
   } = props;
@@ -88,7 +88,7 @@ const RefreshSavingProductCardUI = (props: RefreshSavingProductCardUIProps) => {
               name="typeRefresh"
               onChange={onChange}
               onBlur={formik.handleBlur}
-              options={optionsTypeRefresh}
+              options={getDomainById("typeRefresh")}
               placeholder="Seleccione uno"
               size="wide"
               message={
