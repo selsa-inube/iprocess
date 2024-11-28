@@ -17,7 +17,7 @@ import { startProcess } from "@services/startProcess/patchStartProcess";
 import { routesComponent } from "@pages/startProcess/config/routesForms.config";
 import { rediectToConfirmInitiated, redirectToFinished, redirectToValidateProgress } from "@pages/startProcess/utils";
 import { ComponentAppearance } from "@ptypes/aparences.types";
-import { AppContext } from "@src/context/AppContext";
+import { AppContext } from "@context/AppContext";
 
 interface IStartProcessScheduledProps {
   id: string;
