@@ -1,4 +1,4 @@
-import { formatDate } from "@utils/dates";
+import { formatDate, formatTime } from "@utils/dates";
 import { IPersonProcessTime } from "@pages/validateProgress/types";
 import { IPersonProcess } from "@components/feedback/CardStatusExecution/types";
 import { errorsStatus } from "@utils/requirements";
@@ -11,10 +11,7 @@ const normalizeDataInformationProcess = (
   return {
     id: id,
     dateExecution: formatDate(new Date(entry.processStartDate || ""), true),
-    estimedTimeFinish: formatDate(
-      new Date(entry.processEstimatedEndDate || ""),
-      true
-    ),
+    estimedTimeFinish: formatTime(new Date(entry.processEstimatedEndDate as string)),
     totalPersonCoversProcess: entry.totalPersons,
     totalPersonProcessed: entry.totalProcessedPersons,
     totalPersonProcessedWithError: entry.totalProcessedPersonsWithError,
