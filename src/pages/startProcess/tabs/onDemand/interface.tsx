@@ -47,7 +47,7 @@ function OnDemandTabUI(props: OnDemandTabUIProps) {
           <Input
             name="searchOnDemand"
             id="searchOnDemand"
-            placeholder="Búsqueda..."
+            placeholder="Palabra clave..."
             type="search"
             size="compact"
             value={searchOnDemand}

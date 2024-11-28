@@ -16,29 +16,23 @@ import { ILabel } from "../types";
 
 interface GeneralDataDesktopProps {
   dataInformationProcess: StartProcesses;
-  isdiscardPersonsWithErrors: boolean;
   labels: ILabel[];
   processControlId: string;
   search: string;
   seeErrorsChecked: boolean;
-  isReprocessPersonsWithErrors: boolean;
   onChangeSearch: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onChangeToggle: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  onProcessPersonId: (id: string | undefined, publicCode: string | undefined, check: boolean) => void;
 }
 
 const GeneralDataDesktop = (props: GeneralDataDesktopProps) => {
   const {
     dataInformationProcess,
-    isdiscardPersonsWithErrors,
-    isReprocessPersonsWithErrors,
     labels,
     processControlId,
     search,
     seeErrorsChecked,
     onChangeSearch,
     onChangeToggle,
-    onProcessPersonId,
   } = props;
 
   const CardStatusExecutionGroupComponent = lazy(() =>
@@ -106,7 +100,7 @@ const GeneralDataDesktop = (props: GeneralDataDesktopProps) => {
           </Label>
         </Stack>
         <Input
-          placeholder="Búsqueda..."
+          placeholder="Palabra clave..."
           type="search"
           name="search"
           id="search"
@@ -117,7 +111,12 @@ const GeneralDataDesktop = (props: GeneralDataDesktopProps) => {
       </Grid>
       <Suspense
         fallback={
-          <Stack gap={tokens.spacing.s200} width="100%" wrap="wrap" height="372px">
+          <Stack
+            gap={tokens.spacing.s200}
+            width="100%"
+            wrap="wrap"
+            height="372px"
+          >
             <CardStatusExecution isLoading={true} />
             <CardStatusExecution isLoading={true} />
             <CardStatusExecution isLoading={true} />
@@ -128,9 +127,6 @@ const GeneralDataDesktop = (props: GeneralDataDesktopProps) => {
           processControlId={processControlId}
           filter={search}
           filteredWithErrors={seeErrorsChecked}
-          handleProcessPersonId={onProcessPersonId}
-          isdiscardPersonsWithErrors={isdiscardPersonsWithErrors}
-          isReprocessPersonsWithErrors={isReprocessPersonsWithErrors}
         />
       </Suspense>
     </>
