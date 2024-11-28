@@ -26,7 +26,7 @@ const Reprocess = (props: IReprocessProps) => {
 
   const handleReprocess = async () => {
     const dataReprocess = {
-      processControlId: data.personPublicCode || "",
+      processControlId: data.processControlId || "",
       personPublicCode: data.personPublicCode,
     };
 

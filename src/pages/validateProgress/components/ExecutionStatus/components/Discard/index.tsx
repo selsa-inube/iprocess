@@ -24,7 +24,7 @@ const Discard = (props: IDiscardProps) => {
   const handleDiscard = async (
   ) => {
     const dataDiscard = {
-      processControlId: data.personPublicCode || "",
+      processControlId: data.processControlId || "",
       processPersonId: data.processPersonId,
     };
 
