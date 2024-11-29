@@ -7,7 +7,6 @@ import { tokens } from "@design/tokens";
 import { IActions, IProcess } from "./types";
 import { StyledAction, StyledContainer } from "./styles";
 
-
 interface CardProcessProps {
   entries?: IProcess;
   optionCurrent?:
@@ -93,44 +92,53 @@ const CardProcess = (props: CardProcessProps) => {
                 >
                   Total personas procesadas
                 </Text>
-                <Text type="body" size="small">
-                  {entries?.totalPersonsProsecuted }
-                </Text>
+                {typeof entries?.totalPersonsProsecuted !== "number" ? (
+                  <Stack>{entries?.totalPersonsProsecuted}</Stack>
+                ) : (
+                  <Text type="body" size="small">
+                    {entries?.totalPersonsProsecuted}
+                  </Text>
+                )}
               </>
             )}
           </Stack>
         </>
       )}
       <Stack direction="row" gap={tokens.spacing.s400}>
-        {(optionCurrent !== "finished" && optionCurrent !== "validate process" ) && (
-          <Stack
-            direction="column"
-            gap={tokens.spacing.s025}
-            width="90px"
-            padding={tokens.spacing.s0}
-          >
-            {isLoading ? (
-              <Stack direction="column" width="100%" gap={tokens.spacing.s025}>
-                <SkeletonLine animated />
-                <SkeletonLine animated />
-              </Stack>
-            ) : (
-              <>
-                <Text
-                  type="label"
-                  size="medium"
-                  weight="bold"
-                  appearance="gray"
+        {optionCurrent !== "finished" &&
+          optionCurrent !== "validate process" && (
+            <Stack
+              direction="column"
+              gap={tokens.spacing.s025}
+              width="90px"
+              padding={tokens.spacing.s0}
+            >
+              {isLoading ? (
+                <Stack
+                  direction="column"
+                  width="100%"
+                  gap={tokens.spacing.s025}
                 >
-                  Requisitos
-                </Text>
-                <Stack gap={tokens.spacing.s050} direction="row">
-                  <Stack>{entries?.status}</Stack>
+                  <SkeletonLine animated />
+                  <SkeletonLine animated />
                 </Stack>
-              </>
-            )}
-          </Stack>
-        )}
+              ) : (
+                <>
+                  <Text
+                    type="label"
+                    size="medium"
+                    weight="bold"
+                    appearance="gray"
+                  >
+                    Requisitos
+                  </Text>
+                  <Stack gap={tokens.spacing.s050} direction="row">
+                    <Stack>{entries?.status}</Stack>
+                  </Stack>
+                </>
+              )}
+            </Stack>
+          )}
 
         <Stack direction="column" gap={tokens.spacing.s025}>
           {isLoading ? (

@@ -2,6 +2,7 @@ import { StartProcesses } from "@pages/startProcess/types";
 import { formatDate } from "@utils/dates";
 import { Details } from "../components/Details";
 import { ExecutionStatus } from "../components/ExecutionStatus";
+import { ProgressOfPersonsProsecuted } from "../components/ProgressOfPersonsProsecuted";
 
 const normailzeValidateProgress = (process: StartProcesses[]) =>
   process.map((entry) => ({
@@ -13,7 +14,9 @@ const normailzeValidateProgress = (process: StartProcesses[]) =>
     dateAndHour:
       entry.dateAndHour && formatDate(new Date(entry.dateAndHour), true),
     totalPersonsCoversProcess: entry.totalPerson,
-    totalPersonsProsecuted: entry.totalPersonsProsecuted,
+    totalPersonsProsecuted: (
+      <ProgressOfPersonsProsecuted id={entry.id}/>
+    ),
     dailyDetail: entry.dailyDetail,
     actions: actions,
     dateWithoutFormat: entry.date,
@@ -24,7 +27,7 @@ const mapValidateProgress = (entry: StartProcesses) => {
     id: entry.id,
     aplication: entry.aplication?.abbreviatedName || "",
     process: entry.description,
-    referenceNumberRequirement: entry.referenceNumberRequirement
+    referenceNumberRequirement: entry.referenceNumberRequirement,
   };
 };
 
@@ -39,7 +42,7 @@ const actions = [
     id: "statusExecute",
     content: (entries: StartProcesses) => <ExecutionStatus data={entries} />,
   },
-]
+];
 
 const labelsDetails = [
   {
@@ -54,6 +57,6 @@ const labelsDetails = [
     id: "statusText",
     titleName: "Requisitos",
   },
-]
+];
 
 export { actions, labelsDetails, normailzeValidateProgress };

@@ -71,7 +71,7 @@ export const ExecutionStatus = (props: IExecutionStatusProps) => {
         } else {
           clearInterval(interval);
         }
-      }, 2000);
+      }, 5000);
 
       return () => clearInterval(interval);
     }
