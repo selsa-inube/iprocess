@@ -1,4 +1,4 @@
-import { formatDate, formatTime } from "@utils/dates";
+import { formatDate } from "@utils/dates";
 import {
   IDiscardPersonsWithErrorsResponse,
   IPersonProcessTime,
@@ -17,7 +17,7 @@ const normalizeDataInformationProcess = (
   return {
     id: id,
     dateExecution: formatDate(new Date(entry.processStartDate || ""), true),
-    estimedTimeFinish: formatTime(new Date(entry.processEstimatedEndDate as string)),
+    estimedTimeFinish: entry.duration,
     totalPersonCoversProcess: entry.totalPersons,
     totalPersonProcessed: entry.totalProcessedPersons,
     totalPersonProcessedWithError: entry.totalProcessedPersonsWithError,
