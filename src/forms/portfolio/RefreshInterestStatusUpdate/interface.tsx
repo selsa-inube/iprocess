@@ -6,6 +6,7 @@ import { Button } from "@inubekit/button";
 import { Fieldset } from "@inubekit/fieldset";
 import { Textarea } from "@inubekit/textarea";
 import { Divider } from "@inubekit/divider";
+import { Date as Datefield } from "@inubekit/date";
 
 import { IEntries } from "@forms/types";
 import { Datetimefield } from "@design/inputs/Datetimefield";
@@ -18,6 +19,7 @@ import {
   StyledField,
   StyledTextarea,
 } from "@forms/styles";
+import { formatDateEndpoint } from "@utils/dates";
 
 interface RefreshInterestStatusUpdateUIProps {
   data: IEntries;
@@ -72,14 +74,28 @@ const RefreshInterestStatusUpdateUI = (
               />
             </StyledTextarea>
 
-            <StyledField $smallScreen={isMobile}>
-              <Text type="label" size="large" weight="bold">
-                Fecha y hora de ejecución
-              </Text>
-              <Fieldset legend="" spacing="compact" type="title" size="medium">
-                <Text>{String(data.date)}</Text>
-              </Fieldset>
-            </StyledField>
+            <Datefield
+              disabled={false}
+              fullwidth={true}
+              id="cutOffDate"
+              label="Fecha de corte para la ejecución"
+              name="cutOffDate"
+              message={
+                getFieldState(formik, "cutOffDate") === "invalid"
+                  ? "La fecha de corte es requerida"
+                  : ""
+              }
+              onBlur={formik.handleBlur}
+              onFocus={formik.handleFocus}
+              onChange={formik.handleChange}
+              required={false}
+              size="wide"
+              status={getFieldState(formik, "cutOffDate")}
+              value={
+                formik.values.cutOffDate ||
+                formatDateEndpoint(new Date(data.date as Date))
+              }
+            />
 
             {data?.executionWay &&
               validateExecutionWay(data?.executionWay as string) && (

@@ -50,7 +50,10 @@ const ProgressOfPersonsProsecuted = (
         totalProcessedPersons
       );
 
-      if (newPercentage >= 100) {
+      if (totalProcessedPersons === 0) {
+        clearInterval(interval);
+        setPercentage(0);
+      } else if (newPercentage >= 100) {
         clearInterval(interval);
         setPercentage(100);
       } else {
@@ -64,10 +67,10 @@ const ProgressOfPersonsProsecuted = (
 
   return (
     <>
-      <StyledContainerProgressBar $height={tokens.spacing.s200}>
+      <StyledContainerProgressBar $height={tokens.spacing.s150}>
         <ProgressBar
           progress={percentage}
-          height={tokens.spacing.s200}
+          height={tokens.spacing.s150}
           animated={percentage === 100 ? false : true}
           appearance={ComponentAppearance.PRIMARY}
         />

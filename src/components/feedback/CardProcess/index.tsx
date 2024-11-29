@@ -188,7 +188,7 @@ const CardProcess = (props: CardProcessProps) => {
                   weight="bold"
                   appearance="gray"
                 >
-                  Duración (Segundos)
+                  Duración (Minutos)
                 </Text>
 
                 <Stack>
