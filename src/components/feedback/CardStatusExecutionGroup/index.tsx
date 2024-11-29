@@ -2,7 +2,7 @@ import { useContext, useEffect, useRef, useState } from "react";
 import { Stack } from "@inubekit/stack";
 import { Text } from "@inubekit/text";
 
-import { IProcessPersons } from "@pages/validateProgress/types";
+import { IDiscardPersonsWithErrorsResponse, IProcessPersons, IReprocessPersonsWithErrorsResponse } from "@pages/validateProgress/types";
 import { AppContext } from "@context/AppContext";
 import { normalizeDataPerson } from "@pages/validateProgress/components/ExecutionStatus/config/cardPerson.config";
 import { peopleIncludedInProcess } from "@services/validateProgress/getPeopleIncludedInProcess";
@@ -11,25 +11,26 @@ import { CardStatusExecution } from "../CardStatusExecution";
 import { StyledCardStatusGroup } from "./styles";
 
 interface CardStatusExecutionGroupProps {
-  isdiscardPersonsWithErrors: boolean;
-  isReprocessPersonsWithErrors: boolean;
   filter: string;
   processControlId: string;
   filteredWithErrors?: boolean;
-  handleProcessPersonId?: (id: string | undefined, publicCode: string | undefined, check: boolean) => void;
 }
 
 const CardStatusExecutionGroup = (props: CardStatusExecutionGroupProps) => {
   const {
-    isdiscardPersonsWithErrors,
-    isReprocessPersonsWithErrors,
     processControlId,
     filter,
     filteredWithErrors,
-    handleProcessPersonId,
   } = props;
   const { appData } = useContext(AppContext);
   const [loading, setLoading] = useState<boolean>(false);
+  const [reprocessData, setReprocessData] = useState<
+IReprocessPersonsWithErrorsResponse | undefined
+>();
+
+const [discardData, setDiscardData] = useState<
+IDiscardPersonsWithErrorsResponse | undefined
+>();
   const divScroll = useRef<HTMLDivElement>(null);
   const [peopleIncludedData, setPeopleIncludedData] =
     useState<IProcessPersons[]>();
@@ -99,16 +100,16 @@ const CardStatusExecutionGroup = (props: CardStatusExecutionGroupProps) => {
   }, [filteredWithErrors]);
 
   useEffect(() => {
-    if (isdiscardPersonsWithErrors) {
+    if (discardData) {
       peopleIncludedInProcessData("ProcessedWithErrors", true);
     }
-  }, [isdiscardPersonsWithErrors]);
+  }, [discardData]);
 
   useEffect(() => {
-    if (isReprocessPersonsWithErrors) {
+    if (reprocessData) {
       peopleIncludedInProcessData("ProcessedWithErrors", true);
     }
-  }, [isReprocessPersonsWithErrors]);
+  }, [reprocessData]);
 
   useEffect(() => {
     if (filteredWithErrors) {
@@ -131,14 +132,10 @@ const CardStatusExecutionGroup = (props: CardStatusExecutionGroupProps) => {
             </Stack>
           )}
           {peopleIncludedData &&
-            normalizeDataPerson(peopleIncludedData, processControlId).map(
+            normalizeDataPerson(peopleIncludedData, processControlId, setDiscardData, setReprocessData).map(
               (entry, index) => (
                 <Stack key={index}>
-                  <CardStatusExecution
-                    entries={entry}
-                    isFilteredWithErrors={filteredWithErrors}
-                    handleProcessPersonId={handleProcessPersonId}
-                  />
+                  <CardStatusExecution entries={entry} />
                 </Stack>
               )
             )}

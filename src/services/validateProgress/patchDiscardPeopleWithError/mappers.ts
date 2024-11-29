@@ -5,11 +5,12 @@ const mapDiscardPersonsWithErrorEntityToApi = (
 ): Record<string, string | number | object> => {
   return {
     processControlId: discard.processControlId,
-    processPersons: discard.processPersons.map((person) => ({
-      processPersonId: person.processPersonId,
-    })),
+    processPersons: [
+      {
+        processPersonId: discard.processPersonId,
+      },
+    ],
   };
-
 };
 
 export { mapDiscardPersonsWithErrorEntityToApi };
