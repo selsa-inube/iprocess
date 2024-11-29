@@ -5,12 +5,9 @@ import { useMediaQuery } from "@inubekit/hooks";
 import { Stack } from "@inubekit/stack";
 import { Text } from "@inubekit/text";
 import { Blanket } from "@inubekit/blanket";
-import { Button } from "@inubekit/button";
 
 import { tokens } from "@design/tokens";
 import { StartProcesses } from "@pages/startProcess/types";
-import { ComponentAppearance } from "@ptypes/aparences.types";
-import { IListOfPeopleToReprocess, IProcessPersonsWithErrors } from "@pages/validateProgress/types";
 import { StyledContainer, StyledModal } from "./styles";
 import { ILabel } from "./types";
 import { GeneralDataMobile } from "./GeneralDataMobile";
@@ -18,13 +15,7 @@ import { GeneralDataDesktop } from "./GeneralDataDesktop";
 
 interface StatusOfExecutionModalUIProps {
   dataInformationProcess: StartProcesses;
-  dataSubtmit: IProcessPersonsWithErrors[] | undefined;
-  disabledBoton: boolean;
-  isdiscardPersonsWithErrors: boolean;
-  isReprocessPersonsWithErrors: boolean;
   labels: ILabel[];
-  loadingDiscard: boolean;
-  loadingReprocess: boolean;
   portalId: string;
   processControlId: string;
   search: string;
@@ -32,31 +23,19 @@ interface StatusOfExecutionModalUIProps {
   onChangeSearch: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onChangeToggle: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onCloseModal: () => void;
-  onDiscard: (data: IProcessPersonsWithErrors[]) => void;
-  onProcessPersonId: (id: string | undefined, publicCode: string | undefined, check: boolean) => void;
-  onReprocess: (data: IListOfPeopleToReprocess[]) => void;
 }
 
 const StatusOfExecutionModalUI = (props: StatusOfExecutionModalUIProps) => {
   const {
     dataInformationProcess,
-    isdiscardPersonsWithErrors,
-    isReprocessPersonsWithErrors,
     labels,
     portalId,
     processControlId,
     search,
     seeErrorsChecked,
-    disabledBoton,
-    dataSubtmit,
-    loadingDiscard,
-    loadingReprocess,
     onChangeSearch,
     onChangeToggle,
     onCloseModal,
-    onDiscard,
-    onReprocess,
-    onProcessPersonId,
   } = props;
 
   const isMobile = useMediaQuery("(max-width: 1000px)");
@@ -91,51 +70,23 @@ const StatusOfExecutionModalUI = (props: StatusOfExecutionModalUIProps) => {
               <GeneralDataMobile
                 dataInformationProcess={dataInformationProcess}
                 labels={labels}
-                isdiscardPersonsWithErrors={isdiscardPersonsWithErrors}
                 processControlId={processControlId}
                 search={search}
                 seeErrorsChecked={seeErrorsChecked}
                 onChangeSearch={onChangeSearch}
                 onChangeToggle={onChangeToggle}
-                onProcessPersonId={onProcessPersonId}
-                isReprocessPersonsWithErrors={isReprocessPersonsWithErrors}
               />
             ) : (
               <GeneralDataDesktop
                 dataInformationProcess={dataInformationProcess}
                 labels={labels}
-                isdiscardPersonsWithErrors={isdiscardPersonsWithErrors}
                 processControlId={processControlId}
                 search={search}
                 seeErrorsChecked={seeErrorsChecked}
                 onChangeSearch={onChangeSearch}
                 onChangeToggle={onChangeToggle}
-                onProcessPersonId={onProcessPersonId}
-                isReprocessPersonsWithErrors={isReprocessPersonsWithErrors}
               />
             )}
-          </Stack>
-          <Stack gap={tokens.spacing.s100} justifyContent="flex-end">
-            <Button
-              spacing="wide"
-              appearance={ComponentAppearance.PRIMARY}
-              variant="filled"
-              onClick={() => dataSubtmit && onReprocess(dataSubtmit)}
-              disabled={disabledBoton}
-              loading={loadingReprocess}
-            >
-              Reprocesar
-            </Button>
-            <Button
-              spacing="wide"
-              appearance={ComponentAppearance.PRIMARY}
-              variant="filled"
-              onClick={() => dataSubtmit && onDiscard(dataSubtmit)}
-              disabled={disabledBoton}
-              loading={loadingDiscard}
-            >
-              Descartar
-            </Button>
           </Stack>
         </StyledModal>
       </Blanket>

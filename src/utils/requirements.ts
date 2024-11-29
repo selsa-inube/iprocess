@@ -4,6 +4,7 @@ const executionStatusByPerson =[
   { status: "WithoutProcessing", name: "Sin procesar", appearance: "warning" },
   { status: "ProcessedWithErrors", name: "Error", appearance: "danger" },
   { status: "SuccessfullyProcessed", name: "Procesado", appearance: "success" },
+  { status: "PersonExcludedFromTheProcess", name: "Excluido del proceso", appearance: "gray" },
 ]
 
 const filteredExecutionStatusByPerson = ["ProcessedWithErrors"];

@@ -10,7 +10,7 @@ import { personWithError } from "@services/validateProgress/getPersonWithError";
 import { AppContext } from "@context/AppContext";
 import { ComponentAppearance } from "@ptypes/aparences.types";
 import { normalizeStatusRequirementByStatus } from "@utils/requirements";
-import { labelsDetails } from "../config/cardPerson.config";
+import { labelsDetails } from "../../config/cardPerson.config";
 
 interface IDetailsExecutionStatusProps {
   data: IPersonProcess;

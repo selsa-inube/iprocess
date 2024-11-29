@@ -53,7 +53,7 @@ function ConfirmInitiatedUI(props: ConfirmInitiatedUIProps) {
           <Input
             name="searchConfirmInitiated"
             id="searchConfirmInitiated"
-            placeholder="Búsqueda..."
+            placeholder="Palabra clave..."
             type="search"
             size="compact"
             value={searchConfirmInitiated}

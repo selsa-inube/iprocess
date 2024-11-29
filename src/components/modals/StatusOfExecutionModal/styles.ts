@@ -21,7 +21,7 @@ const StyledModal = styled.div<IStyledModal>`
 
   & > div {
     padding: ${(props) =>
-      props.$smallScreen ? `${tokens.spacing.s200}` : `${tokens.spacing.s200} ${tokens.spacing.s300} ${tokens.spacing.s075}`};
+      props.$smallScreen ? `${tokens.spacing.s200}` : `${tokens.spacing.s250}`};
   }
 `;
 

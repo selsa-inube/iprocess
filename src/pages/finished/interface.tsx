@@ -78,7 +78,7 @@ function FinishedUI(props: FinishedUIProps) {
             <Input
               name="searchFinished"
               id="searchFinished"
-              placeholder="Búsqueda..."
+              placeholder="Palabra clave..."
               type="search"
               size="compact"
               value={searchFinished}

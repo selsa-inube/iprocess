@@ -68,7 +68,7 @@ function ScheduledTabUI(props: ScheduledTabUIProps) {
           <Input
             name="searchScheduled"
             id="searchScheduled"
-            placeholder="Búsqueda..."
+            placeholder="Palabra clave..."
             type="search"
             size="compact"
             value={searchScheduled}
