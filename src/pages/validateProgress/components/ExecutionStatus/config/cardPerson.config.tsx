@@ -17,10 +17,7 @@ const normalizeDataInformationProcess = (
   return {
     id: id,
     dateExecution: formatDate(new Date(entry.processStartDate || ""), true),
-    estimedTimeFinish: formatDate(
-      new Date(entry.processEstimatedEndDate || ""),
-      true
-    ),
+    estimedTimeFinish: entry.duration,
     totalPersonCoversProcess: entry.totalPersons,
     totalPersonProcessed: entry.totalProcessedPersons,
     totalPersonProcessedWithError: entry.totalProcessedPersonsWithError,
