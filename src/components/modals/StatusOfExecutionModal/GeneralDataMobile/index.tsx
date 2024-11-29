@@ -16,29 +16,23 @@ import { StyledContainerInput } from "./styles";
 
 interface GeneralDataMobileProps {
   dataInformationProcess: StartProcesses;
-  isdiscardPersonsWithErrors: boolean;
   labels: ILabel[];
   processControlId: string;
   search: string;
   seeErrorsChecked: boolean;
-  isReprocessPersonsWithErrors: boolean;
   onChangeSearch: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onChangeToggle: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  onProcessPersonId: (id: string | undefined, publicCode: string | undefined, check: boolean) => void;
 }
 
 const GeneralDataMobile = (props: GeneralDataMobileProps) => {
   const {
     dataInformationProcess,
-    isdiscardPersonsWithErrors,
     labels,
     processControlId,
     search,
     seeErrorsChecked,
-    isReprocessPersonsWithErrors,
     onChangeSearch,
     onChangeToggle,
-    onProcessPersonId,
   } = props;
 
   const [isOpenDataGeneral, setIsOpenDataGeneral] = useState(true);
@@ -123,7 +117,7 @@ const GeneralDataMobile = (props: GeneralDataMobileProps) => {
           </Stack>
           <StyledContainerInput>
             <Input
-              placeholder="Búsqueda..."
+              placeholder="Palabra clave..."
               type="search"
               name="search"
               id="search"
@@ -135,7 +129,12 @@ const GeneralDataMobile = (props: GeneralDataMobileProps) => {
         </Stack>
         <Suspense
           fallback={
-            <Stack gap={tokens.spacing.s200} width="100%" wrap="wrap" height="372px">
+            <Stack
+              gap={tokens.spacing.s200}
+              width="100%"
+              wrap="wrap"
+              height="372px"
+            >
               <CardStatusExecution isLoading={true} />
             </Stack>
           }
@@ -144,9 +143,6 @@ const GeneralDataMobile = (props: GeneralDataMobileProps) => {
             processControlId={processControlId}
             filter={search}
             filteredWithErrors={seeErrorsChecked}
-            handleProcessPersonId={onProcessPersonId}
-            isdiscardPersonsWithErrors={isdiscardPersonsWithErrors}
-            isReprocessPersonsWithErrors={isReprocessPersonsWithErrors}
           />
         </Suspense>
       </Accordion>

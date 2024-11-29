@@ -48,6 +48,19 @@ const formatDate = (date: Date, withTime?: boolean) => {
   return `${day}/${capitalizeText(month)}/${year}`;
 };
 
+const formatTime = (date: Date) => {
+  const hours = date.getUTCHours();
+  const minutes = date.getUTCMinutes();
+  const seconds = date.getUTCSeconds();
+
+  const formatMinutes = minutes < 10 ? `0${minutes}` : minutes;
+  const formatSeconds = seconds < 10 ? `0${seconds}` : seconds;
+
+  const timeString = `${hours}:${formatMinutes}:${formatSeconds}`;
+
+  return timeString;
+};
+
 const formatDateEndpoint = (date: Date) => {
   const options: Intl.DateTimeFormatOptions = {
     day: "2-digit",
@@ -116,6 +129,7 @@ export {
   currentYear,
   monthNormalize,
   formatMonthEndpoint,
+  formatTime,
   formatDate,
   filterDateChange,
   formatMonth,

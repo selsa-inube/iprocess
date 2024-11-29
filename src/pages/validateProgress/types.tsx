@@ -50,14 +50,9 @@ interface IPersonProcessTime {
   processEstimatedEndDate: string;
 }
 
-interface IProcessPersonsWithErrors {
-  processPersonId: string;
-  personPublicCode?: string;
-}
-
 interface IDiscardPersonsWithErrorsRequest {
   processControlId: string;
-  processPersons: IProcessPersonsWithErrors[];
+  processPersonId: string;
 }
 
 interface IDiscardPersonsWithErrorsResponse {
@@ -90,8 +85,8 @@ interface IListOfPeopleToReprocess {
 }
 
 interface IReprocessPersonsWithErrorsRequest {
-  persons: IListOfPeopleToReprocess[];
   processControlId: string;
+  personPublicCode: string;
 }
 
 interface IReprocessPersonsWithErrorsResponse {
@@ -108,7 +103,6 @@ export type {
   IPersonProcessTime,
   IDiscardPersonsWithErrorsResponse,
   IDiscardPersonsWithErrorsRequest,
-  IProcessPersonsWithErrors,
   IPersonWithError,
   IListOfPeopleToReprocess,
   IReprocessPersonsWithErrorsRequest,
