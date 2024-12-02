@@ -4,19 +4,27 @@ import { Details } from "../components/Details";
 import { ExecutionStatus } from "../components/ExecutionStatus";
 import { ProgressOfPersonsProsecuted } from "../components/ProgressOfPersonsProsecuted";
 
+const getFormattedDate = (entry: StartProcesses) => {
+  if (entry.status === "Programmed") {
+    return formatDate(entry.date ? new Date(entry.date) : new Date());
+  } else {
+    return formatDate(
+      entry.dateAndHour ? new Date(entry.dateAndHour) : new Date()
+    );
+  }
+};
+
 const normailzeValidateProgress = (process: StartProcesses[]) =>
   process.map((entry) => ({
     ...entry,
     id: entry.id,
     process: entry.description,
     aplication: entry.aplication,
-    date: entry.dateAndHour && formatDate(new Date(entry.dateAndHour)),
+    date: getFormattedDate(entry),
     dateAndHour:
       entry.dateAndHour && formatDate(new Date(entry.dateAndHour), true),
     totalPersonsCoversProcess: entry.totalPerson,
-    totalPersonsProsecuted: (
-      <ProgressOfPersonsProsecuted id={entry.id}/>
-    ),
+    totalPersonsProsecuted: <ProgressOfPersonsProsecuted id={entry.id} />,
     dailyDetail: entry.dailyDetail,
     actions: actions,
     dateWithoutFormat: entry.date,

@@ -49,7 +49,7 @@ export const ExecutionStatus = (props: IExecutionStatusProps) => {
     if (showModal) {
       estimatedTimeProcessData();
       const interval = setInterval(() => {
-        if (totalProcessedPersons < totalPersons) {
+        if (totalProcessedPersons > 0 && totalProcessedPersons < totalPersons) {
           estimatedTimeProcessData();
         } else {
           clearInterval(interval);

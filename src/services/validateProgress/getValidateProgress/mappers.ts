@@ -8,12 +8,14 @@ const mapValidateProgressApiToEntity = (
     aplication: Object(process.application),
     description: String(process.processDescription),
     dateAndHour: new Date(String(process.executionDate)),
+    date: new Date(String(process.plannedExecutionDate)),
     plannedExecution: String(process.plannedExecution),
     totalPerson: Number(process.totalPeople), 
     totalPersonsProsecuted: Number(process.totalPeopleProcessed),
     referenceNumberRequirement: String(process.uniqueReferenceNumberRequirement),
     timeUsedToInsertPeople: Number(process.timeUsedToInsertPeople),
     detailPeopleProcessed: Object(process.detailPeopleProcessed),
+    status: String(process.processStatus),
   };
   return processes;
 };
