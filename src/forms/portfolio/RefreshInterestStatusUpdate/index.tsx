@@ -59,7 +59,7 @@ const RefreshInterestStatusUpdate = (
         descriptionComplementary: formik.values.descriptionComplementary,
         plannedExecutionDate: formik.values.plannedExecutionDate,
         parameters: {
-          cutOffDate: formatDateEndpoint(new Date()),
+          cutOffDate: formatDateEndpoint(new Date(data.date as string)),
         },
       };
       setFieldsEntered(dataForm);
