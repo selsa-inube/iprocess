@@ -13,7 +13,7 @@ const mapConfirmInitiatedApiToEntity = (
     executionParameters: Object(process.executionParameters),
     generalError: String(process.generalError),
     referenceNumberRequirement: String(process.uniqueReferenceNumberRequirement),
-    plannedExecutionDate: String(process.plannedExecutionDate),
+    plannedExecutionDate: String(process.plannedExecution),
     executionOfTheProcess: String(process.confirmationForExecutionOfTheProcess),
     processControlId: String(process.processControlId),
     aplication: Object(process.application),

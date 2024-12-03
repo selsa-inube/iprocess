@@ -1,16 +1,15 @@
 import { useFormik } from "formik";
-import {date, object, string as stringYup } from "yup";
+import { object, string as stringYup } from "yup";
 import { useEffect, useState } from "react";
 
 import { IStartProcessEntry, IEntries, IFieldsEntered } from "@forms/types";
+import { formatDateEndpoint } from "@utils/dates";
 import { validateExecutionWay } from "@forms/utils";
 import { RefreshInterestStatusUpdateUI } from "./interface";
-import { formatDateEndpoint } from "@utils/dates";
 
 const validationSchema = object({
   descriptionComplementary: stringYup(),
   plannedExecutionDate: stringYup(),
-  cutOffDate: date(),
 });
 
 interface RefreshInterestStatusUpdateProps {
@@ -22,7 +21,6 @@ interface RefreshInterestStatusUpdateProps {
 const initialValues: IStartProcessEntry = {
   descriptionComplementary: "",
   plannedExecutionDate: "",
-  cutOffDate: "",
 };
 
 const RefreshInterestStatusUpdate = (
@@ -61,7 +59,7 @@ const RefreshInterestStatusUpdate = (
         descriptionComplementary: formik.values.descriptionComplementary,
         plannedExecutionDate: formik.values.plannedExecutionDate,
         parameters: {
-          cutOffDate: formik.values.cutOffDate ||  formatDateEndpoint(new Date(data.date as Date)),
+          cutOffDate: formatDateEndpoint(new Date()),
         },
       };
       setFieldsEntered(dataForm);

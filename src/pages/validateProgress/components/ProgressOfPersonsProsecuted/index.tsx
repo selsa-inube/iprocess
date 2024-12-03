@@ -1,5 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { ProgressBar } from "@inubekit/progressbar";
+import { Text } from "@inubekit/text";
+import { Stack } from "@inubekit/stack";
 
 import { tokens } from "@design/tokens";
 import { personProcess } from "@services/validateProgress/getEstimatedTimeToProcess";
@@ -66,7 +68,7 @@ const ProgressOfPersonsProsecuted = (
   }, [totalProcessedPersons, totalPersons]);
 
   return (
-    <>
+    <Stack width="100%" gap={tokens.spacing.s100}>
       <StyledContainerProgressBar $height={tokens.spacing.s150}>
         <ProgressBar
           progress={percentage}
@@ -75,7 +77,12 @@ const ProgressOfPersonsProsecuted = (
           appearance={ComponentAppearance.PRIMARY}
         />
       </StyledContainerProgressBar>
-    </>
+      {totalProcessedPersons > 0 && (
+        <Text type="body" size="small" appearance="dark">
+          {percentage.toFixed(0)}%
+        </Text>
+      )}
+    </Stack>
   );
 };
 

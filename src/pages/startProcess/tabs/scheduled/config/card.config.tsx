@@ -44,8 +44,8 @@ const mapScheduled = (entry: StartProcesses) => {
     publicCode: entry.publicCode,
     aplication: entry.aplication?.abbreviatedName,
     date: entry.dateWithoutFormat
-      ? new Date(entry.dateWithoutFormat)
-      : new Date(),
+      ? formatDate(new Date(entry.dateWithoutFormat))
+      : formatDate(new Date()),
     process: entry.description,
     periodicity: entry.periodicity,
     statusText: entry.statusText,
@@ -61,7 +61,8 @@ const mapStartProcessScheduled = (entry: StartProcesses) => {
     id: entry.id,
     descriptionSuggested: formatDescriptionSuggested,
     publicCode: entry.publicCode,
-    date: entry.dateWithoutFormat,
+    date: formatDate(new Date(entry.dateWithoutFormat as string)),
+    dateWithoutFormat: entry.dateWithoutFormat,
     month: entry.month,
     year: entry.year,
     url: entry.url,
