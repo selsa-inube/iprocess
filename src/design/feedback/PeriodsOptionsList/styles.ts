@@ -9,6 +9,7 @@ interface IStyledContainer {
 const StyledContainer = styled.ul<IStyledContainer>`
   display: flex;
   flex-direction: column;
+  width: 145px;
   padding: ${tokens.spacing.s050} ${tokens.spacing.s0};
   position: absolute;
   z-index: 2;

@@ -5,7 +5,7 @@ const mapReprocessPersonsWithErrorEntityToApi = (
 ): Record<string, string | number | object> => {
   return {
     processControlId: reprocess.processControlId,
-    processPersons: [
+    persons: [
       {
         personPublicCode: reprocess.personPublicCode,
       },
