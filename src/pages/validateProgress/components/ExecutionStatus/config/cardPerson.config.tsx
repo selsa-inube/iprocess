@@ -1,8 +1,14 @@
 import { formatDate } from "@utils/dates";
-import { IPersonProcessTime } from "@pages/validateProgress/types";
+import {
+  IDiscardPersonsWithErrorsResponse,
+  IPersonProcessTime,
+  IReprocessPersonsWithErrorsResponse,
+} from "@pages/validateProgress/types";
 import { IPersonProcess } from "@components/feedback/CardStatusExecution/types";
 import { errorsStatus } from "@utils/requirements";
-import { DetailsExecutionStatus } from "../DetailsExecutionStatus";
+import { DetailsExecutionStatus } from "../components/DetailsExecutionStatus";
+import { Discard } from "../components/Discard";
+import { Reprocess } from "../components/Reprocess";
 
 const normalizeDataInformationProcess = (
   id: string,
@@ -11,28 +17,38 @@ const normalizeDataInformationProcess = (
   return {
     id: id,
     dateExecution: formatDate(new Date(entry.processStartDate || ""), true),
-    estimedTimeFinish: formatDate(
-      new Date(entry.processEstimatedEndDate || ""),
-      true
-    ),
+    estimedTimeFinish: entry.duration,
     totalPersonCoversProcess: entry.totalPersons,
     totalPersonProcessed: entry.totalProcessedPersons,
     totalPersonProcessedWithError: entry.totalProcessedPersonsWithError,
   };
 };
 
-const normalizeDataPerson = (entries: IPersonProcess[], processControlId: string, ) =>
+const normalizeDataPerson = (
+  entries: IPersonProcess[],
+  processControlId: string,
+  setDiscardData: (data: IDiscardPersonsWithErrorsResponse | undefined) => void,
+  setReprocessData: (
+    data: IReprocessPersonsWithErrorsResponse | undefined
+  ) => void
+) =>
   entries.map((entry) => ({
     ...entry,
     id: entry.processPersonId,
     code: entry.personPublicCode,
     processControlId: processControlId,
     personName: entry.personName,
-    startDate: entry.startDate !== "undefined" ? formatDate(new Date(entry.startDate), true) : "",
+    startDate:
+      entry.startDate !== "undefined"
+        ? formatDate(new Date(entry.startDate), true)
+        : "",
     dateEnd: formatDate(new Date(entry.finishDate), true) || "",
     status: entry.executionStatusByPerson,
-    finishDate: entry.finishDate !== "undefined" ? formatDate(new Date(entry.finishDate), true) : "",
-    actions: actions,
+    finishDate:
+      entry.finishDate !== "undefined"
+        ? formatDate(new Date(entry.finishDate), true)
+        : "",
+    actions: actionsConfig(setDiscardData, setReprocessData),
   }));
 
 const detailsPersonData = (entries: IPersonProcess) => {
@@ -40,7 +56,7 @@ const detailsPersonData = (entries: IPersonProcess) => {
     processPersonId: entries.processPersonId,
     personName: entries.personName,
     processControlId: entries.processControlId,
-    startDate: entries.startDate ,
+    startDate: entries.startDate,
     finishDate: entries.finishDate,
     personPublicCode: entries.personPublicCode,
   };
@@ -69,16 +85,44 @@ const labels = [
   },
 ];
 
+const actionsConfig = (
+  setDiscardData: (data: IDiscardPersonsWithErrorsResponse | undefined) => void,
+  setReprocessData: (
+    data: IReprocessPersonsWithErrorsResponse | undefined
+  ) => void
+) => {
   const actions = [
     {
-      id: "Details",
-      content: (entries: IPersonProcess) => (
-        errorsStatus.includes(entries.executionStatusByPerson || "") &&
-        <DetailsExecutionStatus data={detailsPersonData(entries)}/>
-      ),
+      id: "details",
+      content: (entries: IPersonProcess) =>
+        errorsStatus.includes(entries.executionStatusByPerson || "") && (
+          <DetailsExecutionStatus data={detailsPersonData(entries)} />
+        ),
+    },
+    {
+      id: "reprocess",
+      content: (entries: IPersonProcess) =>
+        errorsStatus.includes(entries.executionStatusByPerson || "") && (
+          <Reprocess
+            data={detailsPersonData(entries)}
+            setReprocessData={setReprocessData}
+          />
+        ),
+    },
+    {
+      id: "discard",
+      content: (entries: IPersonProcess) =>
+        errorsStatus.includes(entries.executionStatusByPerson || "") && (
+          <Discard
+            data={detailsPersonData(entries)}
+            setDiscardData={setDiscardData}
+          />
+        ),
     },
   ];
 
+  return actions;
+};
 
 const labelsDetails = [
   {
@@ -96,7 +140,7 @@ const labelsDetails = [
 ];
 
 export {
-  actions,
+  actionsConfig,
   labels,
   labelsDetails,
   normalizeDataInformationProcess,

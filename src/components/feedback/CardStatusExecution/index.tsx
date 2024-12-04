@@ -1,13 +1,10 @@
-import { useEffect, useState } from "react";
 import { Stack } from "@inubekit/stack";
 import { Text } from "@inubekit/text";
 import { SkeletonIcon, SkeletonLine } from "@inubekit/skeleton";
 import { ITagAppearance, Tag } from "@inubekit/tag";
-import { Checkbox } from "@inubekit/checkbox";
 
 import { tokens } from "@design/tokens";
 import {
-  filteredExecutionStatusByPerson,
   normalizeexecutionStatusByPerson,
 } from "@utils/requirements";
 import { IActions, IPersonProcess } from "./types";
@@ -16,8 +13,6 @@ import { StyledAction, StyledContainer } from "./styles";
 interface CardStatusExecutionProps {
   entries?: IPersonProcess;
   isLoading?: boolean;
-  isFilteredWithErrors?: boolean;
-  handleProcessPersonId?: (id: string | undefined, publicCode: string | undefined, check: boolean) => void;
 }
 
 function ShowAction(actionContent: IActions[], entry: IPersonProcess) {
@@ -33,52 +28,11 @@ function ShowAction(actionContent: IActions[], entry: IPersonProcess) {
 }
 
 const CardStatusExecution = (props: CardStatusExecutionProps) => {
-  const { entries, isLoading, isFilteredWithErrors, handleProcessPersonId } = props;
-  const [checkedCard, setCheckedCard] = useState<boolean>(false);
-
-  useEffect(() => {
-    setCheckedCard(false);
-  }, []);
-
-  useEffect(() => {
-    if (isFilteredWithErrors) setCheckedCard(false);
-  }, [isFilteredWithErrors]);
-
-  const handleChangeManage = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setCheckedCard(e.target.checked);
-    handleProcessPersonId && handleProcessPersonId(entries?.processPersonId, entries?.personPublicCode, e.target.checked);
-  };
-
-  
+  const { entries, isLoading } = props;
 
   return (
     <StyledContainer>
       <Stack direction="row" justifyContent="space-between">
-        {filteredExecutionStatusByPerson.includes(
-          entries?.executionStatusByPerson || ""
-        ) &&
-          (isLoading ? (
-            <Stack
-              width="70px"
-              gap={tokens.spacing.s025}
-              justifyContent="center"
-              alignItems="center"
-            >
-              <SkeletonIcon animated />
-              <SkeletonLine animated />
-            </Stack>
-          ) : (
-            <Stack alignItems="center">
-              <Checkbox
-                label="Gestionar"
-                id="checkboxManage"
-                name="checkboxManage"
-                onChange={handleChangeManage}
-                checked={checkedCard}
-                value={"checkboxManage"}
-              />
-            </Stack>
-          ))}
         <Stack direction="column">
           {isLoading ? (
             <Stack direction="column" width="60px" gap={tokens.spacing.s025}>

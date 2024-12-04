@@ -1,8 +1,9 @@
 import { useFormik } from "formik";
-import {object, string as stringYup } from "yup";
+import { object, string as stringYup } from "yup";
 import { useEffect, useState } from "react";
 
 import { IStartProcessEntry, IEntries, IFieldsEntered } from "@forms/types";
+import { formatDateEndpoint } from "@utils/dates";
 import { validateExecutionWay } from "@forms/utils";
 import { RefreshInterestStatusUpdateUI } from "./interface";
 
@@ -54,7 +55,14 @@ const RefreshInterestStatusUpdate = (
 
   useEffect(() => {
     if (formik.values) {
-      setFieldsEntered(formik.values);
+      const dataForm = {
+        descriptionComplementary: formik.values.descriptionComplementary,
+        plannedExecutionDate: formik.values.plannedExecutionDate,
+        parameters: {
+          cutOffDate: formatDateEndpoint(new Date(data.date as string)),
+        },
+      };
+      setFieldsEntered(dataForm);
     }
   }, [formik.values, setFieldsEntered]);
 

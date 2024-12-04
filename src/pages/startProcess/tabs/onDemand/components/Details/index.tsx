@@ -34,7 +34,7 @@ const DetailsOnDemand = (props: IDetailsOnDemandProps) => {
     const processData = {
       month: Number(data.month),
       executionDate: dataFormatted,
-      plannedExecution: new Date(data.date as Date).toISOString(),
+      plannedExecution: new Date(data.date as string).toISOString(),
       publicCode: String(data.publicCode),
       year: Number(data.year),
       typeExecution: "",

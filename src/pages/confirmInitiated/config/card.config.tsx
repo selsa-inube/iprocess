@@ -8,7 +8,7 @@ import { DeleteProcessConfirmInitiated } from "../components/Delete";
 const confirmInitiatedNormailzeEntries = (
   process: StartProcesses[],
   status: string,
-  setStatus: (status: string) => void,  
+  setStatus: (status: string) => void,
   setDeleteProcess: (processControlId: string) => void
 ) =>
   process.map((entry) => ({
@@ -16,7 +16,8 @@ const confirmInitiatedNormailzeEntries = (
     id: entry.id,
     process: entry.description,
     date: entry.date && formatDate(new Date(entry.date)),
-    dateAndHour: entry.dateAndHour && formatDate(new Date(entry.dateAndHour), true),
+    dateAndHour:
+      entry.dateAndHour && formatDate(new Date(entry.dateAndHour), true),
     totalPerson: entry.totalPerson,
     status: (
       <Requirements
@@ -31,42 +32,45 @@ const confirmInitiatedNormailzeEntries = (
     plannedExecution: entry.plannedExecutionDate,
   }));
 
-  const mapConfirmInitiated = (entry: StartProcesses) => {
-    return {
-      id: entry.id,
-      description: entry.description,
-      executionOfTheProcess: entry.executionOfTheProcess, 
-      generalError: entry.generalError,
-      plannedExecution: entry.date && formatDate(new Date(entry.date), true),
-      timeUsedToInsertPeople: entry.timeUsedToInsertPeople,
-      Aplication: entry.aplication?.abbreviatedName,
-      executionParameters: entry.executionParameters,
-    }
-  }
+const mapConfirmInitiated = (entry: StartProcesses) => {
+  return {
+    id: entry.id,
+    description: entry.description,
+    executionOfTheProcess: entry.executionOfTheProcess,
+    generalError: entry.generalError,
+    plannedExecution: entry.dateAndHour ? entry.dateAndHour.toString() : "",
+    timeUsedToInsertPeople: entry.timeUsedToInsertPeople,
+    Aplication: entry.aplication?.abbreviatedName,
+    executionParameters: entry.executionParameters,
+  };
+};
 
-  const actionsConfig = (setDeleteProcess: (processControlId: string) => void) => {
-const actions = [
-  {
-    id: "Details",
-    content: (process: StartProcesses) => (
-      <DetailsConfirmInitiated data={mapConfirmInitiated(process)} />
-    ),
-  },
-  {
-    id: "verification",
-    content: (process: StartProcesses) => (
-      <ConfirmProcess data={process} />
-    ),
-  },
-  {
-    id: "delete",
-    content: (entry: StartProcesses) => (
-      <DeleteProcessConfirmInitiated data={entry} setDeleteProcess={setDeleteProcess} />
-     ),
-  },
-];
-return actions
-  }
+const actionsConfig = (
+  setDeleteProcess: (processControlId: string) => void
+) => {
+  const actions = [
+    {
+      id: "Details",
+      content: (process: StartProcesses) => (
+        <DetailsConfirmInitiated data={mapConfirmInitiated(process)} />
+      ),
+    },
+    {
+      id: "verification",
+      content: (process: StartProcesses) => <ConfirmProcess data={process} />,
+    },
+    {
+      id: "delete",
+      content: (entry: StartProcesses) => (
+        <DeleteProcessConfirmInitiated
+          data={entry}
+          setDeleteProcess={setDeleteProcess}
+        />
+      ),
+    },
+  ];
+  return actions;
+};
 
 const labelsDetails = [
   {
@@ -92,9 +96,9 @@ const labelsDetails = [
   },
   {
     id: "timeUsedToInsertPeople",
-    titleName: "Tiempo (en segundos) que tardó la deducción de las personas a procesar",
+    titleName:
+      "Tiempo (en segundos) que tardó la deducción de las personas a procesar",
   },
 ];
-
 
 export { actionsConfig, labelsDetails, confirmInitiatedNormailzeEntries };

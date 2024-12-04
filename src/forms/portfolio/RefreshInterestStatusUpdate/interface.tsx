@@ -18,6 +18,7 @@ import {
   StyledField,
   StyledTextarea,
 } from "@forms/styles";
+import { formatDate } from "@utils/dates";
 
 interface RefreshInterestStatusUpdateUIProps {
   data: IEntries;
@@ -77,7 +78,7 @@ const RefreshInterestStatusUpdateUI = (
                 Fecha y hora de ejecución
               </Text>
               <Fieldset legend="" spacing="compact" type="title" size="medium">
-                <Text>{String(data.date)}</Text>
+                <Text>{formatDate(new Date(data.date as string), true)}</Text>
               </Fieldset>
             </StyledField>
 

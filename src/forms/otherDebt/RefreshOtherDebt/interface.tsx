@@ -33,13 +33,7 @@ interface RefreshOtherDebtUIProps {
 }
 
 const RefreshOtherDebtUI = (props: RefreshOtherDebtUIProps) => {
-  const {
-    data,
-    formik,
-    comparisonData,
-    onChange,
-    onStartProcess,
-  } = props;
+  const { data, formik, comparisonData, onChange, onStartProcess } = props;
 
   const isMobile = useMediaQuery(mediaQueryMobile);
 
@@ -105,28 +99,28 @@ const RefreshOtherDebtUI = (props: RefreshOtherDebtUIProps) => {
               required
             />
 
-<Datefield
-            disabled={false}
-            fullwidth={true}
-            id="cutOffDate"
-            label="Fecha de corte para la ejecución"
-            name="cutOffDate"
-            message={
-              getFieldState(formik, "cutOffDate") === "invalid"
-                ? "La fecha de corte es requerida"
-                : ""
-            }
-            onBlur={formik.handleBlur}
-            onFocus={formik.handleFocus}
-            onChange={formik.handleChange}
-            required={false}
-            size="wide"
-            status={getFieldState(formik, "cutOffDate")}
-            value={
-              formik.values.cutOffDate ||
-              formatDateEndpoint(new Date(data.date as Date))
-            }
-          />
+            <Datefield
+              disabled={false}
+              fullwidth={true}
+              id="cutOffDate"
+              label="Fecha de corte para la ejecución"
+              name="cutOffDate"
+              message={
+                getFieldState(formik, "cutOffDate") === "invalid"
+                  ? "La fecha de corte es requerida"
+                  : ""
+              }
+              onBlur={formik.handleBlur}
+              onFocus={formik.handleFocus}
+              onChange={formik.handleChange}
+              required={false}
+              size="wide"
+              status={getFieldState(formik, "cutOffDate")}
+              value={
+                formik.values.cutOffDate ||
+                formatDateEndpoint(new Date(data.date as string))
+              }
+            />
 
             {data?.executionWay &&
               validateExecutionWay(data?.executionWay as string) && (

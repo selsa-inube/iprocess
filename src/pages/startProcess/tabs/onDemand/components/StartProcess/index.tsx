@@ -11,7 +11,7 @@ import { StartProcessModal } from "@components/modals/StartProcessModal";
 import { IEntries } from "@components/modals/MoreDetailsModal/types";
 import { IFieldsEntered } from "@forms/types";
 import { tokens } from "@design/tokens";
-import { formatDateEndpoint } from "@utils/dates";
+import { formatISOStringEndpoint, formatDateEndpoint } from "@utils/dates";
 import { startProcess } from "@services/startProcess/patchStartProcess";
 import { IStartProcessResponse } from "@pages/startProcess/types";
 import { routesComponent } from "@pages/startProcess/config/routesForms.config";
@@ -42,7 +42,7 @@ const StartProcessOnDemand = (props: IStartProcessOnDemandProps) => {
   const [responseStartProcess, setResponseStartProcess] =
     useState<IStartProcessResponse>();
   const [showProgressModal, setShowProgressModal] = useState(false);
-  const [showStartProcessModal, setShowStartProcessModal] = useState(false);
+  const [showStartProcessModal, setShowStartProcessModal] = useState(false);  
 
   const handleStartProcess = async () => {
     const processData = {
@@ -55,8 +55,8 @@ const StartProcessOnDemand = (props: IStartProcessOnDemandProps) => {
       complementaryDescription: String(fieldsEntered.descriptionComplementary),
       plannedExecution: formatDateEndpoint(dataModal.date as Date),
       plannedExecutionDate: fieldsEntered.plannedExecutionDate
-        ? new Date(fieldsEntered.plannedExecutionDate).toISOString()
-        : new Date(dataModal.date as Date).toISOString(),
+      ? formatISOStringEndpoint(new Date(fieldsEntered.plannedExecutionDate))
+      : formatISOStringEndpoint(new Date()),
       executionParameters: fieldsEntered.parameters
         ? fieldsEntered.parameters
         : {},

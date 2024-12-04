@@ -18,7 +18,7 @@ const StyledContainer = styled.div`
   display: inherit;
   overflow: hidden;
 
-  p {
+  & > p {
     white-space: nowrap;
   }
 

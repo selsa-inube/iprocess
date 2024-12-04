@@ -58,7 +58,7 @@ interface StartProcesses {
   plannedExecution?: string;
   executionOfTheProcess?: string;
   processControlId?: string;
-  totalPersonsProsecuted?: number;
+  totalPersonsProsecuted?: number | React.ReactNode;
   detailPeopleProcessed?: IDetailPeopleProcessed;
   minutesOfProcessEnd?: number;
 }
@@ -97,7 +97,7 @@ interface IStartProcessesRequest {
   year: number;
   executionParameters: IExecutionParameters;
   complementaryDescription?: string;
-  plannedExecutionDate?: string;
+  plannedExecutionDate?: string | Date;
 }
 
 interface IStartProcessResponse {

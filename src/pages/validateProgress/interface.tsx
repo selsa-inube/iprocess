@@ -81,7 +81,7 @@ function ValidateProgressUI(props: ValidateProgressUIProps) {
             <Input
               name="searchValidateProgress"
               id="searchValidateProgress"
-              placeholder="Búsqueda..."
+              placeholder="Palabra clave..."
               type="search"
               size="compact"
               value={searchValidateProgress}

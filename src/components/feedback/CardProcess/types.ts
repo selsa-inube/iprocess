@@ -10,7 +10,7 @@ interface IProcess {
   statusText?: string;
   totalPerson?: number;
   totalPersonsCoversProcess?: number;
-  totalPersonsProsecuted?: number;
+  totalPersonsProsecuted?: number | React.ReactNode;
 }
 
 interface IActions {

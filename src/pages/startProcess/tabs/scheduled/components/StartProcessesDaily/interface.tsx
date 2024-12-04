@@ -77,7 +77,7 @@ function StartProcessesDailyUI(props: StartProcessesDailyUIProps) {
             <Input
               name="searchProcessDaily"
               id="searchProcessDaily"
-              placeholder="Búsqueda..."
+              placeholder="Palabra clave..."
               type="search"
               size="compact"
               value={searchProcessDaily}

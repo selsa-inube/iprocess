@@ -9,6 +9,7 @@ interface StyledContainerProps {
 const StyledContainer = styled.li<StyledContainerProps>`
   display: flex;
   align-items: center;
+  justify-content: flex-start;
   align-self: stretch;
   height: 40px;
   border-left: ${tokens.spacing.s050} solid transparent;

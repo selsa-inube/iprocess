@@ -62,6 +62,7 @@ const mapStartProcessScheduled = (entry: StartProcesses) => {
     descriptionSuggested: formatDescriptionSuggested,
     publicCode: entry.publicCode,
     date: entry.dateWithoutFormat,
+    dateWithoutFormat: entry.dateWithoutFormat,
     month: entry.month,
     year: entry.year,
     url: entry.url,
