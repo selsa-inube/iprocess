@@ -11,11 +11,15 @@ import { StartProcessModal } from "@components/modals/StartProcessModal";
 import { IEntries } from "@components/modals/MoreDetailsModal/types";
 import { IFieldsEntered } from "@forms/types";
 import { tokens } from "@design/tokens";
-import { formatDateEndpoint } from "@utils/dates";
+import { formatDateEndpoint, formatISOStringEndpoint } from "@utils/dates";
 import { IStartProcessResponse } from "@pages/startProcess/types";
 import { startProcess } from "@services/startProcess/patchStartProcess";
 import { routesComponent } from "@pages/startProcess/config/routesForms.config";
-import { rediectToConfirmInitiated, redirectToFinished, redirectToValidateProgress } from "@pages/startProcess/utils";
+import {
+  rediectToConfirmInitiated,
+  redirectToFinished,
+  redirectToValidateProgress,
+} from "@pages/startProcess/utils";
 import { ComponentAppearance } from "@ptypes/aparences.types";
 import { AppContext } from "@context/AppContext";
 
@@ -45,7 +49,7 @@ const StartProcessScheduled = (props: IStartProcessScheduledProps) => {
   const [showStartProcessModal, setShowStartProcessModal] = useState(false);
   const [showProgressModal, setShowProgressModal] = useState(false);
 
-  const {addFlag} =useFlag();
+  const { addFlag } = useFlag();
 
   const handleStartProcess = async () => {
     const processData = {
@@ -58,8 +62,8 @@ const StartProcessScheduled = (props: IStartProcessScheduledProps) => {
       complementaryDescription: String(fieldsEntered.descriptionComplementary),
       plannedExecution: formatDateEndpoint(new Date(dataModal.date as Date)),
       plannedExecutionDate: fieldsEntered.plannedExecutionDate
-        ? new Date(fieldsEntered.plannedExecutionDate).toISOString()
-        : new Date(dataModal.date as Date).toISOString(),
+        ? formatISOStringEndpoint(new Date(fieldsEntered.plannedExecutionDate))
+        : formatISOStringEndpoint(new Date(dataModal.date as string)),
       executionParameters: fieldsEntered.parameters
         ? fieldsEntered.parameters
         : {},
@@ -67,36 +71,42 @@ const StartProcessScheduled = (props: IStartProcessScheduledProps) => {
     try {
       setShowStartProcessModal(!showStartProcessModal);
       setShowProgressModal(true);
-      const newProcess = await startProcess(appData.businessUnit.publicCode, processData);
+      const newProcess = await startProcess(
+        appData.businessUnit.publicCode,
+        processData
+      );
       setResponseStartProcess(newProcess);
     } catch (error) {
-      setShowProgressModal(false)
+      setShowProgressModal(false);
       addFlag({
         title: "Error al iniciar los procesos",
         description:
           "No fue posible iniciar los procesos, por favor intenta más tarde",
         appearance: ComponentAppearance.DANGER,
         duration: 5000,
-      })
+      });
       throw new Error(
         `Error al iniciar los procesos en formulario: ${(error as Error).message} `
       );
     }
   };
-  
+
   useEffect(() => {
     if (responseStartProcess?.processStatus.length) {
       setShowProgressModal(false);
 
-      if ( redirectToValidateProgress.includes(responseStartProcess.processStatus) )
+      if (
+        redirectToValidateProgress.includes(responseStartProcess.processStatus)
+      )
         navigate("/validate-progress");
 
       if (redirectToFinished.includes(responseStartProcess.processStatus))
         navigate("/finished");
 
-      if (rediectToConfirmInitiated.includes(responseStartProcess.processStatus))
+      if (
+        rediectToConfirmInitiated.includes(responseStartProcess.processStatus)
+      )
         navigate("/confirm-initiated");
-
     }
   }, [responseStartProcess]);
 
@@ -140,8 +150,7 @@ const StartProcessScheduled = (props: IStartProcessScheduledProps) => {
                           id: id,
                           descriptionSuggested: dataModal?.descriptionSuggested,
                           date: dataModal.date,
-                          executionWay:
-                            dataModal?.executionWay,
+                          executionWay: dataModal?.executionWay,
                         }}
                         onStartProcess={handleStartProcess}
                         setFieldsEntered={setFieldsEntered}

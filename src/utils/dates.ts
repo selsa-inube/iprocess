@@ -124,6 +124,25 @@ const filterDateForMonthAndYear = (month: number, year: number) => {
   return { startDate, endDate };
 };
 
+const formatISOStringEndpoint = (date: Date) => {
+  const options: Intl.DateTimeFormatOptions = {
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric"
+  };
+  const dateString = date.toLocaleDateString("es-ES", options);
+  const [day, month, year] = dateString.split("/");
+
+  const hours = date.getHours();
+  const minutes = date.getMinutes();
+  const seconds = date.getSeconds();
+
+  const formatMinutes = minutes < 10 ? `0${minutes}` : minutes;
+  const formatSeconds = seconds < 10 ? `0${seconds}` : seconds;
+  const timeString = `${hours}:${formatMinutes}:${formatSeconds}`;
+  return `${year}-${month}-${day}T${timeString}Z`;
+};
+
 export {
   currentMonthLetters,
   currentYear,
@@ -135,4 +154,5 @@ export {
   formatMonth,
   formatDateEndpoint,
   filterDateForMonthAndYear,
+  formatISOStringEndpoint,
 };

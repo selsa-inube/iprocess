@@ -97,7 +97,7 @@ interface IStartProcessesRequest {
   year: number;
   executionParameters: IExecutionParameters;
   complementaryDescription?: string;
-  plannedExecutionDate?: string;
+  plannedExecutionDate?: string | Date;
 }
 
 interface IStartProcessResponse {
