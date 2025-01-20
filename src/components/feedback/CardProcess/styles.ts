@@ -18,7 +18,7 @@ const StyledContainer = styled.div`
   box-sizing: border-box;
 
   & > div:nth-child(1) p:nth-child(1) {
-    word-break: keep-all;
+    word-break: break-word;
     white-space: normal;
   }
 
