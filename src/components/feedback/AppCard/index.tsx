@@ -1,7 +1,4 @@
-import { Stack } from "@inubekit/stack";
-import { Text } from "@inubekit/text";
-import { Icon } from "@inubekit/icon";
-import { SkeletonIcon, SkeletonLine } from "@inubekit/skeleton";
+import { Stack, Text, Icon, SkeletonIcon, SkeletonLine } from "@inubekit/inubekit";
 
 import { tokens } from "@design/tokens";
 import { StyledAppCard } from "./styles";

@@ -1,11 +1,7 @@
 import React from "react";
 import { MdClear } from "react-icons/md";
 import { createPortal } from "react-dom";
-import { useMediaQuery } from "@inubekit/hooks";
-import { Stack } from "@inubekit/stack";
-import { Text } from "@inubekit/text";
-import { Blanket } from "@inubekit/blanket";
-
+import { useMediaQuery, Stack, Text, Blanket } from "@inubekit/inubekit";
 import { tokens } from "@design/tokens";
 import { StartProcesses } from "@pages/startProcess/types";
 import { StyledContainer, StyledModal } from "./styles";

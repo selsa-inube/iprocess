@@ -1,14 +1,9 @@
 import { MdClear } from "react-icons/md";
 import { createPortal } from "react-dom";
 
+import { useMediaQuery, Stack, Text, Divider, Blanket, CountdownBar } from "@inubekit/inubekit";
 import { Button } from "@inubekit/button";
-import { Divider } from "@inubekit/divider";
-import { useMediaQuery } from "@inubekit/hooks";
-import { Stack } from "@inubekit/stack";
-import { Text } from "@inubekit/text";
-import { Blanket } from "@inubekit/blanket";
 import { StyledContainer, StyledModal } from "./styles";
-import { CountdownBar } from "@inubekit/countdownbar";
 
 interface ProcessingModalProps {
   duration: number;

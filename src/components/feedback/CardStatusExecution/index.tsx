@@ -1,6 +1,4 @@
-import { Stack } from "@inubekit/stack";
-import { Text } from "@inubekit/text";
-import { SkeletonIcon, SkeletonLine } from "@inubekit/skeleton";
+import { Stack, Text, SkeletonIcon, SkeletonLine } from "@inubekit/inubekit";
 import { ITagAppearance, Tag } from "@inubekit/tag";
 
 import { tokens } from "@design/tokens";
