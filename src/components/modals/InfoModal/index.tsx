@@ -1,10 +1,7 @@
 import { useRef, useEffect } from "react";
 import { MdClear } from "react-icons/md";
 
-import { Stack } from "@inubekit/stack";
-import { Text } from "@inubekit/text";
-import { Icon } from "@inubekit/icon";
-import { Grid } from "@inubekit/grid";
+import { Stack, Text, Grid, Icon } from "@inubekit/inubekit";
 
 import { tokens } from "@design/tokens";
 import { ComponentAppearance } from "@ptypes/aparences.types";

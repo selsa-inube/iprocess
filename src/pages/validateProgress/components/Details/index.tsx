@@ -1,6 +1,6 @@
 import { MdOutlineRemoveRedEye } from "react-icons/md";
 import { useContext, useEffect, useState } from "react";
-import { Icon } from "@inubekit/icon";
+import { Icon } from "@inubekit/inubekit";
 
 import { IEntries } from "@forms/types";
 import { tokens } from "@design/tokens";

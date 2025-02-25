@@ -1,7 +1,7 @@
 import { MdCheckCircleOutline } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
-import { Icon } from "@inubekit/icon";
+import { Icon } from "@inubekit/inubekit";
 import { useFlag } from "@inubekit/flag";
 
 import { tokens } from "@design/tokens";

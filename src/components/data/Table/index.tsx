@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { Stack } from "@inubekit/stack";
+import { Stack } from "@inubekit/inubekit";
 
 import { IInfoModal } from "@components/modals/InfoModal/types";
 import { Pagination } from "./Pagination";

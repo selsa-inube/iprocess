@@ -1,7 +1,5 @@
 import { FormikValues } from "formik";
-import { useMediaQuery } from "@inubekit/hooks";
-import { Stack } from "@inubekit/stack";
-import { Text } from "@inubekit/text";
+import { useMediaQuery, Stack, Text } from "@inubekit/inubekit";
 import { Button } from "@inubekit/button";
 import { Fieldset } from "@inubekit/fieldset";
 import { Textarea } from "@inubekit/textarea";

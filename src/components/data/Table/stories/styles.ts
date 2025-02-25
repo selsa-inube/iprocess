@@ -1,5 +1,5 @@
+import { inube } from "@inubekit/inubekit";
 import styled from "styled-components";
-import { inube } from "@inubekit/foundations";
 
 const StyledContainerActions = styled.div`
   > svg {
