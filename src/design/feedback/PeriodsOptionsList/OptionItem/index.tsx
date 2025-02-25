@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Text } from "@inubekit/text";
+import { Text } from "@inubekit/inubekit";
 
 import { StyledContainer } from "./styles";
 

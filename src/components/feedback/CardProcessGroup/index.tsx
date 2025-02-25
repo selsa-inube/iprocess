@@ -1,7 +1,5 @@
 import { useMemo } from "react";
-import { Stack } from "@inubekit/stack";
-import { Text } from "@inubekit/text";
-import { useMediaQuery } from "@inubekit/hooks";
+import { useMediaQuery, Stack, Text } from "@inubekit/inubekit";
 
 import { tokens } from "@design/tokens";
 import { IProcess } from "../CardProcess/types";

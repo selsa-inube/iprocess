@@ -1,9 +1,6 @@
 import { Outlet } from "react-router-dom";
 import { useContext } from "react";
-import { Grid } from "@inubekit/grid";
-import { Stack } from "@inubekit/stack";
-import { Text } from "@inubekit/text";
-import { useMediaQueries } from "@inubekit/hooks";
+import { useMediaQueries, Stack, Text, Grid } from "@inubekit/inubekit";
 
 import { AppContext } from "@context/AppContext";
 import { tokens } from "@design/tokens";

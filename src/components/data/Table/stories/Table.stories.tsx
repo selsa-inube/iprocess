@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { MdClose } from "react-icons/md";
-import { Stack } from "@inubekit/stack";
-import { Text } from "@inubekit/text";
+import { Stack, Text } from "@inubekit/inubekit";
 import { Blanket } from "@inubekit/blanket";
 
 import {

@@ -1,6 +1,5 @@
 import { useContext, useEffect, useRef, useState } from "react";
-import { Stack } from "@inubekit/stack";
-import { Text } from "@inubekit/text";
+import { Stack, Text } from "@inubekit/inubekit";
 
 import { IDiscardPersonsWithErrorsResponse, IProcessPersons, IReprocessPersonsWithErrorsResponse } from "@pages/validateProgress/types";
 import { AppContext } from "@context/AppContext";

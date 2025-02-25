@@ -5,9 +5,7 @@ import {
   MdLastPage,
 } from "react-icons/md";
 
-import { Text } from "@inubekit/text";
-import { Icon } from "@inubekit/icon";
-import { Stack } from "@inubekit/stack";
+import { Stack, Text, Icon } from "@inubekit/inubekit";
 
 interface IPagination {
   firstEntryInPage: number;

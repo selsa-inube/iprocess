@@ -3,12 +3,11 @@ import {
   MdOutlineStart,
   MdOutlineSyncAlt,
 } from "react-icons/md";
-import { Icon } from "@inubekit/icon";
+import { Text, Icon } from "@inubekit/inubekit";
+import { Button } from "@inubekit/button";
 
 import { StyledContainerButton, StyledContainerTitle } from "./styles";
 import { ITitle } from "../props";
-import { Text } from "@inubekit/text";
-import { Button } from "@inubekit/button";
 
 const titlesMock: ITitle[] = [
   {

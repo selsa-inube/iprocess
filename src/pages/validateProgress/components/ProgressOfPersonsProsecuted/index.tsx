@@ -1,7 +1,6 @@
 import { useContext, useEffect, useState } from "react";
+import { Stack, Text } from "@inubekit/inubekit";
 import { ProgressBar } from "@inubekit/progressbar";
-import { Text } from "@inubekit/text";
-import { Stack } from "@inubekit/stack";
 
 import { tokens } from "@design/tokens";
 import { personProcess } from "@services/validateProgress/getEstimatedTimeToProcess";

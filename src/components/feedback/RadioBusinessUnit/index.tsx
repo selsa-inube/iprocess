@@ -1,6 +1,4 @@
-import { Grid } from "@inubekit/grid";
-import { useMediaQueries } from "@inubekit/hooks";
-import { Text } from "@inubekit/text";
+import { useMediaQueries, Text, Grid } from "@inubekit/inubekit";
 
 import { tokens } from "@design/tokens";
 import { StyledRadioBusinessUnit, StyledRadio, StyledImage } from "./styles";

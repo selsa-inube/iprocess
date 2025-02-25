@@ -1,11 +1,9 @@
 import { MdClear } from "react-icons/md";
 import { createPortal } from "react-dom";
 
+import { useMediaQuery, Stack, Text } from "@inubekit/inubekit";
 import { Button } from "@inubekit/button";
 import { Divider } from "@inubekit/divider";
-import { useMediaQuery } from "@inubekit/hooks";
-import { Stack } from "@inubekit/stack";
-import { Text } from "@inubekit/text";
 import { Blanket } from "@inubekit/blanket";
 import { Fieldset } from "@inubekit/fieldset";
 import { Label } from "@inubekit/label";

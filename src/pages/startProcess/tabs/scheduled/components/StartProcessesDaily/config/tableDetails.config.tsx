@@ -6,8 +6,7 @@ import {
   MdLaunch,
   MdOutlineRemoveRedEye,
 } from "react-icons/md";
-import { Icon } from "@inubekit/icon";
-import { Text } from "@inubekit/text";
+import { Text, Icon } from "@inubekit/inubekit";
 
 import { IActions, ITitle } from "@components/data/Table/props";
 import { StyledContainerTitle } from "@components/data/Table/stories/styles";

@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { tokens } from "@design/tokens";
-import { inube } from "@inubekit/foundations";
+import { inube } from "@inubekit/inubekit";
 
 export const StyledContainer = styled.div`
   display: flex;

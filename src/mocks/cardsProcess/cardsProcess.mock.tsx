@@ -7,11 +7,10 @@ import {
   MdInfoOutline,
 } from "react-icons/md";
 
-import { Icon } from "@inubekit/icon";
+import { Stack, Icon } from "@inubekit/inubekit";
 import { Tag } from "@inubekit/tag";
 import { IProcess } from "@components/feedback/CardProcess/types";
 import { Tooltip } from "@design/feedback/Tooltip";
-import { Stack } from "@inubekit/stack";
 import { tokens } from "@design/tokens";
 
 const actionsStartprocess = [

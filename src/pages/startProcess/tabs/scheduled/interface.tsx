@@ -1,5 +1,4 @@
-import { Stack } from "@inubekit/stack";
-import { useMediaQuery } from "@inubekit/hooks";
+import { useMediaQuery, Stack } from "@inubekit/inubekit";
 import { Input } from "@inubekit/input";
 
 import { ChangePeriod } from "@components/feedback/ChangePeriod";

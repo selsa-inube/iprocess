@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { inube } from "@inubekit/foundations";
+import { inube } from "@inubekit/inubekit";
 import { tokens } from "@design/tokens";
 
 const StyledAppCard = styled(Link)`

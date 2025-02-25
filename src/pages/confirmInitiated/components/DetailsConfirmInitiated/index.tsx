@@ -1,6 +1,6 @@
 import { MdOutlineRemoveRedEye } from "react-icons/md";
 import { useState } from "react";
-import { Icon } from "@inubekit/icon";
+import { Icon } from "@inubekit/inubekit";
 import { tokens } from "@design/tokens";
 import { ExecutionParametersModal } from "@components/modals/ExecutionParametersModal";
 import { labelsDetails } from "@pages/confirmInitiated/config/card.config";

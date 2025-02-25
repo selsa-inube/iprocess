@@ -1,9 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { MdExpandMore } from "react-icons/md";
-import { Stack } from "@inubekit/stack";
-import { Text } from "@inubekit/text";
-import { Icon } from "@inubekit/icon";
-import { useMediaQuery } from "@inubekit/hooks";
+import { useMediaQuery, Stack, Text, Icon } from "@inubekit/inubekit";
 
 import { tokens } from "@design/tokens";
 import { currentMonthLetters, currentYear } from "@utils/dates";

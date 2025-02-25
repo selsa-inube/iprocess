@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { MdOutlineCheckCircle } from "react-icons/md";
-import { Icon } from "@inubekit/icon";
+import { Icon } from "@inubekit/inubekit";
 import { useFlag } from "@inubekit/flag";
 
 import { approvalRequirement } from "@services/confirmInitiated/patchApproval";
