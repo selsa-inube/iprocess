@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { MdOutlineSubtitles } from "react-icons/md";
-import { Icon } from "@inubekit/icon";
+import { Icon } from "@inubekit/inubekit";
 import { tokens } from "@design/tokens";
 import { StatusOfExecutionModal } from "@components/modals/StatusOfExecutionModal";
 import { StartProcesses } from "@pages/startProcess/types";

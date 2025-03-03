@@ -1,9 +1,7 @@
 import { MdInfoOutline } from "react-icons/md";
+import { useMediaQuery, Stack, Text } from "@inubekit/inubekit";
 import { SkeletonLine } from "@inubekit/skeleton";
 import { Tag } from "@inubekit/tag";
-import { Text } from "@inubekit/text";
-import { Stack } from "@inubekit/stack";
-import { useMediaQuery } from "@inubekit/hooks";
 
 import { appearances } from "@pages/startProcess/types";
 import { RequirementsModal } from "@components/modals/requirementsModal";

@@ -1,6 +1,4 @@
-import { Stack } from "@inubekit/stack";
-import { Text } from "@inubekit/text";
-import { useMediaQuery } from "@inubekit/hooks";
+import { useMediaQuery, Stack, Text } from "@inubekit/inubekit";
 import { Input } from "@inubekit/input";
 import { Breadcrumbs } from "@inubekit/breadcrumbs";
 

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { MdInfoOutline } from "react-icons/md";
-import { Icon } from "@inubekit/icon";
+import { Icon } from "@inubekit/inubekit";
 import { IInfoModal } from "@components/modals/InfoModal/types";
 import { InfoModal } from "@components/modals/InfoModal";
 

@@ -1,5 +1,4 @@
-import { Stack } from "@inubekit/stack";
-import { Text } from "@inubekit/text";
+import { Stack, Text } from "@inubekit/inubekit";
 import { Link } from "@inubekit/link";
 import { SkeletonIcon, SkeletonLine } from "@inubekit/skeleton";
 

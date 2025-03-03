@@ -1,9 +1,7 @@
 import { MdClear } from "react-icons/md";
 import { createPortal } from "react-dom";
 
-import { useMediaQuery } from "@inubekit/hooks";
-import { Stack } from "@inubekit/stack";
-import { Text } from "@inubekit/text";
+import { useMediaQuery, Stack, Text } from "@inubekit/inubekit";
 import { Blanket } from "@inubekit/blanket";
 import { tokens } from "@design/tokens";
 import { mediaQueryMobile } from "@config/environment";

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { MdAddCircleOutline } from 'react-icons/md';
-import { Icon } from "@inubekit/icon";
+import { Icon } from "@inubekit/inubekit";
 
 import { IActions } from "@components/data/Table/props";
 import { MoreDetailsModal } from "@components/modals/MoreDetailsModal";

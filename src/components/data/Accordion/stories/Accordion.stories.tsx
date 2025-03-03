@@ -1,8 +1,8 @@
 import { BrowserRouter } from "react-router-dom";
 import { Meta, StoryFn, StoryObj } from "@storybook/react";
 
+import { Text } from "@inubekit/inubekit";
 import { Accordion, IAccordionProps } from "..";
-import { Text } from "@inubekit/text";
 
 const meta: Meta<typeof Accordion> = {
   title: "components/data/Accordion",

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { inube } from "@inubekit/foundations";
+import { inube } from "@inubekit/inubekit";
 
 import { tokens } from "@design/tokens";
 import { mediaQueryMobile } from "@config/environment";
