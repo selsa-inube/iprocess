@@ -1,13 +1,15 @@
 import { createPortal } from "react-dom";
 import { MdClear } from "react-icons/md";
 import { Fieldset } from "@inubekit/fieldset";
+import {
+  useMediaQuery,
+  Stack,
+  Text,
+  Divider,
+  Blanket,
+} from "@inubekit/inubekit";
 import { Label } from "@inubekit/label";
 import { Button } from "@inubekit/button";
-import { Divider } from "@inubekit/divider";
-import { useMediaQuery } from "@inubekit/hooks";
-import { Stack } from "@inubekit/stack";
-import { Text } from "@inubekit/text";
-import { Blanket } from "@inubekit/blanket";
 import { ITagAppearance, Tag } from "@inubekit/tag";
 
 import { Table } from "@components/data/Table";

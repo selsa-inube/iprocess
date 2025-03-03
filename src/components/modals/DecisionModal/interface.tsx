@@ -1,12 +1,8 @@
 import { MdClear } from "react-icons/md";
 import { createPortal } from "react-dom";
 import { FormikValues } from "formik";
+import { useMediaQuery, Stack, Text, Icon, Blanket } from "@inubekit/inubekit";
 import { Button } from "@inubekit/button";
-import { useMediaQuery } from "@inubekit/hooks";
-import { Stack } from "@inubekit/stack";
-import { Text } from "@inubekit/text";
-import { Blanket } from "@inubekit/blanket";
-import { Icon } from "@inubekit/icon";
 import { tokens } from "@design/tokens";
 import { Textarea } from "@inubekit/textarea";
 

@@ -1,12 +1,7 @@
 import { createPortal } from "react-dom";
 import { MdOutlineClose } from "react-icons/md";
-import { Blanket } from "@inubekit/blanket";
-import { Divider } from "@inubekit/divider";
-import { Icon } from "@inubekit/icon";
-import { Stack } from "@inubekit/stack";
-import { Text } from "@inubekit/text";
+import { useMediaQuery, Stack, Text, Icon, Divider, Blanket } from "@inubekit/inubekit";
 import { Button } from "@inubekit/button";
-import { useMediaQuery } from "@inubekit/hooks";
 
 import { Table } from "@components/data/Table";
 import { IAction, IBreakpoint } from "@components/data/Table/props";

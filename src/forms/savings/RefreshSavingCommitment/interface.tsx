@@ -1,12 +1,9 @@
 import { FormikValues } from "formik";
-import { Stack } from "@inubekit/stack";
-import { Text } from "@inubekit/text";
+import { useMediaQuery, Stack, Text, Divider } from "@inubekit/inubekit";
 import { Button } from "@inubekit/button";
 import { Fieldset } from "@inubekit/fieldset";
 import { Textarea } from "@inubekit/textarea";
 import { Select } from "@inubekit/select";
-import { Divider } from "@inubekit/divider";
-import { useMediaQuery } from "@inubekit/hooks";
 import { Date as Datefield } from "@inubekit/date";
 
 import { IEntries, IEnumeratorsProcessCoverage } from "@forms/types";
