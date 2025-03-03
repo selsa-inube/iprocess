@@ -1,4 +1,10 @@
-import { Stack, Text, Link, SkeletonIcon, SkeletonLine } from "@inubekit/inubekit";
+import {
+  Stack,
+  Text,
+  Link,
+  SkeletonIcon,
+  SkeletonLine,
+} from "@inubekit/inubekit";
 
 import { tokens } from "@design/tokens";
 import { IActions, IProcess } from "./types";

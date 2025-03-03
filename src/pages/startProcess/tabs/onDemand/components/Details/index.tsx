@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { MdOutlineRemoveRedEye } from "react-icons/md";
-import { Icon } from "@inubekit/icon";
+import { Icon } from "@inubekit/inubekit";
 
 import { IActions, IBreakpoint } from "@components/data/Table/props";
 import { tokens } from "@design/tokens";

@@ -1,7 +1,5 @@
-import { Stack } from "@inubekit/stack";
+import { useMediaQuery, Stack, Text } from "@inubekit/inubekit";
 import { Tabs } from "@inubekit/tabs";
-import { useMediaQuery } from "@inubekit/hooks";
-import { Text } from "@inubekit/text";
 import { Breadcrumbs } from "@inubekit/breadcrumbs";
 
 import { tokens } from "@design/tokens";
@@ -9,7 +7,6 @@ import { startProcessTabsConfig } from "./config/tabs.config";
 import { ScheduledTab } from "./tabs/scheduled";
 import { OnDemandTab } from "./tabs/onDemand";
 import { crumbsStartProcess } from "./config/navigation";
-
 
 interface StartProcessUIProps {
   isSelected: string;

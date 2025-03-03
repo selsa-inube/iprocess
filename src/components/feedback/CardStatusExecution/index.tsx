@@ -1,10 +1,14 @@
-import { Stack, Text, SkeletonIcon, SkeletonLine } from "@inubekit/inubekit";
-import { ITagAppearance, Tag } from "@inubekit/tag";
+import {
+  Stack,
+  Text,
+  SkeletonIcon,
+  SkeletonLine,
+  ITagAppearance,
+  Tag,
+} from "@inubekit/inubekit";
 
 import { tokens } from "@design/tokens";
-import {
-  normalizeexecutionStatusByPerson,
-} from "@utils/requirements";
+import { normalizeexecutionStatusByPerson } from "@utils/requirements";
 import { IActions, IPersonProcess } from "./types";
 import { StyledAction, StyledContainer } from "./styles";
 

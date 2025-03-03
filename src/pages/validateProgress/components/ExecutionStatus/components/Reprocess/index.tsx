@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { MdLaunch } from "react-icons/md";
-import { Icon } from "@inubekit/icon";
+import { Icon } from "@inubekit/inubekit";
 import { useFlag } from "@inubekit/flag";
 
 import { tokens } from "@design/tokens";

@@ -1,6 +1,5 @@
 import { useState } from "react";
-import { Text } from "@inubekit/text";
-import { Icon } from "@inubekit/icon";
+import { Text, Icon } from "@inubekit/inubekit";
 import { StyledContainer, StyledIcon, StyledText } from "./styles";
 import { ITooltipAppearances } from "./types";
 

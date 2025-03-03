@@ -1,7 +1,6 @@
 import React from "react";
 import { MdSearch } from "react-icons/md";
-import { Text } from "@inubekit/text";
-import { Stack } from "@inubekit/stack";
+import { Stack, Text } from "@inubekit/inubekit";
 import { tokens } from "@design/tokens";
 import { Button } from "@inubekit/button";
 

@@ -1,7 +1,13 @@
 import { MdClear } from "react-icons/md";
 import { createPortal } from "react-dom";
 
-import { useMediaQuery, Stack, Text, Divider, Blanket } from "@inubekit/inubekit";
+import {
+  useMediaQuery,
+  Stack,
+  Text,
+  Divider,
+  Blanket,
+} from "@inubekit/inubekit";
 import { Button } from "@inubekit/button";
 import { Fieldset } from "@inubekit/fieldset";
 import { Label } from "@inubekit/label";
@@ -115,19 +121,19 @@ const ExecutionParametersModal = (props: ExecutionParametersModalProps) => {
                     </Label>
                     <StyledContainerRequirements>
                       {requirement.map((requirement) => (
-                            <Stack direction="column" key={requirement.id}>
-                              <Table
-                                id="portal"
-                                titles={requirement.titlesRequirements}
-                                entries={requirement.entriesRequirements}
-                                breakpoints={breakpointsRequirement}
-                                isLoading={false}
-                                widthFirstColumn="100%"
-                                multipleTables={true}
-                                typeTitle={"label"}
-                              />
-                            </Stack>
-                          ))}
+                        <Stack direction="column" key={requirement.id}>
+                          <Table
+                            id="portal"
+                            titles={requirement.titlesRequirements}
+                            entries={requirement.entriesRequirements}
+                            breakpoints={breakpointsRequirement}
+                            isLoading={false}
+                            widthFirstColumn="100%"
+                            multipleTables={true}
+                            typeTitle={"label"}
+                          />
+                        </Stack>
+                      ))}
                     </StyledContainerRequirements>
                   </Stack>
                 )}
