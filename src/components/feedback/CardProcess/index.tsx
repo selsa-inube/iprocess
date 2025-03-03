@@ -1,6 +1,10 @@
-import { Stack, Text } from "@inubekit/inubekit";
-import { Link } from "@inubekit/link";
-import { SkeletonIcon, SkeletonLine } from "@inubekit/skeleton";
+import {
+  Stack,
+  Text,
+  Link,
+  SkeletonIcon,
+  SkeletonLine,
+} from "@inubekit/inubekit";
 
 import { tokens } from "@design/tokens";
 import { IActions, IProcess } from "./types";

@@ -1,6 +1,5 @@
 import { lazy, Suspense } from "react";
-import { Stack, Text, Grid } from "@inubekit/inubekit";
-import { Divider } from "@inubekit/divider";
+import { Stack, Text, Grid,Divider } from "@inubekit/inubekit";
 import { Label } from "@inubekit/label";
 import { Fieldset } from "@inubekit/fieldset";
 import { Toggle } from "@inubekit/toggle";

@@ -1,12 +1,16 @@
 import { MdClear } from "react-icons/md";
 import { createPortal } from "react-dom";
 
-import { useMediaQuery, Stack, Text } from "@inubekit/inubekit";
+import {
+  useMediaQuery,
+  Stack,
+  Text,
+  Divider,
+  Blanket,
+  CountdownBar,
+} from "@inubekit/inubekit";
 import { Button } from "@inubekit/button";
-import { Divider } from "@inubekit/divider";
-import { Blanket } from "@inubekit/blanket";
 import { StyledContainer, StyledModal } from "./styles";
-import { CountdownBar } from "@inubekit/countdownbar";
 
 interface ProcessingModalProps {
   duration: number;
@@ -49,7 +53,7 @@ const ProcessingModal = (props: ProcessingModalProps) => {
                 appearance="primary"
                 duration={duration}
                 paused={false}
-                onCountdown={ onCloseModal}
+                onCountdown={onCloseModal}
               />
               <Text type="body" size="large" appearance="dark">
                 Este proceso tomará algo de tiempo, por favor espere hasta que

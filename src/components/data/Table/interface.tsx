@@ -1,6 +1,6 @@
 import { useMemo } from "react";
-import { useMediaQuery, useMediaQueries, Text } from "@inubekit/inubekit";
-import { SkeletonLine } from "@inubekit/skeleton";
+import { useMediaQuery, useMediaQueries, Text, SkeletonLine } from "@inubekit/inubekit";
+
 import { IInfoModal } from "@components/modals/InfoModal/types";
 import { mediaQueryMobile } from "@config/environment";
 import {

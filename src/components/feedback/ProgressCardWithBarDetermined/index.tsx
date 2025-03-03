@@ -1,8 +1,12 @@
 import { createPortal } from "react-dom";
-import { useMediaQuery, Stack, Text } from "@inubekit/inubekit";
+import {
+  useMediaQuery,
+  Stack,
+  Text,
+  Blanket,
+  ProgressBar,
+} from "@inubekit/inubekit";
 import { Button } from "@inubekit/button";
-import { Blanket } from "@inubekit/blanket";
-import { ProgressBar } from "@inubekit/progressbar";
 
 import { tokens } from "@design/tokens";
 import {
@@ -82,7 +86,6 @@ const ProgressCardWithBarDetermined = (
                     appearance={appearance}
                   />
                 </StyledContainerProgressBar>
-
               </Stack>
             </Stack>
             {withButtonClose && (

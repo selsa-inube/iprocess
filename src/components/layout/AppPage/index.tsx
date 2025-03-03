@@ -2,10 +2,9 @@ import { useContext, useEffect, useRef, useState } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import { MdOutlineChevronRight } from "react-icons/md";
 import { useAuth0 } from "@auth0/auth0-react";
-import { useMediaQuery, Stack, Text, Grid, Icon } from "@inubekit/inubekit";
+import { useMediaQuery, Stack, Text, Grid, Icon, Spinner } from "@inubekit/inubekit";
 import { Header } from "@inubekit/header";
 import { Nav } from "@inubekit/nav";
-import { Spinner } from "@inubekit/spinner";
 
 import { actionsConfig, navConfig, userMenu } from "@config/nav";
 import { AppContext } from "@context/AppContext";
