@@ -1,7 +1,6 @@
 import { MdOutlineDelete } from "react-icons/md";
 import { useContext, useState } from "react";
-import { Icon } from "@inubekit/inubekit";
-import { useFlag } from "@inubekit/flag";
+import { Icon, useFlag } from "@inubekit/inubekit";
 
 import { tokens } from "@design/tokens";
 import { StartProcesses } from "@pages/startProcess/types";

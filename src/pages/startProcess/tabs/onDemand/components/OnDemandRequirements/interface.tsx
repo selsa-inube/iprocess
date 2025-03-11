@@ -1,6 +1,11 @@
 import { MdInfoOutline } from "react-icons/md";
-import { useMediaQuery, Stack,Text, SkeletonLine } from "@inubekit/inubekit";
-import { Tag } from "@inubekit/tag";
+import {
+  useMediaQuery,
+  Stack,
+  Text,
+  SkeletonLine,
+  Tag,
+} from "@inubekit/inubekit";
 
 import { appearances } from "@pages/startProcess/types";
 import { RequirementsModal } from "@components/modals/requirementsModal";
@@ -49,14 +54,17 @@ const OnDemandRequirementsUI = (props: OnDemandRequirementsUIProps) => {
   const validateStatus =
     normalizeStatusRequirement?.name === "Sin Evaluar" ||
     normalizeStatusRequirement?.name === "No Cumple";
-    
-    const tabletScreen = useMediaQuery(mediaQueryMobile);
+
+  const tabletScreen = useMediaQuery(mediaQueryMobile);
   return (
     <>
       {isVisibleStatusReq ? (
         <SkeletonLine width="80px" animated />
       ) : (
-        <StyledContainer onClick={handleToggleModal} $withCursor={validateStatus}>
+        <StyledContainer
+          onClick={handleToggleModal}
+          $withCursor={validateStatus}
+        >
           {statusRequirement && statusRequirement?.generalStatus?.length > 0 ? (
             <Stack gap={tokens.spacing.s050} direction="row">
               <Stack height="80%">
@@ -88,19 +96,22 @@ const OnDemandRequirementsUI = (props: OnDemandRequirementsUIProps) => {
         </StyledContainer>
       )}
 
-      {validateStatus &&
-        showModal &&
-        id && (
-          <RequirementsModal
-            breakpoints={breakPoints}
-            isLoading={isVisibleRequirements}
-            portalId="portal"
-            requirements={dataTablesOnDemandConfig(processRequirementData, tabletScreen) as IData[]}
-            title="Pre-validar Requisitos"
-            onCloseModal={handleToggleModal}
+      {validateStatus && showModal && id && (
+        <RequirementsModal
+          breakpoints={breakPoints}
+          isLoading={isVisibleRequirements}
+          portalId="portal"
+          requirements={
+            dataTablesOnDemandConfig(
+              processRequirementData,
+              tabletScreen
+            ) as IData[]
+          }
+          title="Pre-validar Requisitos"
+          onCloseModal={handleToggleModal}
           actionsResponsiveReq={actionsResponsiveReq}
-          />
-        )}
+        />
+      )}
     </>
   );
 };

@@ -1,6 +1,11 @@
 import { MdInfoOutline } from "react-icons/md";
-import { useMediaQuery, Stack, Text, SkeletonLine } from "@inubekit/inubekit";
-import { Tag } from "@inubekit/tag";
+import {
+  useMediaQuery,
+  Stack,
+  Text,
+  SkeletonLine,
+  Tag,
+} from "@inubekit/inubekit";
 
 import { appearances } from "@pages/startProcess/types";
 import { RequirementsModal } from "@components/modals/requirementsModal";
@@ -45,7 +50,7 @@ const RequirementsUI = (props: RequirementsUIProps) => {
   const validateStatus =
     normalizeStatusRequirement?.name === "Sin Evaluar" ||
     normalizeStatusRequirement?.name === "No Cumple";
-    
+
   return (
     <>
       {isVisibleStatusReq ? (
@@ -56,7 +61,7 @@ const RequirementsUI = (props: RequirementsUIProps) => {
           $withCursor={validateStatus}
         >
           {statusRequirement &&
-          statusRequirement?.generalStatusRequirement?.length? (
+          statusRequirement?.generalStatusRequirement?.length ? (
             <Stack gap={tokens.spacing.s050} direction="row">
               <Stack height="80%">
                 <Tag
@@ -92,7 +97,11 @@ const RequirementsUI = (props: RequirementsUIProps) => {
           breakpoints={breakPoints}
           isLoading={isVisibleStatusReq}
           portalId="portal"
-          requirements={dataTablesConfig(statusRequirement || {} as IRefNumPackageRequirement, setLoadDataTable,  tabletScreen)}
+          requirements={dataTablesConfig(
+            statusRequirement || ({} as IRefNumPackageRequirement),
+            setLoadDataTable,
+            tabletScreen
+          )}
           title="Pre-validar Requisitos"
           onCloseModal={handleToggleModal}
           actionsResponsiveReq={actionsResponsiveReq}
