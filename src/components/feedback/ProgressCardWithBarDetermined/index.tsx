@@ -5,8 +5,8 @@ import {
   Text,
   Blanket,
   ProgressBar,
+  Button,
 } from "@inubekit/inubekit";
-import { Button } from "@inubekit/button";
 
 import { tokens } from "@design/tokens";
 import {

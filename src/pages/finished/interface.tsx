@@ -1,6 +1,4 @@
-import { useMediaQuery, Stack, Text } from "@inubekit/inubekit";
-import { Input } from "@inubekit/input";
-import { Breadcrumbs } from "@inubekit/breadcrumbs";
+import { useMediaQuery, Stack, Text, Input, Breadcrumbs } from "@inubekit/inubekit";
 
 import { ChangePeriod } from "@components/feedback/ChangePeriod";
 import { tokens } from "@design/tokens";

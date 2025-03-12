@@ -7,10 +7,11 @@ import {
   Text,
   Divider,
   Blanket,
+  Label,
+  ITagAppearance,
+  Tag,
+  Button,
 } from "@inubekit/inubekit";
-import { Label } from "@inubekit/label";
-import { Button } from "@inubekit/button";
-import { ITagAppearance, Tag } from "@inubekit/tag";
 
 import { Table } from "@components/data/Table";
 import { IBreakpoint } from "@components/data/Table/props";

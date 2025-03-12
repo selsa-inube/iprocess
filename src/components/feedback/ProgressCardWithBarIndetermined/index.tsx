@@ -1,7 +1,13 @@
 import { createPortal } from "react-dom";
 
-import { useMediaQuery, Stack, Text, Blanket, Spinner } from "@inubekit/inubekit";
-import { Button } from "@inubekit/button";
+import {
+  useMediaQuery,
+  Stack,
+  Text,
+  Blanket,
+  Spinner,
+  Button,
+} from "@inubekit/inubekit";
 import { tokens } from "@design/tokens";
 import { ComponentAppearance } from "@ptypes/aparences.types";
 

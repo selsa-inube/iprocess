@@ -1,6 +1,10 @@
-import { useMediaQuery, Stack, Text } from "@inubekit/inubekit";
-import { Tabs } from "@inubekit/tabs";
-import { Breadcrumbs } from "@inubekit/breadcrumbs";
+import {
+  useMediaQuery,
+  Stack,
+  Text,
+  Breadcrumbs,
+  Tabs,
+} from "@inubekit/inubekit";
 
 import { tokens } from "@design/tokens";
 import { startProcessTabsConfig } from "./config/tabs.config";
@@ -22,11 +26,15 @@ function StartProcessUI(props: StartProcessUIProps) {
     <Stack
       direction="column"
       width="-webkit-fill-available"
-      padding={smallScreen ? `${tokens.spacing.s200}` : `${tokens.spacing.s400} ${tokens.spacing.s800}`}
+      padding={
+        smallScreen
+          ? `${tokens.spacing.s200}`
+          : `${tokens.spacing.s400} ${tokens.spacing.s800}`
+      }
     >
       <Stack gap={tokens.spacing.s600} direction="column">
         <Stack gap={tokens.spacing.s300} direction="column">
-        <Breadcrumbs crumbs={crumbsStartProcess}/>
+          <Breadcrumbs crumbs={crumbsStartProcess} />
           <Text type="title" size={smallScreen ? "medium" : "large"}>
             Procesos por Iniciar
           </Text>

@@ -1,8 +1,13 @@
 import { FormikValues } from "formik";
-import { useMediaQuery, Stack, Text, Divider } from "@inubekit/inubekit";
-import { Button } from "@inubekit/button";
-import { Fieldset } from "@inubekit/fieldset";
-import { Textarea } from "@inubekit/textarea";
+import {
+  useMediaQuery,
+  Stack,
+  Text,
+  Divider,
+  Button,
+  Fieldset,
+  Textarea
+} from "@inubekit/inubekit";
 
 import { IEntries } from "@forms/types";
 import { Datetimefield } from "@design/inputs/Datetimefield";

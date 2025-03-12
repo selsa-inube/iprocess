@@ -1,6 +1,5 @@
 import { MdChevronLeft } from "react-icons/md";
-import { useMediaQueries, Stack, Text, Grid } from "@inubekit/inubekit";
-import { Button } from "@inubekit/button";
+import { useMediaQueries, Stack, Text, Grid, Button } from "@inubekit/inubekit";
 
 import selsaLogo from "@assets/images/selsa.png";
 import errorImage from "@assets/images/timeout.png";
@@ -64,7 +63,8 @@ function ErrorPage(props: ErrorPageProps) {
         <Stack gap={tokens.spacing.s300} direction="column">
           <Stack gap={tokens.spacing.s300} direction="column">
             <Text
-              type="title" weight="bold"
+              type="title"
+              weight="bold"
               size={matches["(max-width: 770px)"] ? "small" : "medium"}
             >
               {heading}

@@ -1,9 +1,14 @@
 import { lazy, Suspense } from "react";
-import { Stack, Text, Grid,Divider } from "@inubekit/inubekit";
-import { Label } from "@inubekit/label";
-import { Fieldset } from "@inubekit/fieldset";
-import { Toggle } from "@inubekit/toggle";
-import { Input } from "@inubekit/input";
+import {
+  Stack,
+  Text,
+  Grid,
+  Divider,
+  Toggle,
+  Fieldset,
+  Label,
+  Input,
+} from "@inubekit/inubekit";
 
 import { tokens } from "@design/tokens";
 import { StartProcesses } from "@pages/startProcess/types";

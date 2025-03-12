@@ -1,10 +1,15 @@
 import { FormikValues } from "formik";
-import { useMediaQuery, Stack, Text, Divider } from "@inubekit/inubekit";
-import { Button } from "@inubekit/button";
-import { Fieldset } from "@inubekit/fieldset";
-import { Textarea } from "@inubekit/textarea";
-import { Select } from "@inubekit/select";
-import { Date as Datefield } from "@inubekit/date";
+import {
+  useMediaQuery,
+  Stack,
+  Text,
+  Divider,
+  Button,
+  Fieldset,
+  Textarea,
+  Select,
+  Date as Datefield 
+} from "@inubekit/inubekit";
 
 import { IEntries, IEnumeratorsProcessCoverage } from "@forms/types";
 import { Datetimefield } from "@design/inputs/Datetimefield";
@@ -31,13 +36,7 @@ interface RefreshCreditRequestUIProps {
 }
 
 const RefreshCreditRequestUI = (props: RefreshCreditRequestUIProps) => {
-  const {
-    data,
-    formik,
-    comparisonData,
-    onChange,
-    onStartProcess,
-  } = props;
+  const { data, formik, comparisonData, onChange, onStartProcess } = props;
 
   const isMobile = useMediaQuery(mediaQueryMobile);
 
@@ -103,28 +102,28 @@ const RefreshCreditRequestUI = (props: RefreshCreditRequestUIProps) => {
             required
           />
 
-<Datefield
-          disabled={false}
-          fullwidth={true}
-          id="cutOffDate"
-          label="Fecha de corte para la ejecución"
-          name="cutOffDate"
-          message={
-            getFieldState(formik, "cutOffDate") === "invalid"
-              ? "La fecha de corte es requerida"
-              : ""
-          }
-          onBlur={formik.handleBlur}
-          onFocus={formik.handleFocus}
-          onChange={formik.handleChange}
-          required={false}
-          size="wide"
-          status={getFieldState(formik, "cutOffDate")}
-          value={
-            formik.values.cutOffDate ||
-            formatDateEndpoint(new Date(data.date as Date))
-          }
-        />
+          <Datefield
+            disabled={false}
+            fullwidth={true}
+            id="cutOffDate"
+            label="Fecha de corte para la ejecución"
+            name="cutOffDate"
+            message={
+              getFieldState(formik, "cutOffDate") === "invalid"
+                ? "La fecha de corte es requerida"
+                : ""
+            }
+            onBlur={formik.handleBlur}
+            onFocus={formik.handleFocus}
+            onChange={formik.handleChange}
+            required={false}
+            size="wide"
+            status={getFieldState(formik, "cutOffDate")}
+            value={
+              formik.values.cutOffDate ||
+              formatDateEndpoint(new Date(data.date as Date))
+            }
+          />
 
           {data?.executionWay &&
             validateExecutionWay(data?.executionWay as string) && (

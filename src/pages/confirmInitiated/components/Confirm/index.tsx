@@ -1,16 +1,15 @@
 import { MdCheckCircleOutline } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
-import { Icon } from "@inubekit/inubekit";
-import { useFlag } from "@inubekit/flag";
+import { Icon, useFlag } from "@inubekit/inubekit";
 
 import { tokens } from "@design/tokens";
 import { StartProcesses } from "@pages/startProcess/types";
 import { DecisionModal } from "@components/modals/DecisionModal";
 import { ComponentAppearance } from "@ptypes/aparences.types";
 import { confirmIndividualProcess } from "@services/confirmInitiated/pathConfirmIndividualProcess";
-import { IConfirmProcessResponse } from "../../types";
 import { AppContext } from "@context/AppContext";
+import { IConfirmProcessResponse } from "../../types";
 
 interface ConfirmProcessProps {
   data: StartProcesses;

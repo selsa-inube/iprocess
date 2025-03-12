@@ -1,9 +1,12 @@
 import { lazy, Suspense, useState } from "react";
-import { Stack, Text } from "@inubekit/inubekit";
-import { Fieldset } from "@inubekit/fieldset";
-import { Toggle } from "@inubekit/toggle";
-import { Label } from "@inubekit/label";
-import { Input } from "@inubekit/input";
+import {
+  Stack,
+  Text,
+  Toggle,
+  Fieldset,
+  Label,
+  Input,
+} from "@inubekit/inubekit";
 
 import { tokens } from "@design/tokens";
 import { Accordion } from "@components/data/Accordion";

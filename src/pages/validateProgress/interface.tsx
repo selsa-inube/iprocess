@@ -1,6 +1,10 @@
-import { useMediaQuery, Stack, Text } from "@inubekit/inubekit";
-import { Breadcrumbs } from "@inubekit/breadcrumbs";
-import { Input } from "@inubekit/input";
+import {
+  useMediaQuery,
+  Stack,
+  Text,
+  Input,
+  Breadcrumbs,
+} from "@inubekit/inubekit";
 
 import { ChangePeriod } from "@components/feedback/ChangePeriod";
 import { tokens } from "@design/tokens";
@@ -57,7 +61,7 @@ function ValidateProgressUI(props: ValidateProgressUIProps) {
     >
       <Stack gap={tokens.spacing.s600} direction="column">
         <Stack gap={tokens.spacing.s300} direction="column">
-        <Breadcrumbs crumbs={crumbsValidateProgress}/>
+          <Breadcrumbs crumbs={crumbsValidateProgress} />
           <Text type="title" size={smallScreen ? "medium" : "large"}>
             Validar el progreso
           </Text>
