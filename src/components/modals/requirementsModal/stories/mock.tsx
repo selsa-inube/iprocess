@@ -1,6 +1,5 @@
 import { MdAddCircleOutline, MdOutlineCheckCircle } from "react-icons/md";
-import { Icon } from "@inubekit/inubekit";
-import { Tag } from "@inubekit/tag";
+import { Icon,Tag } from "@inubekit/inubekit";
 
 import { IAction } from "@components/data/Table/props";
 import { IEntries, ITitlesRequirements } from "../types";

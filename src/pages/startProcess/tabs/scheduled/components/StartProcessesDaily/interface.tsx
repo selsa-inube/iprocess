@@ -1,5 +1,4 @@
-import { useMediaQuery, Stack } from "@inubekit/inubekit";
-import { Breadcrumbs } from "@inubekit/breadcrumbs";
+import { useMediaQuery, Stack, Breadcrumbs } from "@inubekit/inubekit";
 import { Input } from "@inubekit/input";
 
 import { IDailyDetail } from "@pages/startProcess/types";

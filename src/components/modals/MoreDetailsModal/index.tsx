@@ -1,10 +1,16 @@
 import { MdClear } from "react-icons/md";
 import { createPortal } from "react-dom";
 
-import { useMediaQuery, Stack, Text, Divider, Blanket } from "@inubekit/inubekit";
+import {
+  useMediaQuery,
+  Stack,
+  Text,
+  Divider,
+  Blanket,
+  Fieldset,
+  Label,
+} from "@inubekit/inubekit";
 import { Button } from "@inubekit/button";
-import { Label } from "@inubekit/label";
-import { Fieldset } from "@inubekit/fieldset";
 
 import { mediaQueryMobile } from "@config/environment";
 import { StyledContainer, StyledModal, StyledModalFields } from "./styles";
@@ -58,7 +64,12 @@ const MoreDetailsModal = (props: MoreDetailsModalProps) => {
                       >
                         {field.titleName}
                       </Label>
-                      <Fieldset legend="" spacing="compact" type="title" size="medium">
+                      <Fieldset
+                        legend=""
+                        spacing="compact"
+                        type="title"
+                        size="medium"
+                      >
                         <Text>{String(data[field.id])}</Text>
                       </Fieldset>
                     </StyledModalFields>

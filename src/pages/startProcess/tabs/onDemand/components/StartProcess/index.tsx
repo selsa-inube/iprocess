@@ -1,8 +1,7 @@
 import { lazy, Suspense, useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { MdLaunch } from "react-icons/md";
-import { Stack,Text, Icon, Spinner } from "@inubekit/inubekit";
-import { useFlag } from "@inubekit/flag";
+import { Stack,Text, Icon, Spinner, useFlag } from "@inubekit/inubekit";
 
 import { StartProcessModal } from "@components/modals/StartProcessModal";
 import { IEntries } from "@components/modals/MoreDetailsModal/types";

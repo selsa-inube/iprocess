@@ -6,7 +6,7 @@ import {
 } from "react-router-dom";
 import { useContext } from "react";
 import { ThemeProvider } from "styled-components";
-import { FlagProvider } from "@inubekit/flag";
+import { FlagProvider } from "@inubekit/inubekit";
 
 import { useAuth0 } from "@auth0/auth0-react";
 import { ErrorPage } from "@components/layout/ErrorPage";

@@ -1,6 +1,4 @@
-import { useMediaQuery, Stack, Text } from "@inubekit/inubekit";
-import { Tabs } from "@inubekit/tabs";
-import { Breadcrumbs } from "@inubekit/breadcrumbs";
+import { useMediaQuery, Stack, Text, Breadcrumbs, Tabs } from "@inubekit/inubekit";
 
 import { tokens } from "@design/tokens";
 import { startProcessTabsConfig } from "./config/tabs.config";

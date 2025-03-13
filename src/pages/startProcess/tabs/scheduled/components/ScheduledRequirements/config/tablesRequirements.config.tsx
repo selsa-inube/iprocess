@@ -1,6 +1,5 @@
 import { MdAddCircleOutline, MdCancel, MdCheckCircle, MdDoDisturbOn, MdReportProblem } from "react-icons/md";
-import { Icon, IIconAppearance } from "@inubekit/inubekit";
-import { ITagAppearance, Tag,  } from "@inubekit/tag";
+import { Icon, IIconAppearance,ITagAppearance, Tag, } from "@inubekit/inubekit";
 
 import { MoreDetails } from "@pages/startProcess/tabs/scheduled/components/ScheduledRequirements/MoreDetails";
 import {
