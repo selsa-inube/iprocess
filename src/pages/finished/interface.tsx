@@ -1,4 +1,10 @@
-import { useMediaQuery, Stack, Text, Input, Breadcrumbs } from "@inubekit/inubekit";
+import {
+  useMediaQuery,
+  Stack,
+  Text,
+  Input,
+  Breadcrumbs,
+} from "@inubekit/inubekit";
 
 import { ChangePeriod } from "@components/feedback/ChangePeriod";
 import { tokens } from "@design/tokens";
@@ -19,9 +25,7 @@ interface FinishedUIProps {
   year: string;
   listOfPeriods: IListPeriods[];
   setSelectedPeriod: (show: IChangePeriodEntry) => void;
-  handleSearchFinished: (
-    e: React.ChangeEvent<HTMLInputElement>
-  ) => void;
+  handleSearchFinished: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 function FinishedUI(props: FinishedUIProps) {
@@ -55,16 +59,19 @@ function FinishedUI(props: FinishedUIProps) {
     >
       <Stack gap={tokens.spacing.s600} direction="column">
         <Stack gap={tokens.spacing.s300} direction="column">
-        <Breadcrumbs crumbs={crumbsFinished}/>
+          <Breadcrumbs crumbs={crumbsFinished} />
           <Text type="title" size={smallScreen ? "medium" : "large"}>
             Finalizados
           </Text>
         </Stack>
         <Stack gap={tokens.spacing.s400} direction="column">
-          <Stack justifyContent="space-between" direction={smallScreen ? "column" : "row"}
+          <Stack
+            justifyContent="space-between"
+            direction={smallScreen ? "column" : "row"}
             gap={
               smallScreen ? `${tokens.spacing.s150}` : `${tokens.spacing.s0}`
-            }>
+            }
+          >
             <ChangePeriod
               description={`Procesos del mes de ${month} ${year}`}
               listOfPeriods={normalizedPeriods}

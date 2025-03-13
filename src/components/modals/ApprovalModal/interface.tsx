@@ -8,9 +8,10 @@ import {
   Text,
   Divider,
   Blanket,
+  Label,
   Button,
+  Textarea,
   Toggle,
-  Textarea
 } from "@inubekit/inubekit";
 
 import {
@@ -19,7 +20,6 @@ import {
   StyledTextarea,
   StyledToggle,
 } from "./styles";
-import { Label } from "@inubekit/label";
 
 interface ApprovalModalUIProps {
   dataComparison: boolean;

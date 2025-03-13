@@ -1,7 +1,6 @@
 import { useContext, useEffect, useRef, useState } from "react";
 import { MdOutlineChevronRight, MdOutlineDoorFront } from "react-icons/md";
-import { useMediaQuery, Text, Icon } from "@inubekit/inubekit";
-import { Header } from "@inubekit/header";
+import { useMediaQuery, Text, Icon, Header } from "@inubekit/inubekit";
 
 import { AppCard } from "@components/feedback/AppCard";
 import { navConfig, userMenu } from "@config/nav";

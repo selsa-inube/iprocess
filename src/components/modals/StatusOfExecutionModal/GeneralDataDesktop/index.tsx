@@ -4,10 +4,10 @@ import {
   Text,
   Grid,
   Divider,
-  Toggle,
   Fieldset,
   Label,
-  Input,
+  Toggle,
+  Input
 } from "@inubekit/inubekit";
 
 import { tokens } from "@design/tokens";

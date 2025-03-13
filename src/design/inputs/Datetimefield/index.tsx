@@ -1,8 +1,7 @@
 import { useState } from "react";
 import { MdOutlineWarning } from "react-icons/md";
 
-import { Text, Icon } from "@inubekit/inubekit";
-import { Label } from "@inubekit/label";
+import { Text, Icon, Label } from "@inubekit/inubekit";
 import { tokens } from "@design/tokens";
 
 import { IDatetimefieldSize, IDatetimefieldStatus } from "./types";
