@@ -7,9 +7,9 @@ import {
   Button,
   Fieldset,
   Textarea,
-  Select
+  Select, 
+  Date as Datefield
 } from "@inubekit/inubekit";
-import { Date as Datefield } from "@inubekit/date";
 
 import { IEntries, IEnumeratorsProcessCoverage } from "@forms/types";
 import { Datetimefield } from "@design/inputs/Datetimefield";
