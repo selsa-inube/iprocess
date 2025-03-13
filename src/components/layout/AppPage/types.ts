@@ -1,4 +1,4 @@
-import { INavNavigation } from '@inubekit/nav';
+import { INavNavigation } from '@inubekit/inubekit';
 
   interface ISection {
     title: string;
