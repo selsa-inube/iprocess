@@ -6,9 +6,9 @@ import {
   Divider,
   Fieldset,
   Label,
+  Toggle,
+  Input
 } from "@inubekit/inubekit";
-import { Toggle } from "@inubekit/toggle";
-import { Input } from "@inubekit/input";
 
 import { tokens } from "@design/tokens";
 import { StartProcesses } from "@pages/startProcess/types";

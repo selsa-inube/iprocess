@@ -9,10 +9,10 @@ import {
   Divider,
   Blanket,
   Label,
+  Button,
+  Textarea,
+  Toggle,
 } from "@inubekit/inubekit";
-import { Button } from "@inubekit/button";
-import { Textarea } from "@inubekit/textarea";
-import { Toggle } from "@inubekit/toggle";
 
 import {
   StyledContainer,

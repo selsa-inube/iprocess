@@ -1,20 +1,29 @@
 import { FormikValues } from "formik";
-import { useMediaQuery, Stack, Text, Divider,Fieldset } from "@inubekit/inubekit";
-import { Button } from "@inubekit/button";
-import { Textarea } from "@inubekit/textarea";
-import { Select } from "@inubekit/select";
-import { Date as Datefield } from "@inubekit/date";
+import {
+  useMediaQuery,
+  Stack,
+  Text,
+  Divider,
+  Button,
+  Fieldset,
+  Textarea,
+  Select,
+  Date as Datefield
+} from "@inubekit/inubekit";
 
 import { IEntries, IEnumeratorsProcessCoverage } from "@forms/types";
 import { Datetimefield } from "@design/inputs/Datetimefield";
 import { getFieldState, validateExecutionWay } from "@forms/utils";
 import { tokens } from "@design/tokens";
 import { ComponentAppearance } from "@ptypes/aparences.types";
-import { StyledContainerForm, StyledField, StyledTextarea } from "@forms/styles";
+import {
+  StyledContainerForm,
+  StyledField,
+  StyledTextarea,
+} from "@forms/styles";
 import { formatDateEndpoint } from "@utils/dates";
 import { mediaQueryMobile } from "@config/environment";
 import { getDomainById } from "@mocks/domains/domainService.mocks";
-
 
 interface RefreshCardCreditProductUIProps {
   data: IEntries;
@@ -26,13 +35,7 @@ interface RefreshCardCreditProductUIProps {
 }
 
 const RefreshCardCreditProductUI = (props: RefreshCardCreditProductUIProps) => {
-  const {
-    data,
-    formik,
-    comparisonData,
-    onChange,
-    onStartProcess,
-  } = props;
+  const { data, formik, comparisonData, onChange, onStartProcess } = props;
 
   const isMobile = useMediaQuery(mediaQueryMobile);
 
@@ -47,96 +50,100 @@ const RefreshCardCreditProductUI = (props: RefreshCardCreditProductUIProps) => {
           e.preventDefault();
         }}
       >
-        <Stack direction="column" gap={tokens.spacing.s250} height={isMobile ?"410px" : "auto"}>
-        <StyledContainerForm>
-          <StyledField>
-            <Text type="label" size="large" weight="bold">
-              Descripción sugerida
-            </Text>
-            <Fieldset legend="" spacing="compact" type="title" size="medium">
-              <Text>{String(data?.descriptionSuggested)}</Text>
-            </Fieldset>
-          </StyledField>
+        <Stack
+          direction="column"
+          gap={tokens.spacing.s250}
+          height={isMobile ? "410px" : "auto"}
+        >
+          <StyledContainerForm>
+            <StyledField>
+              <Text type="label" size="large" weight="bold">
+                Descripción sugerida
+              </Text>
+              <Fieldset legend="" spacing="compact" type="title" size="medium">
+                <Text>{String(data?.descriptionSuggested)}</Text>
+              </Fieldset>
+            </StyledField>
 
-          <StyledTextarea>
-            <Textarea
-              label="Descripción complementaria"
-              name="descriptionComplementary"
-              id="descriptionComplementary"
-              placeholder=""
-              value={formik.values.descriptionComplementary}
-              fullwidth
-              maxLength={220}
-              onChange={formik.handleChange}
-            />
-          </StyledTextarea>
-
-          <Select
-            id="typeRefresh"
-            label="Tipo de refresco"
-            name="typeRefresh"
-            onChange={onChange}
-            onBlur={formik.handleBlur}
-            options={getDomainById("typeRefresh")}
-            placeholder="Seleccione uno"
-            size="wide"
-            message={
-              getFieldState(formik, "typeRefresh") === "invalid"
-                ? "La tipo de refresco es requerido"
-                : ""
-            }
-            invalid={
-              getFieldState(formik, "typeRefresh") === "invalid" &&
-              formik.errors.typeRefresh
-            }
-            value={formik.values.typeRefresh}
-            fullwidth
-            required
-          />
-
-          <Datefield
-            disabled={false}
-            fullwidth={true}
-            id="cutOffDate"
-            label="Fecha de corte para la ejecución"
-            name="cutOffDate"
-            message={
-              getFieldState(formik, "cutOffDate") === "invalid"
-                ? "La fecha de corte es requerida"
-                : ""
-            }
-            onBlur={formik.handleBlur}
-            onFocus={formik.handleFocus}
-            onChange={formik.handleChange}
-            required={false}
-            size="wide"
-            status={getFieldState(formik, "cutOffDate")}
-            value={
-              formik.values.cutOffDate ||
-              formatDateEndpoint(new Date(data.date as Date))
-            }
-          />
-
-          {data?.executionWay &&
-            validateExecutionWay(data?.executionWay as string) && (
-              <Datetimefield
-                withFullwidth={true}
-                id="plannedExecutionDate"
-                label="Fecha planeada de ejecución"
-                message={
-                  getFieldState(formik, "plannedExecutionDate") === "invalid"
-                    ? "La fecha es requerida"
-                    : ""
-                }
-                name="plannedExecutionDate"
-                onBlur={formik.handleBlur}
+            <StyledTextarea>
+              <Textarea
+                label="Descripción complementaria"
+                name="descriptionComplementary"
+                id="descriptionComplementary"
+                placeholder=""
+                value={formik.values.descriptionComplementary}
+                fullwidth
+                maxLength={220}
                 onChange={formik.handleChange}
-                size="wide"
-                status={getFieldState(formik, "plannedExecutionDate")}
-                value={formik.values.plannedExecutionDate}
-                isRequired
               />
-            )}
+            </StyledTextarea>
+
+            <Select
+              id="typeRefresh"
+              label="Tipo de refresco"
+              name="typeRefresh"
+              onChange={onChange}
+              onBlur={formik.handleBlur}
+              options={getDomainById("typeRefresh")}
+              placeholder="Seleccione uno"
+              size="wide"
+              message={
+                getFieldState(formik, "typeRefresh") === "invalid"
+                  ? "La tipo de refresco es requerido"
+                  : ""
+              }
+              invalid={
+                getFieldState(formik, "typeRefresh") === "invalid" &&
+                formik.errors.typeRefresh
+              }
+              value={formik.values.typeRefresh}
+              fullwidth
+              required
+            />
+
+            <Datefield
+              disabled={false}
+              fullwidth={true}
+              id="cutOffDate"
+              label="Fecha de corte para la ejecución"
+              name="cutOffDate"
+              message={
+                getFieldState(formik, "cutOffDate") === "invalid"
+                  ? "La fecha de corte es requerida"
+                  : ""
+              }
+              onBlur={formik.handleBlur}
+              onFocus={formik.handleFocus}
+              onChange={formik.handleChange}
+              required={false}
+              size="wide"
+              status={getFieldState(formik, "cutOffDate")}
+              value={
+                formik.values.cutOffDate ||
+                formatDateEndpoint(new Date(data.date as Date))
+              }
+            />
+
+            {data?.executionWay &&
+              validateExecutionWay(data?.executionWay as string) && (
+                <Datetimefield
+                  withFullwidth={true}
+                  id="plannedExecutionDate"
+                  label="Fecha planeada de ejecución"
+                  message={
+                    getFieldState(formik, "plannedExecutionDate") === "invalid"
+                      ? "La fecha es requerida"
+                      : ""
+                  }
+                  name="plannedExecutionDate"
+                  onBlur={formik.handleBlur}
+                  onChange={formik.handleChange}
+                  size="wide"
+                  status={getFieldState(formik, "plannedExecutionDate")}
+                  value={formik.values.plannedExecutionDate}
+                  isRequired
+                />
+              )}
           </StyledContainerForm>
           <Stack gap={tokens.spacing.s100} justifyContent="flex-end">
             <Button

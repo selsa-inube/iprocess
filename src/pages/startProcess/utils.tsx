@@ -1,4 +1,4 @@
-import { Button } from "@inubekit/button";
+import { Button } from "@inubekit/inubekit";
 
 import { StyledContainerButton } from "./styles";
 

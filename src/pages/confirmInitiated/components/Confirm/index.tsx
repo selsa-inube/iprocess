@@ -8,8 +8,8 @@ import { StartProcesses } from "@pages/startProcess/types";
 import { DecisionModal } from "@components/modals/DecisionModal";
 import { ComponentAppearance } from "@ptypes/aparences.types";
 import { confirmIndividualProcess } from "@services/confirmInitiated/pathConfirmIndividualProcess";
-import { IConfirmProcessResponse } from "../../types";
 import { AppContext } from "@context/AppContext";
+import { IConfirmProcessResponse } from "../../types";
 
 interface ConfirmProcessProps {
   data: StartProcesses;

@@ -3,8 +3,7 @@ import {
   MdOutlineStart,
   MdOutlineSyncAlt,
 } from "react-icons/md";
-import { Text, Icon } from "@inubekit/inubekit";
-import { Button } from "@inubekit/button";
+import { Text, Icon, Button } from "@inubekit/inubekit";
 
 import { StyledContainerButton, StyledContainerTitle } from "./styles";
 import { ITitle } from "../props";

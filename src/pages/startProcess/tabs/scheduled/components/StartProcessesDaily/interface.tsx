@@ -1,5 +1,4 @@
-import { useMediaQuery, Stack, Breadcrumbs } from "@inubekit/inubekit";
-import { Input } from "@inubekit/input";
+import { useMediaQuery, Stack, Input, Breadcrumbs } from "@inubekit/inubekit";
 
 import { IDailyDetail } from "@pages/startProcess/types";
 import { IAction } from "@components/data/Table/props";
@@ -89,8 +88,12 @@ function StartProcessesDailyUI(props: StartProcessesDailyUIProps) {
             titles={titlesConfig(handleOrderData)}
             actions={actionsConfig(urlParams, nameAplication) as IAction[]}
             actionsResponsive={
-              actionsResponsiveConfig(urlParams, nameAplication, status,
-                setStatus) as IAction[]
+              actionsResponsiveConfig(
+                urlParams,
+                nameAplication,
+                status,
+                setStatus
+              ) as IAction[]
             }
             infoData={infoDataTable}
             entries={processesDailyNormailzeEntries(

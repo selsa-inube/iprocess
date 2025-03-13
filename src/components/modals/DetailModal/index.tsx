@@ -10,8 +10,8 @@ import {
   ITagAppearance,
   Tag,
   Label,
+  Button
 } from "@inubekit/inubekit";
-import { Button } from "@inubekit/button";
 
 import { Table } from "@components/data/Table";
 import { IBreakpoint } from "@components/data/Table/props";

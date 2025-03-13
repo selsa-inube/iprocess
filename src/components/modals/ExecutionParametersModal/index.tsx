@@ -8,9 +8,9 @@ import {
   Divider,
   Blanket,
   Fieldset,
-  Label
+  Label,
+  Button
 } from "@inubekit/inubekit";
-import { Button } from "@inubekit/button";
 
 import { Table } from "@components/data/Table";
 import { IBreakpoint, ITitle } from "@components/data/Table/props";

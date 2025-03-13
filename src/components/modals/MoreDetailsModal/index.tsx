@@ -9,8 +9,8 @@ import {
   Blanket,
   Fieldset,
   Label,
+  Button,
 } from "@inubekit/inubekit";
-import { Button } from "@inubekit/button";
 
 import { mediaQueryMobile } from "@config/environment";
 import { StyledContainer, StyledModal, StyledModalFields } from "./styles";
