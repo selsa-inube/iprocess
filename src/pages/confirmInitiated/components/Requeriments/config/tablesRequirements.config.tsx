@@ -1,6 +1,12 @@
-import { MdAddCircleOutline, MdCancel, MdCheckCircle, MdDoDisturbOn, MdOutlineCheckCircle, MdReportProblem } from "react-icons/md";
-import { Icon, IIconAppearance } from "@inubekit/inubekit";
-import { Tag } from "@inubekit/tag";
+import {
+  MdAddCircleOutline,
+  MdCancel,
+  MdCheckCircle,
+  MdDoDisturbOn,
+  MdOutlineCheckCircle,
+  MdReportProblem,
+} from "react-icons/md";
+import { Icon, IIconAppearance, Tag } from "@inubekit/inubekit";
 
 import { IAction, IActions } from "@components/data/Table/props";
 import {

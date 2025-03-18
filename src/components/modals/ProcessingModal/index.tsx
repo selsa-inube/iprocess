@@ -8,8 +8,8 @@ import {
   Divider,
   Blanket,
   CountdownBar,
+  Button
 } from "@inubekit/inubekit";
-import { Button } from "@inubekit/button";
 import { StyledContainer, StyledModal } from "./styles";
 
 interface ProcessingModalProps {

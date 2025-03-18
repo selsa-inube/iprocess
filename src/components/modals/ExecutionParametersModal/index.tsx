@@ -7,10 +7,10 @@ import {
   Text,
   Divider,
   Blanket,
+  Fieldset,
+  Label,
+  Button
 } from "@inubekit/inubekit";
-import { Button } from "@inubekit/button";
-import { Fieldset } from "@inubekit/fieldset";
-import { Label } from "@inubekit/label";
 
 import { Table } from "@components/data/Table";
 import { IBreakpoint, ITitle } from "@components/data/Table/props";

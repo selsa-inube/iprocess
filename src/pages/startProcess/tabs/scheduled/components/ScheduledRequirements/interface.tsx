@@ -1,6 +1,13 @@
 import { MdInfoOutline } from "react-icons/md";
-import { useMediaQuery, Stack, Text, Icon, IIconAppearance, SkeletonLine } from "@inubekit/inubekit";
-import { Tag } from "@inubekit/tag";
+import {
+  useMediaQuery,
+  Stack,
+  Text,
+  Icon,
+  IIconAppearance,
+  SkeletonLine,
+  Tag,
+} from "@inubekit/inubekit";
 
 import { appearances } from "@pages/startProcess/types";
 import { RequirementsModal } from "@components/modals/requirementsModal";
@@ -129,7 +136,9 @@ const ScheduledRequirementsUI = (props: ScheduledRequirementsUIProps) => {
           breakpoints={breakPoints}
           isLoading={isVisibleRequirements}
           portalId="portal"
-          requirements={dataTablesConfig(processRequirementData, tabletScreen) as IData[]}
+          requirements={
+            dataTablesConfig(processRequirementData, tabletScreen) as IData[]
+          }
           title="Pre-validar Requisitos"
           onCloseModal={handleToggleModal}
           actionsResponsiveReq={actionsResponsiveReq}

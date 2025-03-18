@@ -7,8 +7,7 @@ import {
   MdInfoOutline,
 } from "react-icons/md";
 
-import { Stack, Icon } from "@inubekit/inubekit";
-import { Tag } from "@inubekit/tag";
+import { Stack, Icon,Tag } from "@inubekit/inubekit";
 import { IProcess } from "@components/feedback/CardProcess/types";
 import { Tooltip } from "@design/feedback/Tooltip";
 import { tokens } from "@design/tokens";

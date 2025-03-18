@@ -2,10 +2,17 @@ import { MdClear } from "react-icons/md";
 import { createPortal } from "react-dom";
 import { FormikValues } from "formik";
 
-import { useMediaQuery, Stack, Text, Divider, Blanket } from "@inubekit/inubekit";
-import { Button } from "@inubekit/button";
-import { Textarea } from "@inubekit/textarea";
-import { Toggle } from "@inubekit/toggle";
+import {
+  useMediaQuery,
+  Stack,
+  Text,
+  Divider,
+  Blanket,
+  Label,
+  Button,
+  Textarea,
+  Toggle,
+} from "@inubekit/inubekit";
 
 import {
   StyledContainer,
@@ -13,7 +20,6 @@ import {
   StyledTextarea,
   StyledToggle,
 } from "./styles";
-import { Label } from "@inubekit/label";
 
 interface ApprovalModalUIProps {
   dataComparison: boolean;
@@ -43,7 +49,6 @@ const ApprovalModalUI = (props: ApprovalModalUIProps) => {
   const isMobile = useMediaQuery("(max-width: 500px)");
 
   const node = document.getElementById(portalId);
- 
 
   if (!node) {
     throw new Error(
@@ -74,7 +79,7 @@ const ApprovalModalUI = (props: ApprovalModalUIProps) => {
                   id="approval"
                   margin="0px"
                   name="approval"
-                  onChange={()=>{}}
+                  onChange={() => {}}
                   padding="0px"
                   size="large"
                   value={"approval"}
@@ -105,7 +110,7 @@ const ApprovalModalUI = (props: ApprovalModalUIProps) => {
                 appearance="primary"
                 variant="filled"
                 loading={loading}
-                disabled={!dataComparison} 
+                disabled={!dataComparison}
                 onClick={handleConfirm}
               >
                 Confirmar

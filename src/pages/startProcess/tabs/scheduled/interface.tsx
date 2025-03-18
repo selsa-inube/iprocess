@@ -1,5 +1,4 @@
-import { useMediaQuery, Stack } from "@inubekit/inubekit";
-import { Input } from "@inubekit/input";
+import { useMediaQuery, Stack, Input } from "@inubekit/inubekit";
 
 import { ChangePeriod } from "@components/feedback/ChangePeriod";
 import { CardProcess } from "@components/feedback/CardProcess";
